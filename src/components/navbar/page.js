@@ -20,7 +20,7 @@ const Navbar = () => {
     return (
         <>
             <nav className='bg-[#EAE8FF] max-md:bg-white max-md:border-b-2'>
-                <div className='hidden max-md:block bg-black w-full h-10 text-white text-center'>
+                <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
                     <div className='flex items-center justify-center h-full'>
                         <span>
                             GET A FREE AUDIT
@@ -39,7 +39,7 @@ const Navbar = () => {
                                     className='w-100 h-20'
                                 />
                             </div>
-                            <div className='hidden md:flex justify-center items-center flex-grow gap-10'>
+                            <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
                                     <a href='/' className='text-black underline-from-left'>Home</a>
                                     <a href='/' className='text-black underline-from-left'>About</a>
@@ -47,7 +47,7 @@ const Navbar = () => {
                                     <a href='/' className='text-black hover:underline-from-left'>Contact</a>
                                 </div>
                             </div>
-                            <div className='md:hidden flex items-center'>
+                            <div className='lg:hidden flex items-center'>
                                 <button className='inline-flex items-center justify-center p-2 rounded-md text-white  hover:text-white' onClick={toggleNavbar}>
                                     {
                                         isClicked ? (
@@ -59,15 +59,19 @@ const Navbar = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className='hidden md:block'>
-                            <button className='bg-black text-white px-4 py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
+                        <div className='hidden lg:block'>
+                            <Link href="./home/freeAudit">
+                                <button className='bg-black text-white px-4 py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
+
                                     <span className='underline-from-left'>
                                         Free Audit
                                     </span>
                                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
                                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                                     </svg>
-                            </button>
+                                </button>
+                            </Link>
+
                         </div>
                     </div>
                 </div>
