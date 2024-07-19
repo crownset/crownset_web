@@ -19,7 +19,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='bg-[#EAE8FF] max-md:bg-white max-md:border-b-2'>
+            <nav className='bg-[#EAE8FF] max-lg:bg-white max-md:border-b-2'>
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
                     <div className='flex items-center justify-center h-full'>
                         <span>
