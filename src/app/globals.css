@@ -25,8 +25,15 @@
     transform-origin: bottom left;
   }
 
-  .font-family{
-    font-family: "Kanit", sans-serif;
+  .linear-gradient{
+    background: linear-gradient(0deg, white, rgb(234, 232, 255)  80%);
   }
 
+  .border-shadow{
+    box-shadow: 12px 12px;
+  }
+
+  .margin{
+    margin: auto;
+  }
 }
