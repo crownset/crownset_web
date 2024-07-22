@@ -18,19 +18,19 @@ const FreeAudit = () => {
             <hr className="w-full mb-4" />
             <div className="space-y-4">
               <div className='flex gap-3 items-center'>
-                <FaCheckCircle className='text-[#6754e9] size-5 max-md:size-10' />
+                <FaCheckCircle className='text-[#6754e9] w-6 h-6'/>
                 <p className="text-base">Review your marketing goals: Begin by reviewing your marketing goals and objectives.</p>
               </div>
               <div className='flex gap-3'>
-                <FaCheckCircle className='text-[#6754e9] size-5 max-md:size-10' />
+                <FaCheckCircle className='text-[#6754e9]  w-6 h-6'/>
                 <p className="text-base">Evaluate your target audience to see if they have changed or if you need to adjust your messaging to better reach them.</p>
               </div>
               <div className='flex gap-3'>
-                <FaCheckCircle className='text-[#6754e9] size-5 max-md:size-10' />
+                <FaCheckCircle className='text-[#6754e9]  w-6 h-6'/>
                 <p className="text-base">Analyze your website to ensure it is user-friendly, mobile-responsive, and optimized for search engines.</p>
               </div>
               <div className='flex gap-3'>
-                <FaCheckCircle className='text-[#6754e9] size-5 max-md:size-10' />
+                <FaCheckCircle className='text-[#6754e9]  w-6 h-6'/>
                 <p className="text-base">Review your content marketing efforts, including your blog posts, social media, and email marketing.</p>
               </div>
             </div>
@@ -91,9 +91,9 @@ const FreeAudit = () => {
                 </button>
               </div>
             </form>
-            <div className='absolute right-64 top-20 w-20'>
+            {/* <div className='absolute right-64 top-20 w-20'>
               <img src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1367732506-159x300.png' className='rotate-45' />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
