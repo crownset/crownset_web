@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image'
 import React, { useState } from 'react'
-import * as Icon from "../../helpers/icons"
+import * as Icon from "@/helpers/icons"
 // import { useRouter } from "next/navigation"
 import Link from 'next/link'
 
@@ -60,7 +60,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className='hidden md:block'>
-                            <button className='bg-black text-white px-4 py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
+                            <button className='bg-black text-white  py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
                                     <span className='underline-from-left'>
                                         Free Audit
                                     </span>
