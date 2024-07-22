@@ -21,22 +21,25 @@ const Navbar = () => {
         <>
             <nav className='bg-[#EAE8FF] max-lg:bg-white max-md:border-b-2'>
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
+                <Link href="./home/freeAudit">
                     <div className='flex items-center justify-center h-full'>
                         <span>
                             GET A FREE AUDIT
                         </span>
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" strokeLinejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
                             <path d="M5 12h14M12 5l7 7-7 7"></path>
                         </svg>
                     </div>
+                    </Link>
                 </div>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='flex items-center justify-between h-16'>
                         <div className='flex items-center flex-grow justify-between'>
                             <div className='flex-shrink-0'>
-                                <img
+                                <Image
                                     src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
-                                    className='w-100 h-20'
+                                    alt='crownsetlogo'
+                                    width={150} height={20}
                                 />
                             </div>
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
@@ -51,9 +54,9 @@ const Navbar = () => {
                                 <button className='inline-flex items-center justify-center p-2 rounded-md text-white  hover:text-white' onClick={toggleNavbar}>
                                     {
                                         isClicked ? (
-                                            <Image src={Icon.closeNav_icon} className="w-6 h-6" />
+                                            <Image src={Icon.closeNav_icon} alt='close' className="w-6 h-6" />
                                         ) : (
-                                            <Image src={Icon.openNav_icon} className="w-6 h-6" />
+                                            <Image src={Icon.openNav_icon} alt='open' className="w-6 h-6" />
                                         )
                                     }
                                 </button>
@@ -66,7 +69,7 @@ const Navbar = () => {
                                     <span className='underline-from-left'>
                                         Free Audit
                                     </span>
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
                                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                                     </svg>
                                 </button>

@@ -1,7 +1,10 @@
+"use client"
 import Image from 'next/image';
-import React from 'react';
+import { useState } from 'react';
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 import { FaFacebook } from "react-icons/fa6";
+import { GoPlus } from "react-icons/go";
+import { RxCross2 } from "react-icons/rx";
 
 const solutions = [
     { id: 1, name: 'Paid search marketing' },
@@ -22,12 +25,18 @@ const footerContent = [
     { id: 2, name: 'Blog' },
     { id: 3, name: 'careers' },
     { id: 4, name: 'Team' },
-    { id: 5, name: 'Success Stories' },
-    { id: 6, name: 'Awards' },
-    { id: 7, name: 'Contact' },
+    // { id: 5, name: 'Success Stories' },
+    // { id: 6, name: 'Awards' },
+    { id: 5, name: 'Contact' },
 ];
 
 const Footer = () => {
+    const [aboutInfo, setAboutInfo] = useState(false)
+
+    const toggleAboutInfo = () => {
+        setAboutInfo(!aboutInfo)
+    }
+
     return (
         <footer className='w-full bottom-0'>
             <div className='w-11/12 max-lg:w-full bg-[#e9e5ff] text-black m-auto rounded-t-[50px]'>
@@ -101,7 +110,32 @@ const Footer = () => {
                             ))}
                         </div>
                     </div>
-                    <hr className='pt-5 w-11/12 m-auto max-md-hidden' />
+                    <hr className='pt-5 w-full m-auto max-md:hidden' />
+                    <div className='hidden max-md:block' >
+                        <button className='' onClick={toggleAboutInfo}>
+                            {
+                                aboutInfo ? (
+                                    <RxCross2 className='size-8' />
+                                ) : (
+                                    <GoPlus className='size-8' />
+                                )
+                            }
+                        </button>
+                        {
+                            aboutInfo ? (
+                                <div className='flex flex-col py-5 gap-4'>
+                                    {
+                                        footerContent.map(content => (
+                                            <div key={content.id}>
+                                                <p className='underline-from-left cursor-pointer w-full'>{content.name}</p>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            ) : null
+
+                        }
+                    </div>
                     <div className='max-md:hidden flex flex-row justify-between items-center py-5'>
                         {
                             footerContent.map(content => (
@@ -111,7 +145,7 @@ const Footer = () => {
                             ))
                         }
                     </div>
-                    <hr className='pt-5 w-11/12 ' />
+                    <hr className='pt-5 w-full ' />
                     <div className='flex flex-row justify-between items-center pt-5 max-md:flex-col max-md:gap-3'>
                         <div className='max-md:w-full'>
                             <ul className='flex flex-row gap-3 cursor-pointer max-md:flex-col max-md:gap-1'>

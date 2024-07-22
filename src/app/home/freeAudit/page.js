@@ -62,7 +62,7 @@ const FreeAudit = () => {
                   className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="Company-Name"
                   type="email"
-                  placeholder="Company Name"
+                  placeholder="Business Name"
                 />
               </div>
               <div>
@@ -91,13 +91,34 @@ const FreeAudit = () => {
                 </button>
               </div>
             </form>
-            <div className='absolute right-64 top-16 w-20'>
+            <div className='absolute right-64 top-20 w-20'>
               <img src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1367732506-159x300.png' className='rotate-45' />
             </div>
           </div>
         </div>
       </div>
-
+      <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
+        <div className='text-xl font-extrabold'>
+          <p>Credentials & recognition:</p>
+        </div>
+        <div className='flex items-center justify-center gap-8  max-md:flex-wrap'>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/56cf51c7d935aba26a8f553867bf878b-qql2z74lvkd216ad5m0wcz170nmakss1bbb0a7qwps.png" alt='logo' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20220412-1161242-19o8jy5-qql30lvw4majg48mx7yr3m833go44gdjiaj875nnds.png" alt='logo1' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211006-5432-t7lh3l-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo2' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211005-28345-8m8kvp-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo3' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/logo_hubspot-qql30k095dt7mir8bgo0ky5rnpjx6t3am36ozba0v4.png" alt='logo3' width={70} height={70} />
+            </div>
+        </div>
+      </div>
     </>
 
   );
