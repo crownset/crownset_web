@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
-        domains:["thecrownset.com"]
+        domains:['cdn.pixabay.com', "thecrownset.com"]
     }
 };
 
