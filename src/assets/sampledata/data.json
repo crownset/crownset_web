@@ -118,5 +118,23 @@
             "value":"15m",
             "descripiton":"Managed budgets"
         }
+],
+"ourValues":[
+    {
+        "heading":"Transparency",
+        "description":"No smoke and mirrors here. We believe in being genuine in dealing with all our clients. We’ll say what we’ll do, and then do what we say."
+    },
+    {
+        "heading":"Integrity",
+        "description":"We prioritize honesty and integrity, always striving to build relationships rooted in trust. We understand that trust is earned by consistently upholding our uncompromising standards."
+    },
+    {
+        "heading":"Simplicity",
+        "description":"We believe that being an expert should not mean sounding complicated. We are straightforward with our approach, always doing our best to simplify what’s seemingly complex."
+    },
+    {
+        "heading":"Performance",
+        "description":"Being in the digital marketing space, data is a given. But we aren’t just talking about having access to reports on certain metrics. We ensure each campaign translates into real business growth."
+    }
 ]
 }

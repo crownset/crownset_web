@@ -45,7 +45,7 @@ const Navbar = () => {
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
                                     <a href='/' className='text-black underline-from-left'>Home</a>
-                                    <a href='/' className='text-black underline-from-left'>About</a>
+                                    <Link href='/about' className='text-black underline-from-left'>About</Link>
                                     <Link href='/services' className='text-black underline-from-left'>Services</Link>
                                     <a className='text-black hover:underline-from-left'>Contact</a>
                                 </div>
@@ -82,7 +82,7 @@ const Navbar = () => {
                     isClicked && (
                         <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg w-80'>
                             <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>Home</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>About</a>
+                            <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>About</Link>
                             <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Services</Link>
                             <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</a>
                         </div>
