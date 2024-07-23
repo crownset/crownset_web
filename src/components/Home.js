@@ -20,12 +20,14 @@ import img2 from '@/assets/images/imcard2.jpg'
 import img3 from '@/assets/images/imcard3.jpg'
 import { CardOne, CardTwo, RoundedCircleCard } from './Cards';
 import sampledata from '@/assets/sampledata/data.json';
+import NumbersAndResults from './NumbersAndResults';
 
 
 const cardone = sampledata.cardone;
 const cardtwo = sampledata.cardtwo;
 
 const imageCard = sampledata.imageCard;
+const proofData = sampledata.proofData;
 
 
 
@@ -38,7 +40,7 @@ const HomePage = () => {
             <SectionThird />
             <SectionFour />
             <SectionFive />
-            <SectionSix />
+            <NumbersAndResults heading={'The proof is in the numbers'} cardData={proofData}/>
         </>
     )
 }

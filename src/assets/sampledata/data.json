@@ -54,5 +54,69 @@
         "date": "MAY 2023",
         "title": "Verify your site is protecting your business"
     }
+],
+"featureCardData":[
+    {
+        "heading": "Paid search marketing",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    },
+    {
+        "heading": "Search engine optimization",
+        "description": "Maintain your best spot on the search results page, so you can find new customers and re-engage loyal ones."
+    },
+    {
+        "heading": "Email marketing",
+        "description": "When it comes to reaching your target audience, you can’t get much closer than direct to their inboxes."
+    },
+    {
+        "heading": "Conversion rate optimization",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    },
+    {
+        "heading": "Social media marketing",
+        "description": "Social Media Management is vital for company and brand awareness."
+    },
+    {
+        "heading": "Google shopping",
+        "description": "Google shopping ads are a no-brainer for any eCommerce company with an online presence wishing to increase sales."
+    },
+    {
+        "heading": "Influencer marketing",
+        "description": "Grow your brand with the help of our influencers and marketing experts."
+    },
+    {
+        "heading": "Amazon shopping",
+        "description": "Marketing on Amazon is all about keywords and presentation."
+    }
+
+],
+"proofData":[
+    {
+        "value":"37%",
+        "descripiton":"Average increase in sales for our clients"
+    },
+    {
+        "value":"100%",
+        "descripiton":"Google and Facebook-certified team"
+    },
+    {
+        "value":"81%",
+        "descripiton":"Results improved compared to previous agencies"
+    }
+],
+"resultsData":[
+    
+        {
+            "value":"3%",
+            "descripiton":"Of Google advertisers"
+        },
+        {
+            "value":"100%",
+            "descripiton":"Growth clients"
+        },
+        {
+            "value":"15m",
+            "descripiton":"Managed budgets"
+        }
 ]
 }

@@ -46,8 +46,8 @@ const Navbar = () => {
                                 <div className='flex items-center space-x-4'>
                                     <a href='/' className='text-black underline-from-left'>Home</a>
                                     <a href='/' className='text-black underline-from-left'>About</a>
-                                    <a href='/' className='text-black underline-from-left'>Services</a>
-                                    <a href='/' className='text-black hover:underline-from-left'>Contact</a>
+                                    <Link href='/services' className='text-black underline-from-left'>Services</Link>
+                                    <a className='text-black hover:underline-from-left'>Contact</a>
                                 </div>
                             </div>
                             <div className='lg:hidden flex items-center'>
@@ -83,7 +83,7 @@ const Navbar = () => {
                         <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg w-80'>
                             <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>Home</a>
                             <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>About</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Services</a>
+                            <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Services</Link>
                             <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</a>
                         </div>
                     )
