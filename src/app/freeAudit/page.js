@@ -1,4 +1,5 @@
 "use client";
+import Divider from '@/components/Divider';
 import Image from 'next/image';
 import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";
@@ -97,6 +98,7 @@ const FreeAudit = () => {
           </div>
         </div>
       </div>
+      <Divider/>
       <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
         <div className='text-xl font-extrabold'>
           <p>Credentials & recognition:</p>

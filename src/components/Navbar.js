@@ -21,7 +21,7 @@ const Navbar = () => {
         <>
             <nav className='bg-[#EAE8FF] max-lg:bg-white max-md:border-b-2'>
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
-                    <Link href="./home/freeAudit">
+                    <Link href="/freeAudit">
                         <div className='flex items-center justify-center h-full'>
                             <span>
                                 GET A FREE AUDIT
@@ -47,10 +47,18 @@ const Navbar = () => {
                             </div>
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
-                                    <a href='/' className='text-black underline-from-left'>Home</a>
-                                    <Link href='/about' className='text-black underline-from-left'>About</Link>
-                                    <Link href='/services' className='text-black underline-from-left'>Services</Link>
-                                    <a className='text-black hover:underline-from-left'>Contact</a>
+                                    <Link href='/services' className='text-black underline-from-left'>OUR SERVICES</Link>
+                                    <Link href='/about' className='text-black underline-from-left'>WHO WE ARE</Link>
+                                    <Link href="/work">
+                                        <span className='text-black underline-from-left'>
+                                            WORK
+                                        </span>
+                                    </Link>
+                                    <Link href="/contact">
+                                        <span className='text-black underline-from-left'>
+                                            Contact
+                                        </span>
+                                    </Link>
                                 </div>
                             </div>
                             <div className='lg:hidden flex items-center'>
@@ -84,10 +92,18 @@ const Navbar = () => {
                 {
                     isClicked && (
                         <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg w-80'>
-                            <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>Home</a>
-                            <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>About</Link>
-                            <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Services</Link>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</a>
+                            <Link href='/services' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</Link>
+                            <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</Link>
+                            <Link href="/work">
+                                <span className='text-black block hover:bg-white hover:text-black py-1 pl-5'>
+                                    Work
+                                </span>
+                            </Link>
+                            <Link href="/contact">
+                                <span className='text-black block hover:bg-white hover:text-black py-1 pl-5'>
+                                    Contact
+                                </span>
+                            </Link>
                         </div>
                     )
                 }

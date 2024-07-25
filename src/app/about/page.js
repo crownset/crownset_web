@@ -298,8 +298,8 @@ const Page = () => {
   )
 }
 
-export default Page
 
+export default Page
 const CardTwo = ({ heading, icon, description }) => {
   return (
     <>
