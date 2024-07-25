@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import image from '@/assets/images/img1.jpg'
+
 import { RiSearch2Fill as SearchIcon } from "react-icons/ri";
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
 import { MdEmail as EmailIcon } from "react-icons/md";
@@ -10,8 +10,6 @@ import { IoMdRocket as RocketIcon } from "react-icons/io";
 import { HiSpeakerphone as AnnouncementIcon } from "react-icons/hi";
 import { GiNetworkBars as NetworkIcon } from "react-icons/gi";
 import { AiFillDollarCircle as DollarIcon } from "react-icons/ai";
-
-
 import Icon from '@/components/Icon';
 import { DarkButton, UnderlineButton } from './CustomButtons';
 import Carousel from './Carousel';
@@ -20,12 +18,16 @@ import img2 from '@/assets/images/imcard2.jpg'
 import img3 from '@/assets/images/imcard3.jpg'
 import { CardOne, CardTwo, RoundedCircleCard } from './Cards';
 import sampledata from '@/assets/sampledata/data.json';
+import NumbersAndResults from './NumbersAndResults';
+import Divider from './Divider';
+import { homeone, hometwo, curveline } from '@/helpers/icons';
 
 
 const cardone = sampledata.cardone;
 const cardtwo = sampledata.cardtwo;
 
 const imageCard = sampledata.imageCard;
+const proofData = sampledata.proofData;
 
 
 
@@ -33,56 +35,163 @@ const HomePage = () => {
 
     return (
         <>
-            <SectioOne />
+            <section className='linear-gradient px-5 pt-10'>
+                <div className='xl:w-11/12 m-auto'>
+                    <div className=''>
+                        <div className=''>
+                            <h1 className='text-center mx-[1.2rem] font-bold text-[2rem] leading-9 
+                            tracking-wider md:px-12 lg:text-[4rem] lg:leading-[3.5rem]'>
+                                Strategic Marketing, Dynamic  Branding, Real Results
+                            </h1>
+                        </div>
+                        <div className=' mt-6 px-4 flex justify-center'>
+                            <span className='text-center text-[1.2rem] text-bodyTextColor font-semibold'>
+                                Transform your business with our innovative, results-driven marketing and business solutions
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* for mobile */}
+                    <div className='sm:flex sm:flex-col sm:justify-center sm:items-center sm:flex-grow md:hidden'>
+                        <div className='mt-[-5rem] sm:mt-[-9rem] sm:ml-[5rem]'>
+                            <div>
+                                <Image
+                                    src={curveline}
+                                    width={400}
+                                    height={500}
+                                    alt="Picture of the author"
+                                />
+                            </div>
+                            <div className='bg-[#e9e5fe] rounded-[2rem] mt-[-5rem] sm:mt-[-7rem]'>
+                                <div className='relative top-[-1rem] left-[75%]'>
+                                    <Image
+                                        src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
+                                        width={60}
+                                        height={24}
+                                        alt="Picture of the author"
+                                    />
+                                </div>
+                                <p className='relative top-[-2rem] left-[1rem] text-[1.2rem]
+                                 text-bodyTextColor font-semibold'>Award Wining Agency</p>
+                            </div>
+                        </div>
+                        <div className=''>
+                            <div className='ml-[-2rem]'>
+                                <Image
+                                    src={homeone}
+                                    width={500}
+                                    height={500}
+                                    alt="Picture of the author"
+                                />
+
+                            </div>
+                            <div className='relative top-[-6.5rem] left-[60%] w-[100px] object-cover 
+                            sm:w-[220px] sm:overflow-hidden sm:left-[60%] sm:top-[-12rem]'>
+                                <Image
+                                    src={hometwo}
+                                    width={500}
+                                    height={500}
+                                    alt="Picture of the author"
+                                />
+                            </div>
+
+
+                        </div>
+                        <div className='bg-[#ffbe12] mt-[-5rem] px-10 py-5 rounded-[2rem]
+                        flex flex-col justify-center items-center sm:mt-[-10rem]'>
+                            <span>{`Let's talk
+                                that matters.`}</span>
+                            <DarkButton buttonText={"Let's talk"} />
+                        </div>
+                    </div>
+
+                    {/* for md and above */}
+
+                    <div className='hidden md:block mt-16 relative w-11/12 m-auto'>
+
+
+                        <div className='flex flex-grow  h-[20rem] '>
+
+                            {/* speaker box    */}
+                            <div className=' w-[18rem] h-[18rem] lg:w-[28rem] lg:h-[25rem] xl:w-[30rem] xl:h-[28rem]
+                             rounded-[2rem] relative mb-4'>
+
+                                <Image src={homeone} alt="Description" layout="fill" objectFit="cover" />
+
+                                {/* contact box */}
+                                <div className='relative  bg-[#ffbe12] h-[10rem] w-[14rem] left-[63.5%] top-[60%]  rounded-[2rem] 
+                       flex flex-col justify-center items-center lg:top-[60%] lg:left-[72%] '>
+
+                                    <span>{`Let's talk
+                                that matters.`}</span>
+                                    <DarkButton buttonText={"Let's talk"} />
+
+                                </div>
+
+                            </div>
+
+                            {/* pattern box */}
+                            <div className='w-[24rem] h-[18rem] lg:w-[31rem]  lg:h-[27rem] xl:w-[35rem] xl:h-[29rem] rounded-[2rem] 
+                             relative lg:px-2 '>
+
+                                <div className='h-[3rem] relative top-[-14rem]'>
+                                    <Image
+                                        src={curveline}
+                                        width={400}
+                                        height={500}
+                                        alt="Picture of the author"
+
+                                    />
+                                </div>
+                                <Image
+                                    src={hometwo} alt="Description" layout="fill" objectFit="cover"
+                                    className=' lg:mx-1 lg:mt-[-1rem] xl:mt-[0]' />
+
+                                {/* award box  */}
+                                <div className='relative bg-[#e9e5fe] h-[9rem] w-[6rem] top-[-2rem] lg:h-[11rem] m-auto  left-[34%] rounded-[2rem]
+                        lg:left-[38%] lg:top-[0] '>
+                                    <div className='relative top-[-1rem] left-[1rem]'>
+                                        <Image
+                                            src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
+                                            width={60}
+                                            height={24}
+                                            alt="Picture of the author"
+                                        />
+                                    </div>
+
+                                    <div className='flex flex-col'>
+
+                                        <span className='text-wrap px-5 text-center  text-bodyTextColor font-semibold'>Award</span>
+                                        <span className='text-wrap px-5 text-center  text-bodyTextColor font-semibold'>Wining</span>
+                                        <span className='text-wrap px-5 text-center  text-bodyTextColor font-semibold'>Agency</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </section>
             <SectionTwo />
             <SectionThird />
             <SectionFour />
             <SectionFive />
-            <SectionSix />
+            <NumbersAndResults heading={'The proof is in the numbers'} cardData={proofData} />
         </>
     )
 }
 
 export default HomePage
 
-const SectioOne = () => {
-    return (
-        <>
-
-            <div className='linear-gradient'>
-                <div className='flex-column w-full items-center justify-center text-center pt-20'>
-                    <div className='text-5xl text-center m-auto font-bold max-md:text-2xl'>
-                        <h1>
-                            Strategic Marketing, Dynamic <br /> Branding, Real Results
-                        </h1>
-                    </div>
-                    <div className='pt-5 font-xs max-md:w-80 max-md:m-auto  '>
-                        <span>
-                            Transform your business with our innovative, results-driven marketing and business solutions
-                        </span>
-                    </div>
-                </div>
-            </div>
-{/* 
-            <div className='bg-[#EAE8FF]'>
-                <div className='w-full flex items-center justify-center m-auto rounded-xl'>
-                    <div className='bg-[#b0b1ff] w-80 h-100 rounded-3xl overflow-hidden clip-your-needful-style'>
-                        <Image
-                            src="https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1387685447-shadow.png"
-                            className='w-48 h-100' width={100} height={100}
-                            alt="image"
-                        />
-                    </div>
-                </div>
-            </div> */}
-        </>
-    )
-}
 
 const SectionTwo = () => {
     return (
         <>
-            <div className='p-5 mt-10 xl:px-10 xl:w-11/12 m-auto'>
+            <div className='p-5 mt-10  xl:px-10 xl:w-11/12 m-auto lg:mt-[8rem] xl:[10rem]'>
                 <div>
 
                     <h2 className='text-[1rem] font-bold tracking-tight'>WHAT WE DO</h2>
@@ -328,7 +437,7 @@ const SectionFour = () => {
 
                 </div>
 
-                <div className='hidden md:block  mt-10  rounded-[2rem]  xl:w-full'>
+                <div className='hidden md:block  mt-10  rounded-[2rem]  xl:w-full '>
                     <div className='flex justify-evenly items-center'>
 
                         <h1 className={`font-bold text-[1rem] text-center rounded-t-[2rem] ${toggleTransparency ? 'bg-[#e9e5fe]' : 'bg-white'} 
@@ -445,6 +554,8 @@ const SectionFive = () => {
                     </div>
                 </div>
 
+                <Divider />
+
             </div>
         </>
     )
@@ -476,30 +587,4 @@ const ImageCard = ({ imageUrl, date, title }) => {
 
 }
 
-const SectionSix = () => {
-    return (
-        <div className='bg-[#f7f7f9] mt-10 flex flex-col justify-center  items-center pt-[3rem] pb-[5rem] xl:w-11/12 m-auto rounded-t-[4rem]'>
-            <h1 className='font-bold text-[1.5rem] text-center mx-5 leading-6'>The proof is in the numbers</h1>
-
-            <div className='flex flex-col justify-center items-center w-[100%] sm:px-[2rem] xl:flex-row'>
-
-                <div className='md:grid md:grid-cols-3 md:gap-5 px-12' >
-                    <RoundedCircleCard value={'37'} descripiton={'Average increase in sales for our clients'} />
-                    <RoundedCircleCard value={'100'} descripiton={'Google and Facebook-certified team'} />
-                    <RoundedCircleCard value={'81'} descripiton={'Results improved compared to previous agencies'} />
-
-                </div>
-                <div className='bg-[#e9e5fe] mt-[2rem] pt-[1rem] pb-[2rem] px-[3rem] rounded-[3rem] flex flex-col justify-center items-center sm:w-[100%] mx-6 xl:w-[30%] xl:h-[15rem]'>
-                    <div className='font-bold text-[1.5rem]'>2<span className='text-[1.8rem]'>8</span>2,00+</div>
-                    <span className='font-bold'>Leads generated so far…</span>
-
-                    <DarkButton buttonText={'contact us'} />
-
-                </div>
-            </div>
-
-        </div>
-
-    )
-}
 

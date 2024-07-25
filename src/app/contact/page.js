@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Select from 'react-dropdown-select';
 
 
-const page = () => {
+const Page = () => {
     const [service, setServiceValue] = useState(null)
     const addressData = [
         { id: 1, address: '127, Tower B, Logix Texhnova, Sector 132, Noida'},
@@ -39,7 +39,7 @@ const page = () => {
                 <div className='md:w-1/2'>
                     <div className='flex flex-col gap-4'>
                         <p className='font-bold text-lg text-black'>CONTACT</p>
-                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We're here to help you grow</h1>
+                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We re here to help you grow</h1>
                         <p className='font-bold text-base lg:text-xl lg:w-3/4'>Feel free to reach out to us through your preferred method of contact. We are eager to connect with you and explore how our digital marketing team can contribute to your success.</p>
                     </div>
                     <div className='flex flex-col gap-5 py-10 lg:flex-row  lg:gap-28 '>
@@ -59,7 +59,7 @@ const page = () => {
                     <div className='flex flex-col gap-2 lg:flex-row lg:items-center lg:pt-8'>
                         <div className='lg:flex lg:items-center lg:gap-5'>
                             <div>
-                                <Image src={Icon.location_icon} height={60} width={60} className='bg-[#f7f7fa] py-3 px-3 rounded-full' />
+                                <Image src={Icon.location_icon} height={60} width={60} className='bg-[#f7f7fa] py-3 px-3 rounded-full' alt=""/>
                             </div>
                             <div>
                                 <ul>
@@ -146,4 +146,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

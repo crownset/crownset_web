@@ -35,17 +35,20 @@ const Navbar = () => {
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='flex items-center justify-between h-16'>
                         <div className='flex items-center flex-grow justify-between'>
+
                             <div className='flex-shrink-0'>
-                                <Image
-                                    src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
-                                    alt='crownsetlogo'
-                                    width={150} height={20}
-                                />
+                                <Link href='/'>
+                                    <Image
+                                        src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
+                                        alt='crownsetlogo'
+                                        width={150} height={20}
+                                    />
+                                </Link>
                             </div>
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
-                                    <a href='/' className='text-black underline-from-left'>OUR SERVICES</a>
-                                    <a href='/' className='text-black underline-from-left'>WHO WE ARE</a>
+                                    <Link href='/services' className='text-black underline-from-left'>OUR SERVICES</Link>
+                                    <Link href='/about' className='text-black underline-from-left'>WHO WE ARE</Link>
                                     <Link href="/work">
                                         <span className='text-black underline-from-left'>
                                             WORK
@@ -89,8 +92,8 @@ const Navbar = () => {
                 {
                     isClicked && (
                         <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg w-80'>
-                            <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</a>
+                            <Link href='/services' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</Link>
+                            <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</Link>
                             <Link href="/work">
                                 <span className='text-black block hover:bg-white hover:text-black py-1 pl-5'>
                                     Work
