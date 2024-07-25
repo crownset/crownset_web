@@ -4,6 +4,7 @@ import Image from 'next/image'
 import img1 from '@/assets/images/imcard1.jpg'
 import img2 from '@/assets/images/imcard2.jpg'
 import img3 from '@/assets/images/imcard3.jpg'
+
 const imageCard = [
     {
         "imageUrl": "image",

@@ -5,6 +5,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
 import { FaFacebook } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
 import { RxCross2 } from "react-icons/rx";
+import Divider from './Divider';
 
 const solutions = [
     { id: 1, name: 'Paid search marketing' },
@@ -40,7 +41,7 @@ const Footer = () => {
     return (
         <footer className='w-full bottom-0'>
             <div className='w-11/12 max-lg:w-full bg-[#e9e5ff] text-black m-auto rounded-t-[50px]'>
-                <div className='flex flex-row  justify-between items-center py-10 px-20 max-lg:pt-2 max-lg:px-10 max-md:flex-col max-md:gap-4'>
+                <div className='flex flex-row  justify-between items-center pt-10 px-20 max-lg:pt-2 max-lg:px-10 max-md:flex-col max-md:gap-4'>
                     <div className='text-4xl font-extrabold max-md:text-center max-lg:text-4xl max-md:text-3xl'>
                         <p>
                             See how we can help your business grow with digital marketing
@@ -63,7 +64,8 @@ const Footer = () => {
                         </button>
                     </div>
                 </div>
-                <div className='flex flex-row items-center justify-between pt-12 px-20 max-lg:px-10 '>
+               <Divider/>
+                <div className='flex flex-row items-center justify-between px-20 max-lg:px-10 '>
                     <div className='flex flex-col gap-4 max-md:hidden '>
                         <div className='font-semibold'>
                             <p>A PARTNER, NOT A VENDOR</p>

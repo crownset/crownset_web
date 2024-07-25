@@ -25,15 +25,19 @@
     transform-origin: bottom left;
   }
 
-  .linear-gradient{
-    background: linear-gradient(0deg, white, rgb(234, 232, 255)  80%);
+  .linear-gradient {
+    background: linear-gradient(0deg, white, rgb(234, 232, 255) 80%);
   }
 
-  .border-shadow{
+  .border-shadow {
     box-shadow: 12px 12px;
   }
 
-  .margin{
+  .margin {
     margin: auto;
+  }
+
+  .imgcontainer{
+    background-color: rgba(0, 0, 255, 0.5);
   }
 }

@@ -1,4 +1,5 @@
-import {UnderlineButton} from "@/components/CustomButtons";
+import { UnderlineButton } from "@/components/CustomButtons";
+import Image from "next/image";
 import { ImArrowUp as ArrowUpIcon } from "react-icons/im";
 
 export const CardTwo = ({ heading, icon, description }) => {
@@ -8,19 +9,19 @@ export const CardTwo = ({ heading, icon, description }) => {
 
                 <div className='xl:h-[18rem]'>
 
-                <span>{icon}</span>
+                    <span>{icon}</span>
 
-                <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
+                    <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
-                <p className='mt-5 text-bodyTextColor'>
-                    {description}
-                </p>
+                    <p className='mt-5 text-bodyTextColor'>
+                        {description}
+                    </p>
                 </div>
 
-               <div>
+                <div>
 
-                <UnderlineButton buttonName={'learn more'} />
-               </div>
+                    <UnderlineButton buttonName={'learn more'} />
+                </div>
 
 
             </div>
@@ -56,6 +57,33 @@ export const CardOne = ({ heading, icon, description }) => {
                     {description}
                 </p>
 
+            </div>
+        </>
+    )
+}
+
+export const ContactAddressCard = ({ address, icon, phoneNumber }) => {
+    return (
+        <>
+            <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem] bg-[#f7f7fa]'>
+                <div>
+                    <span>
+                        <Image src={icon} alt="Location Icon" height={50} width={50} className="bg-[#FFFFFF] py-3 px-3 rounded-full" />
+                    </span>
+                </div>
+                <div>
+                    <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{address}</h1>
+                </div>
+                <div className="flex flex-col">
+                    {/* <p>Phone number</p> */}
+                    <p className='mt-5 text-bodyTextColor font-bold underline-from-left lg:w-[30%] cursor-pointer'>
+                        {/* <p>Phone number</p> */}
+                        {phoneNumber}
+                    </p>
+                </div>
+                <div>
+                    <UnderlineButton buttonName={'learn more'} />
+                </div>
             </div>
         </>
     )
