@@ -21,7 +21,7 @@ const Navbar = () => {
         <>
             <nav className='bg-[#EAE8FF] max-lg:bg-white max-md:border-b-2'>
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
-                    <Link href="./home/freeAudit">
+                    <Link href="/freeAudit">
                         <div className='flex items-center justify-center h-full'>
                             <span>
                                 GET A FREE AUDIT
@@ -47,9 +47,15 @@ const Navbar = () => {
                                     <a href='/' className='text-black underline-from-left'>OUR SERVICES</a>
                                     <a href='/' className='text-black underline-from-left'>WHO WE ARE</a>
                                     <Link href="/work">
-                                        WORK
+                                        <span className='text-black underline-from-left'>
+                                            WORK
+                                        </span>
                                     </Link>
-                                    <a href='/' className='text-black hover:underline-from-left'>Contact</a>
+                                    <Link href="/contact">
+                                        <span className='text-black underline-from-left'>
+                                            Contact
+                                        </span>
+                                    </Link>
                                 </div>
                             </div>
                             <div className='lg:hidden flex items-center'>
@@ -83,10 +89,18 @@ const Navbar = () => {
                 {
                     isClicked && (
                         <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg w-80'>
-                            <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>Home</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>About</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Services</a>
-                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</a>
+                            <a href='/' className='text-black block  hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</a>
+                            <a href='/' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</a>
+                            <Link href="/work">
+                                <span className='text-black block hover:bg-white hover:text-black py-1 pl-5'>
+                                    Work
+                                </span>
+                            </Link>
+                            <Link href="/contact">
+                                <span className='text-black block hover:bg-white hover:text-black py-1 pl-5'>
+                                    Contact
+                                </span>
+                            </Link>
                         </div>
                     )
                 }

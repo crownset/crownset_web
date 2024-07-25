@@ -29,7 +29,7 @@ const ReviewCarousel = ({ items }) => {
     };
 
     return (
-        <div className="relative w-full  mx-auto bg-[#f7f7fa] rounded-t-[3rem] lg:rounded-[3rem] px-3 py-3 lg:px-10 lg:py-10 ">
+        <div className="relative w-full  mx-auto bg-[#f7f7fa] rounded-t-[3rem] lg:rounded-[3rem] px-3 py-3 lg:px-12 lg:w-11/12 ">
             <div>
                 <BiSolidQuoteAltRight className='w-20 h-20 text-[#6754e9] ' />
             </div>
