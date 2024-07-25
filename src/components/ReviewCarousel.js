@@ -65,13 +65,13 @@ const ReviewCarousel = ({ items }) => {
                     <div className='flex flex-row gap-2 items-center'>
                         <div className='flex flex-row '>
                             <div>
-                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/happy-carefree-dark-skinned-rebellious-young-woman-enjoys-awesome-music-makes-rock-n-roll-gesture-has-fun-on-music-festival-or-cool-event-wears-casual-jumper-poses-against-pink-wall-300x300.jpg" height={30} width={30} className='rounded-full' />
+                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/happy-carefree-dark-skinned-rebellious-young-woman-enjoys-awesome-music-makes-rock-n-roll-gesture-has-fun-on-music-festival-or-cool-event-wears-casual-jumper-poses-against-pink-wall-300x300.jpg" height={30} width={30} className='rounded-full' alt="image" />
                             </div>
                             <div>
-                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-andrea-piacquadio-3799837-300x300.jpg" height={30} width={30} className='rounded-full' />
+                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-andrea-piacquadio-3799837-300x300.jpg" height={30} width={30} className='rounded-full' alt="image"/>
                             </div>
                             <div>
-                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikhail-nilov-9301512-300x300.jpg" height={30} width={30} className='rounded-full' />
+                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikhail-nilov-9301512-300x300.jpg" height={30} width={30} className='rounded-full'alt="image" />
                             </div>
                         </div>
                         <div>

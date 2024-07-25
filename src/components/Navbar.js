@@ -35,17 +35,28 @@ const Navbar = () => {
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='flex items-center justify-between h-16'>
                         <div className='flex items-center flex-grow justify-between'>
+
                             <div className='flex-shrink-0'>
-                                <Image
-                                    src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
-                                    alt='crownsetlogo'
-                                    width={150} height={20}
-                                />
+                                <Link href='/'>
+                                    <Image
+                                        src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
+                                        alt='crownsetlogo'
+                                        width={150} height={20}
+                                    />
+                                </Link>
                             </div>
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
-                                    <a href='/' className='text-black underline-from-left'>OUR SERVICES</a>
-                                    <a href='/' className='text-black underline-from-left'>WHO WE ARE</a>
+                                    <Link href="/services">
+                                        <span className='text-black underline-from-left'>
+                                            OUR SERVICES
+                                        </span>
+                                    </Link>
+                                    <Link href="/about">
+                                        <span className='text-black underline-from-left'>
+                                            WHO WE ARE
+                                        </span>
+                                    </Link>
                                     <Link href="/work">
                                         <span className='text-black underline-from-left'>
                                             WORK

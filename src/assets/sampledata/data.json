@@ -1,55 +1,162 @@
-{
-    "cardone": [
+{ 
+  "cardone":[  
+    {
+        "heading": "Better reach",        
+        
+        "descripiton": "Amplify your business with our expertise! We provide better reach through targeted strategies, maximizing your online presence and engaging your audience for lasting impact."
+    },
+    {
+        "heading": "Better solution",
+        "descripiton": "Transform your business with our innovative solutions! We provide better solutions through digital marketing and IT services, driving growth, efficiency, and success for a thriving online presence."
+    },
+    {
+        "heading": "Better outcomes",
+        "descripiton": "Accelerate your business success! We deliver better outcomes through data-driven digital marketing, tailored marketing strategies, and expert IT services, driving revenue growth and long-term sustainability."
+    }
+],
+
+"cardtwo" :[
+    {
+        "heading": "Paid search marketing",
+        "icon": "icon",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    },
+    {
+        "heading": "Search engine optimization",
+        "icon": "icon",
+        "description": "Maintain your best spot on the search results page, so you can find new customers and re-engage loyal ones."
+    },
+    {
+        "heading": "Email marketing",
+        "icon": "icon",
+        "description": "When it comes to reaching your target audience, you can’t get much closer than direct to their inboxes."
+    },
+    {
+        "heading": "Conversion rate optimization",
+        "icon": "icon",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    }
+],
+
+"imageCard" : [
+    {
+        "imageUrl": "image",
+        "date": "MAY 2023",
+        "title": "The evolution of live-stream content and short-form video: a look at the TikTok revolution"
+    },
+    {
+        "imageUrl": "image",
+        "date": "MAY 2023",
+        "title": "The Metaverse boom: brands unite and Apple takes a rain check"
+    },
+    {
+        "imageUrl": "image",
+        "date": "MAY 2023",
+        "title": "Verify your site is protecting your business"
+    }
+],
+"featureCardData":[
+    {
+        "heading": "Paid search marketing",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    },
+    {
+        "heading": "Search engine optimization",
+        "description": "Maintain your best spot on the search results page, so you can find new customers and re-engage loyal ones."
+    },
+    {
+        "heading": "Email marketing",
+        "description": "When it comes to reaching your target audience, you can’t get much closer than direct to their inboxes."
+    },
+    {
+        "heading": "Conversion rate optimization",
+        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+    },
+    {
+        "heading": "Social media marketing",
+        "description": "Social Media Management is vital for company and brand awareness."
+    },
+    {
+        "heading": "Google shopping",
+        "description": "Google shopping ads are a no-brainer for any eCommerce company with an online presence wishing to increase sales."
+    },
+    {
+        "heading": "Influencer marketing",
+        "description": "Grow your brand with the help of our influencers and marketing experts."
+    },
+    {
+        "heading": "Amazon shopping",
+        "description": "Marketing on Amazon is all about keywords and presentation."
+    }
+
+],
+"proofData":[
+    {
+        "value":"37%",
+        "descripiton":"Average increase in sales for our clients"
+    },
+    {
+        "value":"100%",
+        "descripiton":"Google and Facebook-certified team"
+    },
+    {
+        "value":"81%",
+        "descripiton":"Results improved compared to previous agencies"
+    }
+],
+"resultsData":[
+    
         {
-            "heading": "Better reach",
-            "descripiton": "Amplify your business with our expertise! We provide better reach through targeted strategies, maximizing your online presence and engaging your audience for lasting impact."
+            "value":"3%",
+            "descripiton":"Of Google advertisers"
         },
         {
-            "heading": "Better solution",
-            "descripiton": "Transform your business with our innovative solutions! We provide better solutions through digital marketing and IT services, driving growth, efficiency, and success for a thriving online presence."
+            "value":"100%",
+            "descripiton":"Growth clients"
         },
         {
-            "heading": "Better outcomes",
-            "descripiton": "Accelerate your business success! We deliver better outcomes through data-driven digital marketing, tailored marketing strategies, and expert IT services, driving revenue growth and long-term sustainability."
+            "value":"15m",
+            "descripiton":"Managed budgets"
         }
-    ],
-    "cardtwo": [
-        {
-            "heading": "Paid search marketing",
-            "icon": "icon",
-            "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
-        },
-        {
-            "heading": "Search engine optimization",
-            "icon": "icon",
-            "description": "Maintain your best spot on the search results page, so you can find new customers and re-engage loyal ones."
-        },
-        {
-            "heading": "Email marketing",
-            "icon": "icon",
-            "description": "When it comes to reaching your target audience, you can’t get much closer than direct to their inboxes."
-        },
-        {
-            "heading": "Conversion rate optimization",
-            "icon": "icon",
-            "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
-        }
-    ],
-    "imageCard": [
-        {
-            "imageUrl": "image",
-            "date": "MAY 2023",
-            "title": "The evolution of live-stream content and short-form video: a look at the TikTok revolution"
-        },
-        {
-            "imageUrl": "image",
-            "date": "MAY 2023",
-            "title": "The Metaverse boom: brands unite and Apple takes a rain check"
-        },
-        {
-            "imageUrl": "image",
-            "date": "MAY 2023",
-            "title": "Verify your site is protecting your business"
-        }
-    ]
+],
+"ourValues":[
+    {
+        "heading":"Transparency",
+        "description":"No smoke and mirrors here. We believe in being genuine in dealing with all our clients. We’ll say what we’ll do, and then do what we say."
+    },
+    {
+        "heading":"Integrity",
+        "description":"We prioritize honesty and integrity, always striving to build relationships rooted in trust. We understand that trust is earned by consistently upholding our uncompromising standards."
+    },
+    {
+        "heading":"Simplicity",
+        "description":"We believe that being an expert should not mean sounding complicated. We are straightforward with our approach, always doing our best to simplify what’s seemingly complex."
+    },
+    {
+        "heading":"Performance",
+        "description":"Being in the digital marketing space, data is a given. But we aren’t just talking about having access to reports on certain metrics. We ensure each campaign translates into real business growth."
+    }
+],
+"teamData":[
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-ono-kosuki-5648103.jpg",
+        "name":"Herbert Harisson",
+        "designation":"CEO & Founder"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-moose-photos-1587009.jpg",
+        "name":"Stella Boone",
+        "designation":"Operations Manager"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-edmond-dantes-4342352-1.jpg",
+        "name":"Arthur Price",
+        "designation":"Lead Digital Strategist"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-denniz-futalan-3453083.jpg",
+        "name":"Fannie Palmer",
+        "designation":"VP Sales"
+    }
+]
 }
