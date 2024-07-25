@@ -15,6 +15,7 @@ import { FaGoogle as BigGoogleIcon } from "react-icons/fa6";
 import { CardTwo } from '@/components/Cards';
 import Icon from '@/components/Icon';
 import NumbersAndResults from '@/components/NumbersAndResults';
+import Divider from '@/components/Divider';
 
 const featureCardData = sampledata.featureCardData;
 const resultData = sampledata.resultsData;
@@ -50,43 +51,50 @@ const page = () => {
       </section>
 
 
-      <section className='mt-12 ' style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
+      <section className='mt-12 ' >
 
-        <div className='xl:w-11/12 m-auto'>
+        <div className=''>
 
-          <div>
-            <h1 className='text-[2rem] font-[600] leading-7 text-center'>We lead with customer-first strategies:</h1>
+          <div className=''>
+            <h1 className='text-[2rem] font-[600] leading-7 text-center xl:text-[3rem] '>We lead with customer-first strategies:</h1>
             <p className='mt-6 text-bodyTextColor text-center px-5'>Driving growth through personalized experiences for truly end-to-end business building.</p>
 
           </div>
 
-          <div  className='py-4 px-5 mt-4 md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4'>
-            <CardTwo heading={featureCardData[0].heading} description={featureCardData[0].description}
-              icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
-            />
+          <div style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
+            <div className='py-1 px-5 mt-4 md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto'>
 
-            <CardTwo heading={featureCardData[1].heading} description={featureCardData[1].description}
-              icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[0].heading} description={featureCardData[0].description}
+                icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
+              />
 
-            <CardTwo heading={featureCardData[2].heading} description={featureCardData[2].description}
-              icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[1].heading} description={featureCardData[1].description}
+                icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-            <CardTwo heading={featureCardData[3].heading} description={featureCardData[3].description}
-              icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[2].heading} description={featureCardData[2].description}
+                icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-            <CardTwo heading={featureCardData[4].heading} description={featureCardData[4].description}
-              icon={<Icon icon={<MessageIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[3].heading} description={featureCardData[3].description}
+                icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-            <CardTwo heading={featureCardData[5].heading} description={featureCardData[5].description}
-              icon={<Icon icon={<GoogleIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[4].heading} description={featureCardData[4].description}
+                icon={<Icon icon={<MessageIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-            <CardTwo heading={featureCardData[6].heading} description={featureCardData[6].description}
-              icon={<Icon icon={<PeopleIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[5].heading} description={featureCardData[5].description}
+                icon={<Icon icon={<GoogleIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-            <CardTwo heading={featureCardData[7].heading} description={featureCardData[7].description}
-              icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
+              <CardTwo heading={featureCardData[6].heading} description={featureCardData[6].description}
+                icon={<Icon icon={<PeopleIcon className='text-primary-color size-[1.5rem]' />} />} />
+
+              <CardTwo heading={featureCardData[7].heading} description={featureCardData[7].description}
+                icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
+
+
+            </div>
           </div>
+          <Divider />
         </div>
+
       </section>
 
       <section className='pt-10 px-5'>
@@ -115,64 +123,65 @@ const page = () => {
         <NumbersAndResults heading={'Driving Real Results'} cardData={resultData} />
       </section>
 
-      <section className='mt-10'>
+      <section className='mt-20'>
         <div className='xl:w-11/12 m-auto'>
 
-        <h1 className='text-center text-[1.2rem] font-semibold px-5'>The Best Brands Choose Numerique</h1>
-        <div className='flex flex-col justify-center items-center gap-4 mt-10 lg:flex-row'>
+          <h1 className='text-center text-[1.2rem] font-semibold px-5 xl:[1.5rem]'>The Best Brands Choose Numerique</h1>
+          <div className='flex flex-col justify-center items-center gap-4 mt-10 lg:flex-row'>
 
-          <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
+            <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
 
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/jolie-1.svg"
-              width={171}
-              height={34}
-              alt="logo"
-              
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/jolie-1.svg"
+                width={171}
+                height={34}
+                alt="logo"
+
               />
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/caridad.svg"
-              width={171}
-              height={34}
-              alt="logo"
-              
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/caridad.svg"
+                width={171}
+                height={34}
+                alt="logo"
+
               />
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/F7.svg"
-              width={61}
-              height={34}
-              alt="logo"
-              
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/F7.svg"
+                width={61}
+                height={34}
+                alt="logo"
+
               />
+            </div>
+
+            <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
+
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/Scuola_Logo_OnlyTop-1.svg"
+                width={171}
+                height={34}
+                alt="logo"
+
+              />
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/petmania.svg"
+                width={171}
+                height={34}
+                alt="logo"
+
+              />
+              <Image
+                src="https://thecrownset.com/wp-content/uploads/2023/06/tecnologia.svg"
+                width={171}
+                height={34}
+                alt="logo"
+
+              />
+            </div>
+
           </div>
-
-          <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
-
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/Scuola_Logo_OnlyTop-1.svg"
-              width={171}
-              height={34}
-              alt="logo"
-              
-              />
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/petmania.svg"
-              width={171}
-              height={34}
-              alt="logo"
-              
-              />
-            <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/06/tecnologia.svg"
-              width={171}
-              height={34}
-              alt="logo"
-              
-              />
-          </div>
-
+          <Divider />
         </div>
-              </div>
       </section>
 
       <section className='mt-16 px-5 mb-10'>

@@ -21,26 +21,29 @@ const Navbar = () => {
         <>
             <nav className='bg-[#EAE8FF] max-lg:bg-white max-md:border-b-2'>
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
-                <Link href="./home/freeAudit">
-                    <div className='flex items-center justify-center h-full'>
-                        <span>
-                            GET A FREE AUDIT
-                        </span>
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" strokeLinejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </div>
+                    <Link href="./home/freeAudit">
+                        <div className='flex items-center justify-center h-full'>
+                            <span>
+                                GET A FREE AUDIT
+                            </span>
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" strokeLinejoin="round" stroke-width="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
                     </Link>
                 </div>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='flex items-center justify-between h-16'>
                         <div className='flex items-center flex-grow justify-between'>
+
                             <div className='flex-shrink-0'>
-                                <Image
-                                    src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
-                                    alt='crownsetlogo'
-                                    width={150} height={20}
-                                />
+                                <Link href='/'>
+                                    <Image
+                                        src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
+                                        alt='crownsetlogo'
+                                        width={150} height={20}
+                                    />
+                                </Link>
                             </div>
                             <div className='hidden lg:flex justify-center items-center flex-grow gap-10'>
                                 <div className='flex items-center space-x-4'>
@@ -63,9 +66,9 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className='hidden md:block'>
-                        <Link href="./home/freeAudit">
-                            <button className='bg-black text-white  py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
-                                
+                            <Link href="./home/freeAudit">
+                                <button className='bg-black text-white  py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
+
                                     <span className='underline-from-left'>
                                         Free Audit
                                     </span>

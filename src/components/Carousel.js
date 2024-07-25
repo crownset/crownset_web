@@ -4,6 +4,8 @@ import Image from 'next/image'
 import img1 from '@/assets/images/imcard1.jpg'
 import img2 from '@/assets/images/imcard2.jpg'
 import img3 from '@/assets/images/imcard3.jpg'
+import { useSwipeable } from 'react-swipeable';
+
 const imageCard = [
     {
         "imageUrl": "image",
@@ -26,12 +28,23 @@ const images = [img1,img2,img3];
 const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const goToSlide = (index) => {
-        setCurrentIndex(index);
-    };
+  const handleSwipe = (direction) => {
+    if (direction === 'left') {
+      setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    } else if (direction === 'right') {
+      setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    }
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipe('left'),
+    onSwipedRight: () => handleSwipe('right'),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
 
     return (
-        <div className="relative w-full overflow-hidden lg:hidden" data-carousel="slide">
+        <div className="relative w-full overflow-hidden lg:hidden" data-carousel="slide" {...handlers}>
 
             <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {imageCard.map((card, index) => (
@@ -66,7 +79,7 @@ const Carousel = () => {
                         className={`w-[0.3rem] h-[0.3rem] rounded-full ${index === currentIndex ? 'bg-gray-800' : 'bg-gray-400'}`}
                         aria-current={index === currentIndex ? 'true' : 'false'}
                         aria-label={`Slide ${index + 1}`}
-                        onClick={() => goToSlide(index)}
+                        onClick={() => setCurrentIndex(index)}
                     ></button>
                 ))}
             </div>

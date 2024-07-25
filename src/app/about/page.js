@@ -1,28 +1,54 @@
 
+"use client"
 import { DarkButton, UnderlineButton } from '@/components/CustomButtons'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import sampledata from '@/assets/sampledata/data.json';
 import Icon from '@/components/Icon';
-import { RiSearch2Fill as SearchIcon } from "react-icons/ri";
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
 import { MdEmail as EmailIcon } from "react-icons/md";
 import { IoMdRocket as RocketIcon } from "react-icons/io";
 import { HiLightBulb as BulbIcon } from "react-icons/hi";
+import { FaLinkedinIn as LinkedinIcon } from "react-icons/fa6";
+import { useSwipeable } from 'react-swipeable';
+import Divider from '@/components/Divider';
+
 
 
 const ourValues = sampledata.ourValues;
+const teamData = sampledata.teamData;
 
-const page = () => {
+
+const Page = () => {
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleSwipe = (direction) => {
+    if (direction === 'left') {
+      setCurrentIndex((prevIndex) => (prevIndex === teamData.length - 1 ? 0 : prevIndex + 1));
+    } else if (direction === 'right') {
+      setCurrentIndex((prevIndex) => (prevIndex === 0 ? teamData.length - 1 : prevIndex - 1));
+    }
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleSwipe('left'),
+    onSwipedRight: () => handleSwipe('right'),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
 
   return (
+
     <>
       <section style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}
-        className='px-5 py-3'>
-        <div>
+        className='px-5 py-3 '>
+        <div className='mt-8 md:grid md:grid-cols-2 md:gap-4'>
           <div>
             <h2 className='text-[1rem] font-semibold'>ABOUT US</h2>
-            <h1 className='text-[2rem] leading-8 font-[500] text-[#560a39] mt-3 tracking-wide'>Excellence is in our Blood,</h1>
+            <h1 className='text-[2rem] md:text-[3rem] md:leading-[3rem]
+            xl:text-[4.2rem] xl:leading-[4rem] leading-8 lg:leading-[3rem] font-[700] text-[#560a39] mt-3 tracking-wide'>Excellence is in our Blood,</h1>
 
           </div>
           <div className='mt-10'>
@@ -35,12 +61,16 @@ const page = () => {
           </div>
 
         </div>
+        <Divider/>
       </section>
 
-      <section className='mt-10 px-5'>
-        <p className='text-center text-bodyTextColor text-[0.8rem]'>
+      <section className='xl:w-11/12 m-auto'>
+      
+
+        <p className='text-center text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
           The Crownset Marketing Agency revolutionizes how brands connect with their audience. At Crownset, we don’t just market your brand, we create unforgettable experiences. Our innovative strategies and creative solutions are tailored to make your brand shine in a crowded marketplace. From captivating graphics to strategic social media campaigns, we ensure your brand’s story is told with impact and precision.
         </p>
+      
       </section>
 
       <section className='mt-16'>
@@ -57,11 +87,12 @@ const page = () => {
             />
           </div>
 
-          <div className='px-[1rem] pt-[4rem] pb-[2rem]'
+          <div className='px-[1rem] pt-[4rem] pb-[2rem] '
             style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}
           >
 
-            <div className='mt-5 sm:mt-[6rem] lg:mt-[10rem]  xl:mr-[40rem] xl:ml-[10rem]  xl:w-1/3'>
+            <div className='mt-5 sm:mt-[6rem] lg:mt-[10rem]  
+            xl:w-11/12 m-auto'>
               <h2 className='text-[1.4rem] font-[625] text-center'>OUR VALUES</h2>
 
             </div>
@@ -100,11 +131,12 @@ const page = () => {
         </div>
       </section>
 
-      <section className='px-5'>
-        <div>
+      <section className='px-5 mt-20 xl:w-11/12 m-auto'>
+        <div className='sm:grid sm:grid-cols-2 sm:gap-5 xl:gap-[6rem]'>
           <div>
-            <h2 className='font-semibold'>MARKETING SOLUTIONS PROVIDER</h2>
-            <h1 className='text-[1.8rem] font-bold leading-9 mt-6'> We’re a leader in digital marketing solutions</h1>
+            <h2 className='font-semibold mr-10 '>MARKETING SOLUTIONS PROVIDER</h2>
+            <h1 className='text-[1.8rem] sm:text-[2.2rem] lg:text-[2.5rem] 
+            font-bold leading-9 mt-6 xl:text-[4rem] xl:leading-[4rem]'> We’re a leader in digital marketing solutions</h1>
           </div>
           <div className='mt-6'>
             <p className='text-bodyTextColor'>After years of experience, we have learned that each marketing channel has its own unique advantages, but they work best when strategically combined with other channels. Therefore, we provide our clients with full-service strategies that utilize a comprehensive mix of digital channels to enhance visibility, boost conversions, and drive revenue.</p>
@@ -113,7 +145,7 @@ const page = () => {
         </div>
       </section>
 
-      <section className='mt-10'>
+      <section className='mt-20 px-5 '>
 
         <div className='xl:w-11/12 m-auto'>
 
@@ -172,17 +204,101 @@ const page = () => {
 
           </div>
         </div>
-
+        <Divider/>
       </section>
 
-      <section>
-        
+      <section className='px-5 mt-10 xl:w-11/12 m-auto'>
+        <div className='md:grid md:grid-cols-2 md:gap-7 md:justify-center md:items-start'>
+          <div>
+            <h2 className='font-bold text-[1rem] md:mt-12 '>TEAM</h2>
+            <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-6 font-[700] 
+            md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]'>
+              Meet the Numerique revenue revolutionaries</h1>
+          </div>
+
+          <div className='mt-6'>
+            <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
+
+              <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                {teamData.map((card, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5"
+                  >
+                    <div className="w-full h-full flex flex-col pb-[1rem]">
+                      <div className='rounded-[3rem]' >
+                        <Image
+                          src={card.url}
+                          width={500}
+                          height={300}
+                          alt="Picture of the author"
+                          className='rounded-[3rem]'
+                        />
+                      </div>
+                      <div className='flex flex-col gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:4'>
+                        <div>
+                          <p className="text-bodyTextColor text-sm">{card.name}</p>
+
+                          <h2 className="text-xl font-bold leading-6 ">{card.designation}</h2>
+                        </div>
+                        <div>
+                          <span><Icon icon={<LinkedinIcon />} /></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center space-x-3">
+                {teamData.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    className={`w-[0.3rem] h-[0.3rem] rounded-full ${index === currentIndex ? 'bg-gray-800' : 'bg-gray-400'}`}
+                    aria-current={index === currentIndex ? 'true' : 'false'}
+                    aria-label={`Slide ${index + 1}`}
+                    onClick={() => setCurrentIndex(index)}
+                  ></button>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+         <Divider/>
+      </section>
+
+      <section className='mt-10 px-5'>
+        <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
+          <div className='text-xl font-extrabold'>
+            <p>Credentials & recognition:</p>
+          </div>
+          <div className='flex items-center justify-center gap-8  max-md:flex-wrap'>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/56cf51c7d935aba26a8f553867bf878b-qql2z74lvkd216ad5m0wcz170nmakss1bbb0a7qwps.png" alt='logo' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20220412-1161242-19o8jy5-qql30lvw4majg48mx7yr3m833go44gdjiaj875nnds.png" alt='logo1' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211006-5432-t7lh3l-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo2' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211005-28345-8m8kvp-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo3' width={70} height={70} />
+            </div>
+            <div>
+              <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/logo_hubspot-qql30k095dt7mir8bgo0ky5rnpjx6t3am36ozba0v4.png" alt='logo3' width={70} height={70} />
+            </div>
+          </div>
+        </div>
+
       </section>
     </>
   )
 }
 
-export default page
+export default Page
 
 const CardTwo = ({ heading, icon, description }) => {
   return (

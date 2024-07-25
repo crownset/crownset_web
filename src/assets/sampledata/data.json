@@ -136,5 +136,27 @@
         "heading":"Performance",
         "description":"Being in the digital marketing space, data is a given. But we aren’t just talking about having access to reports on certain metrics. We ensure each campaign translates into real business growth."
     }
+],
+"teamData":[
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-ono-kosuki-5648103.jpg",
+        "name":"Herbert Harisson",
+        "designation":"CEO & Founder"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-moose-photos-1587009.jpg",
+        "name":"Stella Boone",
+        "designation":"Operations Manager"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-edmond-dantes-4342352-1.jpg",
+        "name":"Arthur Price",
+        "designation":"Lead Digital Strategist"
+    },
+    {
+        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-denniz-futalan-3453083.jpg",
+        "name":"Fannie Palmer",
+        "designation":"VP Sales"
+    }
 ]
 }
