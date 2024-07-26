@@ -15,8 +15,6 @@ export async function dbConnect(){
 
     try{
 
-        cookies().set("authToken:", "")
-
 
         console.log(process.env.URL)
         const {connection} = await mongoose.connect(process.env.URL,{
