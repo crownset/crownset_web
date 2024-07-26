@@ -21,7 +21,7 @@ const featureCardData = sampledata.featureCardData;
 const resultData = sampledata.resultsData;
 
 
-const page = () => {
+const Page = () => {
 
   return (
     <>
@@ -219,6 +219,6 @@ const page = () => {
   )
 }
 
-export default page
+export default Page;
 
 

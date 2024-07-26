@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { IoArrowForward } from "react-icons/io5";
 import { IoMdArrowBack } from "react-icons/io";
 import { BiSolidQuoteAltRight } from "react-icons/bi";
@@ -34,7 +34,7 @@ const ReviewCarousel = ({ items }) => {
                 <BiSolidQuoteAltRight className='w-20 h-20 text-[#6754e9] ' />
             </div>
             <div className={`ml-3 transition-opacity duration-300 ${fade ? 'opacity-0' : 'opacity-100'} lg:w-1/2`}>
-                <h2 className="text-2xl lg:py-5 lg:text-3xl">"{items[currentIndex].review1} {items[currentIndex].review2}"</h2>
+                <h2 className="text-2xl lg:py-5 lg:text-3xl">{items[currentIndex].review1} {items[currentIndex].review2}</h2>
                 <div className='flex flex-col gap-0 py-3'>
                     <p className='font-bold'>{items[currentIndex].reviewerName}</p>
                     <p>{items[currentIndex].designation}</p>
@@ -65,13 +65,13 @@ const ReviewCarousel = ({ items }) => {
                     <div className='flex flex-row gap-2 items-center'>
                         <div className='flex flex-row '>
                             <div>
-                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/happy-carefree-dark-skinned-rebellious-young-woman-enjoys-awesome-music-makes-rock-n-roll-gesture-has-fun-on-music-festival-or-cool-event-wears-casual-jumper-poses-against-pink-wall-300x300.jpg" height={30} width={30} className='rounded-full' alt="image" />
+                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/happy-carefree-dark-skinned-rebellious-young-woman-enjoys-awesome-music-makes-rock-n-roll-gesture-has-fun-on-music-festival-or-cool-event-wears-casual-jumper-poses-against-pink-wall-300x300.jpg" height={30} width={30} alt="image" className='rounded-full' />
                             </div>
                             <div>
                                 <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-andrea-piacquadio-3799837-300x300.jpg" height={30} width={30} className='rounded-full' alt="image"/>
                             </div>
                             <div>
-                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikhail-nilov-9301512-300x300.jpg" height={30} width={30} className='rounded-full'alt="image" />
+                                <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikhail-nilov-9301512-300x300.jpg" height={30} width={30} className='rounded-full' alt="image"/>
                             </div>
                         </div>
                         <div>

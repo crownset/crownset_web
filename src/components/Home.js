@@ -35,8 +35,8 @@ const HomePage = () => {
 
     return (
         <>
-            <section className='linear-gradient px-5 pt-10'>
-                <div className='xl:w-11/12 m-auto'>
+            <section className='linear-gradient px-5 pt-10 '>
+                <div className='xl:w-11/12 m-auto '>
                     <div className=''>
                         <div className=''>
                             <h1 className='text-center mx-[1.2rem] font-bold text-[2rem] leading-9 
@@ -52,7 +52,7 @@ const HomePage = () => {
                     </div>
 
                     {/* for mobile */}
-                    <div className='sm:flex sm:flex-col sm:justify-center sm:items-center sm:flex-grow md:hidden'>
+                    <div className='sm:flex sm:flex-col sm:justify-center sm:items-center  md:hidden'>
                         <div className='mt-[-5rem] sm:mt-[-9rem] sm:ml-[5rem]'>
                             <div>
                                 <Image
@@ -63,12 +63,13 @@ const HomePage = () => {
                                 />
                             </div>
                             <div className='bg-[#e9e5fe] rounded-[2rem] mt-[-5rem] sm:mt-[-7rem]'>
-                                <div className='relative top-[-1rem] left-[75%]'>
+                                <div className='relative top-[-1rem]'>
                                     <Image
                                         src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
                                         width={60}
                                         height={24}
                                         alt="Picture of the author"
+                                        className='relative left-[75%]'
                                     />
                                 </div>
                                 <p className='relative top-[-2rem] left-[1rem] text-[1.2rem]
@@ -110,7 +111,7 @@ const HomePage = () => {
                     <div className='hidden md:block mt-16 relative py-10 xl:w-11/12 m-auto'>
 
 
-                        <div className='flex flex-grow  h-[20rem] justify-center'>
+                        <div className='flex h-[20rem] '>
 
                             {/* speaker box    */}
                             <div className=' w-[18rem] h-[18rem] lg:w-[28rem] lg:h-[25rem] xl:w-[30rem] xl:h-[28rem]

@@ -45,28 +45,28 @@ const Work = () => {
         
         </div>
         <div className='py-3 w-full lg:w-1/2'>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikael-blomkvist-6476185-1024x895.jpg" alt='work-image' width={200} height={100} className='rounded-[4rem] w-full  m-auto' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-mikael-blomkvist-6476185-1024x895.jpg" alt='work image' width={200} height={100} className='rounded-[4rem] w-full  m-auto' />
         </div>
       </div>
       {/* sectionTwo */}
       <div className='flex flex-wrap justify-center items-center gap-5 lg:gap-28 py-10'>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/jolie-1.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/jolie-1.svg" width={100} height={100} className='lg:w-full' alt=""/>
         </div>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/caridad.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/caridad.svg" width={100} height={100} className='lg:w-full' alt=""/>
         </div>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/F7.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/F7.svg" width={100} height={100} className='lg:w-full' alt="" />
         </div>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/Scuola_Logo_OnlyTop-1.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/Scuola_Logo_OnlyTop-1.svg" width={100} height={100} className='lg:w-full' alt=""/>
         </div>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/petmania.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/petmania.svg" width={100} height={100} className='lg:w-full' alt=""/>
         </div>
         <div>
-          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/tecnologia.svg" width={100} height={100} className='lg:w-full' />
+          <Image src="https://thecrownset.com/wp-content/uploads/2023/06/tecnologia.svg" width={100} height={100} className='lg:w-full' alt=""/>
         </div>
       </div>
       <Divider />

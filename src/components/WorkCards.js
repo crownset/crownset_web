@@ -6,6 +6,8 @@ const WorkCards = ({ imageUrl, text, text2, text3, btn1, btn2, btn3 }) => {
         <div className=" imgcontainer relative lg:w-11/12 lg:h-11/12 h-full space-y-0 mx-auto rounded-[3rem] overflow-hidden">
             <Image
                 src={imageUrl}
+                width={1024}
+                height={500}
                 alt="Card image"
                 className="w-full h-full object-cover imgcontainer bg-black"
             />
