@@ -81,9 +81,9 @@ const Navbar = () => {
             >
                 <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg'>
                     <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</Link>
-                    <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</Link>
-                    <Link href="/work" className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Work</Link>
-                    <Link href="/contact" className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</Link>
+                    <Link href='/about'  className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</Link>
+                    <Link href="/work"  className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Work</Link>
+                    <Link href="/contact"className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</Link>
                 </div>
             </motion.div>
         </>

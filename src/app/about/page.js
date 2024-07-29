@@ -286,17 +286,17 @@ const Page = () => {
           <div className='mt-6'>
             <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
 
-              <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+              <div className="flex w-full   transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {teamData.map((card, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5"
+                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5 "
                   >
                     <div className="w-full h-full flex flex-col pb-[1rem]">
                       <div className='rounded-[3rem]' >
                         <Image
                           src={teamPic[index]}
-                          width={500}
+                          width={700}
                           height={300}
                           alt="Picture of the author"
                           className='rounded-[3rem]'
@@ -304,14 +304,11 @@ const Page = () => {
                       </div>
                       <div className='flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10'>
                         <div>
-                          <p className="text-bodyTextColor text-sm">{card.name}</p>
-                          <h2 className="text-xl font-bold leading-6 ">{card.designation}</h2>
+                          <p className="text-xl font-bold leading-6 ">{card.name}</p>
+                          <h2 className="text-bodyTextColor text-sm">{card.designation}</h2>
                         </div>
                         <div className="flex flex-row gap-5 items-center">
-                          <div className='lg:pr-4'>
-                            <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
-                            <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
-                          </div>
+
                           <div>
                             <span><Icon icon={<LinkedinIcon />} /></span>
                           </div>
@@ -324,7 +321,10 @@ const Page = () => {
               </div>
 
             </div>
-
+            <div className='flex justify-center items-center space-x-3'>
+              <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
+              <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
+            </div>
           </div>
         </div>
 
