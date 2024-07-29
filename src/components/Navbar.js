@@ -18,9 +18,7 @@ const Navbar = () => {
                 <div className='hidden max-lg:block bg-black w-full h-10 text-white text-center'>
                     <Link href="/freeAudit">
                         <div className='flex items-center justify-center h-full'>
-                            <span>
-                                GET A FREE CALL
-                            </span>
+                            <span>GET A FREE CALL</span>
                             <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
                                 <path d="M5 12h14M12 5l7 7-7-7"></path>
                             </svg>
@@ -36,7 +34,6 @@ const Navbar = () => {
                                         src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
                                         alt='crownsetlogo'
                                         width={150} height={20}
-                                    // className='lg:w-[15rem] lg:h-[15rem]'
                                     />
                                 </Link>
                             </div>
@@ -61,9 +58,7 @@ const Navbar = () => {
                         <div className='max-lg:hidden'>
                             <Link href="/freeAudit">
                                 <button className='bg-black text-white py-3 px-6 rounded-2xl flex items-center hover:bg-[#805CEB]'>
-                                    <span className='underline-from-left'>
-                                        GET A FREE CALL
-                                    </span>
+                                    <span className='underline-from-left'>GET A FREE CALL</span>
                                     <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
                                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                                     </svg>
@@ -80,10 +75,18 @@ const Navbar = () => {
                 className={`absolute top-26 left-0 w-full rounded-b-[2rem] bg-white shadow-lg ${isClicked ? 'block' : 'hidden'}`}
             >
                 <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg'>
-                    <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>OUR SERVICES</Link>
-                    <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5'>WHO WE ARE</Link>
-                    <Link href="/work" className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Work</Link>
-                    <Link href="/contact" className='text-black block hover:bg-white hover:text-black py-1 pl-5'>Contact</Link>
+                    <Link href='/services'>
+                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>OUR SERVICES</a>
+                    </Link>
+                    <Link href='/about'>
+                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>WHO WE ARE</a>
+                    </Link>
+                    <Link href="/work">
+                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>Work</a>
+                    </Link>
+                    <Link href="/contact">
+                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>Contact</a>
+                    </Link>
                 </div>
             </motion.div>
         </>
