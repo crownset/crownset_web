@@ -12,6 +12,9 @@ import { TfiGoogle as GoogleIcon } from "react-icons/tfi";
 import { IoIosPeople as PeopleIcon } from "react-icons/io";
 import { FaAmazon as AmazonIcon } from "react-icons/fa";
 import { FaGoogle as BigGoogleIcon } from "react-icons/fa6";
+import { CgWebsite } from "react-icons/cg";
+import { FaMobileAlt } from "react-icons/fa";
+import { GrCloudSoftware } from "react-icons/gr";
 import { CardTwo } from '@/components/Cards';
 import Icon from '@/components/Icon';
 import NumbersAndResults from '@/components/NumbersAndResults';
@@ -31,9 +34,9 @@ const Page = () => {
         <div className='xl:w-11/12 m-auto md:grid md:grid-cols-2 md:gap-10'>
 
           <div>
-            <h2 className='font-bold'>MARKETING SOLUTIONS</h2>
+            <h2 className='font-bold'>BUSINESS SOLUTIONS</h2>
             <h1 className='mt-6 text-[2rem] leading-9 mr-10 font-[600] md:mr-28 md:text-[2.5rem] lg:mr-12'>Solutions for business growth</h1>
-            <p className='mt-6 font-semibold text-[1.2rem]'>Numerique Marketing is the intersection between creative and performance. Our team delivers the perfect combination of creative and paid media expertise to maximize results.</p>
+            <p className='mt-6 font-semibold text-[1.2rem]'>We provide versatile marketing, trending business solutions, and IT services, blending creative and paid media expertise to maximize results.</p>
             <DarkButton buttonText={'get a free audit'} />
           </div>
 
@@ -51,7 +54,7 @@ const Page = () => {
       </section>
 
 
-      <section className='mt-12 ' >
+      <section className=' mt-10 lg:mt-[6rem]' >
 
         <div className=''>
 
@@ -64,30 +67,41 @@ const Page = () => {
           <div style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
             <div className='py-1 px-5 mt-4 md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto'>
 
+                {/* software soltions */}
               <CardTwo heading={featureCardData[0].heading} description={featureCardData[0].description}
+                icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />} />
+
+                <CardTwo heading={featureCardData[1].heading} description={featureCardData[1].description}
+                icon={<Icon icon={<FaMobileAlt className='text-primary-color size-[1.5rem]' />} />} />
+
+                <CardTwo heading={featureCardData[2].heading} description={featureCardData[2].description}
+                icon={<Icon icon={<GrCloudSoftware className='text-primary-color size-[1.5rem]' />} />} />  
+
+              <CardTwo heading={featureCardData[3].heading} description={featureCardData[3].description}
                 icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
               />
 
-              <CardTwo heading={featureCardData[1].heading} description={featureCardData[1].description}
+              <CardTwo heading={featureCardData[4].heading} description={featureCardData[4].description}
                 icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[2].heading} description={featureCardData[2].description}
+              <CardTwo heading={featureCardData[5].heading} description={featureCardData[5].description}
                 icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[3].heading} description={featureCardData[3].description}
+              <CardTwo heading={featureCardData[6].heading} description={featureCardData[6].description}
                 icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[4].heading} description={featureCardData[4].description}
+              <CardTwo heading={featureCardData[7].heading} description={featureCardData[7].description}
                 icon={<Icon icon={<MessageIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[5].heading} description={featureCardData[5].description}
+              <CardTwo heading={featureCardData[8].heading} description={featureCardData[8].description}
                 icon={<Icon icon={<GoogleIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[6].heading} description={featureCardData[6].description}
+              <CardTwo heading={featureCardData[9].heading} description={featureCardData[9].description}
                 icon={<Icon icon={<PeopleIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[7].heading} description={featureCardData[7].description}
+              <CardTwo heading={featureCardData[10].heading} description={featureCardData[10].description}
                 icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
+              
 
 
             </div>
@@ -111,7 +125,7 @@ const Page = () => {
           </div>
           <div className='mt-10'>
             <h1 className='text-[1.5rem] font-[600] leading-6'>We are committed to your strategy</h1>
-            <p className='text-bodyTextColor mt-8'>We are committed to your strategy and intuitively understand how to deliver value in the digital economy. Through the most effective digital marketing options, Renaissance makes it happen seamlessly. Every day, we help brands think big, execute smart and deliver growth. We employ an intelligent digital marketing strategy to consistently unlock value from digital investments in a rapidly advancing world. From simple to the infinitely complex.</p>
+            <p className='text-bodyTextColor mt-8'>We are committed to providing business solutions that deliver value in the digital economy. At Renaissance, we seamlessly implement the most effective business and digital marketing solutions, including website and app development. Every day, we help brands think big, execute smart, and achieve growth. Our intelligent digital marketing strategy consistently unlocks value from digital investments in a rapidly advancing world, from simple to infinitely complex solutions.</p>
             <UnderlineButton buttonName={'more about our company'} />
           </div>
         </div>
@@ -121,9 +135,10 @@ const Page = () => {
 
       <section className='mt-16'>
         <NumbersAndResults heading={'Driving Real Results'} cardData={resultData} />
+        <Divider />
       </section>
 
-      <section className='mt-20'>
+      <section className='mt-20 hidden'>
         <div className='xl:w-11/12 m-auto'>
 
           <h1 className='text-center text-[1.2rem] font-semibold px-5 xl:[1.5rem]'>The Best Brands Choose Numerique</h1>
@@ -184,7 +199,7 @@ const Page = () => {
         </div>
       </section>
 
-      <section className='mt-16 px-5 mb-10'>
+      <section className='mt-16 px-5 mb-10 hidden'>
         <div className='xl:w-11/12 m-auto'>
           <div className='bg-[#f7f7f9] rounded-[2rem] px-4 pb-8 '>
 

@@ -28,7 +28,12 @@ const Work = () => {
   ];
 
   return (
-    <div className='linear-gradient'>
+    <>
+       <div className='flex justify-center items-center'>
+        <h1 className='text-[2rem]'>Under Development</h1>
+       </div>
+   
+    <div className='linear-gradient hidden'>
       {/* sectionone */}
       <div className='flex flex-col justify-center items-center px-5 py-10 md:flex-row lg:w-11/12 lg:m-auto '>
         <div className='flex flex-col justify-center gap-0 items-start'>
@@ -104,6 +109,7 @@ const Work = () => {
       </div>
 
     </div>
+    </>
   )
 }
 

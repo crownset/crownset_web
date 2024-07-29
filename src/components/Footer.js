@@ -44,7 +44,7 @@ const Footer = () => {
                 <div className='flex flex-row  justify-between items-center pt-10 px-20 max-lg:pt-2 max-lg:px-10 max-md:flex-col max-md:gap-4'>
                     <div className='text-4xl font-extrabold max-md:text-center max-lg:text-4xl max-md:text-3xl'>
                         <p>
-                            See how we can help your business grow with digital marketing
+                            See how we can help your business grow with digital marketing and IT
                         </p>
                     </div>
                     <div className='flex flex-col items-end gap-2 w-full max-md:items-center max-md:justify-center max-md:gap-3'>
@@ -70,7 +70,7 @@ const Footer = () => {
                         <div className='font-semibold'>
                             <p>A PARTNER, NOT A VENDOR</p>
                         </div>
-                        <div className='flex flex-wrap gap-10 items-center'>
+                        {/* <div className='flex flex-wrap gap-10 items-center'>
                             <div>
                                 <Image src="https://thecrownset.com/wp-content/uploads/2023/05/meta-partner.svg" alt="Meta Partner" width={100} height={100} />
                             </div>
@@ -83,7 +83,7 @@ const Footer = () => {
                             <div>
                                 <Image src="https://thecrownset.com/wp-content/uploads/2023/05/shopify.svg" alt="Shopify" width={100} height={100} />
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='flex flex-col justify-center items-center max-md:pr-0 max-md:w-full'>
                         <div className='font-extrabold text-lg'>
