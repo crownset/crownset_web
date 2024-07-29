@@ -7,7 +7,7 @@ export const CardTwo = ({ heading, icon, description }) => {
         <>
             <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
 
-                <div className='xl:h-[18rem] md:h-[16rem]'>
+                <div className='xl:h-[19rem] md:h-[17rem]'>
 
                     <span>{icon}</span>
 

@@ -12,6 +12,7 @@ import { TfiGoogle as GoogleIcon } from "react-icons/tfi";
 import { IoIosPeople as PeopleIcon } from "react-icons/io";
 import { FaAmazon as AmazonIcon } from "react-icons/fa";
 import { FaGoogle as BigGoogleIcon } from "react-icons/fa6";
+import { BsTranslate } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { GrCloudSoftware } from "react-icons/gr";
@@ -101,6 +102,9 @@ const Page = () => {
 
               <CardTwo heading={featureCardData[10].heading} description={featureCardData[10].description}
                 icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
+
+              <CardTwo heading={featureCardData[11].heading} description={featureCardData[11].description}
+                icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />} />  
               
 
 

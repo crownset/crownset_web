@@ -10,6 +10,8 @@ import { MdEmail as EmailIcon } from "react-icons/md";
 import { IoMdRocket as RocketIcon } from "react-icons/io";
 import { HiLightBulb as BulbIcon } from "react-icons/hi";
 import { FaLinkedinIn as LinkedinIcon } from "react-icons/fa6";
+import { BsTranslate } from "react-icons/bs";
+import { CgWebsite } from "react-icons/cg";
 import { GrFormPreviousLink } from "react-icons/gr";
 import { GrFormNextLink } from "react-icons/gr";
 import { useSwipeable } from 'react-swipeable';
@@ -120,12 +122,12 @@ const Page = () => {
             />
 
             <CardTwo
-              icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />}
+              icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[2].heading}
               description={ourProficiencyData[2].description}
             />
             <CardTwo
-              icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />}
+              icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[3].heading}
               description={ourProficiencyData[3].description}
             />
@@ -341,7 +343,7 @@ const Page = () => {
 
           </div>
         </div>
-        <Divider />
+        
       </section>
 
       <section className='mt-10 px-5 hidden'>

@@ -558,7 +558,7 @@ const SectionFive = () => {
                     </div>
                 </div>
 
-                <Divider />
+                {/* <Divider /> */}
 
             </div>
         </>
