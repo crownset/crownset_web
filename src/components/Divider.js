@@ -1,4 +1,4 @@
-
+"use client"
 import {divider} from '@/helpers/icons'
 import Image from 'next/image';
 const Divider = ()=>{
@@ -9,6 +9,7 @@ const Divider = ()=>{
               width={1280}
               height={500}
               alt="image"
+              className='m-auto'
             />
         </div>
     )

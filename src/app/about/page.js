@@ -10,14 +10,18 @@ import { MdEmail as EmailIcon } from "react-icons/md";
 import { IoMdRocket as RocketIcon } from "react-icons/io";
 import { HiLightBulb as BulbIcon } from "react-icons/hi";
 import { FaLinkedinIn as LinkedinIcon } from "react-icons/fa6";
+import { BsTranslate } from "react-icons/bs";
+import { CgWebsite } from "react-icons/cg";
+import { GrFormPreviousLink } from "react-icons/gr";
+import { GrFormNextLink } from "react-icons/gr";
 import { useSwipeable } from 'react-swipeable';
 import Divider from '@/components/Divider';
-
-
+import * as images from '@/helpers/icons';
 
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
-
+const ourProficiencyData = sampledata.ourProficiency;
+const teamPic = [images.garvit, images.priyam];
 
 const Page = () => {
 
@@ -38,13 +42,30 @@ const Page = () => {
     trackMouse: true,
   });
 
+  const goToPrevious = () => {
+
+    setTimeout(() => {
+      const newIndex = currentIndex === 0 ? teamData.length - 1 : currentIndex - 1;
+      setCurrentIndex(newIndex);
+
+    }, 300);
+  };
+
+  const goToNext = () => {
+
+    setTimeout(() => {
+      const newIndex = currentIndex === teamData.length - 1 ? 0 : currentIndex + 1;
+      setCurrentIndex(newIndex);
+
+    }, 300);
+  };
 
   return (
 
     <>
       <section style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}
         className='px-5 py-3 '>
-        <div className='mt-8 md:grid md:grid-cols-2 md:gap-4'>
+        <div className='mt-8 md:grid md:grid-cols-2 md:gap-4 xl:w-11/12 m-auto'>
           <div>
             <h2 className='text-[1rem] font-semibold'>ABOUT US</h2>
             <h1 className='text-[2rem] md:text-[3rem] md:leading-[3rem]
@@ -56,21 +77,66 @@ const Page = () => {
               src="https://thecrownset.com/wp-content/uploads/2024/07/social-media-marketing-concept-marketing-with-applications-1024x683.webp"
               width={800}
               height={500}
+              className='rounded-[2rem]'
               alt="image"
             />
           </div>
 
         </div>
-        <Divider/>
+        <Divider />
       </section>
 
       <section className='xl:w-11/12 m-auto'>
-      
 
-        <p className='text-center text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
-          The Crownset Marketing Agency revolutionizes how brands connect with their audience. At Crownset, we don’t just market your brand, we create unforgettable experiences. Our innovative strategies and creative solutions are tailored to make your brand shine in a crowded marketplace. From captivating graphics to strategic social media campaigns, we ensure your brand’s story is told with impact and precision.
+
+        <p className='text-center px-[1rem] text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
+          Our mission at Crownset Marketing Agency is to revolutionize companies by providing outstanding customer service and creative solutions. With more than six years of expertise, we are experts in offering complete business solutions that are customized to your particular requirements.
+
         </p>
-      
+
+      </section>
+
+      <section className='xl:pt-1 px-[1rem]  pb-[2rem] mt-10' style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
+
+        <div className=''>
+
+          <div className='mt-5 xl:w-11/12 m-auto'>
+            <h2 className='text-[1.4rem] font-[625] text-center'>OUR PROFICIENCY</h2>
+
+          </div>
+
+
+
+          <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
+
+            <CardTwo
+              icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
+              heading={ourProficiencyData[0].heading}
+              description={ourProficiencyData[0].description}
+            />
+
+            <CardTwo
+              icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
+              heading={ourProficiencyData[1].heading}
+              description={ourProficiencyData[1].description}
+            />
+
+            <CardTwo
+              icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />}
+              heading={ourProficiencyData[2].heading}
+              description={ourProficiencyData[2].description}
+            />
+            <CardTwo
+              icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />}
+              heading={ourProficiencyData[3].heading}
+              description={ourProficiencyData[3].description}
+            />
+
+          </div>
+
+
+        </div>
+
       </section>
 
       <section className='mt-16'>
@@ -79,7 +145,7 @@ const Page = () => {
           <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
   '>
             <Image
-              className='rounded-[3rem] aspect-auto object-cover px-[1rem]'
+              className='rounded-[3rem] aspect-auto object-cover px-[1rem] xl:w-11/12 m-auto'
               src='https://thecrownset.com/wp-content/uploads/2023/05/pexels-moe-magners-7495294-1024x417.jpg'
               width={1280}
               height={417}
@@ -131,21 +197,22 @@ const Page = () => {
         </div>
       </section>
 
-      <section className='px-5 mt-20 xl:w-11/12 m-auto'>
+      <section className='px-5 mt-20 xl:mt-[10rem] xl:w-11/12 m-auto'>
         <div className='sm:grid sm:grid-cols-2 sm:gap-5 xl:gap-[6rem]'>
           <div>
-            <h2 className='font-semibold mr-10 '>MARKETING SOLUTIONS PROVIDER</h2>
+            <h2 className='font-semibold mr-10 '>BUSINESS SOLUTIONS PROVIDER</h2>
             <h1 className='text-[1.8rem] sm:text-[2.2rem] lg:text-[2.5rem] 
-            font-bold leading-9 mt-6 xl:text-[4rem] xl:leading-[4rem]'> We’re a leader in digital marketing solutions</h1>
+            font-bold leading-9 mt-6 xl:text-[4rem] xl:leading-[4rem]'> We&apos;re a leader in IT services and Business solutions</h1>
           </div>
           <div className='mt-6'>
-            <p className='text-bodyTextColor'>After years of experience, we have learned that each marketing channel has its own unique advantages, but they work best when strategically combined with other channels. Therefore, we provide our clients with full-service strategies that utilize a comprehensive mix of digital channels to enhance visibility, boost conversions, and drive revenue.</p>
-            <UnderlineButton buttonName={'MARKETING SOLUTIONS'} />
+            <p className='text-bodyTextColor'>After years of experience, we&apos;ve learned that each service area offers unique advantages. To maximize these benefits, we strategically combine them to create comprehensive solutions. We provide our clients with full-service strategies that include business solutions, IT services, and digital marketing, enhancing visibility, boosting conversions, and driving revenue.</p>
+            <UnderlineButton buttonName={'Business SOLUTIONS'} />
           </div>
         </div>
+        <Divider />
       </section>
 
-      <section className='mt-20 px-5 '>
+      <section className='mt-20 px-5 hidden'>
 
         <div className='xl:w-11/12 m-auto'>
 
@@ -204,16 +271,16 @@ const Page = () => {
 
           </div>
         </div>
-        <Divider/>
+        <Divider />
       </section>
 
       <section className='px-5 mt-10 xl:w-11/12 m-auto'>
         <div className='md:grid md:grid-cols-2 md:gap-7 md:justify-center md:items-start'>
           <div>
             <h2 className='font-bold text-[1rem] md:mt-12 '>TEAM</h2>
-            <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-6 font-[700] 
+            <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
             md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]'>
-              Meet the Numerique revenue revolutionaries</h1>
+              Founding Member Spotlight</h1>
           </div>
 
           <div className='mt-6'>
@@ -228,48 +295,42 @@ const Page = () => {
                     <div className="w-full h-full flex flex-col pb-[1rem]">
                       <div className='rounded-[3rem]' >
                         <Image
-                          src={card.url}
+                          src={teamPic[index]}
                           width={500}
                           height={300}
                           alt="Picture of the author"
                           className='rounded-[3rem]'
                         />
                       </div>
-                      <div className='flex flex-col gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:4'>
+                      <div className='flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10'>
                         <div>
                           <p className="text-bodyTextColor text-sm">{card.name}</p>
-
                           <h2 className="text-xl font-bold leading-6 ">{card.designation}</h2>
                         </div>
-                        <div>
-                          <span><Icon icon={<LinkedinIcon />} /></span>
+                        <div className="flex flex-row gap-5 items-center">
+                          <div className='lg:pr-4'>
+                            <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
+                            <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
+                          </div>
+                          <div>
+                            <span><Icon icon={<LinkedinIcon />} /></span>
+                          </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="flex justify-center space-x-3">
-                {teamData.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className={`w-[0.3rem] h-[0.3rem] rounded-full ${index === currentIndex ? 'bg-gray-800' : 'bg-gray-400'}`}
-                    aria-current={index === currentIndex ? 'true' : 'false'}
-                    aria-label={`Slide ${index + 1}`}
-                    onClick={() => setCurrentIndex(index)}
-                  ></button>
-                ))}
-              </div>
             </div>
 
           </div>
         </div>
-         <Divider/>
+
       </section>
 
-      <section className='mt-10 px-5'>
+      <section className='mt-10 px-5 hidden'>
         <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
           <div className='text-xl font-extrabold'>
             <p>Credentials & recognition:</p>

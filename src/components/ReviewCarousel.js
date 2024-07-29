@@ -24,7 +24,7 @@ const ReviewCarousel = ({ items }) => {
         setTimeout(() => {
             const newIndex = currentIndex === items.length - 1 ? 0 : currentIndex + 1;
             setCurrentIndex(newIndex);
-            setFade(false);
+            setFade(false); 
         }, 300);
     };
 

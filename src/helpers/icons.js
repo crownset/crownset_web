@@ -5,3 +5,6 @@ export const location_icon = require("../assets/images/google-maps.png")
 export const homeone = require("../assets/images/homeone.png");
 export const hometwo = require("../assets/images/hometwo.png");
 export const curveline = require("../assets/images/curveline.png");
+export const garvit = require("../assets/images/garvitsirfinal.png");
+export const priyam = require("../assets/images/priyamsirfinal.png")
+

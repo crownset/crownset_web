@@ -13,14 +13,15 @@ import { AiFillDollarCircle as DollarIcon } from "react-icons/ai";
 import Icon from '@/components/Icon';
 import { DarkButton, UnderlineButton } from './CustomButtons';
 import Carousel from './Carousel';
-import img1 from '@/assets/images/imcard1.jpg'
-import img2 from '@/assets/images/imcard2.jpg'
-import img3 from '@/assets/images/imcard3.jpg'
+import img1 from '@/assets/images/socialmediapic.png'
+import img2 from '@/assets/images/itpic.png'
+import img3 from '@/assets/images/solutionspic.png'
 import { CardOne, CardTwo, RoundedCircleCard } from './Cards';
 import sampledata from '@/assets/sampledata/data.json';
 import NumbersAndResults from './NumbersAndResults';
 import Divider from './Divider';
 import { homeone, hometwo, curveline } from '@/helpers/icons';
+import Link from 'next/link';
 
 
 const cardone = sampledata.cardone;
@@ -37,16 +38,16 @@ const HomePage = () => {
         <>
             <section className='linear-gradient px-5 pt-10 '>
                 <div className='xl:w-11/12 m-auto '>
-                    <div className=''>
+                    <div className='xl:w-11/12 m-auto'>
                         <div className=''>
                             <h1 className='text-center mx-[1.2rem] font-bold text-[2rem] leading-9 
-                            tracking-wider md:px-12 lg:text-[4rem] lg:leading-[3.5rem]'>
-                                Strategic Marketing, Dynamic  Branding, Real Results
+                            tracking-wider md:px-12 lg:text-[3.5rem] lg:leading-[4rem]'>
+                                Strategic Marketing, Dynamic  Business Solutions, Real Results
                             </h1>
                         </div>
                         <div className=' mt-6 px-4 flex justify-center'>
                             <span className='text-center text-[1.2rem] text-bodyTextColor font-semibold'>
-                                Transform your business with our innovative, results-driven marketing and business solutions
+                                Transform your business with our innovative, results-driven IT services and business solutions
                             </span>
                         </div>
                     </div>
@@ -108,20 +109,21 @@ const HomePage = () => {
 
                     {/* for md and above */}
 
-                    <div className='hidden md:block mt-16 relative w-11/12 m-auto'>
+                    <div className='hidden md:block mt-16 relative w-11/12 m-auto 
+                    lg:top-[4rem] xl:top-[5rem]'>
 
 
-                        <div className='flex h-[20rem] '>
+                        <div className='flex justify-center items-center h-[20rem]'>
 
                             {/* speaker box    */}
                             <div className=' w-[18rem] h-[18rem] lg:w-[28rem] lg:h-[25rem] xl:w-[30rem] xl:h-[28rem]
-                             rounded-[2rem] relative mb-4'>
+                             xl:top-[1rem] rounded-[2rem] relative mb-4'>
 
                                 <Image src={homeone} alt="Description" layout="fill" objectFit="cover" />
 
                                 {/* contact box */}
                                 <div className='relative  bg-[#ffbe12] h-[10rem] w-[14rem] left-[63.5%] top-[60%]  rounded-[2rem] 
-                       flex flex-col justify-center items-center lg:top-[60%] lg:left-[72%] '>
+                       flex flex-col justify-center items-center lg:top-[60%] lg:left-[72%] xl:left-[69.5%] xl:top-[62.5%] xl:w-[18rem]'>
 
                                     <span>{`Let's talk
                                 that matters.`}</span>
@@ -132,15 +134,17 @@ const HomePage = () => {
                             </div>
 
                             {/* pattern box */}
-                            <div className='w-[24rem] h-[18rem] lg:w-[31rem]  lg:h-[27rem] xl:w-[35rem] xl:h-[29rem] rounded-[2rem] 
+                            <div className='w-[24rem] h-[18rem] lg:w-[31rem]  lg:h-[27rem] lg:top-[1rem] xl:w-[36rem]
+                             xl:h-[29rem] rounded-[2rem] 
                              relative lg:px-2 '>
 
-                                <div className='h-[3rem] relative top-[-14rem]'>
+                                <div className='h-[3rem] relative top-[-14rem] xl:left-[8rem]'>
                                     <Image
                                         src={curveline}
                                         width={400}
                                         height={500}
                                         alt="Picture of the author"
+                                        className='pb-[1rem]'
 
                                     />
                                 </div>
@@ -149,9 +153,9 @@ const HomePage = () => {
                                     className=' lg:mx-1 lg:mt-[-1rem] xl:mt-[0]' />
 
                                 {/* award box  */}
-                                <div className='relative bg-[#e9e5fe] h-[9rem] w-[6rem] top-[-2rem] lg:h-[11rem] m-auto  left-[34%] rounded-[2rem]
-                        lg:left-[38%] lg:top-[0] '>
-                                    <div className='relative top-[-1rem] left-[1rem]'>
+                                <div className='relative bg-[#e9e5fe] h-[9rem] w-[6rem] top-[-2rem] lg:h-[10rem] m-auto  left-[34%] rounded-[2rem]
+                        lg:left-[38%] lg:top-[0]  xl:w-[8rem] xl:h-[11.5rem]'>
+                                    <div className='relative top-[-1rem] left-[1rem] xl:left-[2rem]'>
                                         <Image
                                             src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
                                             width={60}
@@ -192,13 +196,13 @@ export default HomePage
 const SectionTwo = () => {
     return (
         <>
-            <div className='p-5 mt-10  xl:px-10 xl:w-11/12 m-auto lg:mt-[8rem] xl:[10rem]'>
+            <div className='p-5 mt-10  x xl:px-10 xl:w-11/12 m-auto lg:mt-[10rem] xl:mt-[14rem]'>
                 <div>
 
                     <h2 className='text-[1rem] font-bold tracking-tight'>WHAT WE DO</h2>
                     <div className='md:grid md:grid-cols-2 md:gap-[5rem] xl:gap-[10rem] '>
                         <div className='tracking-widest'>
-                            <h1 className='text-[2rem] md:text-[2.5rem] xl:text-[3rem] md:leading-10 tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>We solve digital challenges</h1>
+                            <h1 className='text-[2rem] md:text-[2.5rem] xl:text-[3rem] md:leading-[3rem] tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>We Offer Comprehensive Business Solution</h1>
                         </div>
                         <div className='mt-5'>
                             <p className='text-bodyTextColor'>Together, we help our clients achieve tangible, measurable results. Focused on business outcomes — we bring a unique set of expertise and skills to the party.</p>
@@ -341,8 +345,10 @@ const SectionFour = () => {
 
                         <span className='text-bodyTextColor'>We offer comprehensive solutions! 📈 Marketing strategy, IT services, SMM, SMO, and more! 💻📊 Boost your business with our expert services, driving growth and success! 🚀</span>
                     </div>
+                    <Link href="/freeAudit">
+                        <DarkButton buttonText={'get proposal'} />
+                    </Link>
 
-                    <DarkButton buttonText={'get proposal'} />
 
                 </div>
 
@@ -555,7 +561,7 @@ const SectionFive = () => {
                     </div>
                 </div>
 
-                <Divider />
+                {/* <Divider /> */}
 
             </div>
         </>

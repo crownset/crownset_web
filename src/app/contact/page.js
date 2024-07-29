@@ -99,7 +99,7 @@ const Page = () => {
                             valueField="id"
                             onChange={(values) => setServiceValue(values)}
                             className='h-[3rem] rounded-[4rem]'
-                        />;
+                        />
                         <div>
                             <input
                                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
