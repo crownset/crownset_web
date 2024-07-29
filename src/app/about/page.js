@@ -89,7 +89,7 @@ const Page = () => {
       <section className='xl:w-11/12 m-auto'>
 
 
-        <p className='text-center text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
+        <p className='text-center px-[1rem] text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
           Our mission at Crownset Marketing Agency is to revolutionize companies by providing outstanding customer service and creative solutions. With more than six years of expertise, we are experts in offering complete business solutions that are customized to your particular requirements.
 
         </p>
@@ -278,7 +278,7 @@ const Page = () => {
         <div className='md:grid md:grid-cols-2 md:gap-7 md:justify-center md:items-start'>
           <div>
             <h2 className='font-bold text-[1rem] md:mt-12 '>TEAM</h2>
-            <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-6 font-[700] 
+            <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
             md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]'>
               Founding Member Spotlight</h1>
           </div>

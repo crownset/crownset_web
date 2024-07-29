@@ -1,30 +1,18 @@
 'use client'
 import React, { useState } from 'react'
 import Image from 'next/image'
-import img1 from '@/assets/images/imcard1.jpg'
-import img2 from '@/assets/images/imcard2.jpg'
-import img3 from '@/assets/images/imcard3.jpg'
+import img1 from '@/assets/images/socialmediapic.png'
+import img2 from '@/assets/images/itpic.png'
+import img3 from '@/assets/images/solutionspic.png'
+
 import { useSwipeable } from 'react-swipeable';
 
-const imageCard = [
-    {
-        "imageUrl": "image",
-        "date": "MAY 2023",
-        "title": "The evolution of live-stream content and short-form video: a look at the TikTok revolution"
-    },
-    {
-        "imageUrl": "image",
-        "date": "MAY 2023",
-        "title": "The Metaverse boom: brands unite and Apple takes a rain check"
-    },
-    {
-        "imageUrl": "image",
-        "date": "MAY 2023",
-        "title": "Verify your site is protecting your business"
-    }
-]
 
-const images = [img1,img2,img3];
+
+
+const images = [img1, img2, img3];
+import sampledata from '@/assets/sampledata/data.json';
+const imageCard = sampledata.imageCard;
 const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
