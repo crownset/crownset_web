@@ -101,7 +101,7 @@ const FreeAudit = () => {
     </div>
      
       <Divider />
-      <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
+      {/* <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
         <div className='text-xl font-extrabold'>
           <p>Credentials & recognition:</p>
         </div>
@@ -122,7 +122,7 @@ const FreeAudit = () => {
             <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/logo_hubspot-qql30k095dt7mir8bgo0ky5rnpjx6t3am36ozba0v4.png" alt='logo3' width={70} height={70} />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
 
   );

@@ -21,6 +21,7 @@ import sampledata from '@/assets/sampledata/data.json';
 import NumbersAndResults from './NumbersAndResults';
 import Divider from './Divider';
 import { homeone, hometwo, curveline } from '@/helpers/icons';
+import Link from 'next/link';
 
 
 const cardone = sampledata.cardone;
@@ -341,8 +342,10 @@ const SectionFour = () => {
 
                         <span className='text-bodyTextColor'>We offer comprehensive solutions! 📈 Marketing strategy, IT services, SMM, SMO, and more! 💻📊 Boost your business with our expert services, driving growth and success! 🚀</span>
                     </div>
+                    <Link href="/freeAudit">
+                        <DarkButton buttonText={'get proposal'} />
+                    </Link>
 
-                    <DarkButton buttonText={'get proposal'} />
 
                 </div>
 
