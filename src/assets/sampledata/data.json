@@ -42,20 +42,32 @@
     {
         "imageUrl": "image",
         "date": "MAY 2023",
-        "title": "The evolution of live-stream content and short-form video: a look at the TikTok revolution"
+        "title": "How social media can help business to grow"
     },
     {
         "imageUrl": "image",
         "date": "MAY 2023",
-        "title": "The Metaverse boom: brands unite and Apple takes a rain check"
+        "title": "How IT and technology propel business growth"
     },
     {
         "imageUrl": "image",
         "date": "MAY 2023",
-        "title": "Verify your site is protecting your business"
+        "title": "Right solution for right one"
     }
 ],
 "featureCardData":[
+    {
+        "heading": "Website Development",
+        "description": "Technologies - Wordpress , Wix , React.js , Next.js , Java , PHP , Laravel , Node.js"
+    },
+    {
+        "heading": "Application Development Both Android/IOS ",
+        "description": "Technologies - React Native , Flutter , Java , Kotlin"
+    },
+    {
+        "heading": "Software Development",
+        "description": "We offer customized software solutions tailored to your business needs to enhance business efficiency and growth"
+    },
     {
         "heading": "Paid search marketing",
         "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
@@ -87,20 +99,25 @@
     {
         "heading": "Amazon shopping",
         "description": "Marketing on Amazon is all about keywords and presentation."
+    },
+    {
+        "heading":"Translation Services",
+        "description":"Enhance your global reach with our Translation Services. We offer accurate and culturally sensitive translations, ensuring your message resonates with audiences worldwide."
     }
+    
 
 ],
 "proofData":[
     {
-        "value":"37%",
+        "value":"40%",
         "descripiton":"Average increase in sales for our clients"
     },
     {
-        "value":"100%",
+        "value":"90%",
         "descripiton":"Google and Facebook-certified team"
     },
     {
-        "value":"81%",
+        "value":"80%",
         "descripiton":"Results improved compared to previous agencies"
     }
 ],
@@ -111,52 +128,61 @@
             "descripiton":"Of Google advertisers"
         },
         {
-            "value":"100%",
+            "value":"80%",
             "descripiton":"Growth clients"
         },
         {
-            "value":"15m",
+            "value":"30L",
             "descripiton":"Managed budgets"
         }
 ],
 "ourValues":[
     {
-        "heading":"Transparency",
-        "description":"No smoke and mirrors here. We believe in being genuine in dealing with all our clients. We’ll say what we’ll do, and then do what we say."
+        "heading":"Client-Centric Approach",
+        "description":"We place our clients at the center of everything we do. Our commitment to understanding your unique needs and delivering tailored solutions ensures that we help you achieve your goals with precision and care."
     },
     {
-        "heading":"Integrity",
-        "description":"We prioritize honesty and integrity, always striving to build relationships rooted in trust. We understand that trust is earned by consistently upholding our uncompromising standards."
+        "heading":"Excellence in Execution",
+        "description":"Quality is our hallmark. We strive for excellence in every project, from the smallest detail to the grandest strategy, ensuring that our work consistently meets the highest standards of performance and creativity."
     },
     {
-        "heading":"Simplicity",
-        "description":"We believe that being an expert should not mean sounding complicated. We are straightforward with our approach, always doing our best to simplify what’s seemingly complex."
+        "heading":"Innovation and Adaptability",
+        "description":"In a constantly evolving digital landscape, we embrace innovation and adaptability. By staying ahead of industry trends and leveraging cutting-edge technologies, we provide solutions that drive growth and keep you ahead of the competition."
     },
     {
-        "heading":"Performance",
-        "description":"Being in the digital marketing space, data is a given. But we aren’t just talking about having access to reports on certain metrics. We ensure each campaign translates into real business growth."
+        "heading":"Collaboration and Integrity",
+        "description":"Teamwork and integrity are the cornerstones of our success. We foster a collaborative environment where open communication and mutual respect lead to exceptional results, while upholding the highest ethical standards in all our interactions."
     }
 ],
 "teamData":[
     {
-        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-ono-kosuki-5648103.jpg",
-        "name":"Herbert Harisson",
+        "url":"",
+        "name":"Mr. Garvit Chawla",
         "designation":"CEO & Founder"
     },
     {
-        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-moose-photos-1587009.jpg",
-        "name":"Stella Boone",
-        "designation":"Operations Manager"
+        "url":"",
+        "name":"Mr. Priyam Pathak",
+        "designation":"COO & Founder"
+    }
+    
+],
+"ourProficiency":[
+    {
+        "heading":"Business Solutions",
+        "description":"To help your company succeed in a cutthroat market, we provide strategic advice and workable solutions."
     },
     {
-        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-edmond-dantes-4342352-1.jpg",
-        "name":"Arthur Price",
-        "designation":"Lead Digital Strategist"
+        "heading":"Digital Marketing",
+        "description":"Your internet presence, traffic, and conversions will all be enhanced by our digital marketing techniques."
     },
     {
-        "url":"https://thecrownset.com/wp-content/uploads/2023/06/pexels-denniz-futalan-3453083.jpg",
-        "name":"Fannie Palmer",
-        "designation":"VP Sales"
+        "heading":"Website Development",
+        "description":"We design and develop beautiful, useful websites that improve user experience and accurately convey the essence of your business."
+    },
+    {
+        "heading":"Translation Services",
+        "description":"Enhance your global reach with our Translation Services. We offer accurate and culturally sensitive translations, ensuring your message resonates with audiences worldwide."
     }
 ]
 }
