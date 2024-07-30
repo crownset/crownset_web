@@ -7,9 +7,12 @@ const querySchema = new Schema({
   businessName: { type: String, required: true },
   queryContent: { type: String, required: true },
   leadBy: { type: String, required: true },
-  assignTo: { type: String, required: true, default: "Garvit Chawla" },
+  // assignTo: { type: String, required: true, default: "Garvit Chawla" },
+
+    assignTo: { type: mongoose.Types.ObjectId, ref: 'userCS', default: "66a77d098f9efb8fcc61b95f"},
+  
   followUp: { type: Boolean, required: true, default: false },
-  lastFollowUp: { type: Date, required: true, default: Date.now() },
+  lastFollowUp: { type: String, required: true, default: Date.now() },
   remarks: {
     type: String,
     required: true,

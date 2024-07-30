@@ -1,11 +1,38 @@
 "use client";
 import Divider from '@/components/Divider';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import * as Icon from "@/helpers/icons"
+import axios from 'axios';
 
 const FreeAudit = () => {
+
+  const [fullName,setFullName] = useState("");
+  const [email,setEmail] = useState("");
+  const [businessName,setBusinessName] = useState("");
+  const [contact,setContact] = useState("");
+  const [queryContent,setQueryContent] = useState("");
+  const [leadBy,setLeadBy] = useState("here");
+
+  const handleSubmit = ()=>{
+    axios.post('/api/teams/addQuery', {
+      fullName,
+      email,
+      businessName,
+      contact,
+      queryContent,
+      leadBy
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  }
+  
   return (
     <>
       <div className='flex flex-col  md:items-center md:justify-center py-5 px-5 linear-gradient md:flex-row'>
@@ -57,49 +84,66 @@ const FreeAudit = () => {
             <img src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1367732506-159x300.png' className='rotate-45 w-[3rem] absolute left-[8rem] bottom-3' />
           </div> */}
           <form className="space-y-4 max-lg:m-auto">
+
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="Name"
                 type="text"
                 placeholder="Name"
+                value={fullName}
+                onChange={(e)=>setFullName(e.target.value)}
               />
             </div>
+
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="Email"
                 type="text"
                 placeholder="Email"
+                value={email}
+                onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
+
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="business"
                 type="text"
                 placeholder="Business Name"
+                value={businessName}
+                onChange={(e)=>setBusinessName(e.target.value)}
               />
             </div>
+
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="phone"
                 type="tel"
                 placeholder="Phone Number"
+                value={contact}
+                onChange={(e)=>setContact(e.target.value)}
               />
             </div>
+
             <div>
               <textarea
                 className="border mb-4 rounded-xl w-full h-[7rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="message"
                 placeholder="what can we help you?"
+                value={queryContent}
+                onChange={(e)=>setQueryContent(e.target.value)}
               />
             </div>
+
             <div className="flex items-center justify-between w-full">
               <button
                 className="bg-black text-white w-full font-bold py-3 px-5 rounded-2xl focus:outline-none focus:shadow-outline hover:bg-[#805CEB]"
                 type="button"
+                onClick={handleSubmit}
               >
                 <span className='underline-from-left'>
                   GET IN TOUCH

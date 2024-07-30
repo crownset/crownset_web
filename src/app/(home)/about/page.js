@@ -2,7 +2,7 @@
 "use client"
 import { DarkButton, UnderlineButton } from '@/components/CustomButtons'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import sampledata from '@/assets/sampledata/data.json';
 import Icon from '@/components/Icon';
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
@@ -41,6 +41,17 @@ const Page = () => {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
+
+  useEffect(()=>{
+    const updateIndex = () => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % teamData.length);
+    };
+
+    const intervalId = setInterval(updateIndex, 2000);
+
+    
+    return () => clearInterval(intervalId);
+  },[teamData.length])
 
   const goToPrevious = () => {
 
@@ -283,7 +294,7 @@ const Page = () => {
               Founding Member Spotlight</h1>
           </div>
 
-          <div className='mt-6'>
+          <div className='mt-6 md:hidden'>
             <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
 
               <div className="flex w-full   transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
@@ -321,11 +332,45 @@ const Page = () => {
               </div>
 
             </div>
-            <div className='flex justify-center items-center space-x-3'>
+            {/* <div className='flex justify-center items-center space-x-3'>
               <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
               <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
-            </div>
+            </div> */}
           </div>
+        </div>
+
+        <div>
+        {teamData.map((card, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5 "
+                  >
+                    <div className="w-full h-full flex flex-col pb-[1rem]">
+                      <div className='rounded-[3rem]' >
+                        <Image
+                          src={teamPic[index]}
+                          width={700}
+                          height={300}
+                          alt="Picture of the author"
+                          className='rounded-[3rem]'
+                        />
+                      </div>
+                      <div className='flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10'>
+                        <div>
+                          <p className="text-xl font-bold leading-6 ">{card.name}</p>
+                          <h2 className="text-bodyTextColor text-sm">{card.designation}</h2>
+                        </div>
+                        <div className="flex flex-row gap-5 items-center">
+
+                          <div>
+                            <span><Icon icon={<LinkedinIcon />} /></span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                ))}
         </div>
 
       </section>
