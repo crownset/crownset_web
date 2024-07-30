@@ -8,7 +8,7 @@ export async function POST(request) {
     await dbConnect()
   var { password } = await request.json();
 
-  password = bcrypt.hashSync(password, parseInt(process.env.BCRYPT_SALT));
+  password = bcrypt.hashSync(password, 10);
 
   const encryptedToken = await request.nextUrl.searchParams.get("token");
 //   console.log("this is encrypted token:",encryptedToken)

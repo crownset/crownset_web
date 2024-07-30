@@ -50,7 +50,7 @@ export async function POST(request) {
 
     user.password = bcrypt.hashSync(
       user.password,
-      parseInt(process.env.BCRYPT_SALT)
+      10
     );
     
     let checkEmail = []
