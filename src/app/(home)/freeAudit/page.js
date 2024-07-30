@@ -1,7 +1,7 @@
 "use client";
 import Divider from '@/components/Divider';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import * as Icon from "@/helpers/icons"
 import axios from 'axios';
@@ -13,7 +13,7 @@ const FreeAudit = () => {
   const [businessName,setBusinessName] = useState("");
   const [contact,setContact] = useState("");
   const [queryContent,setQueryContent] = useState("");
-  const [leadBy,setLeadBy] = useState("here");
+  const [leadBy,setLeadBy] = useState("hello");
 
   const handleSubmit = ()=>{
     axios.post('/api/teams/addQuery', {
@@ -25,11 +25,17 @@ const FreeAudit = () => {
       leadBy
     })
     .then(function (response) {
-      console.log(response);
+      
     })
     .catch(function (error) {
-      console.log(error);
+      
     });
+    setFullName("");
+    setEmail("");
+    setBusinessName("");
+    setContact("");
+    setQueryContent("");
+    
 
   }
   
