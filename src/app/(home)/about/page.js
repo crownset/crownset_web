@@ -2,7 +2,7 @@
 "use client"
 import { DarkButton, UnderlineButton } from '@/components/CustomButtons'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import sampledata from '@/assets/sampledata/data.json';
 import Icon from '@/components/Icon';
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
@@ -17,11 +17,13 @@ import { GrFormNextLink } from "react-icons/gr";
 import { useSwipeable } from 'react-swipeable';
 import Divider from '@/components/Divider';
 import * as images from '@/helpers/icons';
+import Link from 'next/link';
 
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
 const ourProficiencyData = sampledata.ourProficiency;
 const teamPic = [images.garvit, images.priyam];
+const linkedinUrl = ["https://www.linkedin.com/in/garvit-chawla-25084b20b","https://www.linkedin.com/in/priyampathak"]
 
 const Page = () => {
 
@@ -41,6 +43,17 @@ const Page = () => {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
+
+  useEffect(() => {
+    const updateIndex = () => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % teamData.length);
+    };
+
+    const intervalId = setInterval(updateIndex, 2000);
+
+
+    return () => clearInterval(intervalId);
+  }, [teamData.length])
 
   const goToPrevious = () => {
 
@@ -275,7 +288,7 @@ const Page = () => {
       </section>
 
       <section className='px-5 mt-10 xl:w-11/12 m-auto'>
-        <div className='md:grid md:grid-cols-2 md:gap-7 md:justify-center md:items-start'>
+        <div className=''>
           <div>
             <h2 className='font-bold text-[1rem] md:mt-12 '>TEAM</h2>
             <h1 className='text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
@@ -283,7 +296,8 @@ const Page = () => {
               Founding Member Spotlight</h1>
           </div>
 
-          <div className='mt-6'>
+          {/* mobile view */}
+          <div className='mt-6 md:hidden'>
             <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
 
               <div className="flex w-full   transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
@@ -310,7 +324,7 @@ const Page = () => {
                         <div className="flex flex-row gap-5 items-center">
 
                           <div>
-                            <span><Icon icon={<LinkedinIcon />} /></span>
+                            <Link href={linkedinUrl[index]} target="_blank"><Icon icon={<LinkedinIcon />} /></Link>
                           </div>
                         </div>
 
@@ -321,12 +335,50 @@ const Page = () => {
               </div>
 
             </div>
-            <div className='flex justify-center items-center space-x-3'>
+            {/* <div className='flex justify-center items-center space-x-3'>
               <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
               <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
+            </div> */}
+          </div>
+
+          <div className='hidden md:block'>
+            <div className='flex justify-between items-center mt-5'>
+              {teamData.map((card, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-center px-2 mt-5 "
+                >
+                  <div className=" flex flex-col pb-[1rem]">
+                    <div className='rounded-[3rem]' >
+                      <Image
+                        src={teamPic[index]}
+                        width={300}
+                        height={300}
+                        alt="Picture of the author"
+                        className='rounded-[3rem] lg:w-[400px] xl:w-[450px]'
+                      />
+                    </div>
+                    <div className='flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10'>
+                      <div>
+                        <p className="text-xl font-bold leading-6 ">{card.name}</p>
+                        <h2 className="text-bodyTextColor text-sm">{card.designation}</h2>
+                      </div>
+                      <div className="flex flex-row gap-5 items-center">
+
+                        <div>
+                        <Link href={linkedinUrl[index]} target="_blank"><Icon icon={<LinkedinIcon />} /></Link>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
+
+
 
       </section>
 
