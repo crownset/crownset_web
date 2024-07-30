@@ -3,7 +3,7 @@ import Divider from '@/components/Divider';
 import React, { useState } from 'react'
 import { FaLocationDot } from "react-icons/fa6";
 import { ContactAddressCard, contactAddressCard } from '@/components/Cards';
-import * as Icon from "../../helpers/icons"
+import * as Icon from "@/helpers/icons"
 import Image from 'next/image';
 import Select from 'react-dropdown-select';
 

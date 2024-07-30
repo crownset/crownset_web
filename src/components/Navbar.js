@@ -76,16 +76,16 @@ const Navbar = () => {
             >
                 <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg'>
                     <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
-                    OUR SERVICES
+                        OUR SERVICES
                     </Link>
                     <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
-                    WHO WE ARE
+                        WHO WE ARE
                     </Link>
                     <Link href="/work" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
-                    Work
+                        Work
                     </Link>
                     <Link href="/contact" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
-                    Contact
+                        Contact
                     </Link>
                 </div>
             </motion.div>

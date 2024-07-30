@@ -3,7 +3,7 @@ import Divider from '@/components/Divider';
 import Image from 'next/image';
 import React from 'react';
 import { FaCheckCircle } from "react-icons/fa";
-import * as Icon from "../../helpers/icons"
+import * as Icon from "@/helpers/icons"
 
 const FreeAudit = () => {
   return (
