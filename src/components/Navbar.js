@@ -75,17 +75,18 @@ const Navbar = () => {
                 className={`absolute top-26 left-0 w-full rounded-b-[2rem] bg-white shadow-lg ${isClicked ? 'block' : 'hidden'}`}
             >
                 <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3 rounded-b-lg'>
-                    <Link href='/services'>
-                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>OUR SERVICES</a>
+                    <Link href='/services' className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
+                        OUR SERVICES
                     </Link>
-                    <Link href='/about'>
-                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>WHO WE ARE</a>
+                    <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
+                        WHO WE ARE
                     </Link>
-                    <Link href="/work">
-                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>Work</a>
+
+                    <Link href="/work" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
+                        Work
                     </Link>
-                    <Link href="/contact">
-                        <a className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>Contact</a>
+                    <Link href="/contact" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
+                        Contact
                     </Link>
                 </div>
             </motion.div>
