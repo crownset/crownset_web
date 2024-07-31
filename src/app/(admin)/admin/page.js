@@ -1,4 +1,4 @@
-import Queries from '@/components/Queries'
+import Queries from '@/components/admin/Queries'
 import React from 'react'
 
 const page = () => {
