@@ -42,7 +42,7 @@ const Navbar = () => {
                                     <Link href='/services' className='text-black underline-from-left'>OUR SERVICES</Link>
                                     <Link href='/about' className='text-black underline-from-left'>WHO WE ARE</Link>
                                     <Link href="/work" className='text-black underline-from-left'>WORK</Link>
-                                    <Link href="/contact" className='text-black underline-from-left'>Contact</Link>
+                                    <Link href="/contact" className='text-black underline-from-left'>CONTACT</Link>
                                 </div>
                             </div>
                             <div className='lg:hidden flex items-center'>

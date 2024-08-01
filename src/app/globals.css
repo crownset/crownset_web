@@ -37,7 +37,26 @@
     margin: auto;
   }
 
-  .imgcontainer{
+  .imgcontainer {
     background-color: rgba(0, 0, 255, 0.5);
   }
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  .animate-scroll {
+    display: flex;
+    animation: scroll 10s linear infinite;
+  }
+
 }

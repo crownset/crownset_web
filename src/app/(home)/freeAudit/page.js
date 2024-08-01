@@ -1,44 +1,34 @@
 "use client";
 import Divider from '@/components/Divider';
 import Image from 'next/image';
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import * as Icon from "@/helpers/icons"
 import axios from 'axios';
+import { postQuery } from "@/redux/slices/querySlice"
+import { useDispatch } from 'react-redux';
 
 const FreeAudit = () => {
+  const dispatch = useDispatch()
+  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy:"test lead" })
 
-  const [fullName,setFullName] = useState("");
-  const [email,setEmail] = useState("");
-  const [businessName,setBusinessName] = useState("");
-  const [contact,setContact] = useState("");
-  const [queryContent,setQueryContent] = useState("");
-  const [leadBy,setLeadBy] = useState("hello");
 
-  const handleSubmit = ()=>{
-    axios.post('/api/teams/addQuery', {
-      fullName,
-      email,
-      businessName,
-      contact,
-      queryContent,
-      leadBy
-    })
-    .then(function (response) {
-      
-    })
-    .catch(function (error) {
-      
-    });
-    setFullName("");
-    setEmail("");
-    setBusinessName("");
-    setContact("");
-    setQueryContent("");
-    
-
+  const handleChange = (e) => {
+    setQueryCredential({ ...queryCredential, [e.target.name]: e.target.value })
   }
-  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postQuery(queryCredential))
+    setQueryCredential({
+      fullName:"",
+      email:"",
+      businessName:"",
+      contact:"",
+      queryContent:""
+    })
+    console.log("loginUser===>", postQuery)
+  }
   return (
     <>
       <div className='flex flex-col  md:items-center md:justify-center py-5 px-5 linear-gradient md:flex-row'>
@@ -94,54 +84,54 @@ const FreeAudit = () => {
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Name"
+                name='fullName'
                 type="text"
                 placeholder="Name"
-                value={fullName}
-                onChange={(e)=>setFullName(e.target.value)}
+                value={queryCredential?.fullName}
+                onChange={handleChange}
               />
             </div>
 
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Email"
+                name='email'
                 type="text"
                 placeholder="Email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                value={queryCredential?.email}
+                onChange={handleChange}
               />
             </div>
 
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="business"
+                name='businessName'
                 type="text"
                 placeholder="Business Name"
-                value={businessName}
-                onChange={(e)=>setBusinessName(e.target.value)}
+                value={queryCredential?.businessName}
+                onChange={handleChange}
               />
             </div>
 
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="phone"
+                name='contact'
                 type="tel"
                 placeholder="Phone Number"
-                value={contact}
-                onChange={(e)=>setContact(e.target.value)}
+                value={queryCredential?.contact}
+                onChange={handleChange}
               />
             </div>
 
             <div>
               <textarea
                 className="border mb-4 rounded-xl w-full h-[7rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="message"
+                name='queryContent'
                 placeholder="what can we help you?"
-                value={queryContent}
-                onChange={(e)=>setQueryContent(e.target.value)}
+                value={queryCredential?.queryContent}
+                onChange={handleChange}
               />
             </div>
 

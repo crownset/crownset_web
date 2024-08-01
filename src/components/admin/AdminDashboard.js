@@ -15,7 +15,7 @@ import Cookies from 'js-cookie';
 import Link from 'next/link';
 
 const AdminDashboard = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(true);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [loading, setLoading] = useState(true); // Add loading state
     const dispatch = useDispatch();
