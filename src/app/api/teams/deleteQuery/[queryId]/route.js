@@ -9,8 +9,6 @@ export async function PUT(request,{params}) {
 
   await dbConnect();
 
-  const {assignTo,followUp,lastFollowUp,remarks} = await request.json()
-
   try {
 
     const token = await verifyToken()
@@ -25,16 +23,13 @@ export async function PUT(request,{params}) {
 
 
       const query = await Query.findById(queryId);
-      query.assignTo = assignTo,
-      query.followUp = followUp,
-      query.lastFollowUp = lastFollowUp,
-      query.remarks = remarks
+      query.isDeleted = true
       
       const updatedQuery = await query.save()
 
       return NextResponse.json({
         data: updatedQuery,
-        message: "Query Successfully Updated",
+        message: "Query Deleted Successfully",
         status: 200
       });
     }

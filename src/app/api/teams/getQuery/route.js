@@ -11,15 +11,14 @@ export async function GET(request) {
 
   try{
 
-    const token = await verifyToken()
+      const token = await verifyToken()
 
     if(token== "" || !token){
       return NextResponse.json({message: "login required"});
   }
-    
     if(token && token.user.accessId ==1){
 
-      const query = await Query.find()
+      const query = await Query.find({isDeleted:false})
       return NextResponse.json(query)
     }
 
@@ -30,7 +29,6 @@ export async function GET(request) {
   }
 
   catch(error){
-    conole.log(error)
     return NextResponse.json(error)
   }
 

@@ -20,6 +20,7 @@ const querySchema = new Schema({
     default: "Premature"
   },
   queryDate: { type: Date, required: true, default: Date.now() },
+  isDeleted: {type: Boolean, required:true, default: false} 
 });
 
 export const Query = mongoose.models.queries || mongoose.model("queries", querySchema);
