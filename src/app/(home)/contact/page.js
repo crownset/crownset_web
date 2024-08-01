@@ -39,7 +39,7 @@ const Page = () => {
                 <div className='md:w-1/2'>
                     <div className='flex flex-col gap-4'>
                         <p className='font-bold text-lg text-black'>CONTACT</p>
-                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We re here to help you grow</h1>
+                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We&apos;re here to help you grow</h1>
                         <p className='font-bold text-base lg:text-xl lg:w-3/4'>Feel free to reach out to us through your preferred method of contact. We are eager to connect with you and explore how our digital marketing team can contribute to your success.</p>
                     </div>
                     <div className='flex flex-col gap-5 py-10 lg:flex-row  lg:gap-28 '>

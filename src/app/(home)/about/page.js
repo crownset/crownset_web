@@ -18,6 +18,7 @@ import { useSwipeable } from 'react-swipeable';
 import Divider from '@/components/Divider';
 import * as images from '@/helpers/icons';
 import Link from 'next/link';
+import { CardFour, CardThree } from '@/components/Cards';
 
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
@@ -53,7 +54,7 @@ const Page = () => {
 
 
     return () => clearInterval(intervalId);
-  }, [teamData.length])
+  }, [])
 
   const goToPrevious = () => {
 
@@ -122,24 +123,24 @@ const Page = () => {
 
           <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[0].heading}
               description={ourProficiencyData[0].description}
             />
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[1].heading}
               description={ourProficiencyData[1].description}
             />
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[2].heading}
               description={ourProficiencyData[2].description}
             />
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[3].heading}
               description={ourProficiencyData[3].description}
@@ -180,24 +181,24 @@ const Page = () => {
 
             <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[0].heading}
                 description={ourValues[0].description}
               />
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[1].heading}
                 description={ourValues[1].description}
               />
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[2].heading}
                 description={ourValues[2].description}
               />
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[3].heading}
                 description={ourValues[3].description}

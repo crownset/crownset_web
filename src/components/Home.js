@@ -122,8 +122,8 @@ const HomePage = () => {
                                 <Image src={homeone} alt="Description" layout="fill" objectFit="cover" />
 
                                 {/* contact box */}
-                                <div className='relative  bg-[#ffbe12] h-[10rem] w-[14rem] left-[63.5%] top-[60%]  rounded-[2rem] 
-                       flex flex-col justify-center items-center lg:top-[60%] lg:left-[72%] xl:left-[69.5%] xl:top-[62.5%] xl:w-[18rem]'>
+                                <div className='relative  bg-[#ffbe12] h-[8rem] w-[12rem] left-[69%] top-[60%]  rounded-[2rem] 
+                       flex flex-col justify-center items-center lg:h-[10rem] lg:w-[14rem] lg:top-[60%] lg:left-[72%] xl:left-[69.5%] xl:top-[62.5%] xl:w-[18rem]'>
 
                                     <span>{`Let's talk
                                 that matters.`}</span>
