@@ -8,15 +8,17 @@ export async function verifyToken(){
 
     const tokenCookie = cookie.getAll()[0].value;
 
-        var token = "" 
+        let token = "" 
 
-        console.log("tokenC", tokenCookie);
-        if (!tokenCookie || tokenCookie == "") {
+        if (!tokenCookie || tokenCookie == "" && token === "undefined") {
+          
             return token
           }
 
           else{
             token = jwt.verify(tokenCookie, process.env.SECRET_KEY);
+
+            console.log("verify",token)
             
             return token
 

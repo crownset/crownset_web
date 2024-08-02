@@ -2,6 +2,9 @@ import { Kanit as KanitFont } from "next/font/google";
 import "@/app/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ClientProvider from "@/redux/ClientProvider";
+// import store from "../../store"
+// import { Provider } from "react-redux";
 
 
 const kanit = KanitFont({
@@ -19,10 +22,13 @@ export default function RootLayout({ children }) {
   return (
     <html className={kanit.className}>
       <body className={kanit.className}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body> 
+        <ClientProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ClientProvider>
+
+      </body>
     </html>
   );
 }
