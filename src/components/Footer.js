@@ -6,6 +6,7 @@ import { FaFacebook } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
 import { RxCross2 } from "react-icons/rx";
 import Divider from './Divider';
+import Link from 'next/link';
 
 const solutions = [
     { id: 1, name: 'Paid search marketing' },
@@ -55,16 +56,18 @@ const Footer = () => {
                             <p>+91 816 869 5799</p>
                         </div>
                         <button className='bg-black text-white p-3 rounded-[20px] w-48 flex flex-row justify-around items-center hover:bg-[#805CEB]'>
-                            <span className='underline-from-left'>
-                                GET A FREE AUDIT
-                            </span>
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
+                            <Link href="/freeAudit">
+                                <span className='underline-from-left'>
+                                    GET A FREE AUDIT
+                                </span>
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </Link>
                         </button>
                     </div>
                 </div>
-               <Divider/>
+                <Divider />
                 <div className='flex flex-row items-center justify-between px-20 max-lg:px-10 '>
                     <div className='flex flex-col gap-4 max-md:hidden '>
                         <div className='font-semibold'>

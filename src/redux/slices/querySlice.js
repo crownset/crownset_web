@@ -24,6 +24,18 @@ export const postQuery = createAsyncThunk(
     }
 )
 
+export const DeleteQuery = createAsyncThunk(
+    "data/deleteData",
+   async (id, {rejectWithValue}) => {
+    try{
+        const deleteResponse = await axios.delete(`/api/teams/deleteQuery/${id}`)
+        return deleteResponse.data
+    }catch(error){
+        return rejectWithValue(error.deleteResponse.data)
+    }
+   }
+)
+
 const initialState = {
     data: [],
     loading: false,
