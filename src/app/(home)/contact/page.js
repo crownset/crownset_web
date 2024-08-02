@@ -17,7 +17,7 @@ const Page = () => {
     const [service, setServiceValue] = useState(null)
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.data);
-    const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead" });
+    const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead", service: "" });
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -26,9 +26,17 @@ const Page = () => {
             setErrors({ ...errors, [e.target.name]: '' });
         }
     }
+
+    const handleSelectChange = (selected) => {
+        setQueryCredential({ ...queryCredential, service: selected[0]?.name || '' });
+        if (errors.service) {
+            setErrors({ ...errors, service: '' });
+        }
+    }
+
     const handleSubmit = async (e) => {
-        console.log("sumbit===>")
         e.preventDefault();
+        console.log("queryCredential===>", queryCredential)
         const newErrors = {};
         if (!queryCredential.fullName) {
             newErrors.fullName = 'This field is required';
@@ -39,6 +47,8 @@ const Page = () => {
         } else if (!queryCredential.contact) {
             newErrors.contact = 'This field is required';
         } else if (!queryCredential.queryContent) {
+            newErrors.queryContent = 'This field is required';
+        } else if (!queryCredential.service) {
             newErrors.queryContent = 'This field is required';
         }
         if (Object.keys(newErrors).length > 0) {
@@ -90,7 +100,7 @@ const Page = () => {
                 <div className='md:w-1/2'>
                     <div className='flex flex-col gap-4'>
                         <p className='font-bold text-lg text-black'>CONTACT</p>
-                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We re here to help you grow</h1>
+                        <h1 className='font-extrabold text-4xl text-black lg:text-6xl lg:w-1/2'>We&apos;re here to help you grow</h1>
                         <p className='font-bold text-base lg:text-xl lg:w-3/4'>Feel free to reach out to us through your preferred method of contact. We are eager to connect with you and explore how our digital marketing team can contribute to your success.</p>
                     </div>
                     <div className='flex flex-col gap-5 py-10 lg:flex-row  lg:gap-28 '>
@@ -115,7 +125,7 @@ const Page = () => {
                             <div>
                                 <ul>
                                     <li className='font-medium text-lg lg:w-1/2'>
-                                    127, Tower B, Logix Texhnova, Sector 132, Noida
+                                        127, Tower B, Logix Texhnova, Sector 132, Noida
                                     </li>
                                 </ul>
                             </div>
@@ -160,14 +170,16 @@ const Page = () => {
                             />
                             {errors.businessName && <p className="text-red-500 text-sm">{errors.businessName}</p>}
                         </div>
-                        {/* <Select
+                        <Select
                             options={options}
                             placeholder="Select Service"
                             labelField="name"
                             valueField="id"
-                            onChange={(values) => setServiceValue(values)}
+                            value={service}
+                            onChange={handleSelectChange}
                             className='h-[3rem] rounded-[4rem]'
-                        /> */}
+                        />
+                        {errors.service && <p className="text-red-500 text-sm">{errors.service}</p>}
                         <div>
                             <input
                                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

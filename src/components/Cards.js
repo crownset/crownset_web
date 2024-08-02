@@ -2,18 +2,59 @@ import { UnderlineButton } from "@/components/CustomButtons";
 import Image from "next/image";
 import { ImArrowUp as ArrowUpIcon } from "react-icons/im";
 
+
+export const CardFour = ({ heading, icon, description })=>{
+    return(
+        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
+
+        <div className='xl:h-[18rem] md:h-[17rem] lg:h-[13rem]'>
+
+            <span>{icon}</span>
+
+            <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
+
+            <p className='mt-3 text-bodyTextColor'>
+                {description}
+            </p>
+        </div>
+
+
+    </div>        
+    )
+}
+
+export const CardThree = ({ heading, icon, description })=>{
+    return(
+        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
+
+        <div className='xl:h-[23rem] md:h-[18rem] '>
+
+            <span>{icon}</span>
+
+            <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
+
+            <p className='mt-3 text-bodyTextColor'>
+                {description}
+            </p>
+        </div>
+
+
+    </div>        
+    )
+}
+
 export const CardTwo = ({ heading, icon, description }) => {
     return (
         <>
             <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
 
-                <div className='xl:h-[19rem] md:h-[17rem]'>
+                <div className='xl:h-[19rem] md:h-[17rem] lg:h-[12rem]'>
 
                     <span>{icon}</span>
 
                     <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
-                    <p className='mt-5 text-bodyTextColor'>
+                    <p className='mt-3 text-bodyTextColor'>
                         {description}
                     </p>
                 </div>
@@ -48,12 +89,14 @@ export const CardOne = ({ heading, icon, description }) => {
         <>
             <div className='border py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7'>
 
+
+
                 <div className='flex justify-between items-center lg:gap-[1rem]'>
                     <h1 className='text-[1.3rem] lg:text-[1.9rem] font-bold'>{heading}</h1>
                     <span>{icon}</span>
                 </div>
 
-                <p className='mt-5 text-bodyTextColor'>
+                <p className='mt-3 text-bodyTextColor'>
                     {description}
                 </p>
 

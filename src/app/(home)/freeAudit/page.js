@@ -9,17 +9,45 @@ import { postQuery } from "@/redux/slices/querySlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners';
+import Select from 'react-dropdown-select';
 
 const FreeAudit = () => {
   const dispatch = useDispatch();
+  const [service, setServiceValue] = useState(null)
   const { loading, error } = useSelector((state) => state.data);
-  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead" });
+  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead", service: "" });
   const [errors, setErrors] = useState({});
+
+  const options = [
+    {
+      id: 1,
+      name: 'Digital Marketing'
+    },
+    {
+      id: 2,
+      name: 'Social Media Marketing'
+    },
+    {
+      id: 3,
+      name: "Business Solutions"
+    },
+    {
+      id: 4,
+      name: "IT Services"
+    }
+  ];
 
   const handleChange = (e) => {
     setQueryCredential({ ...queryCredential, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: '' });
+    }
+  }
+
+  const handleSelectChange = (selected) => {
+    setQueryCredential({ ...queryCredential, service: selected[0]?.name || '' });
+    if (errors.service) {
+      setErrors({ ...errors, service: '' });
     }
   }
 
@@ -139,6 +167,16 @@ const FreeAudit = () => {
               />
               {errors.businessName && <p className="text-red-500 text-sm">{errors.businessName}</p>}
             </div>
+            <Select
+              options={options}
+              placeholder="Select Service"
+              labelField="name"
+              valueField="id"
+              value={service}
+              onChange={handleSelectChange}
+              className='h-[3rem] rounded-[4rem]'
+            />
+            {errors.service && <p className="text-red-500 text-sm">{errors.service}</p>}
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
