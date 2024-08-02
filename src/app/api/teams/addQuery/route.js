@@ -5,7 +5,7 @@ import { dbConnect } from "@/helpers/db"
 
 export async function POST(request) {
   await dbConnect()
-  const { fullName, email, contact, businessName, queryContent, leadBy } =
+  const { fullName, email, contact, businessName, queryContent, leadBy, service } =
     await request.json();
 
   try {
@@ -34,6 +34,10 @@ export async function POST(request) {
         return getResponse("Lead By is required field", 500, false)
     }
 
+    else if(!service || service == ""){
+      return getResponse("Service is required field", 500, false)
+  }
+
     const query = await new Query({
       fullName,
       email,
@@ -41,6 +45,7 @@ export async function POST(request) {
       businessName,
       queryContent,
       leadBy,
+      service
     });
     query.save();
 
