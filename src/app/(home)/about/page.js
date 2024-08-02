@@ -84,6 +84,7 @@ const Page = () => {
             <h2 className='text-[1rem] font-semibold'>ABOUT US</h2>
             <h1 className='text-[2rem] md:text-[3rem] md:leading-[3rem]
             xl:text-[4.2rem] xl:leading-[4rem] leading-8 lg:leading-[3rem] font-[700] text-[#560a39] mt-3 tracking-wide'>Excellence is in our Blood,</h1>
+            <p className='mt-4 pr-3 lg:pr-9 lg:text-[1.2rem] text-bodyTextColor'>At Crownset, we empower businesses to not just participate in the market but to lead it. With our innovative business solutions and IT services, we transform your ideas into a powerful brand presence. Our expertise in marketing, coupled with cutting-edge technology, ensures that you don&apos;t just follow trends—you set them. Join us and let Crownset turn your business into a brand that stands out and thrives.</p>
 
           </div>
           <div className='mt-10'>
