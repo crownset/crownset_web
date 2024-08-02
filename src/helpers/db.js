@@ -7,7 +7,7 @@ const config = {
 }
 
 export async function dbConnect(){
-
+    console.log("config", config.isConnected)
     if(config.isConnected){
         return;
     }
@@ -19,10 +19,6 @@ export async function dbConnect(){
         console.log(process.env.URL)
         const {connection} = await mongoose.connect(process.env.URL,{
             dbName:"Work",})
-
-
-
-        console.log("CONNECTION",connection.readyState)
         console.log("db Connected")
         config.isConnected = connection._readyState
 

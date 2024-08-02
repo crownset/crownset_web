@@ -14,7 +14,7 @@ import Select from 'react-dropdown-select';
 const FreeAudit = () => {
   const dispatch = useDispatch();
   const [service, setServiceValue] = useState(null)
-  const { loading, error } = useSelector((state) => state.data);
+  const { loading, error , data} = useSelector((state) => state.data);
   const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead", service: "" });
   const [errors, setErrors] = useState({});
 
@@ -80,10 +80,12 @@ const FreeAudit = () => {
           queryContent: "",
           leadBy: "test lead"
         });
-        toast.success("Your query was saved successfully!");
+        toast.success(data?.message);
+        console.log(data?.message)
       })
-      .catch(() => {
+      .catch((error) => {
         toast.error("There was an error saving your query.");
+        console.log(error)
       });
   }
 

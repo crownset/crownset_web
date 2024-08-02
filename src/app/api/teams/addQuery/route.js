@@ -38,7 +38,7 @@ export async function POST(request) {
       return getResponse("Service is required field", 500, false)
   }
 
-    const query = await new Query({
+    const query = new Query({
       fullName,
       email,
       contact,
@@ -47,8 +47,8 @@ export async function POST(request) {
       leadBy,
       service
     });
-    query.save();
-
+    await query.save();
+    
     return NextResponse.json({
       message: "Query Saved Sucessfully",
     });
