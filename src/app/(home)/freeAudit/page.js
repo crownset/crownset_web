@@ -3,32 +3,62 @@ import Divider from '@/components/Divider';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
-import * as Icon from "@/helpers/icons"
-import axios from 'axios';
-import { postQuery } from "@/redux/slices/querySlice"
-import { useDispatch } from 'react-redux';
+import * as Icon from "@/helpers/icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { postQuery } from "@/redux/slices/querySlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ClipLoader } from 'react-spinners';
 
 const FreeAudit = () => {
-  const dispatch = useDispatch()
-  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy:"test lead" })
-
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.data);
+  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead" });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setQueryCredential({ ...queryCredential, [e.target.name]: e.target.value })
+    setQueryCredential({ ...queryCredential, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: '' });
+    }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newErrors = {};
+    if (!queryCredential.fullName) {
+      newErrors.fullName = 'This field is required';
+    } else if (!queryCredential.email) {
+      newErrors.email = 'This field is required';
+    } else if (!queryCredential.businessName) {
+      newErrors.businessName = 'This field is required';
+    } else if (!queryCredential.contact) {
+      newErrors.contact = 'This field is required';
+    } else if (!queryCredential.queryContent) {
+      newErrors.queryContent = 'This field is required';
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     dispatch(postQuery(queryCredential))
-    setQueryCredential({
-      fullName:"",
-      email:"",
-      businessName:"",
-      contact:"",
-      queryContent:""
-    })
-    console.log("loginUser===>", postQuery)
+      .unwrap()
+      .then(() => {
+        setQueryCredential({
+          fullName: "",
+          email: "",
+          businessName: "",
+          contact: "",
+          queryContent: "",
+          leadBy: "test lead"
+        });
+        toast.success("Your query was saved successfully!");
+      })
+      .catch(() => {
+        toast.error("There was an error saving your query.");
+      });
   }
+
   return (
     <>
       <div className='flex flex-col  md:items-center md:justify-center py-5 px-5 linear-gradient md:flex-row'>
@@ -73,14 +103,9 @@ const FreeAudit = () => {
               </div>
             </div>
           </div>
-
         </div>
         <div className=" bg-white rounded-3xl px-10 py-10 mt-10 mb-10 border-shadow md:w-1/3">
-          {/* <div className=''>
-            <img src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1367732506-159x300.png' className='rotate-45 w-[3rem] absolute left-[8rem] bottom-3' />
-          </div> */}
-          <form className="space-y-4 max-lg:m-auto">
-
+          <form className="space-y-4 max-lg:m-auto" onSubmit={handleSubmit}>
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -90,8 +115,8 @@ const FreeAudit = () => {
                 value={queryCredential?.fullName}
                 onChange={handleChange}
               />
+              {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
             </div>
-
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -101,8 +126,8 @@ const FreeAudit = () => {
                 value={queryCredential?.email}
                 onChange={handleChange}
               />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
-
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -112,69 +137,55 @@ const FreeAudit = () => {
                 value={queryCredential?.businessName}
                 onChange={handleChange}
               />
+              {errors.businessName && <p className="text-red-500 text-sm">{errors.businessName}</p>}
             </div>
-
             <div>
               <input
                 className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name='contact'
-                type="tel"
+                type="number"
+                maxLength={10}
                 placeholder="Phone Number"
                 value={queryCredential?.contact}
                 onChange={handleChange}
               />
+              {errors.contact && <p className="text-red-500 text-sm">{errors.contact}</p>}
             </div>
-
             <div>
               <textarea
                 className="border mb-4 rounded-xl w-full h-[7rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 name='queryContent'
-                placeholder="what can we help you?"
+                placeholder="What can we help you with?"
                 value={queryCredential?.queryContent}
                 onChange={handleChange}
               />
+              {errors.queryContent && <p className="text-red-500 text-sm">{errors.queryContent}</p>}
             </div>
-
             <div className="flex items-center justify-between w-full">
               <button
                 className="bg-black text-white w-full font-bold py-3 px-5 rounded-2xl focus:outline-none focus:shadow-outline hover:bg-[#805CEB]"
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
+                disabled={loading}
               >
-                <span className='underline-from-left'>
-                  GET IN TOUCH
-                </span>
+                {loading ?
+                  (
+                    <ClipLoader
+                      color={"#FFFFFF"}
+                      loading={loading}
+                      size={10}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    />
+                  )
+                  : 'GET IN TOUCH'}
               </button>
             </div>
           </form>
         </div>
       </div>
-
       <Divider />
-      {/* <div className='flex items-center justify-center gap-5 py-10 max-md:flex-col'>
-        <div className='text-xl font-extrabold'>
-          <p>Credentials & recognition:</p>
-        </div>
-        <div className='flex items-center justify-center gap-8  max-md:flex-wrap'>
-          <div>
-            <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/56cf51c7d935aba26a8f553867bf878b-qql2z74lvkd216ad5m0wcz170nmakss1bbb0a7qwps.png" alt='logo' width={70} height={70} />
-          </div>
-          <div>
-            <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20220412-1161242-19o8jy5-qql30lvw4majg48mx7yr3m833go44gdjiaj875nnds.png" alt='logo1' width={70} height={70} />
-          </div>
-          <div>
-            <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211006-5432-t7lh3l-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo2' width={70} height={70} />
-          </div>
-          <div>
-            <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/new-badge20211005-28345-8m8kvp-qql30ky1xs994ia02pk4j4gmi2sqwr9t65vqpvp1k0.png" alt='logo3' width={70} height={70} />
-          </div>
-          <div>
-            <Image src="https://thecrownset.com/wp-content/uploads/elementor/thumbs/logo_hubspot-qql30k095dt7mir8bgo0ky5rnpjx6t3am36ozba0v4.png" alt='logo3' width={70} height={70} />
-          </div>
-        </div>
-      </div> */}
+      <ToastContainer />
     </>
-
   );
 }
 

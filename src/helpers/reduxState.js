@@ -12,5 +12,5 @@ export const handleAsyncActions = (builder, action, initialState = {}) => {
         .addCase(action.rejected, (state, action) => {
             state.error = action.error.message;
             state.loading = false;
-        });
+        })
 };
