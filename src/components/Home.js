@@ -249,7 +249,7 @@ const SectionThird = () => {
                   '>
                     <Image
                         className='rounded-[3rem] aspect-auto object-cover px-[1rem]'
-                        src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1193505273-1024x417.jpg'
+                        src={images.homeimg}
                         width={1280}
                         height={417}
                         alt="Picture of the author"

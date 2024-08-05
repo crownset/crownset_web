@@ -13,7 +13,7 @@ const kanit = KanitFont({
 
 export const metadata = {
   title: "Crownset Marketing Agency",
-  description: "",
+  description: "Crownset Marketing Agency , Business Solutions",
 };
 
 export default function RootLayout({ children }) {
