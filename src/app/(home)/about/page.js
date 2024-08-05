@@ -89,7 +89,7 @@ const Page = () => {
           </div>
           <div className='mt-10'>
             <Image
-              src="https://thecrownset.com/wp-content/uploads/2024/07/social-media-marketing-concept-marketing-with-applications-1024x683.webp"
+              src={images.aboutimg1}
               width={800}
               height={500}
               className='rounded-[2rem]'
@@ -160,11 +160,11 @@ const Page = () => {
           <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
   '>
             <Image
-              className='rounded-[3rem] aspect-auto object-cover px-[1rem] xl:w-11/12 m-auto'
-              src='https://thecrownset.com/wp-content/uploads/2023/05/pexels-moe-magners-7495294-1024x417.jpg'
+              className='rounded-[3rem] aspect-auto object-cover px-[1rem] h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto'
+              src={images.aboutimg2}
               width={1280}
               height={417}
-              alt="Picture of the author"
+              alt="Picture of the author "
             />
           </div>
 
@@ -221,7 +221,9 @@ const Page = () => {
           </div>
           <div className='mt-6'>
             <p className='text-bodyTextColor'>After years of experience, we&apos;ve learned that each service area offers unique advantages. To maximize these benefits, we strategically combine them to create comprehensive solutions. We provide our clients with full-service strategies that include business solutions, IT services, and digital marketing, enhancing visibility, boosting conversions, and driving revenue.</p>
+            <Link href="/services">
             <UnderlineButton buttonName={'Business SOLUTIONS'} />
+            </Link>
           </div>
         </div>
       </section>

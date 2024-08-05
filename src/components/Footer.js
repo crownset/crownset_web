@@ -1,11 +1,13 @@
 "use client"
 import Image from 'next/image';
 import { useState } from 'react';
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
+import { FaInstagram, } from "react-icons/fa"
+import { FaLinkedin } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
 import { RxCross2 } from "react-icons/rx";
 import Divider from './Divider';
+import Link from 'next/link';
 
 const solutions = [
     { id: 1, name: 'Paid search marketing' },
@@ -54,17 +56,19 @@ const Footer = () => {
                         <div className='text-right font-semibold underline-from-left'>
                             <p>+91 816 869 5799</p>
                         </div>
-                        <button className='bg-black text-white p-3 rounded-[20px] w-48 flex flex-row justify-around items-center hover:bg-[#805CEB]'>
-                            <span className='underline-from-left'>
-                                GET A FREE AUDIT
-                            </span>
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                                <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
+                        <Link href="\freeAudit">
+                            <button className='bg-black text-white p-3 rounded-[20px] w-48 flex flex-row justify-around items-center hover:bg-[#805CEB]'>
+                                <span className='underline-from-left'>
+                                    GET A FREE AUDIT
+                                </span>
+                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                </svg>
+                            </button>
+                        </Link>
                     </div>
                 </div>
-               <Divider/>
+                <Divider />
                 <div className='flex flex-row items-center justify-between px-20 max-lg:px-10 '>
                     <div className='flex flex-col gap-4 max-md:hidden '>
                         <div className='font-semibold'>
@@ -107,7 +111,9 @@ const Footer = () => {
                         <div className='grid grid-cols-4 gap-4 pb-5 max-md:flex max-md:flex-col'>
                             {solutions.map(solution => (
                                 <div key={solution.id} className='flex flex-col items-center font-extralight '>
-                                    <p className='lg:underline-from-left cursor-pointer text-center max-md:w-full max-md:text-start '>{solution.name}</p>
+                                    <button className='lg:underline-from-left cursor-pointer text-center max-md:w-full max-md:text-start '>
+                                        <Link href="/services">{solution.name}</Link>
+                                    </button>
                                 </div>
                             ))}
                         </div>
@@ -139,13 +145,25 @@ const Footer = () => {
                         }
                     </div>
                     <div className='max-md:hidden flex flex-row justify-between items-center py-5'>
-                        {
-                            footerContent.map(content => (
-                                <div key={content.id}>
-                                    <p className='underline-from-left cursor-pointer'>{content.name}</p>
-                                </div>
-                            ))
-                        }
+                        <div >
+                            <Link href="/about"><p className='underline-from-left cursor-pointer'>About</p></Link>
+                        </div>
+
+                        <div >
+                            <p className='underline-from-left cursor-pointer'>Blog</p>
+                        </div>
+
+                        <div >
+                            <p className='underline-from-left cursor-pointer'>Careers</p>
+                        </div>
+
+                        <div >
+                            <p className='underline-from-left cursor-pointer'>Team</p>
+                        </div>
+
+                        <div>
+                            <Link href="/contact"> <p className='underline-from-left cursor-pointer'>Contact</p></Link>
+                        </div>
                     </div>
                     <hr className='pt-5 w-full ' />
                     <div className='flex flex-row justify-between items-center pt-5 max-md:flex-col max-md:gap-3'>
@@ -158,16 +176,20 @@ const Footer = () => {
                         </div>
                         <div className='flex flex-row items-center gap-6 max-md:w-full'>
                             <div>
-                                <FaInstagram className='hover:text-[#8080F5] size-5' />
+                                <Link href="https://www.instagram.com/thecrownset/?igsh=MWJkdnMxbzNjMGQ1&utm_source=qr" target="_blank">
+                                    <FaInstagram className='hover:text-[#8080F5] size-5' />
+                                </Link>
+                            </div>
+
+                            <div>
+                                <Link href="https://www.facebook.com/people/Crownset/61561915785950/?mibextid=LQQJ4d" target='_blank'>
+                                    <FaFacebook className='hover:text-[#8080F5] size-5' />
+                                </Link>
                             </div>
                             <div>
-                                <FaTwitter className='hover:text-[#8080F5] size-5' />
-                            </div>
-                            <div>
-                                <FaFacebook className='hover:text-[#8080F5] size-5' />
-                            </div>
-                            <div>
-                                <FaYoutube className='hover:text-[#8080F5] size-5' />
+                                <Link href="https://www.linkedin.com/company/thecrownset/mycompany/" target="_blank">
+                                    <FaLinkedin className='hover:text-[#8080F5] size-5' />
+                                </Link>
                             </div>
                         </div>
                     </div>
