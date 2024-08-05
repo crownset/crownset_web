@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
 import WorkCards from '@/components/WorkCards'
-import shoesImage from '@/assets/images/cheese.jpg'
 import { DarkButton } from '@/components/CustomButtons'
 import ReviewCarousel from '@/components/ReviewCarousel'
 import Divider from '@/components/Divider'

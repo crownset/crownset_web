@@ -17,5 +17,13 @@ export const benz_logo  = require("../assets/images/mbvector.png")
 export const nestle_logo  = require("../assets/images/nestlevector.png")
 export const netflix_logo  = require("../assets/images/netflixvector.png")
 export const nike_logo  = require("../assets/images/nikevector.png")
+export const serviceimg2 = require("../assets/images/serviceimg2.jpg")
+export const aboutimg1 = require("../assets/images/aboutimg1.jpg");
+export const aboutimg2 = require("../assets/images/aboutimg2.jpg");
+export const transperancy = require("../assets/images/transparency.jpg");
+export const team = require("../assets/images/team.jpg");
+export const result = require("../assets/images/result.jpg");
+export const serviceimg1 = require("../assets/images/serviceimg1.png");
+export const award = require("../assets/images/award.webp")
 
 

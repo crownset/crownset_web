@@ -16,11 +16,12 @@ import { BsTranslate } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { GrCloudSoftware } from "react-icons/gr";
-import { CardTwo } from '@/components/Cards';
+import {  ServicesCard } from '@/components/Cards';
 import Icon from '@/components/Icon';
 import NumbersAndResults from '@/components/NumbersAndResults';
 import Divider from '@/components/Divider';
-
+import Link from 'next/link';
+import * as images from '@/helpers/icons';
 const featureCardData = sampledata.featureCardData;
 const resultData = sampledata.resultsData;
 
@@ -38,12 +39,15 @@ const Page = () => {
             <h2 className='font-bold'>BUSINESS SOLUTIONS</h2>
             <h1 className='mt-6 text-[2rem] leading-9 mr-10 font-[600] md:mr-28 md:text-[2.5rem] lg:mr-12'>Solutions for business growth</h1>
             <p className='mt-6 font-semibold text-[1.2rem]'>We provide versatile marketing, trending business solutions, and IT services, blending creative and paid media expertise to maximize results.</p>
+            
+           <Link href="/freeAudit">
             <DarkButton buttonText={'get a free audit'} />
+           </Link>
           </div>
 
           <div className='mt-10 w-full object-cover'>
             <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1406332084.jpg"
+              src={images.serviceimg1}
               width={800}
               height={500}
               alt="image"
@@ -69,41 +73,41 @@ const Page = () => {
             <div className='py-1 px-5 mt-4 md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto'>
 
                 {/* software soltions */}
-              <CardTwo heading={featureCardData[0].heading} description={featureCardData[0].description}
+              <ServicesCard heading={featureCardData[0].heading} description={featureCardData[0].description}
                 icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />} />
 
-                <CardTwo heading={featureCardData[1].heading} description={featureCardData[1].description}
+                <ServicesCard heading={featureCardData[1].heading} description={featureCardData[1].description}
                 icon={<Icon icon={<FaMobileAlt className='text-primary-color size-[1.5rem]' />} />} />
 
-                <CardTwo heading={featureCardData[2].heading} description={featureCardData[2].description}
+                <ServicesCard heading={featureCardData[2].heading} description={featureCardData[2].description}
                 icon={<Icon icon={<GrCloudSoftware className='text-primary-color size-[1.5rem]' />} />} />  
 
-              <CardTwo heading={featureCardData[3].heading} description={featureCardData[3].description}
+              <ServicesCard heading={featureCardData[3].heading} description={featureCardData[3].description}
                 icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
               />
 
-              <CardTwo heading={featureCardData[4].heading} description={featureCardData[4].description}
+              <ServicesCard heading={featureCardData[4].heading} description={featureCardData[4].description}
                 icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[5].heading} description={featureCardData[5].description}
+              <ServicesCard heading={featureCardData[5].heading} description={featureCardData[5].description}
                 icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[6].heading} description={featureCardData[6].description}
+              <ServicesCard heading={featureCardData[6].heading} description={featureCardData[6].description}
                 icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[7].heading} description={featureCardData[7].description}
+              <ServicesCard heading={featureCardData[7].heading} description={featureCardData[7].description}
                 icon={<Icon icon={<MessageIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[8].heading} description={featureCardData[8].description}
+              <ServicesCard heading={featureCardData[8].heading} description={featureCardData[8].description}
                 icon={<Icon icon={<GoogleIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[9].heading} description={featureCardData[9].description}
+              <ServicesCard heading={featureCardData[9].heading} description={featureCardData[9].description}
                 icon={<Icon icon={<PeopleIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[10].heading} description={featureCardData[10].description}
+              <ServicesCard heading={featureCardData[10].heading} description={featureCardData[10].description}
                 icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
 
-              <CardTwo heading={featureCardData[11].heading} description={featureCardData[11].description}
+              <ServicesCard heading={featureCardData[11].heading} description={featureCardData[11].description}
                 icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />} />  
               
 
@@ -120,7 +124,7 @@ const Page = () => {
         <div className='xl:w-11/12 m-auto lg:grid lg:grid-cols-2 gap-10'>
           <div className='w-full object-cover'>
             <Image
-              src="https://thecrownset.com/wp-content/uploads/2023/05/pexels-pavel-danilyuk-7675014-1024x750.jpg"
+              src={images.serviceimg2}
               width={1024}
               height={500}
               alt="image"
@@ -130,7 +134,9 @@ const Page = () => {
           <div className='mt-10'>
             <h1 className='text-[1.5rem] font-[600] leading-6'>We are committed to your strategy</h1>
             <p className='text-bodyTextColor mt-8'>We are committed to providing business solutions that deliver value in the digital economy. At Renaissance, we seamlessly implement the most effective business and digital marketing solutions, including website and app development. Every day, we help brands think big, execute smart, and achieve growth. Our intelligent digital marketing strategy consistently unlocks value from digital investments in a rapidly advancing world, from simple to infinitely complex solutions.</p>
+            <Link href="/about">
             <UnderlineButton buttonName={'more about our company'} />
+            </Link>
           </div>
         </div>
 
