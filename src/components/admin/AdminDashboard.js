@@ -42,9 +42,6 @@ const AdminDashboard = () => {
         closeModal();
     };
 
-    // If loading, display nothing or a loading indicator
-    // if (loading) return null;
-
     return (
         <>
             <div className="flex">

@@ -1,27 +1,56 @@
 "use client"
-import querySlice, { fetchData } from '@/redux/slices/querySlice'
+import querySlice, { deleteQuery, fetchData } from '@/redux/slices/querySlice'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { LuFileEdit } from "react-icons/lu";
-import ClipLoader from "react-spinners/ClipLoader";
 import { BeatLoader } from 'react-spinners';
+import CustomAlert from '@/components/admin/CustomAlert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
-    const dispatch = useDispatch()
-    const { data, loading, error } = useSelector((state) => state.data)
+    const dispatch = useDispatch();
+    const { data, loading, error } = useSelector((state) => state.data);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedQueryId, setSelectedQueryId] = useState(null);
+
+    const openModal = (id) => {
+        setSelectedQueryId(id);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedQueryId(null);
+        setModalOpen(false);
+    };
 
     useEffect(() => {
-        dispatch(fetchData())
-    }, [dispatch])
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    const handleConfirm = async () => {
+        if (selectedQueryId) {
+            try {
+                await dispatch(deleteQuery(selectedQueryId)).unwrap();
+                dispatch(fetchData());
+                toast.success('Query successfully deleted!');
+            } catch (error) {
+                toast.error('Failed to delete query!');
+            } finally {
+                closeModal();
+            }
+        }
+    };
 
     return (
         <div className="p-4">
+            <ToastContainer />
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <BeatLoader
-                        color={"#3577f1"}
+                        color={"#767676"}
                         loading={loading}
                         size={15}
                         aria-label="Loading Spinner"
@@ -51,7 +80,7 @@ const Page = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((item, index) => (
+                            {(data && Array.isArray(data) ? data : []).map((item, index) => (
                                 <tr key={index}>
                                     <td className="py-1 px-2 border-b text-center">{item.fullName}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.email}</td>
@@ -70,7 +99,10 @@ const Page = () => {
                                         </button>
                                     </td>
                                     <td className="py-1 px-2 border-b text-center">
-                                        <button className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1">
+                                        <button
+                                            className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                            onClick={() => openModal(item._id)}
+                                        >
                                             <RiDeleteBin5Line className='h-4 w-4' />
                                         </button>
                                     </td>
@@ -78,6 +110,15 @@ const Page = () => {
                             ))}
                         </tbody>
                     </table>
+                    <CustomAlert
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        title="Are you sure?"
+                        description="Are you sure you want to delete this query?"
+                        confirmButtonText="Yes, I'm sure"
+                        cancelButtonText="No, cancel"
+                        onConfirm={handleConfirm}
+                    />
                 </div>
             )}
         </div>

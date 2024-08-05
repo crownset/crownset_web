@@ -50,7 +50,7 @@ const CustomAlert = ({
                         <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                             {title}
                         </h3>
-                        <p className="mb-5 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mb-5 text-sm text-black font-semibold dark:text-gray-400">
                             {description}
                         </p>
                         <button

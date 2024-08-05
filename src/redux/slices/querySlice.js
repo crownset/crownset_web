@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { handleAsyncActions } from "@/helpers/reduxState"
+import { handleAsyncActions } from "@/helpers/reduxState";
 
 export const fetchData = createAsyncThunk(
     'data/fetchData',
@@ -20,20 +20,20 @@ export const postQuery = createAsyncThunk(
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
-
     }
 )
 
-export const DeleteQuery = createAsyncThunk(
+export const deleteQuery = createAsyncThunk(
     "data/deleteData",
-   async (id, {rejectWithValue}) => {
-    try{
-        const deleteResponse = await axios.delete(`/api/teams/deleteQuery/${id}`)
-        return deleteResponse.data
-    }catch(error){
-        return rejectWithValue(error.deleteResponse.data)
+    async (queryId, { rejectWithValue }) => {
+        try {
+            const deleteResponse = await axios.put(`/api/teams/deleteQuery/${queryId}`);
+            console.log("deleteResponse===>", deleteResponse)
+            return deleteResponse.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
-   }
 )
 
 const initialState = {
@@ -49,6 +49,9 @@ const querySlice = createSlice({
     extraReducers: (builder) => {
         handleAsyncActions(builder, fetchData, initialState);
         handleAsyncActions(builder, postQuery, initialState);
+        handleAsyncActions(builder, deleteQuery, initialState, (state, action) => {
+            state.data = state.data.filter(item => item.id !== action.meta.arg);
+        });
     },
 });
 
