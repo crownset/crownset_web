@@ -24,6 +24,7 @@ export const transperancy = require("../assets/images/transparency.jpg");
 export const team = require("../assets/images/team.jpg");
 export const result = require("../assets/images/result.jpg");
 export const serviceimg1 = require("../assets/images/serviceimg1.png");
-export const award = require("../assets/images/award.webp")
+export const award = require("../assets/images/award.webp");
+export const homeimg = require("../assets/images/img1.jpg");
 
 
