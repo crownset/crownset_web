@@ -9,12 +9,25 @@ import { BeatLoader } from 'react-spinners';
 import CustomAlert from '@/components/admin/CustomAlert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UpdateForm from '@/components/admin/UpdateForm';
 
 const Page = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.data);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [selectedQueryId, setSelectedQueryId] = useState(null);
+    const [selectedQueryData, setSelectedQueryData] = useState(null);
+
+    const openEditModal = (id) => {
+        setSelectedQueryData(id)
+        setIsEditModalOpen(true)
+    }
+
+    const closeEditModal = () => {
+        setSelectedQueryData(null);
+        setIsEditModalOpen(false);
+    };
 
     const openModal = (id) => {
         setSelectedQueryId(id);
@@ -90,11 +103,11 @@ const Page = () => {
                                     <td className="py-1 px-2 border-b text-center">{item.leadBy}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.assignTo}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.lastFollowUp}</td>
+                                    <td className="py-1 px-2 border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.remarks}</td>
                                     <td className="py-1 px-2 border-b">{moment(item.queryDate).format('LL')}</td>
                                     <td className="py-1 px-2 border-b text-center">
-                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1">
+                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"  onClick={() => openEditModal(item)}>
                                             <LuFileEdit className='h-4 w-4' />
                                         </button>
                                     </td>
@@ -110,6 +123,7 @@ const Page = () => {
                             ))}
                         </tbody>
                     </table>
+                    <UpdateForm isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
                     <CustomAlert
                         isOpen={isModalOpen}
                         onClose={closeModal}
