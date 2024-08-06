@@ -18,7 +18,7 @@ export async function GET(request) {
   }
     if(token && token.user.accessId ==1){
 
-      const query = await Query.find({isDeleted:false})
+      const query = await Query.find({isDeleted:false}).sort({"queryDate":-1})
       return NextResponse.json(query)
     }
 
