@@ -31,7 +31,7 @@ const Navbar = () => {
                             <div className='flex-shrink-0'>
                                 <Link href='/'>
                                     <Image
-                                        src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
+                                        src={Icon.logo}
                                         alt='crownsetlogo'
                                         width={150} height={20}
                                     />
@@ -42,7 +42,7 @@ const Navbar = () => {
                                     <Link href='/services' className='text-black underline-from-left'>OUR SERVICES</Link>
                                     <Link href='/about' className='text-black underline-from-left'>WHO WE ARE</Link>
                                     <Link href="/work" className='text-black underline-from-left'>WORK</Link>
-                                    <Link href="/contact" className='text-black underline-from-left'>Contact</Link>
+                                    <Link href="/contact" className='text-black underline-from-left'>CONTACT</Link>
                                 </div>
                             </div>
                             <div className='lg:hidden flex items-center'>

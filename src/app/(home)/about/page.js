@@ -18,6 +18,7 @@ import { useSwipeable } from 'react-swipeable';
 import Divider from '@/components/Divider';
 import * as images from '@/helpers/icons';
 import Link from 'next/link';
+import { CardFour, CardThree } from '@/components/Cards';
 
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
@@ -53,7 +54,7 @@ const Page = () => {
 
 
     return () => clearInterval(intervalId);
-  }, [teamData.length])
+  }, [])
 
   const goToPrevious = () => {
 
@@ -83,11 +84,12 @@ const Page = () => {
             <h2 className='text-[1rem] font-semibold'>ABOUT US</h2>
             <h1 className='text-[2rem] md:text-[3rem] md:leading-[3rem]
             xl:text-[4.2rem] xl:leading-[4rem] leading-8 lg:leading-[3rem] font-[700] text-[#560a39] mt-3 tracking-wide'>Excellence is in our Blood,</h1>
+            <p className='mt-4 pr-3 lg:pr-9 lg:text-[1.2rem] text-bodyTextColor'>At Crownset, we empower businesses to not just participate in the market but to lead it. With our innovative business solutions and IT services, we transform your ideas into a powerful brand presence. Our expertise in marketing, coupled with cutting-edge technology, ensures that you don&apos;t just follow trends—you set them. Join us and let Crownset turn your business into a brand that stands out and thrives.</p>
 
           </div>
           <div className='mt-10'>
             <Image
-              src="https://thecrownset.com/wp-content/uploads/2024/07/social-media-marketing-concept-marketing-with-applications-1024x683.webp"
+              src={images.aboutimg1}
               width={800}
               height={500}
               className='rounded-[2rem]'
@@ -102,7 +104,7 @@ const Page = () => {
       <section className='xl:w-11/12 m-auto'>
 
 
-        <p className='text-center px-[1rem] text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto '>
+        <p className='text-center px-[1rem] text-bodyTextColor text-[0.8rem] md:px-[2rem] lg:text-[1.5rem] lg:w-3/4 lg:m-auto font-semibold '>
           Our mission at Crownset Marketing Agency is to revolutionize companies by providing outstanding customer service and creative solutions. With more than six years of expertise, we are experts in offering complete business solutions that are customized to your particular requirements.
 
         </p>
@@ -122,24 +124,24 @@ const Page = () => {
 
           <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[0].heading}
               description={ourProficiencyData[0].description}
             />
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[1].heading}
               description={ourProficiencyData[1].description}
             />
 
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[2].heading}
               description={ourProficiencyData[2].description}
             />
-            <CardTwo
+            <CardFour
               icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />}
               heading={ourProficiencyData[3].heading}
               description={ourProficiencyData[3].description}
@@ -158,11 +160,11 @@ const Page = () => {
           <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
   '>
             <Image
-              className='rounded-[3rem] aspect-auto object-cover px-[1rem] xl:w-11/12 m-auto'
-              src='https://thecrownset.com/wp-content/uploads/2023/05/pexels-moe-magners-7495294-1024x417.jpg'
+              className='rounded-[3rem] aspect-auto object-cover px-[1rem] h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto'
+              src={images.aboutimg2}
               width={1280}
               height={417}
-              alt="Picture of the author"
+              alt="Picture of the author "
             />
           </div>
 
@@ -180,24 +182,24 @@ const Page = () => {
 
             <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[0].heading}
                 description={ourValues[0].description}
               />
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[1].heading}
                 description={ourValues[1].description}
               />
 
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[2].heading}
                 description={ourValues[2].description}
               />
-              <CardTwo
+              <CardThree
                 icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />}
                 heading={ourValues[3].heading}
                 description={ourValues[3].description}
@@ -219,73 +221,86 @@ const Page = () => {
           </div>
           <div className='mt-6'>
             <p className='text-bodyTextColor'>After years of experience, we&apos;ve learned that each service area offers unique advantages. To maximize these benefits, we strategically combine them to create comprehensive solutions. We provide our clients with full-service strategies that include business solutions, IT services, and digital marketing, enhancing visibility, boosting conversions, and driving revenue.</p>
+            <Link href="/services">
             <UnderlineButton buttonName={'Business SOLUTIONS'} />
+            </Link>
           </div>
         </div>
-        <Divider />
       </section>
-
-      <section className='mt-20 px-5 hidden'>
-
-        <div className='xl:w-11/12 m-auto'>
-
-          <h1 className='text-center text-[1.2rem] font-semibold px-5'>Our Clients</h1>
-          <div className='flex flex-col justify-center items-center gap-4 mt-10 lg:flex-row'>
-
-            <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
-
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/jolie-1.svg"
-                width={171}
-                height={34}
-                alt="logo"
-
-              />
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/caridad.svg"
-                width={171}
-                height={34}
-                alt="logo"
-
-              />
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/F7.svg"
-                width={61}
-                height={34}
-                alt="logo"
-
-              />
-            </div>
-
-            <div className='flex flex-col gap-4 sm:flex-row lg:flex-row'>
-
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/Scuola_Logo_OnlyTop-1.svg"
-                width={171}
-                height={34}
-                alt="logo"
-
-              />
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/petmania.svg"
-                width={171}
-                height={34}
-                alt="logo"
-
-              />
-              <Image
-                src="https://thecrownset.com/wp-content/uploads/2023/06/tecnologia.svg"
-                width={171}
-                height={34}
-                alt="logo"
-
-              />
-            </div>
-
-          </div>
+      <section className='mt-20 px-5'>
+  <div className='xl:w-11/12 m-auto'>
+    <h1 className='text-center text-[1.2rem] font-semibold px-5'>Our Clients</h1>
+    <div className='overflow-hidden'>
+      <div className='flex gap-4 mt-10 animate-scroll'>
+        {/* First set of images */}
+        <div className='flex gap-6'>
+          <Image
+            src={images?.boat_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.amazon_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.benz_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.haldirams_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.hyundai_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.kfc_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.lv_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.nestle_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.netflix_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
+          <Image
+            src={images?.nike_logo}
+            width={171}
+            height={34}
+            alt="logo"
+          />
         </div>
-        <Divider />
-      </section>
+      </div>
+    </div>
+  </div>
+  <Divider />
+</section>
+
 
       <section className='px-5 mt-10 xl:w-11/12 m-auto'>
         <div className=''>
