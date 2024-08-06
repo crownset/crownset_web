@@ -10,10 +10,10 @@ const querySchema = new Schema({
   service: { type: String, required: true},
   // assignTo: { type: String, required: true, default: "Garvit Chawla" },
 
-    assignTo: { type: mongoose.Types.ObjectId, ref: 'userCS', default: "66a77d098f9efb8fcc61b95f"},
+    assignTo: { type: mongoose.Types.ObjectId, ref: 'userCS', default: "66b1c73148101be14038961a"},
   
   followUp: { type: Boolean, required: true, default: false },
-  lastFollowUp: { type: String, required: true, default: Date.now() },
+  lastFollowUp: { type: Date, required: true, default: Date.now() },
   remarks: {
     type: String,
     required: true,
