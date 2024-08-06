@@ -14,6 +14,7 @@ import UpdateForm from '@/components/admin/UpdateForm';
 const Page = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.data);
+    console.log("data==>", data)
     const [isModalOpen, setModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [selectedQueryId, setSelectedQueryId] = useState(null);
@@ -77,37 +78,37 @@ const Page = () => {
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg text-sm">
                         <thead>
                             <tr className="bg-gray-200">
-                                <th className="py-1 px-2 border-b min-w-[100px]">Name</th>
-                                <th className="py-1 px-2 border-b min-w-[150px]">Email</th>
-                                <th className="py-1 px-2 border-b min-w-[100px]">Contact</th>
-                                <th className="py-1 px-2 border-b min-w-[150px]">Business Name</th>
-                                <th className="py-1 px-2 border-b min-w-[200px]">Query Content</th>
-                                <th className="py-1 px-2 border-b min-w-[100px]">Lead By</th>
-                                <th className="py-1 px-2 border-b min-w-[100px]">Assign To</th>
-                                <th className="py-1 px-2 border-b min-w-[100px]">Follow Up</th>
-                                <th className="py-1 px-2 border-b min-w-[150px]">Last Follow Up</th>
-                                <th className="py-1 px-2 border-b min-w-[200px] text-center">Remarks</th>
-                                <th className="py-1 px-2 border-b min-w-[100px]">Query Date</th>
-                                <th className="py-1 px-2 border-b min-w-[60px] text-center">Edit</th>
-                                <th className="py-1 px-2 border-b min-w-[60px] text-center">Delete</th>
+                                <th className="py-1  border-b min-w-[100px]">Name</th>
+                                <th className="py-1  border-b min-w-[150px]">Email</th>
+                                <th className="py-1  border-b min-w-[100px]">Contact</th>
+                                <th className="py-1  border-b min-w-[150px]">Business Name</th>
+                                <th className="py-1  border-b min-w-[200px]">Query Content</th>
+                                <th className="py-1  border-b min-w-[100px]">Lead By</th>
+                                <th className="py-1  border-b min-w-[100px]">Assign To</th>
+                                <th className="py-1  border-b min-w-[100px]">Follow Up</th>
+                                <th className="py-1  border-b min-w-[150px]">Last Follow Up</th>
+                                <th className="py-1  border-b min-w-[200px] text-center">Remarks</th>
+                                <th className="py-1  border-b min-w-[100px]">Query Date</th>
+                                <th className="py-1  border-b min-w-[60px] text-center">Edit</th>
+                                <th className="py-1  border-b min-w-[60px] text-center">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {(data && Array.isArray(data) ? data : []).map((item, index) => (
                                 <tr key={index}>
-                                    <td className="py-1 px-2 border-b text-center">{item.fullName}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.email}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.contact}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.businessName}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.queryContent}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.leadBy}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.assignTo}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
-                                    <td className="py-1 px-2 border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.remarks}</td>
-                                    <td className="py-1 px-2 border-b">{moment(item.queryDate).format('LL')}</td>
-                                    <td className="py-1 px-2 border-b text-center">
-                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"  onClick={() => openEditModal(item)}>
+                                    <td className="py-1  border-b text-center">{item.fullName}</td>
+                                    <td className="py-1  border-b text-center">{item.email}</td>
+                                    <td className="py-1  border-b text-center">{item.contact}</td>
+                                    <td className="py-1  border-b text-center">{item.businessName}</td>
+                                    <td className="py-1  border-b text-center">{item.queryContent}</td>
+                                    <td className="py-1  border-b text-center">{item.leadBy}</td>
+                                    <td className="py-1  border-b text-center">{item.assignTo?.firstName}</td>
+                                    <td className="py-1  border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
+                                    <td className="py-1  border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
+                                    <td className="py-1  border-b text-center">{item.remarks}</td>
+                                    <td className="py-1  border-b">{moment(item.queryDate).format('LL')}</td>
+                                    <td className="py-1  border-b text-center">
+                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                                             <LuFileEdit className='h-4 w-4' />
                                         </button>
                                     </td>
