@@ -89,7 +89,7 @@ const Page = () => {
                                     <td className="py-1 px-2 border-b text-center">{item.queryContent}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.leadBy}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.assignTo}</td>
-                                    <td className="py-1 px-2 border-b text-center">{item.followUp}</td>
+                                    <td className="py-1 px-2 border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.lastFollowUp}</td>
                                     <td className="py-1 px-2 border-b text-center">{item.remarks}</td>
                                     <td className="py-1 px-2 border-b">{moment(item.queryDate).format('LL')}</td>

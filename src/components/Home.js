@@ -22,7 +22,7 @@ import NumbersAndResults from './NumbersAndResults';
 import Divider from './Divider';
 import { homeone, hometwo, curveline } from '@/helpers/icons';
 import Link from 'next/link';
-
+import * as images from '@/helpers/icons'
 
 const cardone = sampledata.cardone;
 const cardtwo = sampledata.cardtwo;
@@ -66,7 +66,7 @@ const HomePage = () => {
                             <div className='bg-[#e9e5fe] rounded-[2rem] mt-[-5rem] sm:mt-[-7rem]'>
                                 <div className='relative top-[-1rem]'>
                                     <Image
-                                        src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
+                                        src={images.award}
                                         width={60}
                                         height={24}
                                         alt="Picture of the author"
@@ -103,7 +103,7 @@ const HomePage = () => {
                         flex flex-col justify-center items-center sm:mt-[-10rem]'>
                             <span>{`Let's talk
                                 that matters.`}</span>
-                            <DarkButton buttonText={"Let's talk"} />
+                            <Link href="\freeAudit"> <DarkButton buttonText={"Let's talk"} /></Link>
                         </div>
                     </div>
 
@@ -127,7 +127,7 @@ const HomePage = () => {
 
                                     <span>{`Let's talk
                                 that matters.`}</span>
-                                    <DarkButton buttonText={"Let's talk"} />
+                                    <Link href="/freeAudit">   <DarkButton buttonText={"Let's talk"} /></Link>
 
                                 </div>
 
@@ -157,7 +157,7 @@ const HomePage = () => {
                         lg:left-[38%] lg:top-[0]  xl:w-[8rem] xl:h-[11.5rem]'>
                                     <div className='relative top-[-1rem] left-[1rem] xl:left-[2rem]'>
                                         <Image
-                                            src="https://thecrownset.com/wp-content/uploads/2023/06/GettyImages-1404633864-Converted.png"
+                                            src={images.award}
                                             width={60}
                                             height={24}
                                             alt="Picture of the author"
@@ -207,7 +207,9 @@ const SectionTwo = () => {
                         <div className='mt-5'>
                             <p className='text-bodyTextColor'>Together, we help our clients achieve tangible, measurable results. Focused on business outcomes — we bring a unique set of expertise and skills to the party.</p>
 
-                            <UnderlineButton buttonName={'more about us'} />
+                            <Link href="\about">
+                                <UnderlineButton buttonName={'more about us'} />
+                            </Link>
 
                         </div>
                     </div>
@@ -247,7 +249,7 @@ const SectionThird = () => {
                   '>
                     <Image
                         className='rounded-[3rem] aspect-auto object-cover px-[1rem]'
-                        src='https://thecrownset.com/wp-content/uploads/2023/05/GettyImages-1193505273-1024x417.jpg'
+                        src={images.homeimg}
                         width={1280}
                         height={417}
                         alt="Picture of the author"
@@ -268,8 +270,9 @@ const SectionThird = () => {
                     </div>
 
                     <div className='xl:ml-[10rem]'>
-
-                        <DarkButton buttonText={'view all solutions'} />
+                        <Link href="/services">
+                            <DarkButton buttonText={'view all solutions'} />
+                        </Link>
                     </div>
 
 
@@ -370,7 +373,7 @@ const SectionFour = () => {
 
                                 <div className='mt-5 mb-7 flex justify-center items-center'>
                                     <Image
-                                        src='https://thecrownset.com/wp-content/uploads/2023/06/Stats.svg'
+                                        src={images.transperancy}
                                         width={600}
                                         height={700}
                                         alt="Picture of the author"
@@ -397,7 +400,7 @@ const SectionFour = () => {
 
                                 <div className='mt-5 mb-7 flex justify-center items-center'>
                                     <Image
-                                        src='https://thecrownset.com/wp-content/uploads/2023/06/pexels-kindel-media-7688169-copy.png'
+                                        src={images.team}
                                         width={600}
                                         height={700}
                                         alt="Picture of the author"
@@ -426,7 +429,7 @@ const SectionFour = () => {
 
                                 <div className='mt-5 mb-7 flex justify-center items-center'>
                                     <Image
-                                        src='https://thecrownset.com/wp-content/uploads/2023/06/Stats2.svg'
+                                        src={images.result}
                                         width={600}
                                         height={700}
                                         alt="Picture of the author"
@@ -472,7 +475,7 @@ const SectionFour = () => {
 
                             <div className='mt-5 mb-14 flex justify-center items-center'>
                                 <Image
-                                    src='https://thecrownset.com/wp-content/uploads/2023/06/Stats.svg'
+                                    src={images.transperancy}
                                     width={600}
                                     height={700}
                                     alt="Picture of the author"
@@ -492,7 +495,7 @@ const SectionFour = () => {
 
                             <div className='mt-5 mb-14 flex justify-center items-center'>
                                 <Image
-                                    src='https://thecrownset.com/wp-content/uploads/2023/06/pexels-kindel-media-7688169-copy.png'
+                                    src={images.team}
                                     width={600}
                                     height={700}
                                     alt="Picture of the author"
@@ -516,7 +519,7 @@ const SectionFour = () => {
 
                             <div className='mt-5 mb-14 flex justify-center items-center'>
                                 <Image
-                                    src={'https://thecrownset.com/wp-content/uploads/2023/06/Stats2.svg'}
+                                    src={images.result}
                                     width={600}
                                     height={700}
                                     alt="Picture of the author"

@@ -3,8 +3,7 @@ import "@/app/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ClientProvider from "@/redux/ClientProvider";
-// import store from "../../store"
-// import { Provider } from "react-redux";
+
 
 
 const kanit = KanitFont({
@@ -14,7 +13,7 @@ const kanit = KanitFont({
 
 export const metadata = {
   title: "Crownset Marketing Agency",
-  description: "",
+  description: "Crownset Marketing Agency , Business Solutions",
 };
 
 export default function RootLayout({ children }) {

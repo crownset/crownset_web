@@ -38,9 +38,9 @@ export const deleteQuery = createAsyncThunk(
 
 export const editQuery = createAsyncThunk(
     "data/editData",
-    async (queryId , {rejectWithValue}) => {
+    async ({queryId, updatedData} , {rejectWithValue}) => {
         try{
-            const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`)
+            const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`, updatedData)
             console.log("editResponse==>", editResponse)
             return editResponse.data
         }catch(error){
@@ -65,6 +65,12 @@ const querySlice = createSlice({
         handleAsyncActions(builder, deleteQuery, initialState, (state, action) => {
             state.data = state.data.filter(item => item.id !== action.meta.arg);
         });
+        handleAsyncActions(builder, editQuery, initialState, (state, action) => {
+            const index = state.data.findIndex(item => item.id === action.meta.arg.queryId)
+            if(index !== -1){
+                state.data[index] = {...state.data[index], ...action.payload}
+            }
+        })
     },
 });
 
