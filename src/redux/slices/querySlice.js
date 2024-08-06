@@ -22,7 +22,7 @@ export const postQuery = createAsyncThunk(
         }
     }
 )
-
+ 
 export const deleteQuery = createAsyncThunk(
     "data/deleteData",
     async (queryId, { rejectWithValue }) => {
@@ -32,6 +32,19 @@ export const deleteQuery = createAsyncThunk(
             return deleteResponse.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
+        }
+    }
+)
+
+export const editQuery = createAsyncThunk(
+    "data/editData",
+    async (queryId , {rejectWithValue}) => {
+        try{
+            const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`)
+            console.log("editResponse==>", editResponse)
+            return editResponse.data
+        }catch(error){
+            return rejectWithValue(error.response.data)
         }
     }
 )
