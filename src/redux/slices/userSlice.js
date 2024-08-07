@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { handleAsyncActions } from "@/helpers/reduxState";
 
 export const assignUsers = createAsyncThunk(
     'user/assignUsers',
@@ -8,8 +7,8 @@ export const assignUsers = createAsyncThunk(
         const assignResponse = await axios.get('/api/teams/getUser');
         console.log("assignResponse====>", assignResponse)
         return assignResponse.data;
-    });
-
+    }
+);
 
 const initialState = {
     user: [],
@@ -22,8 +21,20 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        handleAsyncActions(builder, assignUsers, initialState);
+        builder
+        .addCase(assignUsers.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(assignUsers.fulfilled, (state, action) => {
+            state.user = action.payload;
+            state.loading = false;
+        })
+        .addCase(assignUsers.rejected, (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        });
     }
-})
+});
 
-export default userSlice.reducer
+export default userSlice.reducer;

@@ -59,12 +59,12 @@ const Page = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-4 h-screen flex flex-col">
             <ToastContainer />
             {loading ? (
-                <div className="flex justify-center items-center h-screen">
+                <div className="flex justify-center items-center h-full">
                     <BeatLoader
-                        color={"#767676"}
+                        color={"#7367f0"}
                         loading={loading}
                         size={15}
                         aria-label="Loading Spinner"
@@ -74,51 +74,50 @@ const Page = () => {
             ) : error ? (
                 <div className="text-red-500">Error: {error}</div>
             ) : (
-                <div className="overflow-x-auto">
+                <div className="flex-1 overflow-y-auto">
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg text-sm">
                         <thead>
                             <tr className="bg-gray-200">
-                                <th className="py-1  border-b min-w-[100px]">Name</th>
-                                <th className="py-1  border-b min-w-[150px]">Email</th>
-                                <th className="py-1  border-b min-w-[100px]">Contact</th>
-                                <th className="py-1  border-b min-w-[150px]">Business Name</th>
-                                <th className="py-1  border-b min-w-[200px]">Query Content</th>
-                                <th className="py-1  border-b min-w-[100px]">Lead By</th>
-                                <th className="py-1  border-b min-w-[100px]">Assign To</th>
-                                <th className="py-1  border-b min-w-[100px]">Follow Up</th>
-                                <th className="py-1  border-b min-w-[150px]">Last Follow Up</th>
-                                <th className="py-1  border-b min-w-[200px] text-center">Remarks</th>
-                                <th className="py-1  border-b min-w-[100px]">Query Date</th>
-                                <th className="py-1  border-b min-w-[60px] text-center">Edit</th>
-                                <th className="py-1  border-b min-w-[60px] text-center">Delete</th>
+                                <th className="py-2 border-b min-w-[100px]">Name</th>
+                                <th className="py-2 border-b min-w-[150px]">Email</th>
+                                <th className="py-2 border-b min-w-[100px]">Contact</th>
+                                <th className="py-2 border-b min-w-[150px]">Business Name</th>
+                                <th className="py-2 border-b min-w-[200px]">Query Content</th>
+                                <th className="py-2 border-b min-w-[100px]">Lead By</th>
+                                <th className="py-2 border-b min-w-[100px]">Assign To</th>
+                                <th className="py-2 border-b min-w-[100px]">Follow Up</th>
+                                <th className="py-2 border-b min-w-[150px]">Last Follow Up</th>
+                                <th className="py-2 border-b min-w-[200px] text-center">Remarks</th>
+                                <th className="py-2 border-b min-w-[100px]">Query Date</th>
+                                <th className="py-2 border-b min-w-[100px]">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {(data && Array.isArray(data) ? data : []).map((item, index) => (
                                 <tr key={index}>
-                                    <td className="py-1  border-b text-center">{item.fullName}</td>
-                                    <td className="py-1  border-b text-center">{item.email}</td>
-                                    <td className="py-1  border-b text-center">{item.contact}</td>
-                                    <td className="py-1  border-b text-center">{item.businessName}</td>
-                                    <td className="py-1  border-b text-center">{item.queryContent}</td>
-                                    <td className="py-1  border-b text-center">{item.leadBy}</td>
-                                    <td className="py-1  border-b text-center">{item.assignTo?.firstName}</td>
-                                    <td className="py-1  border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
-                                    <td className="py-1  border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
-                                    <td className="py-1  border-b text-center">{item.remarks}</td>
-                                    <td className="py-1  border-b">{moment(item.queryDate).format('LL')}</td>
-                                    <td className="py-1  border-b text-center">
-                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
-                                            <LuFileEdit className='h-4 w-4' />
-                                        </button>
-                                    </td>
-                                    <td className="py-1 px-2 border-b text-center">
-                                        <button
-                                            className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                            onClick={() => openModal(item._id)}
-                                        >
-                                            <RiDeleteBin5Line className='h-4 w-4' />
-                                        </button>
+                                    <td className="py-2 border-b text-center">{item.fullName}</td>
+                                    <td className="py-2 border-b text-center">{item.email}</td>
+                                    <td className="py-2 border-b text-center">{item.contact}</td>
+                                    <td className="py-2 border-b text-center">{item.businessName}</td>
+                                    <td className="py-2 border-b text-center">{item.queryContent}</td>
+                                    <td className="py-2 border-b text-center">{item.leadBy}</td>
+                                    <td className="py-2 border-b text-center">{item.assignTo?.firstName}</td>
+                                    <td className="py-2 border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
+                                    <td className="py-2 border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
+                                    <td className="py-2 border-b text-center">{item.remarks}</td>
+                                    <td className="py-2 border-b">{moment(item.queryDate).format('LL')}</td>
+                                    <td className="py-2 border-b text-center">
+                                        <div className='flex gap-3 justify-center items-center'>
+                                            <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
+                                                <LuFileEdit className='h-4 w-4' />
+                                            </button>
+                                            <button
+                                                className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                onClick={() => openModal(item._id)}
+                                            >
+                                                <RiDeleteBin5Line className='h-4 w-4' />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

@@ -52,6 +52,7 @@ export const editQuery = createAsyncThunk(
     }
 )
 
+
 const initialState = {
     data: [],
     loading: false,
