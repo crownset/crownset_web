@@ -2,7 +2,7 @@ import mongoose, {Schema} from 'mongoose'
 
 const userSchema = new Schema({
 
-    accessId: {type: Number, enum: [0,1], default: 0, required: true},
+    accessId: {type: Number, enum: [0,1,2], default: 0, required: true},
     uid: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},

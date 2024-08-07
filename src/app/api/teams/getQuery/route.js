@@ -19,7 +19,18 @@ export async function GET(request) {
     if(token && token.user.accessId ==1){
 
       const query = await Query.find({isDeleted:false}).populate("assignTo","firstName",userCS).sort({"queryDate":-1})
-      console.log("this is populated", query)
+      console.log("this is populated 1", query)
+      return NextResponse.json(query)
+    }
+    if(token && token.user.accessId == 2){
+
+      const query = await Query.find(
+      {$and:{
+
+        isDeleted:false,
+        assignTo: token.user._id
+      }
+      }).populate("assignTo","firstName",userCS).sort({"queryDate":-1})
       return NextResponse.json(query)
     }
 
