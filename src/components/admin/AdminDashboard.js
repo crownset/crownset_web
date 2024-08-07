@@ -14,6 +14,7 @@ import { menuItems, logoutItem } from '@/helpers/admin/config';
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -35,12 +36,12 @@ const AdminDashboard = () => {
         <>
             <div className="flex">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard  text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
                     <div className="flex justify-between items-center p-4">
                         {isSidebarOpen == false ? (
                             <button onClick={() => setSidebarOpen(true)}>
-                                <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2" />
+                                <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2 text-bgHover" />
                             </button>
                         ) : (
                             <Image
@@ -58,7 +59,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="flex-1 flex flex-col p-4">
                         <ul className="space-y-4">
-                        {menuItems.map((item, index) => (
+                            {menuItems.map((item, index) => (
                                 <li key={index}>
                                     <Link href={item.href}>
                                         <button className="group flex items-center text-textDefault hover:bg-bgHover hover:text-default p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2">
@@ -73,7 +74,7 @@ const AdminDashboard = () => {
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>
-                                <button className="group flex items-center text-textDefault hover:bg-bgHover  hover:text-default p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2" onClick={handleConfirm}>
+                                <button className="group flex items-center text-textDefault hover:bg-bgHover  hover:text-default p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2" onClick={openModal}>
                                     <logoutItem.icon className="h-5 w-5 mr-2 text-bgHover group-hover:text-default" />
                                     <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{logoutItem.name}</span>
                                 </button>
