@@ -13,10 +13,14 @@ module.exports = {
       colors: {
         'primary-color': '#6754E9',
         'bodyTextColor': '#615f5b',
-        "dashboard" : "#FFFFFF",
+        "dashboard": "#0146cf",
         "default": "#FFFFFF",
+        "black" : "#000000",
         "textDefault": "#615e6b",
         "bgHover": "#7367f0",
+        "premature" : "#f4ba13",
+        "mature" : "#269346",
+        "dead" : "#d63328"
       }
 
     },

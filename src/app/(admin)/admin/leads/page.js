@@ -58,6 +58,20 @@ const Page = () => {
         }
     };
 
+    // Function to determine the color based on the remark value
+    const getRemarkColor = (remark) => {
+        switch (remark) {
+            case 'Premature':
+                return 'bg-premature'; // Yellow for Premature
+            case 'Mature':
+                return 'bg-mature'; // Green for Mature
+            case 'Dead':
+                return 'bg-dead'; // Red for Dead
+            default:
+                return 'bg-gray-500'; // Gray for any other value
+        }
+    };
+
     return (
         <div className="p-4 h-screen flex flex-col">
             <ToastContainer />
@@ -104,7 +118,11 @@ const Page = () => {
                                     <td className="py-2 border-b text-center">{item.assignTo?.firstName}</td>
                                     <td className="py-2 border-b text-center">{item.followUp == false ? "No" : "Yes"}</td>
                                     <td className="py-2 border-b text-center">{moment(item.lastFollowUp).format('LL')}</td>
-                                    <td className="py-2 border-b text-center">{item.remarks}</td>
+                                    <td className="py-2 border-b text-center">
+                                        <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
+                                            {item.remarks}
+                                        </span>
+                                    </td>
                                     <td className="py-2 border-b">{moment(item.queryDate).format('LL')}</td>
                                     <td className="py-2 border-b text-center">
                                         <div className='flex gap-3 justify-center items-center'>
@@ -139,4 +157,4 @@ const Page = () => {
     )
 }
 
-export default Page
+export default Page;

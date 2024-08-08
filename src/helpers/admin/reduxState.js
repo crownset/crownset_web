@@ -1,4 +1,3 @@
-// utils/reduxHelpers.js
 export const handleAsyncActions = (builder, action, initialState = {}) => {
     builder
         .addCase(action.pending, (state) => {
