@@ -34,7 +34,7 @@
     {
         "heading": "Conversion rate optimization",
         "icon": "icon",
-        "description": "Craft campaigns — built just for your business — to ensure real and quantifiable ROI."
+        "description": "Boost your sales and engagement with our expert Conversion Rate Optimization (CRO) services."
     }
 ],
 
@@ -61,7 +61,7 @@
         "description": "Technologies - Wordpress , Wix , React.js , Next.js , Java , PHP , Laravel , Node.js"
     },
     {
-        "heading": "Application Development Both Android/IOS ",
+        "heading": "Mobile Application Development  ",
         "description": "Technologies - React Native , Flutter , Java , Kotlin"
     },
     {
@@ -184,5 +184,511 @@
         "heading":"Translation Services",
         "description":"Enhance your global reach with our Translation Services. We offer accurate and culturally sensitive translations, ensuring your message resonates with audiences worldwide."
     }
-]
+],
+"expertise":[
+    {
+        "heading": "Website Development",
+        "description": "We create custom, professional websites that capture the essence of your brand and engage your audience. Our tailored web development solutions ensure a seamless and impressive online presence.",
+        "technologies":" Wordpress , Wix , React.js , Next.js , Java , PHP , Laravel , Node.js"
+    },
+    {
+        "heading": "Mobile App Development  ",
+        "description": "Our mobile app development services deliver intuitive and responsive applications designed to enhance the user experience and engage them. We build apps that meet your business needs and delight your customers.",
+        "technologies":" React Native , Flutter , Java , Kotlin"
+    },
+    {
+        "heading": "Digital Marketing",
+        "description": "Our digital marketing services enhance your brand’s online presence through strategic content, targeted advertising and data-driven campaigns. We help you connect with your audience, improve their visibility, and optimize their growth.",
+        "technologies":""
+    }
+
+],
+"serviceCard":[
+    {
+      "name": "Website Development",
+      "heading": "Website Development Services",
+      "description": "We create custom, professional websites designed to optimize your online presence and engage your audience. Our services include custom web design, responsive development, robust e-commerce solutions, CMS integration, and ongoing maintenance and support. A well-designed website improves brand credibility, user experience, online visibility, and customer engagement. Our professional staff uses the latest technology and best practices to deliver a beautiful, functional, and high-performing website tailored to your business needs.",
+      "services": [
+        "Custom Web Design",
+        "Responsive Development",
+        "Portfolio Website",
+        "E-commerce Solutions",
+        "CMS Integration",
+        "Maintenance and Support"
+      ],
+      "whyItIsImportant": "A well-developed website is essential for establishing your brand, reaching a wider audience, and providing a platform for your business to thrive online. It enhances your brand’s reputation, improves user experience, boosts online visibility, and increases customer engagement and conversions. A professional website is a key tool for building trust, attracting organic traffic, and supporting various digital marketing efforts.",
+      "howItHelpsYourBusiness": [
+        "Enhances brand credibility",
+        "Improves user experience",
+        "Boosts online visibility",
+        "Increases customer engagement and conversions"
+      ],
+      "howWeDoIt": {
+        "1. Understanding Your Needs": {
+          "Client Consultation": "We engage with you to understand your business goals, target audience, and specific requirements.",
+          "Research and Analysis": "We analyze your industry, competitors, and market trends to align our approach with your objectives."
+        },
+        "2. Planning and Strategy": {
+          "Project Scope Definition": "We define the project scope, features, functionalities, and timelines.",
+          "Site Architecture": "We design a logical site structure and navigation to enhance user experience."
+        },
+        "3. Design and Prototyping": {
+          "Wireframes and Mockups": "We develop wireframes and mockups to outline the app’s layout and flow.",
+          "UI/UX Design": "We create an intuitive and engaging user interface."
+        },
+        "4. Development": {
+          "Front-End Development": "We use HTML, CSS, and JavaScript to build responsive and interactive interfaces.",
+          "Back-End Development": "We use frameworks and languages like Node.js, PHP, or Python for server-side functionalities.",
+          "CMS Integration": "We integrate CMS platforms for easy content management."
+        },
+        "5. Performance Optimization": {
+          "Speed and Load Time": "We optimize images, scripts, and server configurations for fast load times.",
+          "Mobile Optimization": "We ensure full responsiveness across all devices."
+        },
+        "6. Quality Assurance and Testing": {
+          "Functionality Testing": "We test all features to ensure proper functionality.",
+          "Cross-Browser and Device Testing": "We test on various browsers and devices for compatibility.",
+          "Security Testing": "We conduct security assessments to protect against threats."
+        },
+        "7. Deployment and Launch": {
+          "Final Review": "We perform a final review before launch.",
+          "Deployment": "We deploy the website to the live server."
+        },
+        "8. Post-Launch Support and Maintenance": {
+          "Monitoring": "We continuously monitor the website for performance and security.",
+          "Updates and Maintenance": "We provide ongoing support, updates, backups, and troubleshooting."
+        }
+      }
+    },
+    {
+      "name": "App Development",
+      "heading": "App Development Services",
+      "description": "We specialize in creating high-quality mobile and web applications tailored to your business needs. Our services cover the entire app development lifecycle, from concept and design to development and deployment. We focus on building scalable, user-friendly apps that enhance customer engagement and streamline business operations.",
+      "services": [
+        "Mobile App Development",
+        "Web App Development",
+        "UI/UX Design",
+        "App Testing and QA",
+        "Maintenance and Support"
+      ],
+      "whyItIsImportant": "An effective app provides a direct channel to engage with your customers, enhances user experience, and offers functionalities that meet user needs. It can drive customer loyalty, increase brand visibility, and streamline business processes.",
+      "howItHelpsYourBusiness": [
+        "Enhances customer engagement",
+        "Increases brand visibility",
+        "Streamlines business operations",
+        "Provides valuable user insights"
+      ],
+      "howWeDoIt": {
+        "1. Understanding Your Needs": {
+          "Client Consultation": "We discuss your app goals, target audience, and requirements.",
+          "Market Research": "We analyze competitors and market trends to inform the app's features and design."
+        },
+        "2. Design and Prototyping": {
+          "Wireframes and Mockups": "We develop wireframes and mockups to outline the app’s layout and flow.",
+          "UI/UX Design": "We create an intuitive and engaging user interface."
+        },
+        "3. Development": {
+          "Front-End Development": "We build the app’s interface using modern technologies.",
+          "Back-End Development": "We handle server-side development, database integration, and API connections."
+        },
+        "4. Testing and QA": {
+          "Functionality Testing": "We test the app’s features to ensure they work as intended.",
+          "Performance Testing": "We assess the app’s performance under various conditions."
+        },
+        "5. Deployment": {
+          "App Store Submission": "We handle the submission process to app stores.",
+          "Live Monitoring": "We monitor the app post-launch to address any immediate issues."
+        },
+        "6. Maintenance and Support": {
+          "Updates": "We provide regular updates to enhance functionality and fix bugs.",
+          "User Support": "We offer ongoing support to resolve any user issues."
+        }
+      }
+    },
+    {
+      "name": "Digital Marketing",
+      "heading": "Digital Marketing Services",
+      "description": "Our digital marketing services help businesses grow their online presence and reach their target audience through strategic campaigns. We offer a range of services including SEO, PPC, social media marketing, and email campaigns to drive traffic, increase engagement, and boost conversions.",
+      "services": [
+        "Search Engine Optimization (SEO)",
+        "Paid Search Marketing (PPC)",
+        "Social Media Marketing",
+        "Email Marketing",
+        "Content Marketing"
+      ],
+      "whyItIsImportant": "Digital marketing is crucial for expanding your online presence, targeting specific audiences, and driving business growth. It enables you to connect with potential customers at various touchpoints and track the effectiveness of your campaigns.",
+      "howItHelpsYourBusiness": [
+        "Increases online visibility",
+        "Targets specific audiences",
+        "Drives traffic and conversions",
+        "Provides measurable results"
+      ],
+      "howWeDoIt": {
+        "1. Strategy Development": {
+          "Client Consultation": "We understand your business goals and target audience.",
+          "Market Analysis": "We analyze market trends and competitors to develop a tailored strategy."
+        },
+        "2. Campaign Execution": {
+          "SEO Optimization": "We optimize your website and content for search engines.",
+          "PPC Management": "We manage paid search campaigns to drive targeted traffic.",
+          "Social Media Management": "We create and manage social media campaigns to engage your audience."
+        },
+        "3. Performance Tracking": {
+          "Analytics Monitoring": "We track campaign performance and adjust strategies as needed.",
+          "Reporting": "We provide detailed reports on campaign results and ROI."
+        }
+      }
+    },
+    {
+      "name": "Business Solutions",
+      "heading": "Business Solutions Services",
+      "description": "We offer comprehensive business solutions that streamline operations and drive growth. Our services include process optimization, technology integration, and strategic consulting to help you achieve operational efficiency and competitive advantage.",
+      "services": [
+        "Process Optimization",
+        "Technology Integration",
+        "Strategic Consulting",
+        "Project Management",
+        "Business Analysis"
+      ],
+      "whyItIsImportant": "Effective business solutions improve efficiency, reduce costs, and enhance overall productivity. They provide the tools and strategies needed to adapt to changing market conditions and drive sustainable growth.",
+      "howItHelpsYourBusiness": [
+        "Streamlines operations",
+        "Reduces operational costs",
+        "Enhances productivity",
+        "Supports strategic decision-making"
+      ],
+      "howWeDoIt": {
+        "1. Needs Assessment": {
+          "Consultation": "We discuss your business challenges and goals.",
+          "Process Analysis": "We analyze existing processes to identify areas for improvement."
+        },
+        "2. Solution Design": {
+          "Technology Assessment": "We recommend suitable technologies and tools.",
+          "Process Design": "We design optimized processes and workflows."
+        },
+        "3. Implementation": {
+          "Technology Integration": "We integrate new technologies into your business operations.",
+          "Training": "We provide training to ensure effective use of new solutions."
+        },
+        "4. Monitoring and Support": {
+          "Performance Monitoring": "We track the effectiveness of implemented solutions.",
+          "Ongoing Support": "We offer support to address any issues and ensure smooth operation."
+        }
+      }
+    },
+    {
+      "name": "Paid Search Marketing",
+      "heading": "Paid Search Marketing Services",
+      "description": "Our paid search marketing services focus on driving targeted traffic to your website through strategic pay-per-click (PPC) campaigns. We manage every aspect of your PPC efforts, from keyword research and ad creation to performance tracking and optimization.",
+      "services": [
+        "Keyword Research",
+        "Ad Creation and Management",
+        "Bid Management",
+        "Performance Tracking",
+        "Campaign Optimization"
+      ],
+      "whyItIsImportant": "Paid search marketing allows you to target specific keywords and audiences, ensuring that your ads reach potential customers actively searching for related products or services. It provides immediate visibility and can significantly boost traffic and conversions.",
+      "howItHelpsYourBusiness": [
+        "Drives targeted traffic",
+        "Provides immediate visibility",
+        "Enables precise audience targeting",
+        "Offers measurable ROI"
+      ],
+      "howWeDoIt": {
+        "1. Keyword Research": {
+          "Targeted Keywords": "We research and select high-performing keywords for your campaigns.",
+          "Competitor Analysis": "We analyze competitors' keyword strategies to refine your approach."
+        },
+        "2. Ad Creation and Management": {
+          "Ad Copywriting": "We craft compelling ad copy that drives clicks and conversions.",
+          "Ad Testing": "We test various ad variations to determine the most effective messaging."
+        },
+        "3. Bid Management": {
+          "Bid Strategies": "We develop strategies to optimize bid amounts for cost-efficiency.",
+          "Budget Management": "We manage your budget to ensure maximum return on investment."
+        },
+        "4. Performance Tracking": {
+          "Analytics Monitoring": "We track campaign performance and adjust strategies as needed.",
+          "Reporting": "We provide detailed reports on key performance metrics and ROI."
+        }
+      }
+    },
+    {
+      "name": "Email Marketing",
+      "heading": "Email Marketing Services",
+      "description": "Our email marketing services help businesses engage their audience and drive conversions through targeted email campaigns. We handle everything from email design and content creation to list management and performance analysis.",
+      "services": [
+        "Email Campaign Design",
+        "Content Creation",
+        "List Management",
+        "Performance Analysis",
+        "Automation"
+      ],
+      "whyItIsImportant": "Email marketing is a cost-effective way to nurture leads, build customer relationships, and drive sales. It allows for personalized communication and provides valuable insights into customer preferences and behaviors.",
+      "howItHelpsYourBusiness": [
+        "Nurtures leads and builds relationships",
+        "Drives sales and conversions",
+        "Provides personalized communication",
+        "Offers valuable insights through analytics"
+      ],
+      "howWeDoIt": {
+        "1. Strategy Development": {
+          "Client Consultation": "We discuss your goals and target audience for email campaigns.",
+          "Content Planning": "We plan email content and scheduling based on your objectives."
+        },
+        "2. Design and Creation": {
+          "Email Design": "We create visually appealing and mobile-responsive email templates.",
+          "Content Creation": "We write compelling content that engages recipients and drives action."
+        },
+        "3. List Management": {
+          "Audience Segmentation": "We segment your email list for targeted campaigns.",
+          "Subscriber Management": "We handle subscriber acquisition and list hygiene."
+        },
+        "4. Performance Analysis": {
+          "Campaign Tracking": "We monitor campaign performance and engagement metrics.",
+          "Reporting": "We provide detailed reports on open rates, click-through rates, and conversions."
+        }
+      }
+    },
+    {
+      "name": "Social Media Marketing",
+      "heading": "Social Media Marketing Services",
+      "description": "Our social media marketing services help businesses build their brand and engage with their audience across various social platforms. We create and manage social media strategies that drive traffic, increase brand awareness, and foster customer relationships.",
+      "services": [
+        "Social Media Strategy",
+        "Content Creation",
+        "Community Management",
+        "Paid Social Advertising",
+        "Analytics and Reporting"
+      ],
+      "whyItIsImportant": "Social media marketing is essential for building brand awareness, engaging with your audience, and driving traffic to your website. It provides a platform for real-time interaction and feedback, helping you understand and respond to customer needs.",
+      "howItHelpsYourBusiness": [
+        "Builds brand awareness",
+        "Engages with your audience",
+        "Drives website traffic",
+        "Provides real-time interaction and feedback"
+      ],
+      "howWeDoIt": {
+        "1. Strategy Development": {
+          "Client Consultation": "We discuss your goals, target audience, and preferred platforms.",
+          "Strategy Planning": "We develop a tailored social media strategy aligned with your business objectives."
+        },
+        "2. Content Creation": {
+          "Content Planning": "We plan and create engaging content for your social media channels.",
+          "Visuals and Copy": "We design visuals and write copy that resonates with your audience."
+        },
+        "3. Community Management": {
+          "Engagement": "We interact with followers, respond to comments, and manage direct messages.",
+          "Reputation Management": "We monitor and manage your brand’s online reputation."
+        },
+        "4. Paid Social Advertising": {
+          "Ad Creation": "We design and manage paid social media campaigns.",
+          "Targeting and Optimization": "We optimize ad performance based on targeting and budget."
+        },
+        "5. Analytics and Reporting": {
+          "Performance Tracking": "We track key metrics such as engagement, reach, and conversions.",
+          "Reporting": "We provide detailed reports on social media performance and ROI."
+        }
+      }
+    },
+    {
+      "name": "Influencer Marketing",
+      "heading": "Influencer Marketing Services",
+      "description": "Our influencer marketing services connect your brand with influential personalities who can promote your products or services to their audience. We manage influencer partnerships, campaign strategies, and performance analysis to ensure maximum impact.",
+      "services": [
+        "Influencer Identification",
+        "Campaign Strategy",
+        "Content Creation",
+        "Influencer Outreach",
+        "Performance Analysis"
+      ],
+      "whyItIsImportant": "Influencer marketing leverages the trust and reach of influential individuals to promote your brand. It can enhance brand credibility, drive engagement, and expand your reach to new audiences through authentic endorsements.",
+      "howItHelpsYourBusiness": [
+        "Enhances brand credibility",
+        "Expands reach to new audiences",
+        "Drives engagement",
+        "Provides authentic endorsements"
+      ],
+      "howWeDoIt": {
+        "1. Influencer Identification": {
+          "Research and Selection": "We identify and select influencers who align with your brand values and target audience.",
+          "Partnership Negotiation": "We negotiate terms and collaborate with influencers."
+        },
+        "2. Campaign Strategy": {
+          "Strategy Development": "We create a campaign strategy that outlines goals, messaging, and deliverables.",
+          "Content Planning": "We plan the content and schedule for influencer posts."
+        },
+        "3. Content Creation": {
+          "Creative Direction": "We guide influencers in creating content that aligns with your brand.",
+          "Approval Process": "We review and approve content before it is published."
+        },
+        "4. Influencer Outreach": {
+          "Outreach and Coordination": "We manage communication and coordination with influencers.",
+          "Campaign Management": "We oversee the execution of influencer campaigns."
+        },
+        "5. Performance Analysis": {
+          "Tracking and Monitoring": "We track campaign performance and measure key metrics.",
+          "Reporting": "We provide detailed reports on influencer impact and ROI."
+        }
+      }
+    },
+    {
+      "name": "Search Engine Optimization",
+      "heading": "Search Engine Optimization (SEO) Services",
+      "description": "Our SEO services improve your website’s visibility on search engines through targeted optimization techniques. We handle on-page and off-page SEO, keyword research, content creation, and performance analysis to enhance your site’s search engine ranking.",
+      "services": [
+        "Keyword Research",
+        "On-Page SEO",
+        "Off-Page SEO",
+        "Content Creation",
+        "Performance Analysis"
+      ],
+      "whyItIsImportant": "SEO is vital for increasing your website’s visibility and attracting organic traffic. It helps improve your site’s ranking on search engines, making it easier for potential customers to find you online and boosting your credibility and authority in your industry.",
+      "howItHelpsYourBusiness": [
+        "Increases organic traffic",
+        "Improves search engine rankings",
+        "Enhances brand credibility",
+        "Drives higher ROI"
+      ],
+      "howWeDoIt": {
+        "1. Keyword Research": {
+          "Keyword Analysis": "We research and identify high-value keywords for your business.",
+          "Competitor Analysis": "We analyze competitor keywords to refine our strategy."
+        },
+        "2. On-Page SEO": {
+          "Content Optimization": "We optimize website content for targeted keywords.",
+          "Technical SEO": "We address technical aspects such as site speed, mobile-friendliness, and meta tags."
+        },
+        "3. Off-Page SEO": {
+          "Link Building": "We develop a strategy for acquiring high-quality backlinks.",
+          "Social Signals": "We enhance your site’s authority through social media engagement."
+        },
+        "4. Content Creation": {
+          "Content Strategy": "We create valuable, relevant content that attracts and retains visitors.",
+          "Content Optimization": "We ensure content is optimized for both users and search engines."
+        },
+        "5. Performance Analysis": {
+          "Analytics Monitoring": "We track SEO performance using analytics tools.",
+          "Reporting": "We provide detailed reports on search rankings, traffic, and ROI."
+        }
+      }
+    },
+    {
+      "name": "Conversion Rate Optimization",
+      "heading": "Conversion Rate Optimization (CRO) Services",
+      "description": "Our CRO services focus on increasing the percentage of website visitors who take desired actions, such as making a purchase or filling out a form. We analyze user behavior, conduct A/B testing, and implement improvements to enhance conversion rates.",
+      "services": [
+        "User Behavior Analysis",
+        "A/B Testing",
+        "Landing Page Optimization",
+        "Conversion Funnel Analysis",
+        "Performance Tracking"
+      ],
+      "whyItIsImportant": "CRO is essential for maximizing the effectiveness of your website by turning more visitors into customers. Improving your conversion rate can lead to higher revenue and better ROI from your marketing efforts.",
+      "howItHelpsYourBusiness": [
+        "Increases conversion rates",
+        "Maximizes marketing ROI",
+        "Improves user experience",
+        "Provides actionable insights"
+      ],
+      "howWeDoIt": {
+        "1. User Behavior Analysis": {
+          "Behavior Tracking": "We analyze user behavior on your site to identify obstacles to conversion.",
+          "Heatmaps and Clickmaps": "We use tools to visualize user interactions and areas of interest."
+        },
+        "2. A/B Testing": {
+          "Test Design": "We design A/B tests to compare different versions of your website.",
+          "Results Analysis": "We analyze test results to determine the most effective changes."
+        },
+        "3. Landing Page Optimization": {
+          "Design and Copy": "We optimize landing pages to enhance appeal and effectiveness.",
+          "Call-to-Action Improvement": "We refine calls-to-action to drive more conversions."
+        },
+        "4. Conversion Funnel Analysis": {
+          "Funnel Mapping": "We analyze the conversion funnel to identify drop-off points.",
+          "Improvements Implementation": "We implement changes to reduce friction and improve conversion rates."
+        },
+        "5. Performance Tracking": {
+          "Analytics Monitoring": "We track conversion metrics and user interactions.",
+          "Reporting": "We provide detailed reports on conversion rates and optimization results."
+        }
+      }
+    },
+    {
+      "name": "Google Shopping",
+      "heading": "Google Shopping Services",
+      "description": "Our Google Shopping services help businesses increase visibility and drive sales through targeted product ads. We manage product listings, optimize feed data, and create effective ad campaigns to attract potential customers and boost conversions.",
+      "services": [
+        "Product Feed Management",
+        "Ad Creation and Management",
+        "Campaign Optimization",
+        "Performance Tracking",
+        "Feed Optimization"
+      ],
+      "whyItIsImportant": "Google Shopping provides a highly visible platform for your product ads, allowing potential customers to see your offerings directly on Google search results. It helps drive targeted traffic and increase sales by showcasing your products to users actively searching for them.",
+      "howItHelpsYourBusiness": [
+        "Increases product visibility",
+        "Drives targeted traffic",
+        "Boosts sales and conversions",
+        "Offers measurable results"
+      ],
+      "howWeDoIt": {
+        "1. Product Feed Management": {
+          "Feed Setup": "We create and manage your product feed to ensure accurate and up-to-date listings.",
+          "Feed Optimization": "We optimize your feed data for better visibility and performance."
+        },
+        "2. Ad Creation and Management": {
+          "Ad Design": "We create compelling product ads that attract potential customers.",
+          "Campaign Management": "We manage and optimize ad campaigns for maximum effectiveness."
+        },
+        "3. Campaign Optimization": {
+          "Bid Management": "We optimize bidding strategies to maximize ROI.",
+          "Targeting Adjustments": "We adjust targeting settings to reach the most relevant audience."
+        },
+        "4. Performance Tracking": {
+          "Analytics Monitoring": "We track ad performance and make data-driven adjustments.",
+          "Reporting": "We provide detailed reports on campaign performance and ROI."
+        }
+      }
+    },
+    {
+      "name": "Amazon Shopping",
+      "heading": "Amazon Shopping Services",
+      "description": "Our Amazon Shopping services help businesses optimize their presence on Amazon, drive traffic, and increase sales. We handle product listing optimization, ad campaign management, and performance analysis to ensure your products stand out and attract customers.",
+      "services": [
+        "Product Listing Optimization",
+        "Sponsored Ads Management",
+        "Campaign Optimization",
+        "Performance Tracking",
+        "Brand Analytics"
+      ],
+      "whyItIsImportant": "Optimizing your Amazon presence is crucial for driving visibility and sales on one of the largest e-commerce platforms. Effective product listing and advertising strategies help your products rank higher and attract more potential buyers.",
+      "howItHelpsYourBusiness": [
+        "Improves product visibility",
+        "Drives traffic and sales",
+        "Optimizes advertising spend",
+        "Provides insights into performance"
+      ],
+      "howWeDoIt": {
+        "1. Product Listing Optimization": {
+          "Listing Creation": "We create and optimize product listings to enhance visibility and appeal.",
+          "Keyword Optimization": "We optimize listings with relevant keywords to improve search ranking."
+        },
+        "2. Sponsored Ads Management": {
+          "Ad Creation": "We design and manage sponsored ads to drive traffic and increase sales.",
+          "Bid Management": "We optimize bidding strategies to achieve the best ROI."
+        },
+        "3. Campaign Optimization": {
+          "Performance Monitoring": "We track ad performance and make adjustments to improve results.",
+          "Targeting Adjustments": "We refine targeting to reach the most relevant audience."
+        },
+        "4. Performance Tracking": {
+          "Analytics Monitoring": "We monitor key performance metrics and adjust strategies as needed.",
+          "Reporting": "We provide detailed reports on ad performance and sales impact."
+        }
+      }
+    }
+  ]
+  
+  
 }
