@@ -41,7 +41,7 @@ const Navbar = () => {
                                 <div className='flex items-center space-x-12'>
                                     <Link href='/services' className='text-black underline-from-left'>OUR SERVICES</Link>
                                     <Link href='/about' className='text-black underline-from-left'>WHO WE ARE</Link>
-                                    <Link href="/work" className='text-black underline-from-left'>WORK</Link>
+                                    <Link href="/work" className='text-black underline-from-left hidden'>WORK</Link>
                                     <Link href="/contact" className='text-black underline-from-left'>CONTACT</Link>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@ const Navbar = () => {
                     <Link href='/about' className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
                         WHO WE ARE
                     </Link>
-                    <Link href="/work" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
+                    <Link href="/work" className='text-black  hidden hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
                         Work
                     </Link>
                     <Link href="/contact" className='text-black block hover:bg-white hover:text-black py-1 pl-5' onClick={() => setIsClicked(false)}>
