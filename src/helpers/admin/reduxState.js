@@ -13,3 +13,18 @@ export const handleAsyncActions = (builder, action, initialState = {}) => {
             state.loading = false;
         })
 };
+
+export const handleCases = (builder, asyncThunk, statusKey) => {
+    builder
+        .addCase(asyncThunk.pending, (state) => {
+            state[statusKey] = 'loading';
+        })
+        .addCase(asyncThunk.fulfilled, (state, action) => {
+            state[statusKey] = 'succeeded';
+            if (statusKey === 'status') state.user = action.payload;
+        })
+        .addCase(asyncThunk.rejected, (state, action) => {
+            state[statusKey] = 'failed';
+            state.error = action.payload;
+        });
+};

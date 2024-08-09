@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { forgetPassword } from '@/redux/slices/authSlice';
-import { ClipLoader } from 'react-spinners';
+import { BeatLoader, ClipLoader } from 'react-spinners';
 
 const Page = () => {
     const [email, setEmail] = useState('');
@@ -54,7 +54,7 @@ const Page = () => {
                             >
                                 {forgotPasswordStatus === 'loading' ? (
                                     <div className="flex justify-center mb-4">
-                                        <ClipLoader color="#805CEB" size={35} />
+                                        <BeatLoader color="FFFFFF" size={35} />
                                     </div>
                                 ) : (
                                     <span className="underline-from-left">Continue</span>
