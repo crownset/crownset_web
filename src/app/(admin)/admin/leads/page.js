@@ -10,7 +10,7 @@ import CustomAlert from '@/components/admin/CustomAlert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
-// Import the CSS file for tooltip styling
+import { Tooltip } from 'react-tooltip';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -117,21 +117,21 @@ const Page = () => {
                                             {item.remarks}
                                         </span>
                                     </td>
-                                    <td className="py-2 border-b text-center relative cursor-pointer">
+                                    {/* <td className="py-2 border-b text-center relative cursor-pointer">
                                         {item?.queryContent.length > 20 ? (
                                             <div className="tooltip-container">
                                                 <div className="">
                                                     {item?.queryContent.slice(0, 20)}...
                                                 </div>
-                                                <div className="tooltip w-full">
+                                                <div className="tooltip">
                                                     {item?.queryContent}
                                                 </div>
                                             </div>
                                         ) : (
                                             <div>{item?.queryContent}</div>
                                         )}
-                                    </td>
-                                    {/* <td className="py-2 border-b text-center truncate">{item?.queryContent}</td> */}
+                                    </td> */}
+                                    <td className="py-2 border-b text-center ">{item?.queryContent}</td>
                                     <td className="py-2 border-b text-center">{item?.leadBy}</td>
                                     <td className="py-2 border-b text-center">{item?.assignTo?.firstName}</td>
                                     <td className="py-2 border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>

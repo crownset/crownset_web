@@ -2,63 +2,64 @@ import { UnderlineButton } from "@/components/CustomButtons";
 import Image from "next/image";
 import Link from "next/link";
 import { ImArrowUp as ArrowUpIcon } from "react-icons/im";
+import Icon from "./Icon";
 
 
-export const CardFour = ({ heading, icon, description })=>{
-    return(
+export const CardFour = ({ heading, icon, description }) => {
+    return (
         <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
 
-        <div className='xl:h-[18rem] md:h-[17rem] lg:h-[13rem]'>
+            <div className='xl:h-[18rem] md:h-[17rem] lg:h-[13rem]'>
 
-            <span>{icon}</span>
+                <span>{icon}</span>
 
-            <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
+                <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
-            <p className='mt-3 text-bodyTextColor'>
-                {description}
-            </p>
+                <p className='mt-3 text-bodyTextColor'>
+                    {description}
+                </p>
+            </div>
+
+
         </div>
-
-
-    </div>        
     )
 }
 
-export const CardThree = ({ heading, icon, description })=>{
-    return(
+export const CardThree = ({ heading, icon, description }) => {
+    return (
         <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
 
-        <div className='xl:h-[23rem] md:h-[18rem] '>
+            <div className='xl:h-[23rem] md:h-[18rem] '>
 
-            <span>{icon}</span>
+                <span><Icon icon={icon} /></span>
 
-            <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
+                <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
-            <p className='mt-3 text-bodyTextColor'>
-                {description}
-            </p>
+                <p className='mt-3 text-bodyTextColor'>
+                    {description}
+                </p>
+            </div>
+
+
         </div>
-
-
-    </div>        
     )
 }
 
-export const  ServicesCard = ({heading, icon, description })=>{
+export const ServicesCard = ({ heading, icon, description }) => {
     return (
         <>
             <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
 
                 <div className='xl:h-[19rem] md:h-[17rem] lg:h-[12rem]'>
 
-                    <span>{icon}</span>
+                    <span><Icon icon={icon} /></span>
 
                     <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
                     <p className='mt-3 text-bodyTextColor'>
                         {description}
                     </p>
-                </div>                
+                </div>
 
             </div>
         </>
@@ -66,14 +67,14 @@ export const  ServicesCard = ({heading, icon, description })=>{
 
 }
 
-export const CardTwo = ({ heading, icon, description }) => {
+export const CardTwo = ({ heading, icon, description, index }) => {
     return (
         <>
             <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
 
                 <div className='xl:h-[19rem] md:h-[17rem] lg:h-[12rem]'>
 
-                    <span>{icon}</span>
+                    <span><Icon icon={icon} /></span>
 
                     <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
 
@@ -83,10 +84,10 @@ export const CardTwo = ({ heading, icon, description }) => {
                 </div>
 
                 <div>
-                     <Link href="/services">
-                     
-                    <UnderlineButton buttonName={'learn more'} />
-                     </Link>
+                    <Link href={`/services#${index}`}>
+
+                        <UnderlineButton buttonName={'learn more'} />
+                    </Link>
                 </div>
 
 
@@ -118,7 +119,7 @@ export const CardOne = ({ heading, icon, description }) => {
 
                 <div className='flex justify-between items-center lg:gap-[1rem]'>
                     <h1 className='text-[1.3rem] lg:text-[1.9rem] font-bold'>{heading}</h1>
-                    <span>{icon}</span>
+                    <span><Icon icon={icon} /></span>
                 </div>
 
                 <p className='mt-3 text-bodyTextColor'>
@@ -152,6 +153,39 @@ export const ContactAddressCard = ({ address, icon, phoneNumber }) => {
                 <div>
                     <UnderlineButton buttonName={'learn more'} />
                 </div>
+            </div>
+        </>
+    )
+}
+
+export const ExpertiseCard = ({ heading, icon, description, technologies, index }) => {
+    return (
+        <>
+            <div className='border py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7 '>
+
+
+                <div className="md:h-[27rem] lg:h-[22rem]">
+
+                    <div className='flex justify-between items-center lg:gap-[1rem]'>
+                        <h1 className='text-[1.3rem] lg:text-[1.9rem] font-bold'>{heading}</h1>
+                        <span><Icon icon={icon} /></span>
+                    </div>
+
+                    <p className='mt-3 text-bodyTextColor'>
+                        {description}
+                    </p>
+                    <div>
+
+                        {
+                            technologies ?
+                                <div className="mt-3 text-bodyTextColor"><span className="font-semibold">Technologies -</span>
+                                    {technologies}
+                                </div> : null
+                        }
+                    </div>
+                </div>
+
+                <div className="mb-0"><Link href={`/services#${index}`}><UnderlineButton buttonName={'learn more'} /></Link></div>
             </div>
         </>
     )

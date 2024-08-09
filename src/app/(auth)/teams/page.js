@@ -1,52 +1,69 @@
 "use client";
-import React, { useEffect, useState } from 'react'
-import { MdEmail as EmailIcon } from "react-icons/md";
-import { FaLock as LockIcon } from "react-icons/fa";
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { loginUser } from '@/redux/slices/authSlice';
 import Link from 'next/link';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
+import { ClipLoader } from 'react-spinners';
 const Page = () => {
   const [isForgot, setIsforgot] = useState(false);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const dispatch = useDispatch()
-  const { user, status, error } = useSelector((state) => state.auth)
-  console.log("loginUserResponse=>", user)
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
   const router = useRouter();
+  const { user, status, error } = useSelector((state) => state.auth);
+
+  console.log("user==>", user)
 
   const handleToggle = () => {
     setIsforgot(!isForgot);
-  }
+  };
 
   const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value })
-  }
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
-      await dispatch(loginUser(credentials))
-      console.log("loginUser===>", loginUser)
-      router.push("/admin")
+      const newErrors = {};
+      if (!credentials?.email) {
+        newErrors.email = 'Email is required';
+      } else if (!credentials?.password) {
+        newErrors.password = 'Password is required';
+      }
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+      const result = await dispatch(loginUser(credentials)).unwrap();
+      console.log("result==>", result);
+      const token = Cookies.get('authToken:');
+      console.log('Token from cookies:', token);
+      if (token) {
+        router.push("/admin");
+      } else {
+        toast.error(user.message);
+      }
     } catch (error) {
-      console.log(error)
+      toast.error(user?.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     router.push("/admin")
-  //   }
-  // }, [user])
 
   return (
     <>
+      <ToastContainer />
       <div className="min-h-screen flex justify-center items-center px-4">
-        <div className='md:linear-gradient md:w-[80%] border     w-full py-10 rounded-3xl'>
-          <div className="bg-white rounded-3xl px-10 py-10 border-shadow md:w-1/3  m-auto">
+        <div className='md:linear-gradient md:w-[80%] border w-full py-10 rounded-3xl'>
+          <div className="bg-white rounded-3xl px-10 py-10 border-shadow md:w-1/3 m-auto">
             <form className="space-y-4 max-lg:m-auto">
               <div>
                 <input
@@ -57,6 +74,7 @@ const Page = () => {
                   value={credentials.email}
                   onChange={handleChange}
                 />
+                {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
               </div>
               <div>
                 <input
@@ -67,6 +85,7 @@ const Page = () => {
                   value={credentials.password}
                   onChange={handleChange}
                 />
+                {errors?.password && <p className="text-red-500 text-sm">{errors?.password}</p>}
               </div>
               <div className="text-end text-sm">
                 <Link href="/forgotpassword">
@@ -80,20 +99,27 @@ const Page = () => {
                   className="bg-black text-white w-full font-bold py-3 px-5 rounded-2xl focus:outline-none focus:shadow-outline hover:bg-[#805CEB]"
                   type="button"
                   onClick={handleSubmit}
+                  disabled={loading}// Disable button while loading
                 >
-                  <span className="underline-from-left">Login</span>
+                  {status === "loading" ?
+                    (
+                      <ClipLoader
+                        color={"#FFFFFF"}
+                        loading={loading}
+                        size={10}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                    )
+                    : 'Login'}
                 </button>
               </div>
             </form>
           </div>
         </div>
-
       </div>
-
-
-
     </>
   )
 }
 
-export default Page
+export default Page;

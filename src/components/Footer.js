@@ -10,28 +10,21 @@ import Divider from './Divider';
 import Link from 'next/link';
 
 const solutions = [
-    { id: 1, name: 'Paid search marketing' },
-    { id: 2, name: 'Email marketing' },
-    { id: 3, name: 'Social media Marketing' },
-    { id: 4, name: 'Influencer marketing' },
-    { id: 5, name: 'Search engine optimization' },
-    { id: 6, name: 'Conversion rate optimization' },
-    { id: 7, name: 'Google shopping' },
-    { id: 8, name: 'Amazon shopping' },
-    { id: 9, name: 'Website development' },
-    { id: 10, name: 'App development' },
-    { id: 11, name: 'Digital marketing' },
-    { id: 12, name: 'Business solutions' },
+    { id: 0, name: 'Website development' },
+    { id: 1, name: 'App development' },
+    { id: 2, name: 'Digital marketing' },
+    { id: 3, name: 'Business solutions' },
+    { id: 4, name: 'Paid search marketing' },
+    { id: 5, name: 'Email marketing' },
+    { id: 6, name: 'Social media Marketing' },
+    { id: 7, name: 'Influencer marketing' },
+    { id: 8, name: 'Search engine optimization' },
+    { id: 9, name: 'Conversion rate optimization' },
+    { id:10, name: 'Google shopping' },
+    { id: 11, name: 'Amazon shopping' },
+    
 ];
-const footerContent = [
-    { id: 1, name: 'About' },
-    { id: 2, name: 'Blog' },
-    { id: 3, name: 'careers' },
-    { id: 4, name: 'Team' },
-    // { id: 5, name: 'Success Stories' },
-    // { id: 6, name: 'Awards' },
-    { id: 5, name: 'Contact' },
-];
+
 
 const Footer = () => {
     const [aboutInfo, setAboutInfo] = useState(false)
@@ -112,7 +105,7 @@ const Footer = () => {
                             {solutions.map(solution => (
                                 <div key={solution.id} className='flex flex-col items-center font-extralight '>
                                     <button className='lg:underline-from-left cursor-pointer text-center max-md:w-full max-md:text-start '>
-                                        <Link href="/services">{solution.name}</Link>
+                                        <Link href={`/services#${solution.id}`}>{solution.name}</Link>
                                     </button>
                                 </div>
                             ))}
@@ -132,13 +125,22 @@ const Footer = () => {
                         {
                             aboutInfo ? (
                                 <div className='flex flex-col py-5 gap-4'>
-                                    {
-                                        footerContent.map(content => (
-                                            <div key={content.id}>
-                                                <p className='underline-from-left cursor-pointer w-full'>{content.name}</p>
-                                            </div>
-                                        ))
-                                    }
+                                    <div >
+                                        <Link href="/about"><p className='underline-from-left cursor-pointer'>About</p></Link>
+                                    </div>
+
+                                    <div >
+                                    <Link href="/#blog"><p className='underline-from-left cursor-pointer'>Blog</p></Link>
+                                    </div>
+
+                                    <div >
+                                        <Link href="/career"><p className='underline-from-left cursor-pointer'>Careers</p></Link>
+                                    </div>
+
+
+                                    <div>
+                                        <Link href="/contact"><p className='underline-from-left cursor-pointer'>Contact</p></Link>
+                                    </div>
                                 </div>
                             ) : null
 
@@ -150,16 +152,13 @@ const Footer = () => {
                         </div>
 
                         <div >
-                            <p className='underline-from-left cursor-pointer'>Blog</p>
+                            <Link href="/#blog"><p className='underline-from-left cursor-pointer'>Blog</p></Link>
                         </div>
 
                         <div >
-                            <p className='underline-from-left cursor-pointer'>Careers</p>
+                        <Link href="/career"> <p className='underline-from-left cursor-pointer'>Careers</p></Link>
                         </div>
 
-                        <div >
-                            <p className='underline-from-left cursor-pointer'>Team</p>
-                        </div>
 
                         <div>
                             <Link href="/contact"> <p className='underline-from-left cursor-pointer'>Contact</p></Link>

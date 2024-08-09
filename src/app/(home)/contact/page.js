@@ -11,6 +11,7 @@ import { postQuery } from "@/redux/slices/querySlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners';
+import Link from 'next/link';
 
 
 const Page = () => {
@@ -73,7 +74,7 @@ const Page = () => {
             });
     }
     const addressData = [
-        { id: 1, address: '127, Tower B, Logix Texhnova, Sector 132, Noida' },
+        { id: 1, address: '127, Tower B, Logix Technova, Sector 132, Noida' },
         { id: 2, address: 'Eleanor dr, Bloomington IL 61701(USA)' },
     ];
     const options = [
@@ -113,7 +114,7 @@ const Page = () => {
                         <div className='flex flex-col gap-1'>
                             <ul>
                                 <li>Email address</li>
-                                <li className='font-semibold text-base underline-from-left cursor-pointer'>contact@thecrownset.com</li>
+                                <li className='font-semibold text-base underline-from-left cursor-pointer'>contact&#64;thecrownset.com</li>
                             </ul>
                         </div>
                     </div>
@@ -125,13 +126,13 @@ const Page = () => {
                             <div>
                                 <ul>
                                     <li className='font-medium text-lg lg:w-1/2'>
-                                        127, Tower B, Logix Texhnova, Sector 132, Noida
+                                        127, Tower B, Logix Technova, Sector 132, Noida
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div>
-                            <p className='font-medium cursor-pointer '>VIEW ON MAP</p>
+                            <Link href="https://maps.app.goo.gl/di1hD3reXdRdeCGb6" target='_blank'><p className='font-medium cursor-pointer border-b border-b-primary-color underline-from-left'>VIEW ON MAP</p></Link>
                         </div>
                     </div>
                 </div>

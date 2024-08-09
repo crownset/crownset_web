@@ -70,12 +70,6 @@
 
   /* global.css */
 /* Add this to your global CSS file */
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-  /* overflow: hidden; Ensure the tooltip does not overflow the container */
-}
-
 .tooltip {
   position: absolute;
   background-color: white;
@@ -84,18 +78,30 @@
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
-  z-index: 1000; /* Ensures it appears above other elements */
-  max-width: 100%; /* Adjust as needed */
+  z-index: 1000;
+  max-width: 200px; /* Adjust as needed */
   display: none;
   left: 0;
-  bottom: 100%; /* Position above the container */
-  transform: translateY(-8px); /* Offset slightly above the container */
+  top: 100%;
+  transform: translateY(8px);
+  word-wrap: break-word; /* Ensure long words are wrapped */
 }
 
 .tooltip-container:hover .tooltip {
   display: block;
 }
 
+/* Prevent overflow */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden; /* Ensure the tooltip does not overflow the container */
+  max-width: 100%; /* Ensure container does not exceed the table width */
+}
 
 
+
+}
+html{
+  scroll-behavior: smooth;
 }

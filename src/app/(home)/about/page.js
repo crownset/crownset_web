@@ -24,8 +24,13 @@ const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
 const ourProficiencyData = sampledata.ourProficiency;
 const teamPic = [images.garvit, images.priyam];
-const linkedinUrl = ["https://www.linkedin.com/in/garvit-chawla-25084b20b","https://www.linkedin.com/in/priyampathak"]
-
+const linkedinUrl = ["https://www.linkedin.com/in/garvit-chawla-25084b20b", "https://www.linkedin.com/in/priyampathak"]
+const ourValuesIcon = {
+  0: <BulbIcon className='text-primary-color size-[1.5rem]' />,
+  1: <TargetArrowIcon className='text-primary-color size-[1.5rem]' />,
+  2: <EmailIcon className='text-primary-color size-[1.5rem]' />,
+  3: <RocketIcon className='text-primary-color size-[1.5rem]' />
+}
 const Page = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -80,13 +85,14 @@ const Page = () => {
       <section style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}
         className='px-5 py-3 '>
         <div className='mt-8 md:grid md:grid-cols-2 md:gap-4 xl:w-11/12 m-auto'>
+
           <div>
             <h2 className='text-[1rem] font-semibold'>ABOUT US</h2>
             <h1 className='text-[2rem] md:text-[3rem] md:leading-[3rem]
             xl:text-[4.2rem] xl:leading-[4rem] leading-8 lg:leading-[3rem] font-[700] text-[#560a39] mt-3 tracking-wide'>Excellence is in our Blood,</h1>
             <p className='mt-4 pr-3 lg:pr-9 lg:text-[1.2rem] text-bodyTextColor'>At Crownset, we empower businesses to not just participate in the market but to lead it. With our innovative business solutions and IT services, we transform your ideas into a powerful brand presence. Our expertise in marketing, coupled with cutting-edge technology, ensures that you don&apos;t just follow trends—you set them. Join us and let Crownset turn your business into a brand that stands out and thrives.</p>
-
           </div>
+
           <div className='mt-10'>
             <Image
               src={images.aboutimg1}
@@ -96,8 +102,8 @@ const Page = () => {
               alt="image"
             />
           </div>
-
         </div>
+        
         <Divider />
       </section>
 
@@ -111,7 +117,7 @@ const Page = () => {
 
       </section>
 
-      <section className='xl:pt-1 px-[1rem]  pb-[2rem] mt-10' style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
+      <section className=' hidden xl:pt-1 px-[1rem]  pb-[2rem] mt-10' style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
 
         <div className=''>
 
@@ -178,36 +184,20 @@ const Page = () => {
 
             </div>
 
-
-
             <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-              <CardThree
-                icon={<Icon icon={<BulbIcon className='text-primary-color size-[1.5rem]' />} />}
-                heading={ourValues[0].heading}
-                description={ourValues[0].description}
-              />
+              {
+                ourValues.map((card, i) => (
+                  <CardThree
+                  key={i}
+                    icon={ourValuesIcon[i]}
+                    heading={card.heading}
+                    description={card.description}
+                  />
 
-              <CardThree
-                icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
-                heading={ourValues[1].heading}
-                description={ourValues[1].description}
-              />
-
-              <CardThree
-                icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />}
-                heading={ourValues[2].heading}
-                description={ourValues[2].description}
-              />
-              <CardThree
-                icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />}
-                heading={ourValues[3].heading}
-                description={ourValues[3].description}
-              />
-
+                ))
+              }
             </div>
-
-
           </div>
         </div>
       </section>
@@ -222,85 +212,85 @@ const Page = () => {
           <div className='mt-6'>
             <p className='text-bodyTextColor'>After years of experience, we&apos;ve learned that each service area offers unique advantages. To maximize these benefits, we strategically combine them to create comprehensive solutions. We provide our clients with full-service strategies that include business solutions, IT services, and digital marketing, enhancing visibility, boosting conversions, and driving revenue.</p>
             <Link href="/services">
-            <UnderlineButton buttonName={'Business SOLUTIONS'} />
+              <UnderlineButton buttonName={'Business SOLUTIONS'} />
             </Link>
           </div>
         </div>
       </section>
-      <section className='mt-20 px-5'>
-  <div className='xl:w-11/12 m-auto'>
-    <h1 className='text-center text-[1.2rem] font-semibold px-5'>Our Clients</h1>
-    <div className='overflow-hidden'>
-      <div className='flex gap-4 mt-10 animate-scroll'>
-        {/* First set of images */}
-        <div className='flex gap-6'>
-          <Image
-            src={images?.boat_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.amazon_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.benz_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.haldirams_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.hyundai_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.kfc_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.lv_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.nestle_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.netflix_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-          <Image
-            src={images?.nike_logo}
-            width={171}
-            height={34}
-            alt="logo"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <Divider />
-</section>
 
+      <section className='mt-20 px-5'>
+        <div className='xl:w-11/12 m-auto'>
+          <h1 className='text-center text-[1.2rem] font-semibold px-5'>Our Clients</h1>
+          <div className='overflow-hidden'>
+            <div className='flex gap-4 mt-10 animate-scroll'>
+              {/* First set of images */}
+              <div className='flex gap-6'>
+                <Image
+                  src={images?.boat_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.amazon_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.benz_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.haldirams_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.hyundai_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.kfc_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.lv_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.nestle_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.netflix_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.nike_logo}
+                  width={171}
+                  height={34}
+                  alt="logo"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <Divider />
+      </section>
 
       <section className='px-5 mt-10 xl:w-11/12 m-auto'>
         <div className=''>
@@ -381,7 +371,7 @@ const Page = () => {
                       <div className="flex flex-row gap-5 items-center">
 
                         <div>
-                        <Link href={linkedinUrl[index]} target="_blank"><Icon icon={<LinkedinIcon />} /></Link>
+                          <Link href={linkedinUrl[index]} target="_blank"><Icon icon={<LinkedinIcon />} /></Link>
                         </div>
                       </div>
 
@@ -428,23 +418,3 @@ const Page = () => {
 
 
 export default Page
-const CardTwo = ({ heading, icon, description }) => {
-  return (
-    <>
-      <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
-
-        <div className='xl:h-[18rem] md:h-[16rem]'>
-
-          <span>{icon}</span>
-
-          <h1 className='text-[1.3rem] font-bold mt-5 sm:mt-3'>{heading}</h1>
-
-          <p className='mt-5 text-bodyTextColor'>
-            {description}
-          </p>
-        </div>
-
-      </div>
-    </>
-  )
-}
