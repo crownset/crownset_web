@@ -2,6 +2,35 @@ import { getResponse } from "@/helpers/responseMessage";
 import { NextResponse } from "next/server";
 import { Query } from "@/modelCS/query";
 import { dbConnect } from "@/helpers/db"
+import nodeMailer from 'nodemailer';
+
+const userName = process.env.EMAIL_ID;
+const passWord = process.env.EMAIL_PASS;
+
+const transporter = nodeMailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  secure: false,
+  auth: {
+      user: userName,
+      pass: passWord
+  }
+})
+
+async function mailResponse(email){
+ 
+  const mailOptions = {
+     from: 'sudheerskb9@gmail.com',
+  //    to:   'garvrakheja19@gmail.com',
+  //    to:   ['vsudheerverma@gmail.com'],
+     to: `${email}`,
+     subject: 'check mail',
+     html: `<p> form is submitted our sales executive contact you soon </p>`
+ }
+
+  return transporter.sendMail(mailOptions)
+
+}
 
 export async function POST(request) {
   await dbConnect()
@@ -48,6 +77,9 @@ export async function POST(request) {
       service
     });
     await query.save();
+
+    await mailResponse(email)
+
     
     return NextResponse.json({
       message: "Query Saved Sucessfully",
