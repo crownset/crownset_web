@@ -7,7 +7,9 @@ import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
-import { ClipLoader } from 'react-spinners';
+import { BeatLoader, ClipLoader } from 'react-spinners';
+import imageLogin from "@/assets/images/imageLogin.png"
+import Image from 'next/image';
 const Page = () => {
   const [isForgot, setIsforgot] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -41,12 +43,13 @@ const Page = () => {
         setErrors(newErrors);
         return;
       }
-      const result = await dispatch(loginUser(credentials)).unwrap();
+      const result = await dispatch(loginUser(credentials));
       console.log("result==>", result);
       const token = Cookies.get('authToken:');
       console.log('Token from cookies:', token);
       if (token) {
         router.push("/admin");
+        console.log("got the token")
       } else {
         toast.error(user.message);
       }
@@ -60,64 +63,78 @@ const Page = () => {
 
   return (
     <>
+
       <ToastContainer />
-      <div className="min-h-screen flex justify-center items-center px-4">
-        <div className='md:linear-gradient md:w-[80%] border w-full py-10 rounded-3xl'>
-          <div className="bg-white rounded-3xl px-10 py-10 border-shadow md:w-1/3 m-auto">
-            <form className="space-y-4 max-lg:m-auto">
-              <div>
-                <input
-                  className="border mb-4 rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  value={credentials.email}
-                  onChange={handleChange}
-                />
-                {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
-              </div>
-              <div>
-                <input
-                  className="border rounded-xl w-full h-14 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={credentials.password}
-                  onChange={handleChange}
-                />
-                {errors?.password && <p className="text-red-500 text-sm">{errors?.password}</p>}
-              </div>
-              <div className="text-end text-sm">
-                <Link href="/forgotpassword">
-                  <button>
-                    <h1 className="text-bgHover">Forget Password?</h1>
-                  </button>
-                </Link>
-              </div>
-              <div className="flex items-center justify-between w-full">
-                <button
-                  className="bg-black text-white w-full font-bold py-3 px-5 rounded-2xl focus:outline-none focus:shadow-outline hover:bg-[#805CEB]"
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={loading}// Disable button while loading
-                >
-                  {status === "loading" ?
-                    (
-                      <ClipLoader
-                        color={"#FFFFFF"}
-                        loading={loading}
-                        size={10}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                      />
-                    )
-                    : 'Login'}
-                </button>
-              </div>
-            </form>
+      <section className="text-gray-600 body-font h-screen overflow-hidden flex items-center justify-center">
+        <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap items-center">
+          <div className="lg:w-2/3 md:w-1/2 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative h-full">
+            <div className='w-full h-full'>
+              <Image
+                src={imageLogin}
+                objectFit="cover"
+                className='hidden md:block rounded-3xl border'
+              />
+            </div>
+          </div>
+          <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-12 mt-8 md:mt-0">
+            <h2 className="text-gray-900 text-3xl mb-3 font-semibold title-font">Welcome!</h2>
+            <p className="leading-relaxed mb-5 text-gray-600 text-sm">
+              Already have an account?{' '}
+              <button className='border py-1 px-2 rounded-3xl text-center border-dashboard'>
+                <span>Sign in</span>
+              </button>
+            </p>
+            <div className="relative mb-4">
+              <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={credentials.email}
+                onChange={handleChange}
+                className="w-full bg-white rounded border border-gray-300 focus:border-dashboard focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              />
+              {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="password" className="leading-7 text-sm text-gray-600">Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={credentials?.password}
+                onChange={handleChange}
+                className="w-full bg-white rounded border border-gray-300 focus:border-dashboard focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              />
+              {errors?.password && <p className="text-red-500 text-sm">{errors?.password}</p>}
+            </div>
+
+            <button className='text-end text-sm py-1 px-1 mb-2'>
+              <Link href="/forgotpassword">
+                <p>Forgot Password ?</p>
+              </Link>
+            </button>
+
+            <button className="text-white bg-dashboard border-0 py-2 px-6 md:w-[50%] focus:outline-none rounded-3xl text-lg"
+              type="button"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {status === "loading" ?
+                (
+                  <BeatLoader
+                    color={"#FFFFFF"}
+                    loading={loading}
+                    size={10}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                )
+                : 'Login'}
+            </button>
           </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }
