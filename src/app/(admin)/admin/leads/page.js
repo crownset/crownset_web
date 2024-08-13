@@ -10,7 +10,7 @@ import CustomAlert from '@/components/admin/CustomAlert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
-import { Tooltip } from 'react-tooltip';
+// import { Tooltip } from 'react-tooltip';
 
 const Page = () => {
     const dispatch = useDispatch();
