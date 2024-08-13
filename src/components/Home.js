@@ -436,7 +436,7 @@ const SectionFour = () => {
                             <div className={`transition-all duration-500 ease-in-out overflow-hidden 
                                 ${toggleExperts ? 'block' : 'hidden'} mt-10`}>
                                 <h1 className='text-[1.2rem] flex flex-col font-bold'>
-                                    <span>Frendly team of</span>
+                                    <span>Friendly team of</span>
                                     <span>experts</span>
                                 </h1>
                                 <p className='mt-5'>Our experts and professionals are never more than an email or a phone call away. Or, if you prefer to talk face to face, drop by our office to discuss your plans and goals over a cup of coffee. We are here for you.</p>
@@ -531,7 +531,7 @@ const SectionFour = () => {
                         <div className={`transition-all duration-500 ease-in-out overflow-hidden 
                                 ${toggleExperts ? 'block' : 'hidden'} mt-10`}>
                             <h1 className='text-[1.2rem] flex flex-col font-bold'>
-                                <span>Frendly team of</span>
+                                <span>Friendly team of</span>
                                 <span>experts</span>
                             </h1>
                             <p className='mt-5 text-bodyTextColor'>Our experts and professionals are never more than an email or a phone call away. Or, if you prefer to talk face to face, drop by our office to discuss your plans and goals over a cup of coffee. We are here for you.</p>
@@ -542,7 +542,7 @@ const SectionFour = () => {
                                     width={600}
                                     height={700}
                                     alt="Picture of the author"
-                                    className='rounded-[2rem]'
+                                    className='rounded-[2rem] h-[250px]'
                                 />
 
 

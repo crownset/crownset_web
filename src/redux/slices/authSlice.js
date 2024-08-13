@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { handleCases } from '@/helpers/admin/reduxState';
+
 
 const initialState = {
     user: null,
     status: 'idle',
     error: null,
+    forgotPasswordStatus: 'idle',
+    resetPasswordStatus: 'idle',
 };
 
 export const loginUser = createAsyncThunk(
@@ -12,7 +16,7 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/teams', credentials);
-            console.log("response==>", response)
+            console.log("login response==>", response)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -21,16 +25,42 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-    "auth/logoutUser",
+    'auth/logoutUser',
     async (_, { rejectWithValue }) => {
         try {
-            const logoutres = await axios.get("/api/teams/signOut")
-            console.log("logoutres===>", logoutres)
-        } catch {
-            return rejectWithValue(error.response.data)
+            const response = await axios.get('/api/teams/signOut');
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
         }
     }
-)
+);
+
+export const forgetPassword = createAsyncThunk(
+    'auth/forgetPassword',
+    async (email, { rejectWithValue }) => {
+        try {
+            const response = await axios.post('/api/teams/forgotPassword', { email });
+            console.log("forgetResponse====>", response)
+            return response.data.message;
+        } catch (error) {
+            return rejectWithValue(error.response?.data);
+        }
+    }
+);
+
+export const resetPassword = createAsyncThunk(
+    'auth/resetPassword',
+    async ({ token, password }, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`/api/teams/resetPassword?token=${token}`, {password });
+            console.log("reset password ===>", response)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const authSlice = createSlice({
     name: 'auth',
@@ -42,30 +72,10 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder
-            .addCase(loginUser.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.user = action.payload;
-            })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload;
-            })
-            .addCase(logoutUser.pending, (state) => {
-                state.status = "loading";
-            })
-            .addCase(logoutUser.fulfilled, (state) => {
-                state.status = "succeeded";
-                state.user = null;
-                state.error = null
-            })
-            .addCase(logoutUser.rejected, (state, action) => {
-                state.status = "faild";
-                state.error = action.payload
-            })
+        handleCases(builder, loginUser, 'status');
+        handleCases(builder, logoutUser, 'status');
+        handleCases(builder, forgetPassword, 'forgotPasswordStatus');
+        handleCases(builder, resetPassword, 'resetPasswordStatus');
     },
 });
 
