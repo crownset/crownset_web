@@ -1,9 +1,9 @@
 import { getResponse } from "@/helpers/responseMessage";
-import { Query } from "@/modelCS/query";
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/helpers/tokenVerify";
 import userCS from '@/modelCS/user'
 import { dbConnect } from "@/helpers/db"
+import { Project } from "@/modelCS/project";
 
 export async function GET(request) {
 
@@ -18,20 +18,8 @@ export async function GET(request) {
   }
     if(token && token.user.accessId ==1){
 
-      const query = await Query.find({isDeleted:false}).populate("assignTo",{"firstName":1,"accessId":1},userCS).sort({"queryDate":-1})
-      console.log("this is populated 1", query)
-      return NextResponse.json(query)
-    }
-    if(token && token.user.accessId == 2){
-
-      const query = await Query.find(
-      {$and:{
-
-        isDeleted:false,
-        assignTo: token.user._id
-      }
-      }).populate("assignTo","firstName",userCS).sort({"queryDate":-1})
-      return NextResponse.json(query)
+      const project = await Project.find({isDeleted:false}).populate("assignTo",{"firstName":1,"accessId":1},userCS).sort({"projectDate":-1})
+      return NextResponse.json(project)
     }
 
     else {
