@@ -1,7 +1,7 @@
 import { getResponse } from "@/helpers/responseMessage";
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/helpers/tokenVerify";
-import userCS from '@/modelCS/user'
+import UserCS from '@/modelCS/user'
 import { dbConnect } from "@/helpers/db"
 import { Project } from "@/modelCS/project";
 
@@ -18,7 +18,7 @@ export async function GET(request) {
   }
     if(token && token.user.accessId ==1){
 
-      const project = await Project.find({isDeleted:false}).populate("assignTo",{"firstName":1,"accessId":1},userCS).sort({"projectDate":-1})
+      const project = await Project.find({isDeleted:false}).populate("assignTo",{"firstName":1,"accessId":1},UserCS).sort({"projectDate":-1})
       return NextResponse.json(project)
     }
 
