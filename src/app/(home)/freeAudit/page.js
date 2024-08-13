@@ -81,7 +81,6 @@ const FreeAudit = () => {
           leadBy: "test lead"
         });
         toast.success(data?.message);
-        console.log(data?.message)
       })
       .catch((error) => {
         toast.error("There was an error saving your query.");
