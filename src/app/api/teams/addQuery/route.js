@@ -2,6 +2,48 @@ import { getResponse } from "@/helpers/responseMessage";
 import { NextResponse } from "next/server";
 import { Query } from "@/modelCS/query";
 import { dbConnect } from "@/helpers/db"
+import nodeMailer from 'nodemailer';
+
+const userName = process.env.EMAIL_ID;
+const passWord = process.env.EMAIL_PASS;
+
+const transporter = nodeMailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  secure: false,
+  auth: {
+      user: userName,
+      pass: passWord
+  }
+})
+
+async function mailResponse(fullName,email){
+ 
+  const mailOptions = {
+     from: 'thecrownset@gmail.com',
+     to: `${email}`,
+     subject: 'check mail',
+     html: `Dear ${fullName},
+     <br>
+     <br>
+     Thank you for reaching out to Crownset. We appreciate your interest and value your inquiry.
+     <br>
+     <br>
+     One of our executives will be in touch with you shortly to discuss your needs and provide further assistance. If you have any immediate questions or need further information, please don’t hesitate to let us know.
+     <br><br>
+     Thank you once again for contacting us. We look forward to speaking with you soon.
+     <br>
+     <br>
+     Best regards,
+     <br>
+     Crownset Marketing Agency
+     <br>
+     +91 8168695799`
+ }
+
+  return transporter.sendMail(mailOptions)
+
+}
 
 export async function POST(request) {
   await dbConnect()
@@ -48,6 +90,9 @@ export async function POST(request) {
       service
     });
     await query.save();
+
+    await mailResponse(fullName,email)
+
     
     return NextResponse.json({
       message: "Query Saved Sucessfully",

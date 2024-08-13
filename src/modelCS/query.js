@@ -6,7 +6,7 @@ const querySchema = new Schema({
   contact: { type: String, required: true },
   businessName: { type: String, required: true },
   queryContent: { type: String, required: true },
-  leadBy: { type: String, required: true },
+  leadBy: { type: String, required: true, default: "website" },
   service: { type: String, required: true},
   // assignTo: { type: String, required: true, default: "Garvit Chawla" },
 
