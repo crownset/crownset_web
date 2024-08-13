@@ -17,15 +17,28 @@ const transporter = nodeMailer.createTransport({
   }
 })
 
-async function mailResponse(email){
+async function mailResponse(fullName,email){
  
   const mailOptions = {
-     from: 'sudheerskb9@gmail.com',
-  //    to:   'garvrakheja19@gmail.com',
-  //    to:   ['vsudheerverma@gmail.com'],
+     from: 'thecrownset@gmail.com',
      to: `${email}`,
      subject: 'check mail',
-     html: `<p> form is submitted our sales executive contact you soon </p>`
+     html: `Dear ${fullName},
+     <br>
+     <br>
+     Thank you for reaching out to Crownset. We appreciate your interest and value your inquiry.
+     <br>
+     <br>
+     One of our executives will be in touch with you shortly to discuss your needs and provide further assistance. If you have any immediate questions or need further information, please don’t hesitate to let us know.
+     <br><br>
+     Thank you once again for contacting us. We look forward to speaking with you soon.
+     <br>
+     <br>
+     Best regards,
+     <br>
+     Crownset Marketing Agency
+     <br>
+     +91 8168695799`
  }
 
   return transporter.sendMail(mailOptions)
@@ -78,7 +91,7 @@ export async function POST(request) {
     });
     await query.save();
 
-    await mailResponse(email)
+    await mailResponse(fullName,email)
 
     
     return NextResponse.json({

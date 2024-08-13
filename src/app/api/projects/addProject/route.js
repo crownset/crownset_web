@@ -16,7 +16,8 @@ export async function POST(request){
     projectBy,
     deadLine,
     lastFollowUp,
-    remarks} = await request.json()
+    remarks,
+    assignTo} = await request.json()
 
 
     try{
@@ -42,9 +43,9 @@ export async function POST(request){
         if(!businessName || businessName == ""){
             return getResponse("BusinessName is required", 500, false)
         }
-        // if(!assignTo || assignTo == ""){
-        //     return getResponse("AssignTo is required", 500, false)
-        // }
+        if(!assignTo || assignTo == ""){
+            return getResponse("AssignTo is required", 500, false)
+        }
         if(!projectBy || projectBy == ""){
             return getResponse("ProjectBy is required", 500, false)
         }
@@ -67,7 +68,8 @@ export async function POST(request){
             projectBy,
             deadLine,
             lastFollowUp,
-            remarks
+            remarks,
+            assignTo
         })
         await project.save()
 

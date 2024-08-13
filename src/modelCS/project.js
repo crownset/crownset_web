@@ -20,8 +20,8 @@ const projectSchema = new Schema({
     assignTo: { 
         type: mongoose.Types.ObjectId,
         required: true,
-        ref: 'userCS', 
-        default: "66b61189ec8f6c20b130fa81"},
+        ref: 'userCS'
+    },
     projectBy:{
         type: String,
         required: true
@@ -42,8 +42,12 @@ const projectSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    projectDate:{
+        type: Date,
+        required: true,
+        default: Date.now()
     }
-
 })
 
 export const Project = mongoose.models.projects || mongoose.model("projects",projectSchema)
