@@ -16,6 +16,7 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/teams', credentials);
+            console.log("loginresponse==>", response)
             const userInfo = await response.data;
             localStorage.setItem("user", JSON.stringify(userInfo))
             console.log("login response==>", userInfo)

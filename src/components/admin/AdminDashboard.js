@@ -29,7 +29,8 @@ const AdminDashboard = () => {
     const handleConfirm = async () => {
         localStorage.removeItem('user');
         await dispatch(logoutUser());
-        Cookies.remove("authToken")
+        console.log("confirmed")
+        Cookies.remove("authToken:")
         router.push("/teams");
         closeModal();
     };
