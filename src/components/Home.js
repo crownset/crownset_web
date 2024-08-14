@@ -16,20 +16,49 @@ import Carousel from './Carousel';
 import img1 from '@/assets/images/socialmediapic.png'
 import img2 from '@/assets/images/itpic.png'
 import img3 from '@/assets/images/solutionspic.png'
-import { CardOne, CardTwo, RoundedCircleCard } from './Cards';
+import { CardOne, CardTwo, ExpertiseCard, RoundedCircleCard, ServicesCard } from './Cards';
 import sampledata from '@/assets/sampledata/data.json';
 import NumbersAndResults from './NumbersAndResults';
 import Divider from './Divider';
 import { homeone, hometwo, curveline } from '@/helpers/icons';
 import Link from 'next/link';
 import * as images from '@/helpers/icons'
+import { CgWebsite } from "react-icons/cg";
+import { FaMobileAlt } from "react-icons/fa";
+import { FaSearchengin } from "react-icons/fa6";
 
+
+const expertiseData = sampledata.expertise;
 const cardone = sampledata.cardone;
 const cardtwo = sampledata.cardtwo;
 
 const imageCard = sampledata.imageCard;
 const proofData = sampledata.proofData;
 
+const iconMap = {
+    0: <SearchIcon className='text-primary-color size-[1.5rem]' />,
+    1: <TargetArrowIcon className='text-primary-color size-[1.5rem]' />,
+    2: <EmailIcon className='text-primary-color size-[1.5rem]' />,
+    3: <RocketIcon className='text-primary-color size-[1.5rem]' />
+}
+const index = {
+    0: 4,
+    1: 8,
+    2: 5,
+    3: 9
+}
+
+const businessIcon = {
+    0: <AnnouncementIcon className='text-primary-color size-[1.5rem]' />,
+    1: <NetworkIcon className='text-primary-color size-[1.5rem]' />,
+    2: <DollarIcon className='text-primary-color size-[1.5rem]' />
+}
+
+const expertiseIcon = {
+    0: <CgWebsite className='text-primary-color size-[1.5rem]' />,
+    1: <FaMobileAlt className='text-primary-color size-[1.5rem]' />,
+    2: <FaSearchengin className='text-primary-color size-[1.5rem]' />
+}
 
 
 const HomePage = () => {
@@ -182,6 +211,30 @@ const HomePage = () => {
                 </div>
             </section>
             <SectionTwo />
+            <section className='p-5 xl:px-10 xl:w-11/12 m-auto  '>
+                <div>
+                    <h1 className='text-[2rem] md:text-[2.5rem] xl:text-[3rem] 
+                    md:leading-[3rem] tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>Our Expertise</h1>
+
+                    <div className='mt-[3rem] md:grid md:grid-cols-3 md:gap-4 xl:gap-[3rem]'>
+
+
+                        {
+                            expertiseData.map((card, i) => (
+                                <ExpertiseCard
+                                    key={i}
+                                    heading={card.heading}
+                                    description={card.description}
+                                    technologies={card.technologies}
+                                    index={i}
+                                    icon={expertiseIcon[i]} />
+
+                            ))
+                        }
+
+                    </div>
+                </div>
+            </section>
             <SectionThird />
             <SectionFour />
             <SectionFive />
@@ -215,22 +268,18 @@ const SectionTwo = () => {
                     </div>
                 </div>
 
-                <div className='mt-[3rem] md:flex md:gap-[1rem] xl:gap-[3rem]'>
-                    <CardOne
+                <div className='mt-[3rem] md:grid md:grid-cols-3 md:gap-[1rem] xl:gap-[3rem]'>
+                    {
+                        cardone.map((card, i) => (
+                            <CardOne
+                                key={i}
+                                heading={card.heading}
+                                icon={businessIcon[i]}
+                                description={card.descripiton} />
 
-                        heading={cardone[0].heading}
-                        icon={<Icon icon={<AnnouncementIcon className='text-primary-color size-[1.5rem]' />} />}
-                        description={cardone[0].descripiton} />
-                    <CardOne
+                        ))
+                    }
 
-                        heading={cardone[1].heading}
-                        icon={<Icon icon={<NetworkIcon className='text-primary-color size-[1.5rem]' />} />}
-                        description={cardone[1].descripiton} />
-                    <CardOne
-
-                        heading={cardone[2].heading}
-                        icon={<Icon icon={<DollarIcon className='text-primary-color size-[1.5rem]' />} />}
-                        description={cardone[2].descripiton} />
 
                 </div>
             </div>
@@ -278,28 +327,20 @@ const SectionThird = () => {
 
                     <div className='md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto '>
 
-                        <CardTwo
-                            icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
-                            heading={cardtwo[0].heading}
-                            description={cardtwo[0].description}
-                        />
+                        {
+                            cardtwo.map((card, i) => (
+                                <CardTwo
+                                    key={i}
+                                    icon={iconMap[i]}
+                                    heading={card.heading}
+                                    index={index[i]}
+                                    description={card.description}
+                                />
 
-                        <CardTwo
-                            icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />}
-                            heading={cardtwo[1].heading}
-                            description={cardtwo[1].description}
-                        />
+                            ))
 
-                        <CardTwo
-                            icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />}
-                            heading={cardtwo[2].heading}
-                            description={cardtwo[2].description}
-                        />
-                        <CardTwo
-                            icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />}
-                            heading={cardtwo[3].heading}
-                            description={cardtwo[3].description}
-                        />
+                        }
+
 
                     </div>
 
@@ -336,7 +377,7 @@ const SectionFour = () => {
 
     return (
         <>
-            <div className='px-5 xl:flex xl:flex-row-reverse xl:justify-center xl:items-center xl:gap-[8rem]  xl:w-11/12 m-auto'>
+            <div className='px-5 lg:flex lg:flex-row-reverse lg:justify-center lg:items-center lg:gap-[8rem]  xl:w-11/12 m-auto'>
                 <div className=' xl:mt-[10rem] xl:px-4'>
 
                     <div className='flex flex-col text-[2rem] font-bold leading-8 xl:text-[3rem] xl:leading-[2.5rem] '>
@@ -344,9 +385,11 @@ const SectionFour = () => {
 
                     </div>
 
-                    <div className='mt-10'>
+                    <div className='mt-10 lg:w-[30rem]'>
 
-                        <span className='text-bodyTextColor'>We offer comprehensive solutions! 📈 Marketing strategy, IT services, SMM, SMO, and more! 💻📊 Boost your business with our expert services, driving growth and success! 🚀</span>
+                        <span className='text-bodyTextColor'>
+                            Crownset stands out as a key partner for your growth and success by providing complete solutions to your needs. Our services include basic marketing strategy, IT services, social media marketing (SMM), and social media optimization (SMO). With Crownset, you can grow your business, grow it, and achieve unparalleled success. Choose Crownset for a holistic approach to elevate your brand and reach new heights. 🚀📈
+                        </span>
                     </div>
                     <Link href="/freeAudit">
                         <DarkButton buttonText={'get proposal'} />
@@ -393,7 +436,7 @@ const SectionFour = () => {
                             <div className={`transition-all duration-500 ease-in-out overflow-hidden 
                                 ${toggleExperts ? 'block' : 'hidden'} mt-10`}>
                                 <h1 className='text-[1.2rem] flex flex-col font-bold'>
-                                    <span>Frendly team of</span>
+                                    <span>Friendly team of</span>
                                     <span>experts</span>
                                 </h1>
                                 <p className='mt-5'>Our experts and professionals are never more than an email or a phone call away. Or, if you prefer to talk face to face, drop by our office to discuss your plans and goals over a cup of coffee. We are here for you.</p>
@@ -425,7 +468,7 @@ const SectionFour = () => {
                                     <span>that understands you </span>
                                 </h1>
 
-                                <p className='mt-5'>We cultivate an environment of transparency and communication in all we do. You don’t have to wonder what is going on with your campaign – we will keep you in the loop and in control.</p>
+                                <p className='mt-5'>Choose a partner who truly understands your needs and goals. We offer personalized solutions in web development, app development, and SEO to help your business run smoothly. Our team is dedicated to delivering results that align with your vision and drive your success.</p>
 
                                 <div className='mt-5 mb-7 flex justify-center items-center'>
                                     <Image
@@ -488,7 +531,7 @@ const SectionFour = () => {
                         <div className={`transition-all duration-500 ease-in-out overflow-hidden 
                                 ${toggleExperts ? 'block' : 'hidden'} mt-10`}>
                             <h1 className='text-[1.2rem] flex flex-col font-bold'>
-                                <span>Frendly team of</span>
+                                <span>Friendly team of</span>
                                 <span>experts</span>
                             </h1>
                             <p className='mt-5 text-bodyTextColor'>Our experts and professionals are never more than an email or a phone call away. Or, if you prefer to talk face to face, drop by our office to discuss your plans and goals over a cup of coffee. We are here for you.</p>
@@ -499,7 +542,7 @@ const SectionFour = () => {
                                     width={600}
                                     height={700}
                                     alt="Picture of the author"
-                                    className='rounded-[2rem]'
+                                    className='rounded-[2rem] h-[250px]'
                                 />
 
 
@@ -515,7 +558,7 @@ const SectionFour = () => {
                                 <span>that understands you </span>
                             </h1>
 
-                            <p className='mt-5 text-bodyTextColor'>We cultivate an environment of transparency and communication in all we do. You don’t have to wonder what is going on with your campaign – we will keep you in the loop and in control.</p>
+                            <p className='mt-5 text-bodyTextColor'>Choose a partner who truly understands your needs and goals. We offer personalized solutions in web development, app development, and SEO to help your business run smoothly. Our team is dedicated to delivering results that align with your vision and drive your success.</p>
 
                             <div className='mt-5 mb-14 flex justify-center items-center'>
                                 <Image
@@ -546,7 +589,7 @@ const SectionFive = () => {
     const images = [img1, img2, img3];
     return (
         <>
-            <div className='flex flex-col justify-center items-center p-[1rem] mt-8 xl:mt-[5rem] xl:w-11/12 m-auto'>
+            <div className='flex flex-col justify-center items-center p-[1rem] mt-8 xl:mt-[5rem] xl:w-11/12 m-auto' id="blog">
                 <h2 className='text-[1.5rem] font-[300]'>Blog</h2>
                 <h1 className='text-[1.8rem] text-center leading-8 font-he mt-4 font-[600] px-5'>
                     Think further with our expert insights
@@ -572,10 +615,14 @@ const SectionFive = () => {
 }
 
 const ImageCard = ({ imageUrl, date, title }) => {
+    const [more, setMore] = useState(false);
+    const handleMore = () => {
+        setMore(!more);
+    }
     return (
         <>
             <div className={` border mt-[2rem] rounded-[3rem] pb-[2rem]`}>
-                <div >
+                <div  >
                     <Image
                         src={imageUrl}
                         width={500}
@@ -589,6 +636,15 @@ const ImageCard = ({ imageUrl, date, title }) => {
                     <h2 className='text-xl leading-6 font-bold'>{title}</h2>
                 </div>
 
+                {/* <UnderlineButton buttonName={'More'} onClick={handleMore}/> */}
+                <div className=' flex flex-col gap-2 px-[2rem] mt-6'>
+                    <ul className={` ${more ? 'block' : 'hidden'}`}>
+                        <li><span className='font-semibold'>Reaching a wider audience:</span>
+                            <span className='text-bodyTextColor'> Social media enables businesses to connect with a wider audience, increase brand visibility and attract potential customers from different demographics.</span></li>
+                        <li><span className='font-semibold'>Increase engagement and sales:</span>
+                            <span className='text-bodyTextColor'> By creating engaging content and engaging with fans, businesses can drive traffic to their website, increase sales and build stronger customer relationships.</span></li>
+                    </ul>
+                </div>
 
 
             </div>

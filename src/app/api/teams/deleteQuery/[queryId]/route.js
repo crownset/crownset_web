@@ -5,7 +5,7 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 
 
-export async function PUT(request,{params}) {
+export async function PUT(request, { params }) {
 
   await dbConnect();
 
@@ -13,18 +13,18 @@ export async function PUT(request,{params}) {
 
     const token = await verifyToken()
 
-    if(token== "" || !token){
-        return NextResponse.json({message: "login required"});
+    if (token == "" || !token) {
+      return NextResponse.json({ message: "login required" });
     }
 
-    const {queryId} = params
+    const { queryId } = params
 
     if (token && token.user.accessId == 1) {
 
 
       const query = await Query.findById(queryId);
       query.isDeleted = true
-      
+
       const updatedQuery = await query.save()
 
       return NextResponse.json({

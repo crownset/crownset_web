@@ -1,6 +1,7 @@
 import { Kanit as KanitFont } from "next/font/google";
 import "@/app/globals.css";
 import ClientProvider from "@/redux/ClientProvider";
+import {Suspense} from "react";
 
 export const metadata = {
   title: "Crownset website",
@@ -16,11 +17,13 @@ export default function AuthLayout({ children }) {
   return (
     <html className={kanit.className}>
       <body className={kanit.className}>
+        <Suspense>
         <ClientProvider>
           {children}
         </ClientProvider>
+        </Suspense>
+        
       </body>
     </html>
-
   )
 }

@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react'
 import { resetPassword } from '@/redux/slices/authSlice';
 import { BeatLoader } from 'react-spinners';
 import Image from 'next/image';
@@ -42,7 +41,6 @@ const Page = () => {
 
     return (
         <>
-        <Suspense>
             <ToastContainer />
             <section className="text-gray-600 body-font h-screen overflow-hidden flex items-center justify-center">
                 <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap items-center">
@@ -52,6 +50,7 @@ const Page = () => {
                                 src={imageLogin}
                                 objectFit="cover"
                                 className='hidden md:block rounded-3xl border'
+                                alt="login"
                             />
                         </div>
                     </div>
@@ -97,7 +96,6 @@ const Page = () => {
                     </div>
                 </div>
             </section>
-            </Suspense>
         </>
     );
 };

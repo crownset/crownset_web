@@ -21,7 +21,7 @@ export async function PUT(request,{params}) {
 
     const {queryId} = params
 
-    if (token && token.user.accessId == 1) {
+    if (token && token.user.accessId == 1 || token && token.user.accessId == 2) {
 
 
       const query = await Query.findById(queryId);

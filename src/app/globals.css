@@ -40,6 +40,7 @@
   .imgcontainer {
     background-color: rgba(0, 0, 255, 0.5);
   }
+
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -59,4 +60,51 @@
     animation: scroll 10s linear infinite;
   }
 
+}
+html{
+  scroll-behavior: smooth;
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    /* Adjust based on your needs */
+  }
+
+  /* global.css */
+/* Add this to your global CSS file */
+.tooltip {
+  position: absolute;
+  background-color: white;
+  color: black;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  z-index: 1000;
+  max-width: 200px; /* Adjust as needed */
+  display: none;
+  left: 0;
+  top: 100%;
+  transform: translateY(8px);
+  word-wrap: break-word; /* Ensure long words are wrapped */
+}
+
+.tooltip-container:hover .tooltip {
+  display: block;
+}
+
+/* Prevent overflow */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden; /* Ensure the tooltip does not overflow the container */
+  max-width: 100%; /* Ensure container does not exceed the table width */
+}
+
+
+
+}
+html{
+  scroll-behavior: smooth;
 }

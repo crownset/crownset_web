@@ -1,7 +1,7 @@
 import { getResponse } from "@/helpers/responseMessage";
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/helpers/tokenVerify";
-import UserCS from '@/modelCS/user'
+import {UserCS} from '@/modelCS/user'
 import { dbConnect } from "@/helpers/db"
 import { Project } from "@/modelCS/project";
 

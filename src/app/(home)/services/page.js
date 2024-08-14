@@ -1,7 +1,6 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Image from 'next/image'
-import { DarkButton, UnderlineButton } from '@/components/CustomButtons'
-import sampledata from '@/assets/sampledata/data.json';
 
 import { RiSearch2Fill as SearchIcon } from "react-icons/ri";
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
@@ -10,21 +9,40 @@ import { IoMdRocket as RocketIcon } from "react-icons/io";
 import { RiMessage3Fill as MessageIcon } from "react-icons/ri";
 import { TfiGoogle as GoogleIcon } from "react-icons/tfi";
 import { IoIosPeople as PeopleIcon } from "react-icons/io";
-import { FaAmazon as AmazonIcon } from "react-icons/fa";
+import { FaAmazon as AmazonIcon, FaSearchengin } from "react-icons/fa";
 import { FaGoogle as BigGoogleIcon } from "react-icons/fa6";
 import { BsTranslate } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { GrCloudSoftware } from "react-icons/gr";
-import {  ServicesCard } from '@/components/Cards';
+
+import { ServicesCard } from '@/components/Cards';
 import Icon from '@/components/Icon';
 import NumbersAndResults from '@/components/NumbersAndResults';
 import Divider from '@/components/Divider';
 import Link from 'next/link';
 import * as images from '@/helpers/icons';
+import { DarkButton, UnderlineButton } from '@/components/CustomButtons'
+import sampledata from '@/assets/sampledata/data.json';
+
 const featureCardData = sampledata.featureCardData;
 const resultData = sampledata.resultsData;
+const services = sampledata.serviceCard;
 
+const serviceIcon = {
+  0: <CgWebsite className='text-primary-color size-[1.5rem]' />,
+  1: <FaMobileAlt className='text-primary-color size-[1.5rem]' />,
+  2: <GrCloudSoftware className='text-primary-color size-[1.5rem]' />,
+  3: <SearchIcon className='text-primary-color size-[1.5rem]' />,
+  4: <FaSearchengin className='text-primary-color size-[1.5rem]' />,
+  5: <EmailIcon className='text-primary-color size-[1.5rem]' />,
+  6: <RocketIcon className='text-primary-color size-[1.5rem]' />,
+  7: <MessageIcon className='text-primary-color size-[1.5rem]' />,
+  8: <GoogleIcon className='text-primary-color size-[1.5rem]' />,
+  9: <PeopleIcon className='text-primary-color size-[1.5rem]' />,
+  10: <AmazonIcon className='text-primary-color size-[1.5rem]' />,
+  11: <BsTranslate className='text-primary-color size-[1.5rem]' />
+}
 
 const Page = () => {
 
@@ -38,11 +56,13 @@ const Page = () => {
           <div>
             <h2 className='font-bold'>BUSINESS SOLUTIONS</h2>
             <h1 className='mt-6 text-[2rem] leading-9 mr-10 font-[600] md:mr-28 md:text-[2.5rem] lg:mr-12'>Solutions for business growth</h1>
-            <p className='mt-6 font-semibold text-[1.2rem]'>We provide versatile marketing, trending business solutions, and IT services, blending creative and paid media expertise to maximize results.</p>
-            
-           <Link href="/freeAudit">
-            <DarkButton buttonText={'get a free audit'} />
-           </Link>
+            <p className='mt-6 font-semibold text-[1.2rem] text-bodyTextColor'>
+              We provide versatile marketing, trending business solutions, and IT services, blending creative and paid media expertise to maximize results.
+            </p>
+
+            <Link href="/freeAudit">
+              <DarkButton buttonText={'get a free audit'} />
+            </Link>
           </div>
 
           <div className='mt-10 w-full object-cover'>
@@ -58,7 +78,6 @@ const Page = () => {
         </div>
       </section>
 
-
       <section className=' mt-10 lg:mt-[6rem]' >
 
         <div className=''>
@@ -72,51 +91,34 @@ const Page = () => {
           <div style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
             <div className='py-1 px-5 mt-4 md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:w-11/12 m-auto'>
 
-                {/* software soltions */}
-              <ServicesCard heading={featureCardData[0].heading} description={featureCardData[0].description}
-                icon={<Icon icon={<CgWebsite className='text-primary-color size-[1.5rem]' />} />} />
+              {/* software soltions */}
+              {
+                featureCardData.map((card, i) => (
+                  <ServicesCard key={i} heading={card.heading} description={card.description}
+                    icon={serviceIcon[i]} />
 
-                <ServicesCard heading={featureCardData[1].heading} description={featureCardData[1].description}
-                icon={<Icon icon={<FaMobileAlt className='text-primary-color size-[1.5rem]' />} />} />
-
-                <ServicesCard heading={featureCardData[2].heading} description={featureCardData[2].description}
-                icon={<Icon icon={<GrCloudSoftware className='text-primary-color size-[1.5rem]' />} />} />  
-
-              <ServicesCard heading={featureCardData[3].heading} description={featureCardData[3].description}
-                icon={<Icon icon={<SearchIcon className='text-primary-color size-[1.5rem]' />} />}
-              />
-
-              <ServicesCard heading={featureCardData[4].heading} description={featureCardData[4].description}
-                icon={<Icon icon={<TargetArrowIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[5].heading} description={featureCardData[5].description}
-                icon={<Icon icon={<EmailIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[6].heading} description={featureCardData[6].description}
-                icon={<Icon icon={<RocketIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[7].heading} description={featureCardData[7].description}
-                icon={<Icon icon={<MessageIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[8].heading} description={featureCardData[8].description}
-                icon={<Icon icon={<GoogleIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[9].heading} description={featureCardData[9].description}
-                icon={<Icon icon={<PeopleIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[10].heading} description={featureCardData[10].description}
-                icon={<Icon icon={<AmazonIcon className='text-primary-color size-[1.5rem]' />} />} />
-
-              <ServicesCard heading={featureCardData[11].heading} description={featureCardData[11].description}
-                icon={<Icon icon={<BsTranslate className='text-primary-color size-[1.5rem]' />} />} />  
-              
-
+                ))
+              }
 
             </div>
           </div>
           <Divider />
         </div>
 
+      </section>
+
+      <section  >
+        <div >
+          <h1 className='text-center font-bold text-[2rem] lg:text-[3.5rem] lg:mb-[5rem] px-4 leading-9 mb-6'>Discover Our Comprehensive Services</h1>
+          <div className='' style={{ background: 'linear-gradient(0deg, white, rgb(234, 232, 255) 80%)' }}>
+
+            <div className=' xl:w-11/12 m-auto pt-5 ' >
+              {services.map((service, index) => (
+                <ServiceItem key={service.name} service={service} index={index} />
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className='pt-10 px-5'>
@@ -135,7 +137,7 @@ const Page = () => {
             <h1 className='text-[1.5rem] font-[600] leading-6'>We are committed to your strategy</h1>
             <p className='text-bodyTextColor mt-8'>We are committed to providing business solutions that deliver value in the digital economy. At Renaissance, we seamlessly implement the most effective business and digital marketing solutions, including website and app development. Every day, we help brands think big, execute smart, and achieve growth. Our intelligent digital marketing strategy consistently unlocks value from digital investments in a rapidly advancing world, from simple to infinitely complex solutions.</p>
             <Link href="/about">
-            <UnderlineButton buttonName={'more about our company'} />
+              <UnderlineButton buttonName={'more about our company'} />
             </Link>
           </div>
         </div>
@@ -245,5 +247,59 @@ const Page = () => {
 }
 
 export default Page;
+
+export const ServiceItem = ({ service, index }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className=" mb-4 bg-white rounded-[3rem] px-8 py-8 mx-4" id={index}>
+      <h2 className="text-xl font-semibold text-gray-800 mb-2 md:text-[1.5rem] lg:text-[1.7rem]">{service.name}</h2>
+      <p className="text-gray-600 mb-4 mt-5">{service.description}</p>
+      <button
+        onClick={handleToggle}
+        className="mb-4 px-1  border-b-2 border-b-primary-color  hover:border-b-blue-300
+        underline-from-left text-bodyTextColor font-semibold "
+      >
+        {isOpen ? 'Show Less' : 'Show More'}
+      </button>
+      {isOpen && (
+        <div>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">Services Offered:</h3>
+          <ul className="list-disc pl-5 mb-4">
+            {service.services.map((item, index) => (
+              <li key={index} className="text-gray-600">{item}</li>
+            ))}
+          </ul>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">Why It Is Important:</h3>
+          <p className="text-gray-600 mb-4">{service.whyItIsImportant}</p>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">How It Helps Your Business:</h3>
+          <ul className="list-disc pl-5 mb-4">
+            {service.howItHelpsYourBusiness.map((item, index) => (
+              <li key={index} className="text-gray-600">{item}</li>
+            ))}
+          </ul>
+          <h3 className="text-lg font-semibold text-gray-700 mb-2">How We Do It:</h3>
+          <div>
+            {Object.entries(service.howWeDoIt).map(([step, details]) => (
+              <div key={step} className="mb-4">
+                <h4 className="font-semibold text-gray-700">{step}</h4>
+                <ul className="list-disc pl-5">
+                  {Object.entries(details).map(([subStep, description]) => (
+                    <li key={subStep} className="text-gray-600">{description}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 
