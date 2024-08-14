@@ -1,6 +1,6 @@
 import { getResponse } from "@/helpers/responseMessage";
 import { NextResponse } from "next/server";
-import { Query } from "@/modelCS/query";
+import { Project } from "@/modelCS/project";
 import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 
@@ -8,8 +8,6 @@ import { verifyToken } from "@/helpers/tokenVerify";
 export async function PUT(request,{params}) {
 
   await dbConnect();
-
-  const {assignTo,followUp,lastFollowUp,remarks} = await request.json()
 
   try {
 
@@ -19,22 +17,19 @@ export async function PUT(request,{params}) {
         return NextResponse.json({message: "login required"});
     }
 
-    const {queryId} = params
+    const {projectId} = params
 
-    if (token && token.user.accessId == 1 || token && token.user.accessId == 2) {
+    if (token && token.user.accessId == 1) {
 
 
-      const query = await Query.findById(queryId);
-      query.assignTo = assignTo,
-      query.followUp = followUp,
-      query.lastFollowUp = lastFollowUp,
-      query.remarks = remarks
+      const project = await Project.findById(projectId);
+      project.isDeleted = true
       
-      const updatedQuery = await query.save()
+      const updatedProject = await project.save()
 
       return NextResponse.json({
-        data: updatedQuery,
-        message: "Query Successfully Updated",
+        data: updatedProject,
+        message: "Project Deleted Successfully",
         status: 200
       });
     }

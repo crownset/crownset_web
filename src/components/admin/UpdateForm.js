@@ -9,6 +9,13 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
     const dispatch = useDispatch();
     const { user, loading, error } = useSelector((state) => state.user);
     const [isRemarkColor, setIsRemarkColor] = useState("Premature")
+    const [userDetail, setUserDetail] = useState(null);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUserDetail(JSON.parse(storedUser));
+        }
+    }, []);
     console.log("users===>", user)
     const [formValues, setFormValues] = useState({
         assignTo: '',
@@ -104,6 +111,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                                     name="assignTo"
                                     value={formValues.assignTo}
                                     onChange={handleChange}
+                                    disabled={userDetail?.data?.accessId === 2  }
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 >
                                     <option value="">Select assignee</option>

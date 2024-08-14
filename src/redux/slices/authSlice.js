@@ -16,8 +16,10 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/teams', credentials);
-            console.log("login response==>", response)
-            return response.data;
+            console.log("loginresponse==>", response)
+            const userInfo = await response.data;
+            localStorage.setItem("user", JSON.stringify(userInfo))
+            console.log("login response==>", userInfo)
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -53,7 +55,7 @@ export const resetPassword = createAsyncThunk(
     'auth/resetPassword',
     async ({ token, password }, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`/api/teams/resetPassword?token=${token}`, {password });
+            const response = await axios.post(`/api/teams/resetPassword?token=${token}`, { password });
             console.log("reset password ===>", response)
             return response.data;
         } catch (error) {
@@ -72,12 +74,52 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        handleCases(builder, loginUser, 'status');
-        handleCases(builder, logoutUser, 'status');
-        handleCases(builder, forgetPassword, 'forgotPasswordStatus');
-        handleCases(builder, resetPassword, 'resetPasswordStatus');
+        builder
+            .addCase(loginUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.user = action.payload; // Store user details
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            })
+            .addCase(logoutUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                state.status = 'succeeded';
+                state.user = null; // Clear user details
+            })
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            })
+            .addCase(forgetPassword.pending, (state) => {
+                state.forgotPasswordStatus = 'loading';
+            })
+            .addCase(forgetPassword.fulfilled, (state, action) => {
+                state.forgotPasswordStatus = 'succeeded';
+            })
+            .addCase(forgetPassword.rejected, (state, action) => {
+                state.forgotPasswordStatus = 'failed';
+                state.error = action.payload;
+            })
+            .addCase(resetPassword.pending, (state) => {
+                state.resetPasswordStatus = 'loading';
+            })
+            .addCase(resetPassword.fulfilled, (state, action) => {
+                state.resetPasswordStatus = 'succeeded';
+            })
+            .addCase(resetPassword.rejected, (state, action) => {
+                state.resetPasswordStatus = 'failed';
+                state.error = action.payload;
+            });
     },
 });
+
 
 export const { logout } = authSlice.actions;
 

@@ -9,11 +9,12 @@ import CustomAlert from './CustomAlert';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { menuItems, logoutItem } from '@/helpers/admin/config';
-
+import { BeatLoader } from 'react-spinners';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -26,9 +27,11 @@ const AdminDashboard = () => {
     const closeModal = () => setModalOpen(false);
 
     const handleConfirm = async () => {
+        localStorage.removeItem('user');
         await dispatch(logoutUser());
+        console.log("confirmed")
+        Cookies.remove("authToken:")
         router.push("/teams");
-        console.log("Confirmed!");
         closeModal();
     };
 
@@ -36,15 +39,15 @@ const AdminDashboard = () => {
         <>
             <div className="flex">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard  text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
                     <div className="flex justify-between items-center p-4">
-                        {isSidebarOpen == false ? (
+                        {isSidebarOpen === false ? (
                             <button onClick={() => setSidebarOpen(true)}>
                                 <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2 text-default" />
                             </button>
                         ) : (
-                            <div className='flex items-center justify-between w-full '>
+                            <div className='flex items-center justify-between w-full'>
                                 <Image
                                     src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
                                     alt="Crownset Logo"
@@ -57,7 +60,6 @@ const AdminDashboard = () => {
                                     </button>
                                 </div>
                             </div>
-
                         )}
                     </div>
                     <div className="flex-1 flex flex-col p-4">
@@ -77,7 +79,7 @@ const AdminDashboard = () => {
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>
-                                <button className="group flex items-center text-default hover:bg-default  hover:text-black p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2" onClick={openModal}>
+                                <button className="group flex items-center text-default hover:bg-default hover:text-black p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2" onClick={openModal}>
                                     <logoutItem.icon className="h-5 w-5 mr-2 text-default group-hover:text-black" />
                                     <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{logoutItem.name}</span>
                                 </button>
@@ -87,11 +89,10 @@ const AdminDashboard = () => {
                 </div>
                 <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow`}>
                     <div className='w-[16rem] text-2xl font-semibold'>
-                        <h1>
-                            Dashboard
-                        </h1>
+                        <h1>Dashboard</h1>
                     </div>
                 </div>
+              
             </div>
             <CustomAlert
                 isOpen={isModalOpen}

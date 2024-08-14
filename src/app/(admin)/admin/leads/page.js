@@ -10,15 +10,25 @@ import CustomAlert from '@/components/admin/CustomAlert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
-// Import the CSS file for tooltip styling
+import axios from 'axios';
+// import { Tooltip } from 'react-tooltip';
 
 const Page = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.data);
+    console.log("dataqueryyyy==>", data)
     const [isModalOpen, setModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [selectedQueryId, setSelectedQueryId] = useState(null);
     const [selectedQueryData, setSelectedQueryData] = useState(null);
+
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const openEditModal = (id) => {
         setSelectedQueryData(id)
@@ -117,21 +127,21 @@ const Page = () => {
                                             {item.remarks}
                                         </span>
                                     </td>
-                                    <td className="py-2 border-b text-center relative cursor-pointer">
+                                    {/* <td className="py-2 border-b text-center relative cursor-pointer">
                                         {item?.queryContent.length > 20 ? (
                                             <div className="tooltip-container">
                                                 <div className="">
                                                     {item?.queryContent.slice(0, 20)}...
                                                 </div>
-                                                <div className="tooltip w-full">
+                                                <div className="tooltip">
                                                     {item?.queryContent}
                                                 </div>
                                             </div>
                                         ) : (
                                             <div>{item?.queryContent}</div>
                                         )}
-                                    </td>
-                                    {/* <td className="py-2 border-b text-center truncate">{item?.queryContent}</td> */}
+                                    </td> */}
+                                    <td className="py-2 border-b text-center ">{item?.queryContent}</td>
                                     <td className="py-2 border-b text-center">{item?.leadBy}</td>
                                     <td className="py-2 border-b text-center">{item?.assignTo?.firstName}</td>
                                     <td className="py-2 border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
@@ -142,12 +152,19 @@ const Page = () => {
                                             <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                                                 <LuFileEdit className='h-4 w-4' />
                                             </button>
-                                            <button
-                                                className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                                onClick={() => openModal(item._id)}
-                                            >
-                                                <RiDeleteBin5Line className='h-4 w-4' />
-                                            </button>
+                                            {
+                                                user?.data?.accessId === 1 ? (
+                                                    <button
+                                                        className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                        onClick={() => openModal(item._id)}
+                                                    >
+                                                        <RiDeleteBin5Line className='h-4 w-4' />
+                                                    </button>
+                                                ) : (
+                                                    null
+                                                )
+                                            }
+
                                         </div>
                                     </td>
                                 </tr>
