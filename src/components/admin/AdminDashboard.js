@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { menuItems, logoutItem } from '@/helpers/admin/config';
 import { BeatLoader } from 'react-spinners';
+import * as Icon from "@/helpers/icons"
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -47,9 +48,9 @@ const AdminDashboard = () => {
                                 <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2 text-default" />
                             </button>
                         ) : (
-                            <div className='flex items-center justify-between w-full'>
+                            <div className='flex items-center justify-between w-full relative top-0'>
                                 <Image
-                                    src="https://thecrownset.com/wp-content/uploads/2024/07/cropped-crownsetfinalblackvector-removebg-preview-1.png"
+                                    src={Icon?.crownsetLogo}
                                     alt="Crownset Logo"
                                     width={isSidebarOpen ? 150 : 50}
                                     height={20}
@@ -92,7 +93,7 @@ const AdminDashboard = () => {
                         <h1>Dashboard</h1>
                     </div>
                 </div>
-              
+
             </div>
             <CustomAlert
                 isOpen={isModalOpen}

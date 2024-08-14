@@ -14,7 +14,7 @@ const Queries = () => {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-full "w-64" bg-default text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
+      className={` hidden  fixed top-0 right-0 h-full "w-64" bg-default text-black transition-all duration-300 ease-in-out z-10 md:flex flex-col shadow-md`}
     >
       <div className="flex-1 flex flex-col p-4">
         {user ? (
