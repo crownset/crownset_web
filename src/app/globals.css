@@ -60,6 +60,9 @@
     animation: scroll 10s linear infinite;
   }
 
+}
+html{
+  scroll-behavior: smooth;
   .truncate {
     white-space: nowrap;
     overflow: hidden;
