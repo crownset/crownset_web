@@ -73,6 +73,7 @@ const Page = () => {
                 src={imageLogin}
                 objectFit="cover"
                 className='hidden md:block rounded-3xl border'
+                alt="login"
               />
             </div>
           </div>
