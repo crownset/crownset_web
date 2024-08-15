@@ -14,6 +14,22 @@ export const handleAsyncActions = (builder, action, initialState = {}) => {
         })
 };
 
+export const handleActionsProject = (builder, action, initialState = {}) => {
+    builder
+        .addCase(action.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(action.fulfilled, (state, action) => {
+            state.project = action.payload;
+            state.loading = false;
+        })
+        .addCase(action.rejected, (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        })
+};
+
 export const handleCases = (builder, asyncThunk, statusKey) => {
     builder
         .addCase(asyncThunk.pending, (state) => {

@@ -97,8 +97,8 @@ const Page = () => {
             ) : error ? (
                 <div className="text-red-500">Error: {error}</div>
             ) : (
-                <div className="flex-1 overflow-y-auto">
-                    <table className="min-w-full bg-white border border-gray-300 rounded-lg text-sm">
+                <div className="flex-1 overflow-y-auto rounded-3xl">
+                    <table className="min-w-full bg-white border border-gray-300 text-sm">
                         <thead>
                             <tr className="bg-gray-200">
                                 <th className="py-2 border-b min-w-[100px]">Name</th>
@@ -164,7 +164,6 @@ const Page = () => {
                                                     null
                                                 )
                                             }
-
                                         </div>
                                     </td>
                                 </tr>
