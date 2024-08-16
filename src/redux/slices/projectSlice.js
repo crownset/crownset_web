@@ -23,6 +23,27 @@ export const deleteProject = createAsyncThunk(
     }
 )
 
+export const editProject = createAsyncThunk(
+    "project/editData",
+    async ({ queryId, updatedData }, { rejectWithValue }) => {
+        console.log("updatedData", queryId, updatedData)
+        try {
+            const editResponse = await axios.put(`/api/projects/updateProject/${queryId}`, updatedData)
+            console.log("editResponse==>", editResponse)
+
+            return editResponse.data
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+export const addProject = createAsyncThunk('project/addProject', async (projectData) => {
+    const response = await axios.post('/api/projects/addProject', projectData);
+    console.log("addProjectResponse====>", response)
+    return response.data;
+});
+
 const initialState = {
     project: [],
     loading: false,
@@ -37,6 +58,12 @@ const projectSlice = createSlice({
         handleActionsProject(builder, fetchProjects, initialState)
         handleActionsProject(builder, deleteProject, initialState, (state, action) => {
             state.project = state.project.filter(item => item.id !== action.meta.arg);
+        });
+        handleActionsProject(builder, editProject, initialState, (state, action) => {
+            const index = state.project.findIndex(item => item.id === action.meta.arg);
+            if (index !== -1) {
+                state.project[index] = { ...state.project[index], ...action.payload };
+            }
         });
     }
 })

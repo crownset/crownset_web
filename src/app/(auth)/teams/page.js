@@ -11,6 +11,7 @@ import { BeatLoader, ClipLoader } from 'react-spinners';
 import imageLogin from "@/assets/images/loginConfirm.png"
 import Image from 'next/image';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+
 const Page = () => {
   const [isForgot, setIsforgot] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });

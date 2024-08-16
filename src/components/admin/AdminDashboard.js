@@ -42,13 +42,13 @@ const AdminDashboard = () => {
                 <div
                     className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
-                    <div className="flex justify-between items-center p-4">
+                    <div className="flex justify-between  p-4">
                         {isSidebarOpen === false ? (
                             <button onClick={() => setSidebarOpen(true)}>
                                 <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2 text-default" />
                             </button>
                         ) : (
-                            <div className='flex items-center justify-between w-full relative top-0'>
+                            <div className='flex items-center justify-between w-full relative top-0'>   
                                 <Image
                                     src={Icon?.crownsetLogo}
                                     alt="Crownset Logo"

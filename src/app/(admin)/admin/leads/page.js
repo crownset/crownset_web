@@ -87,7 +87,7 @@ const Page = () => {
             {loading ? (
                 <div className="flex justify-center items-center h-full">
                     <BeatLoader
-                        color={"#7367f0"}
+                        color={"#0146cf"}
                         loading={loading}
                         size={15}
                         aria-label="Loading Spinner"
@@ -118,16 +118,16 @@ const Page = () => {
                         <tbody>
                             {(data && Array.isArray(data) ? data : []).map((item, index) => (
                                 <tr key={index}>
-                                    <td className="py-2 border-b text-center">{item?.fullName}</td>
-                                    <td className="py-2 border-b text-center">{item?.email}</td>
-                                    <td className="py-2 border-b text-center">{item?.contact}</td>
-                                    <td className="py-2 border-b text-center">{item?.businessName}</td>
-                                    <td className="py-2 border-b text-center">
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.businessName}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">
                                         <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
                                             {item.remarks}
                                         </span>
                                     </td>
-                                    {/* <td className="py-2 border-b text-center relative cursor-pointer">
+                                    {/* <td className="py-2 text-[12px] border-b text-center relative cursor-pointer">
                                         {item?.queryContent.length > 20 ? (
                                             <div className="tooltip-container">
                                                 <div className="">
@@ -141,13 +141,13 @@ const Page = () => {
                                             <div>{item?.queryContent}</div>
                                         )}
                                     </td> */}
-                                    <td className="py-2 border-b text-center ">{item?.queryContent}</td>
-                                    <td className="py-2 border-b text-center">{item?.leadBy}</td>
-                                    <td className="py-2 border-b text-center">{item?.assignTo?.firstName}</td>
-                                    <td className="py-2 border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
-                                    <td className="py-2 border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
-                                    <td className="py-2 border-b text-center">{moment(item?.queryDate).format('LL')}</td>
-                                    <td className="py-2 border-b text-center">
+                                    <td className="py-2 text-[12px] border-b text-center ">{item?.queryContent}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">
                                         <div className='flex gap-3 justify-center items-center'>
                                             <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                                                 <LuFileEdit className='h-4 w-4' />
