@@ -90,6 +90,17 @@ const FreeAudit = () => {
 
   return (
     <>
+    <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className='flex flex-col  md:items-center md:justify-center py-5 px-5 linear-gradient md:flex-row'>
         <div className='md:w-1/2'>
           <div className='flex flex-col gap-4'>
@@ -223,7 +234,7 @@ const FreeAudit = () => {
         </div>
       </div>
       <Divider />
-      <ToastContainer />
+      
     </>
   );
 }

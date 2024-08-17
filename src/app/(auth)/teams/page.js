@@ -48,11 +48,12 @@ const Page = () => {
       const token = Cookies.get('authToken:');
       if (token) {
         router.push("/admin");
+        toast.success("successfully login")
       } else {
-        toast.error(user.message);
+        toast.error("Failed to login");
       }
     } catch (error) {
-      toast.error(user?.message);
+      toast.error("Failed to login");
     } finally {
       setLoading(false);
     }

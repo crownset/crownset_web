@@ -96,8 +96,8 @@ const Page = () => {
         <div className="text-red-500">Error: {error}</div>
       ) : (
         <>
-          {project.length > 0 ? (
-            <>
+          {/* {project.length > 0 ? (
+            <> */}
               <div className='flex justify-end w-[98%] m-auto'>
                 <button className='bg-dashboard text-default text-base text-center py-2 px-2 rounded-xl my-3 text-[12px]' onClick={openAddModal}>
                   ADD Project
@@ -121,7 +121,7 @@ const Page = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {project.map((item) => (
+                    {(project && Array.isArray(project) ? project : []).map((item, index)=> (
                       <tr key={item.id}>
                         <td className="py-2 border-b text-[12px] text-center">{item?.name}</td>
                         <td className="py-2 border-b text-[12px] text-center">{item?.email}</td>
@@ -134,7 +134,7 @@ const Page = () => {
                         <td className="py-2 border-b text-[12px] text-center">{moment(item?.projectDate).format('LL')}</td>
                         <td className="py-2 border-b text-[12px] text-center">{moment(item?.deadLine).format('LL')}</td>
                         <td className="py-2 border-b text-center">
-                          <div className='flex gap-3 justify-center items-center'>
+                          <div className='flex gap-3 justify-center items-center -z-10'>
                             <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                               <LuFileEdit className='h-4 w-4' />
                             </button>
@@ -163,13 +163,13 @@ const Page = () => {
                 />
               </div>
             </>
-          ) : (
-            <div className="flex flex-col justify-center items-center h-full">
-              <BsFileText className="text-gray-400 text-4xl mb-4" />
-              <p className="text-gray-500 text-lg">No projects available</p>
-            </div>
-          )}
-        </>
+        //   ) : (
+        //     <div className="flex flex-col justify-center items-center h-full">
+        //       <BsFileText className="text-gray-400 text-4xl mb-4" />
+        //       <p className="text-gray-500 text-lg">No projects available</p>
+        //     </div>
+        //   )}
+        // </>
       )}
     </>
   );
