@@ -1,24 +1,27 @@
 "use client";
 import Image from 'next/image';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { logoutUser } from '@/redux/slices/authSlice';
 import CustomAlert from './CustomAlert';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { menuItems, logoutItem } from '@/helpers/admin/config';
+import * as Icon from "@/helpers/icons";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
-import * as Icon from "@/helpers/icons"
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-
+    const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
 
     const dispatch = useDispatch();
     const router = useRouter();
+    const status = useSelector((state) => state.auth.status);
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
@@ -28,48 +31,71 @@ const AdminDashboard = () => {
     const closeModal = () => setModalOpen(false);
 
     const handleConfirm = async () => {
-        localStorage.removeItem('user');
-        await dispatch(logoutUser());
-        console.log("confirmed")
-        Cookies.remove("authToken:")
-        router.push("/teams");
-        closeModal();
+        try {
+            await dispatch(logoutUser()).unwrap();
+            Cookies.remove("authToken:");
+            localStorage.removeItem('user');
+            toast.success("Logout successful!");
+            router.push("/teams");
+        } catch (error) {
+            toast.error("Logout failed. Please try again.");
+        } finally {
+            closeModal();
+        }
     };
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className="flex">
                 <div
                     className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
-                    <div className="flex justify-between  p-4">
+                    <div className="mt-[14px]">
                         {isSidebarOpen === false ? (
-                            <button onClick={() => setSidebarOpen(true)}>
-                                <RxHamburgerMenu className="h-6 w-6 ml-2 mt-2 text-default" />
+                            <button onClick={toggleSidebar}>
+                                <RxHamburgerMenu className="h-6 w-[3.25rem] ml-2 mt-2 text-default" />
                             </button>
                         ) : (
-                            <div className='flex items-center justify-between w-full relative top-0'>   
-                                <Image
-                                    src={Icon?.crownsetLogo}
-                                    alt="Crownset Logo"
-                                    width={isSidebarOpen ? 150 : 50}
-                                    height={20}
-                                />
+                            <div className='flex items-center justify-between  h-[2rem]'>
+                                <div className=''>
+                                    <Image
+                                        src={Icon?.crownsetLogo}
+                                        alt="Crownset Logo"
+                                        width={150}
+                                        height={20}
+                                        className=' p-0 ml-[12px] mt-[2rem]'
+                                    />
+                                </div>
+
                                 <div>
                                     <button onClick={toggleSidebar}>
-                                        <RxCross2 className="h-6 w-6 text-default" />
+                                        <RxCross2 className="h-6 w-6 mr-[12px] mt-[2.5rem] text-default" />
                                     </button>
                                 </div>
                             </div>
                         )}
                     </div>
-                    <div className="flex-1 flex flex-col p-4">
+                    <div className="flex-1 flex flex-col p-4 mt-[4rem]">
                         <ul className="space-y-4">
                             {menuItems.map((item, index) => (
                                 <li key={index}>
                                     <Link href={item.href}>
-                                        <button className="group flex items-center text-default hover:bg-default hover:text-black p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2">
-                                            <item.icon className="h-5 w-5 mr-2 text-default group-hover:text-black" />
+                                        <button
+                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default text-black" : "text-default hover:bg-default hover:text-black"}`}
+                                            onClick={() => setSelectedTab(item.name)}
+                                        >
+                                            <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
                                         </button>
                                     </Link>
@@ -80,7 +106,10 @@ const AdminDashboard = () => {
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>
-                                <button className="group flex items-center text-default hover:bg-default hover:text-black p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2" onClick={openModal}>
+                                <button
+                                    className="group flex items-center text-default hover:bg-default hover:text-black p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2"
+                                    onClick={openModal}
+                                >
                                     <logoutItem.icon className="h-5 w-5 mr-2 text-default group-hover:text-black" />
                                     <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{logoutItem.name}</span>
                                 </button>
@@ -93,17 +122,23 @@ const AdminDashboard = () => {
                         <h1>Dashboard</h1>
                     </div>
                 </div>
-
             </div>
+
             <CustomAlert
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 title="Are you sure?"
                 description="Are you sure you want to logout?"
-                confirmButtonText="Yes, I'm sure"
+                confirmButtonText={status === "loading" ? <BeatLoader color="#ffffff" size={10} /> : "Yes, I'm sure"}
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
+
+            {/* {status === 'loading' && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <BeatLoader color="#ffffff" />
+                </div>
+            )} */}
         </>
     );
 };

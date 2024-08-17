@@ -14,8 +14,6 @@ const Page = () => {
     const dispatch = useDispatch();
     const { forgotPasswordStatus, error, successMessage } = useSelector((state) => state.auth);
 
-    
-
     useEffect(() => {
         if (forgotPasswordStatus === 'succeeded') {
             toast.success(successMessage || 'Password reset email sent successfully!');

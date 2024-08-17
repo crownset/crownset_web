@@ -16,7 +16,6 @@ import axios from 'axios';
 const Page = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.data);
-    console.log("dataqueryyyy==>", data)
     const [isModalOpen, setModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [selectedQueryId, setSelectedQueryId] = useState(null);

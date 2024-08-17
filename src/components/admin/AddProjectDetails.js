@@ -3,6 +3,7 @@ import { addProject, fetchProjects } from '@/redux/slices/projectSlice';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
+import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 
 const AddProjectDetails = ({ onCloseProject, openProject }) => {
@@ -14,15 +15,18 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
         remarks: "",
         businessName: "",
         projectBy: "",
-        lastFollowUp: new Date(),
+        lastFollowUp: "",
         deadLine: "",
     });
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
 
     const handleChange = (e) => {
         setFormValues({
-            ...formValues, // Use formValues here
+            ...formValues,
             [e.target.name]: e.target.value,
         });
     };
@@ -36,13 +40,40 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
         try {
-            await dispatch(addProject(formValues)).unwrap(); // Use formValues here
+            const newErrors = {};
+            if (!formValues?.name) {
+                newErrors.name = 'Name is required';
+            } else if (!formValues?.email) {
+                newErrors.email = 'Email is required';
+            } else if (!formValues?.contactNo) {
+                newErrors.contactNo = 'Contact number is required';
+            } else if (!formValues?.assignTo) {
+                newErrors.assignTo = 'Assign To is required';
+            } else if (!formValues?.businessName) {
+                newErrors.businessName = 'Business Name is required';
+            } else if (!formValues?.remarks) {
+                newErrors.remarks = 'Remarks are required';
+            } else if (!formValues?.projectBy) {
+                newErrors.projectBy = 'Project By is required';
+            } else if (!formValues?.lastFollowUp) {
+                newErrors.lastFollowUp = 'Last Follow-Up is required';
+            } else if (!formValues?.deadLine) {
+                newErrors.deadLine = 'Deadline is required';
+            }
+            if (Object.keys(newErrors).length > 0) {
+                setErrors(newErrors);
+                return;
+            }
+            await dispatch(addProject(formValues)).unwrap();
             toast.success('Project added successfully!');
             dispatch(fetchProjects());
-            onCloseProject(); // Ensure onClose is called after success
+            onCloseProject();
         } catch (error) {
             toast.error('Failed to add project!');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -58,7 +89,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={()=>{onCloseProject()}}
+                        onClick={() => { onCloseProject() }}
                     >
                         <svg
                             className="w-3 h-3"
@@ -93,6 +124,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.name && <p className="text-red-500 text-sm">{errors?.name}</p>}
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
@@ -106,6 +138,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
                             </div>
                         </div>
                         <div className="flex space-x-2">
@@ -121,6 +154,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.contactNo && <p className="text-red-500 text-sm">{errors?.contactNo}</p>}
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="assignTo" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
@@ -139,6 +173,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                         </option>
                                     ))}
                                 </select>
+                                {errors?.assignTo && <p className="text-red-500 text-sm">{errors?.assignTo}</p>}
                             </div>
                         </div>
                         <div className="flex space-x-2">
@@ -154,6 +189,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.businessName && <p className="text-red-500 text-sm">{errors?.businessName}</p>}
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="remarks" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
@@ -167,6 +203,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.remarks && <p className="text-red-500 text-sm">{errors?.remarks}</p>}
                             </div>
                         </div>
                         <div className="flex space-x-2">
@@ -177,41 +214,55 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                 <input
                                     id="projectBy"
                                     name="projectBy"
+                                    type="text"
                                     value={formValues.projectBy}
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.projectBy && <p className="text-red-500 text-sm">{errors?.projectBy}</p>}
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="lastFollowUp" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
-                                    Last FollowUp
+                                    Last Follow-Up
                                 </label>
                                 <DatePicker
                                     id="lastFollowUp"
                                     selected={formValues.lastFollowUp}
                                     onChange={(date) => handleDateChange('lastFollowUp', date)}
+                                    dateFormat="yyyy/MM/dd"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
+                                {errors?.lastFollowUp && <p className="text-red-500 text-sm">{errors?.lastFollowUp}</p>}
                             </div>
                         </div>
-                        <div className="flex-1">
-                            <label htmlFor="deadLine" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
-                                Deadline
-                            </label>
-                            <DatePicker
-                                id="deadLine"
-                                selected={formValues.deadLine}
-                                onChange={(date) => handleDateChange('deadLine', date)}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
+                        <div className="flex space-x-2">
+                            <div className="flex-1">
+                                <label htmlFor="deadLine" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                    Deadline
+                                </label>
+                                <DatePicker
+                                    id="deadLine"
+                                    selected={formValues.deadLine}
+                                    onChange={(date) => handleDateChange('deadLine', date)}
+                                    dateFormat="yyyy/MM/dd"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                />
+                                {errors?.deadLine && <p className="text-red-500 text-sm">{errors?.deadLine}</p>}
+                            </div>
                         </div>
+                        <div className="flex ">
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-lg text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                            >
+                                {
+                                    isSubmitting ?  <BeatLoader color="#ffffff" size={10} /> : "Save"
+                                }
+                            </button>
+                        </div>
+
                     </div>
-                    <button
-                        type="submit"
-                        className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-[15px] text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
-                    >
-                        Save
-                    </button>
                 </form>
             </div>
         </div>

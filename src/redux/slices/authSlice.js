@@ -16,10 +16,8 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/teams', credentials);
-            console.log("loginresponse==>", response)
             const userInfo = await response.data;
             localStorage.setItem("user", JSON.stringify(userInfo))
-            console.log("login response==>", userInfo)
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -43,7 +41,6 @@ export const forgetPassword = createAsyncThunk(
     async (email, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/teams/forgotPassword', { email });
-            console.log("forgetResponse====>", response)
             return response.data.message;
         } catch (error) {
             return rejectWithValue(error.response?.data);
@@ -56,7 +53,6 @@ export const resetPassword = createAsyncThunk(
     async ({ token, password }, { rejectWithValue }) => {
         try {
             const response = await axios.post(`/api/teams/resetPassword?token=${token}`, { password });
-            console.log("reset password ===>", response)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
