@@ -117,7 +117,7 @@ const AdminDashboard = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow`}>
+                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-10`}>
                     <div className='w-[16rem] text-2xl font-semibold'>
                         <h1>Dashboard</h1>
                     </div>
