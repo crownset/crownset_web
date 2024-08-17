@@ -30,7 +30,7 @@ export async function GET(request) {
         isDeleted:false,
         assignTo: token.user._id
       }
-      }).populate("assignTo","firstName",userCS).sort({"queryDate":-1})
+      }).populate("assignTo","firstName",UserCS).sort({"queryDate":-1})
       return NextResponse.json(query)
     }
 
