@@ -8,8 +8,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import { BeatLoader, ClipLoader } from 'react-spinners';
-import imageLogin from "@/assets/images/imageLogin.png"
+import imageLogin from "@/assets/images/loginConfirm.png"
 import Image from 'next/image';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
+
 const Page = () => {
   const [isForgot, setIsforgot] = useState(false);
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -18,8 +20,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { user, status, error } = useSelector((state) => state.auth);
-
-  console.log("user==>", user)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleToggle = () => {
     setIsforgot(!isForgot);
@@ -44,12 +45,9 @@ const Page = () => {
         return;
       }
       const result = await dispatch(loginUser(credentials));
-      console.log("result==>", result);
       const token = Cookies.get('authToken:');
-      console.log('Token from cookies:', token);
       if (token) {
         router.push("/admin");
-        console.log("got the token")
       } else {
         toast.error(user.message);
       }
@@ -63,8 +61,17 @@ const Page = () => {
 
   return (
     <>
-
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <section className="text-gray-600 body-font h-screen overflow-hidden flex items-center justify-center">
         <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap items-center">
           <div className="lg:w-2/3 md:w-1/2 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative h-full">
@@ -72,21 +79,28 @@ const Page = () => {
               <Image
                 src={imageLogin}
                 objectFit="cover"
-                className='hidden md:block rounded-3xl border'
+                // height="80%"
+                className='hidden md:block rounded-3xl'
                 alt="login"
               />
             </div>
           </div>
           <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-12 mt-8 md:mt-0">
-            <h2 className="text-gray-900 text-3xl mb-3 font-semibold title-font">Welcome!</h2>
-            <p className="leading-relaxed mb-5 text-gray-600 text-sm">
+            <h2 className="text-gray-900 text-3xl mb-3 font-semibold title-font">Login</h2>
+            {/* <p className="leading-relaxed mb-5 text-gray-600 text-sm">
               Already have an account?{' '}
               <button className='border py-1 px-2 rounded-3xl text-center border-dashboard'>
                 <span>Sign in</span>
               </button>
-            </p>
+            </p> */}
+            <div className='flex py-2  gap-5 items-center'>
+              <p className="leading-relaxed  text-gray-600 text-sm">Already have an account?</p>
+              <button className='border py-1 px-2 rounded-lg text-center border-dashboard text-dashboard'>
+                <span>Sign in</span>
+              </button>
+            </div>
             <div className="relative mb-4">
-              <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
+              <label htmlFor="email" className="leading-10 text-sm text-gray-600 font-bold">Email</label>
               <input
                 type="email"
                 placeholder="Email"
@@ -98,25 +112,28 @@ const Page = () => {
               {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
             </div>
             <div className="relative mb-4">
-              <label htmlFor="password" className="leading-7 text-sm text-gray-600">Password</label>
+              <label htmlFor="password" className="leading-10 text-sm text-gray-600 font-bold">Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 name="password"
                 value={credentials?.password}
                 onChange={handleChange}
                 className="w-full bg-white rounded border border-gray-300 focus:border-dashboard focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0  top-8 flex items-center pr-3"
+              >
+                {showPassword ? <HiEyeOff className="text-gray-500" /> : <HiEye className="text-gray-500" />}
+              </button>
               {errors?.password && <p className="text-red-500 text-sm">{errors?.password}</p>}
             </div>
 
-            <button className='text-end text-sm py-1 px-1 mb-2'>
-              <Link href="/forgotpassword">
-                <p>Forgot Password ?</p>
-              </Link>
-            </button>
 
-            <button className="text-white bg-dashboard border-0 py-2 px-6 md:w-[50%] focus:outline-none rounded-3xl text-lg"
+
+            <button className="text-white mt-5 bg-dashboard border-0 py-2 px-6  focus:outline-none rounded-lg text-lg"
               type="button"
               onClick={handleSubmit}
               disabled={loading}
@@ -132,6 +149,11 @@ const Page = () => {
                   />
                 )
                 : 'Login'}
+            </button>
+            <button className='text-center mt-5 text-sm py-1 px-1 mb-2 font-bold'>
+              <Link href="/forgotpassword">
+                <p>Forgot Password</p>
+              </Link>
             </button>
           </div>
         </div>

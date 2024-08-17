@@ -16,7 +16,7 @@ export const menuItems = [
     },
     {
         name: "Projects",
-        href: "/admin/pades",
+        href: "/admin/projects",
         icon: MdContentCopy,
     },
 ];

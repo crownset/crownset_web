@@ -16,7 +16,6 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
             setUserDetail(JSON.parse(storedUser));
         }
     }, []);
-    console.log("users===>", user)
     const [formValues, setFormValues] = useState({
         assignTo: '',
         followUp: false,
