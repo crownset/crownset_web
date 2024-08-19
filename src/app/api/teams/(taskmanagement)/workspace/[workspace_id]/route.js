@@ -31,9 +31,6 @@ export async function GET(request, { params }) {
             console.log("Not Authorized");
             return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
         }
-
-
-
         
         const workspace = await Workspace.findById(workspace_id).exec();
 

@@ -19,6 +19,11 @@ export const menuItems = [
         href: "/admin/pades",
         icon: MdContentCopy,
     },
+    {
+        name: "Workspace",
+        href: "/admin/workspaces",
+        icon: MdContentCopy,
+    },
 ];
 
 export const logoutItem = {

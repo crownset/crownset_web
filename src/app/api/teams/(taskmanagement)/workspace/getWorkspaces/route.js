@@ -3,6 +3,7 @@ import Workspace from "@/modelCS/workspace";
 import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken'
 
+//get all workspaces created by user
 export async function GET(request) {
     dbConnect()
     try {
