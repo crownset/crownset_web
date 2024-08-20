@@ -259,13 +259,10 @@ const SectionTwo = () => {
                         </div>
                         <div className='mt-5'>
                             <p className='text-bodyTextColor'>Together, we help our clients achieve tangible, measurable results. Focused on business outcomes — we bring a unique set of expertise and skills to the party.</p>
-                             
-                             <div className='xl:mt-6'>
-                             <Link href="\about">
+
+                            <Link href="\about">
                                 <UnderlineButton buttonName={'more about us'} />
                             </Link>
-                             </div>
-                            
 
                         </div>
                     </div>

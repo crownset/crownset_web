@@ -136,12 +136,9 @@ const Page = () => {
           <div className='mt-10'>
             <h1 className='text-[1.5rem] font-[600] leading-6'>We are committed to your strategy</h1>
             <p className='text-bodyTextColor mt-8'>We are committed to providing business solutions that deliver value in the digital economy. At Renaissance, we seamlessly implement the most effective business and digital marketing solutions, including website and app development. Every day, we help brands think big, execute smart, and achieve growth. Our intelligent digital marketing strategy consistently unlocks value from digital investments in a rapidly advancing world, from simple to infinitely complex solutions.</p>
-            <div className='xl:mt-6'>
             <Link href="/about">
               <UnderlineButton buttonName={'more about our company'} />
             </Link>
-            </div>
-            
           </div>
         </div>
 

@@ -47,7 +47,7 @@ async function mailResponse(fullName,email){
 
 export async function POST(request) {
   await dbConnect()
-  const { fullName, email, contact, businessName, queryContent, leadBy, service } =
+  const { fullName, email, contact, businessName, queryContent, leadBy, service, comments } =
     await request.json();
 
   try {
@@ -80,6 +80,7 @@ export async function POST(request) {
       return getResponse("Service is required field", 500, false)
   }
 
+
     const query = new Query({
       fullName,
       email,
@@ -87,7 +88,8 @@ export async function POST(request) {
       businessName,
       queryContent,
       leadBy,
-      service
+      service,
+      comments
     });
     await query.save();
 

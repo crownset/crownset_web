@@ -6,6 +6,7 @@ export const fetchProjects = createAsyncThunk(
     'project/fetchData',
     async () => {
         const response = await axios.get('/api/projects/getProject');
+        console.log("projectResponse==>", response)
         return response.data;
     });
 

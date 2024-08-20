@@ -211,12 +211,9 @@ const Page = () => {
           </div>
           <div className='mt-6'>
             <p className='text-bodyTextColor'>After years of experience, we&apos;ve learned that each service area offers unique advantages. To maximize these benefits, we strategically combine them to create comprehensive solutions. We provide our clients with full-service strategies that include business solutions, IT services, and digital marketing, enhancing visibility, boosting conversions, and driving revenue.</p>
-            <div className='xl:mt-6'>
             <Link href="/services">
               <UnderlineButton buttonName={'Business SOLUTIONS'} />
             </Link>
-            </div>
-            
           </div>
         </div>
       </section>
