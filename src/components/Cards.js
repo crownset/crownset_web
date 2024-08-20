@@ -7,7 +7,7 @@ import Icon from "./Icon";
 
 export const CardFour = ({ heading, icon, description }) => {
     return (
-        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
+        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white border-[3px] border-[#e9e5ff]'>
 
             <div className='xl:h-[18rem] md:h-[17rem] lg:h-[13rem]'>
 
@@ -27,7 +27,7 @@ export const CardFour = ({ heading, icon, description }) => {
 
 export const CardThree = ({ heading, icon, description }) => {
     return (
-        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white '>
+        <div className='w-[100%] py-4 pl-7 pr-4 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white border-[3px] border-[#e9e5ff]'>
 
             <div className='xl:h-[23rem] md:h-[18rem] '>
 
@@ -48,7 +48,7 @@ export const CardThree = ({ heading, icon, description }) => {
 export const ServicesCard = ({ heading, icon, description }) => {
     return (
         <>
-            <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
+            <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white border-[3px] border-[#e9e5ff]'>
 
                 <div className='xl:h-[19rem] md:h-[17rem] lg:h-[12rem]'>
 
@@ -70,7 +70,7 @@ export const ServicesCard = ({ heading, icon, description }) => {
 export const CardTwo = ({ heading, icon, description, index }) => {
     return (
         <>
-            <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white'>
+            <div className='w-[100%] py-4 pl-7 pr-16 pb-[2.5rem] pt-10 sm:pt-5 mt-7 rounded-[2.5rem]  bg-white border-[3px] border-[#e9e5ff]'>
 
                 <div className='xl:h-[19rem] md:h-[17rem] lg:h-[12rem]'>
 
@@ -113,7 +113,7 @@ export const RoundedCircleCard = ({ value, descripiton }) => {
 export const CardOne = ({ heading, icon, description }) => {
     return (
         <>
-            <div className='border py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7'>
+            <div className='py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7 border-[3px] border-[#e9e5ff]'>
 
 
 
@@ -161,7 +161,7 @@ export const ContactAddressCard = ({ address, icon, phoneNumber }) => {
 export const ExpertiseCard = ({ heading, icon, description, technologies, index }) => {
     return (
         <>
-            <div className='border py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7 '>
+            <div className='py-4 pb-10 px-7 pt-12 rounded-[3rem] mt-7 border-[3px] border-[#e9e5ff]'>
 
 
                 <div className="md:h-[27rem] lg:h-[22rem]">
