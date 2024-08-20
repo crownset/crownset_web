@@ -55,9 +55,9 @@ const Page = () => {
 
           <div>
             <h2 className='font-bold'>BUSINESS SOLUTIONS</h2>
-            <h1 className='mt-6 text-[2rem] leading-9 mr-10 font-[600] md:mr-28 md:text-[2.5rem] lg:mr-12'>Solutions for business growth</h1>
+            <h1 className='mt-6 text-[2rem] leading-9 mr-10 font-[600] md:mr-28 md:text-[2.5rem] lg:mr-12'>Solutions for business growth strategies </h1>
             <p className='mt-6 font-semibold text-[1.2rem] text-bodyTextColor'>
-              We provide versatile marketing, trending business solutions, and IT services, blending creative and paid media expertise to maximize results.
+             We offer versatile marketing strategies, cutting-edge business solutions, and innovative IT services. Our approach blends creative expertise with data-driven paid media campaigns to ensure maximum results for your business. Whether you &apos re looking to enhance your digital presence, develop your brand, or improve IT infrastructure, we &apos re here to help you achieve sustainable growth and long-term success. Let &apos s collaborate to take your business to the next level!
             </p>
 
             <Link href="/freeAudit">
@@ -71,7 +71,7 @@ const Page = () => {
               width={800}
               height={500}
               alt="image"
-              className='rounded-[2rem] aspect-auto'
+              className='aspect-auto'
             />
 
           </div>
@@ -115,6 +115,7 @@ const Page = () => {
             <div className=' xl:w-11/12 m-auto pt-5 ' >
               {services.map((service, index) => (
                 <ServiceItem key={service.name} service={service} index={index} />
+                
               ))}
             </div>
           </div>
