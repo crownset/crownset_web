@@ -40,6 +40,7 @@ export const editQuery = createAsyncThunk(
     async ({ queryId, updatedData }, { rejectWithValue }) => {
         try {
             const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`, updatedData)
+            console.log("editResponse==>", editResponse)
             return editResponse.data
         } catch (error) {
             return rejectWithValue(error.response.data)

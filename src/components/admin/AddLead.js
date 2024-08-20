@@ -18,7 +18,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
         queryContent: "",
         service: "",
         leadBy: "",
-        comments: ""
+        // comments: ""
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -248,6 +248,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                             placeholder="write your Comment..."
                             value={formValues?.comments}
                             onChange={handleChange}
+                            maxLength={250}
                         />
                         {errors.comments && <p className="text-red-500 text-sm">{errors.comments}</p>}
                     </div>

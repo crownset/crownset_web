@@ -12,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
 import axios from 'axios';
 import AddLead from '@/components/admin/AddLead';
-// import { Tooltip } from 'react-tooltip';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -22,6 +21,8 @@ const Page = () => {
     const [selectedQueryId, setSelectedQueryId] = useState(null);
     const [selectedQueryData, setSelectedQueryData] = useState(null);
     const [isAddModalOpen, setAddModalOpen] = useState(false);
+    const [isQueryModalOpen, setIsQueryModalOpen] = useState(false);
+    const [fullQuery, setFullQuery] = useState("");
 
     const [user, setUser] = useState(null);
     useEffect(() => {
@@ -53,11 +54,21 @@ const Page = () => {
 
     const closeAddModal = () => {
         setAddModalOpen(false);
-      };
+    };
 
-      const openAddModal = () => {
+    const openAddModal = () => {
         setAddModalOpen(!isAddModalOpen);
-      };
+    };
+
+    const openQueryModal = (queryContent) => {
+        setFullQuery(queryContent);
+        setIsQueryModalOpen(true);
+    };
+
+    const closeQueryModal = () => {
+        setIsQueryModalOpen(false);
+        setFullQuery("");
+    };
 
     useEffect(() => {
         dispatch(fetchData());
@@ -118,7 +129,7 @@ const Page = () => {
             ) : (
                 <>
                     <div className='text-end'>
-                        <button className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]' onClick={() =>  setAddModalOpen(!isAddModalOpen)}>
+                        <button className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]' onClick={() => setAddModalOpen(!isAddModalOpen)}>
                             ADD Lead
                         </button>
                     </div>
@@ -135,6 +146,7 @@ const Page = () => {
                                     <th className="py-2 border-b min-w-[200px]">Query Content</th>
                                     <th className="py-2 border-b min-w-[100px]">Lead By</th>
                                     <th className="py-2 border-b min-w-[100px]">Assign To</th>
+                                    <th className="py-2 border-b min-w-[100px]">Comments</th>
                                     <th className="py-2 border-b min-w-[100px]">Follow Up</th>
                                     <th className="py-2 border-b min-w-[150px]">Last Follow Up</th>
                                     <th className="py-2 border-b min-w-[100px]">Query Date</th>
@@ -153,23 +165,24 @@ const Page = () => {
                                                 {item.remarks}
                                             </span>
                                         </td>
-                                        {/* <td className="py-2 text-[12px] border-b text-center relative cursor-pointer">
-                                        {item?.queryContent.length > 20 ? (
-                                            <div className="tooltip-container">
-                                                <div className="">
-                                                    {item?.queryContent.slice(0, 20)}...
-                                                </div>
-                                                <div className="tooltip">
-                                                    {item?.queryContent}
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div>{item?.queryContent}</div>
-                                        )}
-                                    </td> */}
-                                        <td className="py-2 text-[12px] border-b text-center ">{item?.queryContent}</td>
+                                        <td className="py-2 text-[12px] border-b text-center ">
+                                            {item?.queryContent.length > 50 ? (
+                                                <>
+                                                    {item?.queryContent.slice(0, 50)}...
+                                                    <button
+                                                        className="text-blue-500 underline ml-1"
+                                                        onClick={() => openQueryModal(item?.queryContent)}
+                                                    >
+                                                        View More
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                item?.queryContent
+                                            )}
+                                        </td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.comments}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
@@ -196,23 +209,42 @@ const Page = () => {
                                 ))}
                             </tbody>
                         </table>
-                        <UpdateForm isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
-                        <AddLead  openProject={isAddModalOpen} onCloseProject={closeAddModal}/>
-                        <CustomAlert
-                            isOpen={isModalOpen}
-                            onClose={closeModal}
-                            title="Are you sure?"
-                            description="Are you sure you want to delete this query?"
-                            confirmButtonText="Yes, I'm sure"
-                            cancelButtonText="No, cancel"
-                            onConfirm={handleConfirm}
-                        />
                     </div>
                 </>
+            )}
 
+            <CustomAlert
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                title="Are you sure?"
+                description="Are you sure you want to delete this query?"
+                confirmButtonText="Yes, I'm sure"
+                cancelButtonText="No, cancel"
+                onConfirm={handleConfirm}
+            />
+
+            <UpdateForm isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
+            <AddLead openProject={isAddModalOpen} onCloseProject={closeAddModal} />
+
+            {/* Query Modal */}
+            {isQueryModalOpen && (
+                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg max-w-xl w-full">
+                        <h2 className="text-lg font-bold mb-4">Full Query</h2>
+                        <p className="text-sm mb-4">{fullQuery}</p>
+                        <div className="text-right">
+                            <button
+                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                onClick={closeQueryModal}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
-    )
-}
+    );
+};
 
 export default Page;

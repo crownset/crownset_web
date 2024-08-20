@@ -122,7 +122,7 @@ const Page = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {project.map((item, index)=> (
+                    {(project && Array.isArray(project) ? project : []).map((item, index)=> (
                       <tr key={item.id}>
                         <td className="py-2 border-b text-[12px] text-center">{item?.name}</td>
                         <td className="py-2 border-b text-[12px] text-center">{item?.email}</td>
