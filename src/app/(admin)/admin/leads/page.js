@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
 import axios from 'axios';
+import AddLead from '@/components/admin/AddLead';
 // import { Tooltip } from 'react-tooltip';
 
 const Page = () => {
@@ -20,6 +21,7 @@ const Page = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [selectedQueryId, setSelectedQueryId] = useState(null);
     const [selectedQueryData, setSelectedQueryData] = useState(null);
+    const [isAddModalOpen, setAddModalOpen] = useState(false);
 
     const [user, setUser] = useState(null);
     useEffect(() => {
@@ -48,6 +50,14 @@ const Page = () => {
         setSelectedQueryId(null);
         setModalOpen(false);
     };
+
+    const closeAddModal = () => {
+        setAddModalOpen(false);
+      };
+
+      const openAddModal = () => {
+        setAddModalOpen(!isAddModalOpen);
+      };
 
     useEffect(() => {
         dispatch(fetchData());
@@ -106,37 +116,44 @@ const Page = () => {
             ) : error ? (
                 <div className="text-red-500">Error: {error}</div>
             ) : (
-                <div className="flex-1 overflow-y-auto rounded-3xl">
-                    <table className="min-w-full bg-white border border-gray-300 text-sm">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="py-2 border-b min-w-[100px]">Name</th>
-                                <th className="py-2 border-b min-w-[150px]">Email</th>
-                                <th className="py-2 border-b min-w-[100px]">Contact</th>
-                                <th className="py-2 border-b min-w-[150px]">Business Name</th>
-                                <th className="py-2 border-b min-w-[200px] text-center">Remarks</th>
-                                <th className="py-2 border-b min-w-[200px]">Query Content</th>
-                                <th className="py-2 border-b min-w-[100px]">Lead By</th>
-                                <th className="py-2 border-b min-w-[100px]">Assign To</th>
-                                <th className="py-2 border-b min-w-[100px]">Follow Up</th>
-                                <th className="py-2 border-b min-w-[150px]">Last Follow Up</th>
-                                <th className="py-2 border-b min-w-[100px]">Query Date</th>
-                                <th className="py-2 border-b min-w-[100px]">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {(data && Array.isArray(data) ? data : []).map((item, index) => (
-                                <tr key={index}>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.businessName}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">
-                                        <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
-                                            {item.remarks}
-                                        </span>
-                                    </td>
-                                    {/* <td className="py-2 text-[12px] border-b text-center relative cursor-pointer">
+                <>
+                    <div className='text-end'>
+                        <button className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]' onClick={() =>  setAddModalOpen(!isAddModalOpen)}>
+                            ADD Lead
+                        </button>
+                    </div>
+                    <div className="flex-1 overflow-y-auto rounded-3xl">
+
+                        <table className="min-w-full bg-white border border-gray-300 text-sm">
+                            <thead>
+                                <tr className="bg-gray-200">
+                                    <th className="py-2 border-b min-w-[100px]">Name</th>
+                                    <th className="py-2 border-b min-w-[150px]">Email</th>
+                                    <th className="py-2 border-b min-w-[100px]">Contact</th>
+                                    <th className="py-2 border-b min-w-[150px]">Business Name</th>
+                                    <th className="py-2 border-b min-w-[200px] text-center">Remarks</th>
+                                    <th className="py-2 border-b min-w-[200px]">Query Content</th>
+                                    <th className="py-2 border-b min-w-[100px]">Lead By</th>
+                                    <th className="py-2 border-b min-w-[100px]">Assign To</th>
+                                    <th className="py-2 border-b min-w-[100px]">Follow Up</th>
+                                    <th className="py-2 border-b min-w-[150px]">Last Follow Up</th>
+                                    <th className="py-2 border-b min-w-[100px]">Query Date</th>
+                                    <th className="py-2 border-b min-w-[100px]">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {(data && Array.isArray(data) ? data : []).map((item, index) => (
+                                    <tr key={index}>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.businessName}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">
+                                            <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
+                                                {item.remarks}
+                                            </span>
+                                        </td>
+                                        {/* <td className="py-2 text-[12px] border-b text-center relative cursor-pointer">
                                         {item?.queryContent.length > 20 ? (
                                             <div className="tooltip-container">
                                                 <div className="">
@@ -150,46 +167,49 @@ const Page = () => {
                                             <div>{item?.queryContent}</div>
                                         )}
                                     </td> */}
-                                    <td className="py-2 text-[12px] border-b text-center ">{item?.queryContent}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
-                                    <td className="py-2 text-[12px] border-b text-center">
-                                        <div className='flex gap-3 justify-center items-center'>
-                                            <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
-                                                <LuFileEdit className='h-4 w-4' />
-                                            </button>
-                                            {
-                                                user?.data?.accessId === 1 ? (
-                                                    <button
-                                                        className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                                        onClick={() => openModal(item._id)}
-                                                    >
-                                                        <RiDeleteBin5Line className='h-4 w-4' />
-                                                    </button>
-                                                ) : (
-                                                    null
-                                                )
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <UpdateForm isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
-                    <CustomAlert
-                        isOpen={isModalOpen}
-                        onClose={closeModal}
-                        title="Are you sure?"
-                        description="Are you sure you want to delete this query?"
-                        confirmButtonText="Yes, I'm sure"
-                        cancelButtonText="No, cancel"
-                        onConfirm={handleConfirm}
-                    />
-                </div>
+                                        <td className="py-2 text-[12px] border-b text-center ">{item?.queryContent}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
+                                        <td className="py-2 text-[12px] border-b text-center">
+                                            <div className='flex gap-3 justify-center items-center'>
+                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
+                                                    <LuFileEdit className='h-4 w-4' />
+                                                </button>
+                                                {
+                                                    user?.data?.accessId === 1 ? (
+                                                        <button
+                                                            className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                            onClick={() => openModal(item._id)}
+                                                        >
+                                                            <RiDeleteBin5Line className='h-4 w-4' />
+                                                        </button>
+                                                    ) : (
+                                                        null
+                                                    )
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <UpdateForm isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
+                        <AddLead  openProject={isAddModalOpen} onCloseProject={closeAddModal}/>
+                        <CustomAlert
+                            isOpen={isModalOpen}
+                            onClose={closeModal}
+                            title="Are you sure?"
+                            description="Are you sure you want to delete this query?"
+                            confirmButtonText="Yes, I'm sure"
+                            cancelButtonText="No, cancel"
+                            onConfirm={handleConfirm}
+                        />
+                    </div>
+                </>
+
             )}
         </div>
     )

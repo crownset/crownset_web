@@ -15,6 +15,7 @@ export const postQuery = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/teams/addQuery", credentials);
+            console.log("postLeadData===>", response)
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data);
