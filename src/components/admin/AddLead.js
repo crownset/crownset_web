@@ -196,12 +196,13 @@ const AddLead = ({ onCloseProject, openProject }) => {
                             </div>
                             <div className="flex-1">
                                 <label htmlFor="queryContent" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
-                                    Query
+                                    Lead By
                                 </label>
                                 <input
                                     id="leadBy"
                                     name="leadBy"
                                     value={formValues?.leadBy}
+                                    readOnly
                                     onChange={handleChange}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
@@ -242,6 +243,9 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         </div>
                     </div>
                     <div>
+                    <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                    Comments
+                                </label>
                         <textarea
                             className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name='comments'
