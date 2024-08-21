@@ -187,7 +187,7 @@ const Page = () => {
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">
-                                            <div className='flex gap-3 justify-center items-center'>
+                                            <div className='flex gap-3 justify-center items-center'>    
                                                 <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
