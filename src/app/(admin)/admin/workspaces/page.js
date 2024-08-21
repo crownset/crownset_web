@@ -25,7 +25,7 @@ const Workspace = () => {
         
         }
         
-    }, []);
+    }, [dispatch]);
 
     useEffect(()=>{
         console.log("api")
@@ -36,7 +36,7 @@ const Workspace = () => {
         }
         fetch();
         
-    },[])
+    },[dispatch])
 //    console.log(workspaces);
     const handleAddWorkspace = async() => {
         
@@ -62,7 +62,7 @@ const Workspace = () => {
 
 
     return (
-        <div className="w-full max-w-md mx-auto mt-10">
+        <div className="w-full  mx-auto mt-10">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -74,15 +74,15 @@ const Workspace = () => {
                 draggable
                 pauseOnHover
             />
-            <div className=" w-full flex flex-col justify-center items-center m-auto">
+            <div className=" w-full flex flex-col  justify-center items-center m-auto ">
                 <button
                     onClick={toggleAccordion}
-                    className="w-1/2 text-center font-semibold bg-primary-color text-white  p-2 rounded-lg"
+                    className="text-center font-semibold bg-primary-color text-white  p-2 rounded-lg  w-[70%] md:w-[30%]"
                 >
                     Create Workspace
                 </button>
-                {isOpen && (
-                    <div className="mt-4">
+            
+                    <div className="mt-4  w-[70%] md:w-[50%]">
 
                         <div className='flex gap-3'>
                             <input
@@ -101,15 +101,16 @@ const Workspace = () => {
                         </div>
 
                     </div>
-                )}
+             
             </div>
 
             <div className='px-10 mt-5'>
-                <ul className="mt-4">
+                <ul className="mt-4 md:flex md:gap-5 md:justify-center ">
 
                     {workspaces?.map((workspace, index) => (
                         <Link href={`/admin/workspaces/${workspace._id}`} key={index}>
-                            <li key={workspace._id} className="bg-gray-200 p-2 h-[4rem] text-[1rem] flex justify-center items-center rounded-lg mt-2">
+                            <li key={workspace._id} 
+                            className="bg-gray-200 p-2 h-[4rem] text-[1rem] md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2">
                                 {workspace.name}
                                
                             </li>

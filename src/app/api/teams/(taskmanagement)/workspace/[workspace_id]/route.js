@@ -27,7 +27,7 @@ export async function GET(request, { params }) {
 
 
         const user = decode.user;
-        if (!user.accessId || user.accessId !== 2) {
+        if (!user.accessId || user.accessId !== 1) {
             console.log("Not Authorized");
             return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
         }

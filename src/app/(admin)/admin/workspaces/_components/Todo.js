@@ -1,35 +1,46 @@
 "use client"
+
+import { FaRegEdit } from "react-icons/fa";
+import { FcExpand } from "react-icons/fc";
+import { FcCollapse } from "react-icons/fc";
+import { CiMenuKebab as EditIcon } from "react-icons/ci";
+import { MdOutlineModeEditOutline as EditTodoIcon } from "react-icons/md";
+import { BsPlus as PlusIcon } from "react-icons/bs";
+import { IoMdClose as CloseIcon } from "react-icons/io";
+
 import { createTodo } from '@/redux/slices/todoSlice';
 import { assignUsers } from '@/redux/slices/userSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
+import moment from "moment";
 
 const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, editTaskList, setEditTaskList }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [newTodo, setNewTodo] = useState('');
     const [todos, setTodos] = useState(taskList.todo);
+    const [showAddTodo, setShowAddTodo] = useState(false);
     const list_id = taskList?._id;
 
     const dispatch = useDispatch();
-    const users = useSelector((state)=>state.user.user)
+    const users = useSelector((state) => state.user.user)
     // console.log(users);
 
     // console.log(editTaskList);
 
     // console.log(taskList);
-    useEffect(()=>{
-        const fetchuser = async()=>{
+    useEffect(() => {
+        const fetchuser = async () => {
             try {
                 await dispatch(assignUsers());
             } catch (error) {
                 toast.error('Error in fetchin user');
-                
+
             }
-            
+
         }
         fetchuser();
-    },[])
+    }, [dispatch])
 
 
     const toggleAccordion = () => setIsOpen(!isOpen);
@@ -87,8 +98,17 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
         setTodos(updatedTodos);
     };
 
+    const handleShowAddTodo = () => {
+        setShowAddTodo(true);
+    }
+
+    const handleShowAddTodoClose = () => {
+        setShowAddTodo(false);
+
+    }
+
     return (
-        <div className="bg-white p-4 mb-2 rounded-lg shadow-sm">
+        <div className="bg-[#f1f2f4] p-4 mb-2 rounded-2xl shadow-xl md:min-w-[300px] md:min-h-[100px]">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -100,7 +120,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                 draggable
                 pauseOnHover
             />
-            <div className="flex justify-between items-center">
+            <div className="flex justify-center items-center">
                 {isEditing ? (
                     <div className="flex-1">
                         <input
@@ -113,7 +133,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                         <input
                             type="date"
                             value={editTaskList.deadline}
-                            onChange={(e) => setEditTaskList({deadline: e.target.value })}
+                            onChange={(e) => setEditTaskList({ deadline: e.target.value })}
                             className="p-2 border border-gray-300 rounded-lg mt-2"
                             placeholder="Deadline"
                         />
@@ -121,7 +141,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                             value={editTaskList.share}
                             onChange={(e) =>
                                 setEditTaskList({
-                                
+
                                     share: e.target.value,
                                 })
                             }
@@ -150,9 +170,9 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                         </button>
                     </div>
                 ) : (
-                    <div className="flex-1">
-                        <span className="font-semibold text-gray-700">{taskList.name}</span>
-                        <span className="text-gray-500"> (Deadline: {taskList.deadline})</span>
+                    <div className="flex-1 md:flex md:flex-col">
+                        <span className="font-semibold text-gray-700 text-[1rem]">{taskList.name}</span>
+                        <span className="text-gray-500 text-[0.7rem]"> (Deadline:{moment(taskList.deadline).format('LL')})</span>
                         {/* {taskList.share && (
                             <div className="text-gray-600 mt-1">Shared with: {taskList.share}</div>
                         )} */}
@@ -160,89 +180,115 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                 )}
                 <button
                     onClick={toggleAccordion}
-                    className="bg-gray-300 text-gray-700 p-2 rounded-lg"
+                    className="bg-gray-300 text-gray-700 p-2 rounded-lg md:hidden"
                 >
-                    {isOpen ? 'Collapse' : 'Expand'}
+                    {isOpen ? <FcCollapse /> : <FcExpand />}
                 </button>
                 {!isEditing && (
                     <button
                         onClick={onEdit}
-                        className="ml-2 bg-yellow-500 text-white p-2 rounded-lg"
+                        className="ml-2  text-white p-2 rounded-lg"
                     >
-                        Edit
+                        <EditIcon className="text-black" />
                     </button>
                 )}
             </div>
 
             {isOpen && (
                 <>
-                    <div className="mt-4">
-                        <input
-                            type="text"
-                            value={newTodo}
-                            onChange={(e) => setNewTodo(e.target.value)}
-                            className="w-full p-2 border border-gray-300 rounded-lg"
-                            placeholder="Enter new todo"
-                        />
-                        <button
-                            onClick={handleAddTodo}
-                            className="mt-2 bg-blue-500 text-white p-2 rounded-lg"
-                        >
-                            Add Todo
-                        </button>
-                    </div>
-                    <ul className="mt-4">
-                        {todos?.map((todo, todoIndex) => (
-                            <li key={todoIndex} className="bg-gray-200 p-2 rounded-lg mt-2 flex items-center">
-                                {todo.isEditing ? (
-                                    <div className="flex-1">
-                                        <input
-                                            type="text"
-                                            value={todo.name}
-                                            onChange={(e) => handleSaveTodo(todoIndex, e.target.value)}
-                                            className="p-2 border border-gray-300 rounded-lg"
-                                        />
-                                        <input
-                                            type="text"
-                                            value={todo.label}
-                                            onChange={(e) => handleLabelChange(todoIndex, e.target.value)}
-                                            className="p-2 border border-gray-300 rounded-lg mt-2"
-                                            placeholder="Label"
-                                        />
+                    <div>
+                        <ul className="mt-4">
+                            {todos?.map((todo, todoIndex) => (
+                                <li key={todoIndex} className="group rounded-xl mt-4 flex items-center px-2 bg-white md:h-[2rem] hover:border-[1px] hover:border-primary-color">
+                                    {todo.isEditing ? (
+                                        <div className="flex-1">
+                                            <input
+                                                type="text"
+                                                value={todo.name}
+                                                onChange={(e) => handleSaveTodo(todoIndex, e.target.value)}
+                                                className="p-2 border border-gray-300 rounded-lg"
+                                            />
+                                            <input
+                                                type="text"
+                                                value={todo.label}
+                                                onChange={(e) => handleLabelChange(todoIndex, e.target.value)}
+                                                className="p-2 border border-gray-300 rounded-lg mt-2"
+                                                placeholder="Label"
+                                            />
+                                            <button
+                                                onClick={() => handleSaveTodo(todoIndex, todo.name)}
+                                                className="ml-2 bg-green-500 text-white p-1 rounded-lg"
+                                            >
+                                                Save
+                                            </button>
+                                            <button
+                                                onClick={() => handleCancelTodoEdit(todoIndex)}
+                                                className="ml-2 bg-red-500 text-white p-1 rounded-lg"
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <>
+
+
+
+                                            <input className={`flex-1 ${todo.isCompleted ? 'line-through text-gray-500' : ''} m-0  outline-none`} value={todo.title} />
+                                            {/* <span className="text-gray-600 ml-2">{todo.label}</span> */}
+                                            {/* <button
+                                                onClick={() => handleToggleComplete(todoIndex)}
+                                                className={`ml-2 ${todo.isCompleted ? 'bg-green-500' : 'bg-gray-300'} text-white p-1 rounded-lg`}
+                                            >
+                                                {todo.isCompleted ? 'Mark' : 'Mark'}
+                                            </button> */}
+                                            <button
+                                                onClick={() => handleEditTodo(todoIndex)}
+                                                className="ml-2 bg-white "
+                                            >
+                                                <EditTodoIcon className="hidden group-hover:block" />
+                                            </button>
+
+
+                                        </>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+
+                        {
+                            showAddTodo ? (
+                                <div className="mt-4">
+                                    <input
+                                        type="text"
+                                        value={newTodo}
+                                        onChange={(e) => setNewTodo(e.target.value)}
+                                        className="w-full p-2 border border-gray-300 rounded-xl md:h-[2rem] outline-none"
+                                        placeholder="Enter new todo"
+                                    />
+                                    <div className="inline-flex gap-2 justify-center items-center ">
                                         <button
-                                            onClick={() => handleSaveTodo(todoIndex, todo.name)}
-                                            className="ml-2 bg-green-500 text-white p-1 rounded-lg"
+                                            onClick={handleAddTodo}
+                                            className="mt-2 bg-blue-500 text-white p-2 rounded-xl md:h-[2rem] flex justify-center items-center"
                                         >
-                                            Save
+                                            Add
                                         </button>
-                                        <button
-                                            onClick={() => handleCancelTodoEdit(todoIndex)}
-                                            className="ml-2 bg-red-500 text-white p-1 rounded-lg"
-                                        >
-                                            Cancel
-                                        </button>
+                                        <span onClick={handleShowAddTodoClose}><CloseIcon className="text-[1.3rem] text-bodyTextColor cursor-pointer" /></span>
                                     </div>
-                                ) : (
-                                    <>
-                                        <span className={`flex-1 ${todo.isCompleted ? 'line-through text-gray-500' : ''}`}>{todo.title}</span>
-                                        {/* <span className="text-gray-600 ml-2">{todo.label}</span> */}
-                                        <button
-                                            onClick={() => handleToggleComplete(todoIndex)}
-                                            className={`ml-2 ${todo.isCompleted ? 'bg-green-500' : 'bg-gray-300'} text-white p-1 rounded-lg`}
-                                        >
-                                            {todo.isCompleted ? 'Mark Incomplete' : 'Mark Complete'}
-                                        </button>
-                                        <button
-                                            onClick={() => handleEditTodo(todoIndex)}
-                                            className="ml-2 bg-yellow-500 text-white p-1 rounded-lg"
-                                        >
-                                            Edit
-                                        </button>
-                                    </>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                                </div>
+                            ) : (
+                                <div
+                                    className=" mt-4 text-bodyTextColor font-semibold gap-1 hover:bg-blue-100 cursor-pointer rounded-xl px-2 py-1 inline-flex justify-center items-center"
+                                    onClick={handleShowAddTodo}>
+                                    <span className="text-[1.5rem]"><PlusIcon /></span>
+                                    <span className="text-[0.8rem]">Add Todo</span>
+                                </div>
+                            )
+
+                        }
+
+                    </div>
+
+
                 </>
             )}
         </div>

@@ -3,7 +3,7 @@ import Workspace from "@/modelCS/workspace";
 import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken'
 
-//get all workspaces created by user
+//get all workspaces created by user and assigned to user
 export async function GET(request) {
     dbConnect()
     try {
@@ -20,18 +20,30 @@ export async function GET(request) {
 
 
         const user = decode.user;
-        if (!user.accessId || user.accessId !== 2) {
-            console.log("Not Authorized");
-            return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
+        if (user.accessId == 1) {
+            const workspace = await Workspace.find({ createdBy: user._id }).sort({ createdAt: -1 });
+
+
+            return NextResponse.json({
+                message: "All workspaces",
+                data: workspace
+            }, { status: 200 })
+
         }
 
-        const workspace = await Workspace.find({ createdBy: user._id }).sort({createdAt:-1});
+        if (user.accessId == 2) {
+            const workspaces = await Workspace.find({ members: user._id });
+            if (!workspaces) {
+                return NextResponse.json({ message: "No Assigned Workspace is Found" }, { status: 404 });
+            }
+
+            return NextResponse.json({ message: "Assigned Workspaces", data: workspaces }, { status: 201 });
+
+        }
+
+        return NextResponse.json({messgae:"No Worksapce"});
 
 
-        return NextResponse.json({
-            message: "All workspaces",
-            data: workspace
-        }, { status: 200 })
 
     } catch (error) {
         console.log("Error in Fetching Workspaces", error);

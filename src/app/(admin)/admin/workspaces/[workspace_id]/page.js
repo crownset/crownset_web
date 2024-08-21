@@ -4,7 +4,7 @@ import TaskList from '../_components/TaskList'
 import { useDispatch } from 'react-redux'
 import { fetchTasklist } from '@/redux/slices/tasklistSlice'
 
-const page = ({params}) => {
+const Page = ({params}) => {
 
   const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ const page = ({params}) => {
     }
     fetch();
 
-  },[])
+  },[dispatch,params.workspace_id])
   return (
     <>
     <TaskList workspace_id={params.workspace_id}/>
@@ -25,4 +25,4 @@ const page = ({params}) => {
   )
 }
 
-export default page
+export default Page
