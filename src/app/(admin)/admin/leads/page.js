@@ -187,7 +187,7 @@ const Page = () => {
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">
-                                            <div className='flex gap-3 justify-center items-center'>    
+                                            <div className='flex gap-3 justify-center items-center'>
                                                 <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
@@ -228,13 +228,15 @@ const Page = () => {
 
             {/* Query Modal */}
             {isQueryModalOpen && (
-                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded-lg max-w-xl w-full">
+                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
+                    <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl h-[400px] overflow-hidden">
                         <h2 className="text-lg font-bold mb-4">Full Query</h2>
-                        <p className="text-sm mb-4">{fullQuery}</p>
-                        <div className="text-right">
+                        <div className="overflow-y-auto h-[300px]">
+                            <p className="text-sm">{fullQuery}</p>
+                        </div>
+                        <div className="text-right mb-4">
                             <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                className="bg-blue-500 text-white px-4 py-2 mb-10 rounded hover:bg-blue-600"
                                 onClick={closeQueryModal}
                             >
                                 Close
@@ -243,6 +245,7 @@ const Page = () => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
