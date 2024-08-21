@@ -84,10 +84,10 @@ const Footer = () => {
                     </div>
                     <div className='flex flex-col justify-center items-center max-md:pr-0 max-md:w-full'>
                         <div className='font-extrabold text-lg'>
-                            <p>6.7/ Average ROAS</p>
+                            {/* <p>6.7/ Average ROAS</p> */}
                         </div>
                         <div className='text-center w-48  max-md:w-full'>
-                            <p>across our 100+ Global Clients on SEO, PPC & Social</p>
+                            <p>127, Tower B, Logix Technova, Sector 132, Noida</p>
                         </div>
                     </div>
                 </div>
