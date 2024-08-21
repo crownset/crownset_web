@@ -12,7 +12,7 @@ const kanit = KanitFont({
 });
 
 export const metadata = {
-  title: "Crownset Marketing Agency",
+  title: "Crownset Marketing Agency:Top Service Provider & Partner",
   description: "We offer a full range of digital services, including website development, mobile application development, software development, paid search marketing, SEO, email marketing, conversion rate optimization, social media marketing, Google Shopping, influencer marketing, Cost ho with Amazon purchasing, translation services Our team of experts provide customized solutions to optimize your online presence, drive growth and maximize ROI.",
 };
 
