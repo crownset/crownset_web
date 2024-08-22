@@ -16,12 +16,12 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
             setUserDetail(JSON.parse(storedUser));
         }
     }, []);
-    console.log("users===>", user)
     const [formValues, setFormValues] = useState({
         assignTo: '',
         followUp: false,
         lastFollowUp: new Date(),
         remarks: '',
+        comments: "",
         queryId: ''
     });
 
@@ -32,6 +32,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                 followUp: queryData.followUp || false,
                 lastFollowUp: new Date(queryData.lastFollowUp) || new Date(),
                 remarks: queryData.remarks || '',
+                comments: queryData.comments || '',
                 queryId: queryData._id || ''
             });
         }
@@ -111,7 +112,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                                     name="assignTo"
                                     value={formValues.assignTo}
                                     onChange={handleChange}
-                                    disabled={userDetail?.data?.accessId === 2  }
+                                    disabled={userDetail?.data?.accessId === 2}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 >
                                     <option value="">Select assignee</option>
@@ -166,6 +167,17 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <input
+                            className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="comments"
+                            name='comments'
+                            placeholder="write your Comment..."
+                            value={formValues.comments}
+                            onChange={handleChange}
+                        />
+                        {/* {errors.comments && <p className="text-red-500 text-sm">{errors.comments}</p>} */}
                     </div>
                     <button
                         type="submit"

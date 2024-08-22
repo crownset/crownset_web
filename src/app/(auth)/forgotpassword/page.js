@@ -14,8 +14,6 @@ const Page = () => {
     const dispatch = useDispatch();
     const { forgotPasswordStatus, error, successMessage } = useSelector((state) => state.auth);
 
-    
-
     useEffect(() => {
         if (forgotPasswordStatus === 'succeeded') {
             toast.success(successMessage || 'Password reset email sent successfully!');
@@ -26,7 +24,7 @@ const Page = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       
+
         if (email.trim() === "") {
             setErrors(true);
             return;
@@ -41,7 +39,17 @@ const Page = () => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <section className="text-gray-600 body-font h-screen overflow-hidden flex items-center justify-center">
                 <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap items-center">
                     <div className="lg:w-2/3 md:w-1/2 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative h-full">
