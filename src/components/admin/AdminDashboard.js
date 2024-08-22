@@ -14,7 +14,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
 import { IoPersonCircleSharp } from "react-icons/io5";
-import UserInfoModal from './userInfoModal';
+// import UserInfoModal from './UserDetailsModal serInfoModal';
 import UserDetailsModal from './UserDetailsModal';
 
 const AdminDashboard = () => {
@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     const closeModal = () => setModalOpen(false);
     const openDetailsModal = () => {
         setShowUserDetails(true);
-        console.log("detailModal ===>", showUserDetails); 
+        console.log("detailModal ===>", showUserDetails);
     };
 
     const closeDetailsModal = () => {
