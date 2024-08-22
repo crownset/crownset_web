@@ -15,19 +15,23 @@ export default function TaskList({ workspace_id }) {
 
   const [newTaskList, setNewTaskList] = useState({ name: '', deadline: '', workspace_id: workspace_id });
   const [editingTaskListIndex, setEditingTaskListIndex] = useState(null);
-  const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '', share: '' });
-  const [showAddList, setShowAddList] = useState(false);
+  const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '' });
 
-  const handleShowAddList = () => {
-    setShowAddList(true);
-  }
 
-  const handleShowAddListClose = () => {
-    setShowAddList(false);
-  }
+
 
   // add newtasklist
   const handleAddTaskList = async () => {
+
+    if (newTaskList.name == '') {
+      toast.error("List field should not be empty")
+      return;
+    }
+    if (newTaskList.deadline == '') {
+      toast.error("Deadline field should not be empty")
+      return;
+
+    }
 
     if (newTaskList.name.trim() && newTaskList.deadline.trim()) {
 
@@ -49,7 +53,7 @@ export default function TaskList({ workspace_id }) {
     const taskList = tasklists[index];
     // console.log(taskList);
     setEditingTaskListIndex(index);
-    setEditTaskList({ name: taskList.name, deadline: taskList.deadline, share: taskList.share });
+    setEditTaskList({ name: taskList.name, deadline: taskList.deadline });
   };
 
   const handleSaveEditTaskList = async (index) => {
@@ -106,70 +110,76 @@ export default function TaskList({ workspace_id }) {
         pauseOnHover
       />
       {/* put condition for admin and employee */}
-      <div className="w-full mx-auto ">
+      <div className="w-full mx-auto  md:overflow-x-auto md:h-[80vh]">
 
-        {
+
+
+
+        {/* {
           showAddList ? (
-            <div className='bg-gray-100 p-4 rounded-xl shadow-md  mx-4 md:w-[300px]'>
 
-              <input
-                type="text"
-                value={newTaskList.name}
-                onChange={(e) => setNewTaskList({ ...newTaskList, name: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-lg outline-none"
-                placeholder="Enter Task List Name"
-              />
+          ): (
+              <div className = 'border border-black inline-flex gap-2 w-[300px] py-2 cursor-pointer rounded-[2rem] px-2 todoButtonEffect'
+            onClick = { handleShowAddList }>
+               <PlusIcon className = 'text-[1.5rem]'/>
+        <span >Add new List</span>
+      </div>
+      )
+        } */}
+
+
+
+        <div className="mt-10  mx-4 md:flex md:gap-6 md:justify-start md:items-start">
+
+          <div className='bg-gray-100 p-4 rounded-xl shadow-md  mx-4 md:w-[300px] flex-none'>
+
+            <input
+              type="text"
+              value={newTaskList.name}
+              onChange={(e) => setNewTaskList({ ...newTaskList, name: e.target.value })}
+              className="w-full p-2 border border-gray-300 rounded-xl outline-none px-3 py-1 h-[2rem]"
+              placeholder="Enter Task List Name"
+            />
+            <div  className='text-gray-400 mt-4'>
+              <span className='ml-2 mt-4'>Deadline</span>
               <input
                 type="date"
+                name="deadline"
                 value={newTaskList.deadline}
                 onChange={(e) => setNewTaskList({ ...newTaskList, deadline: e.target.value })}
-                className="w-full p-2 border border-gray-300 rounded-lg mt-2 outline-none"
+                className="w-full p-2 border border-gray-300 rounded-xl mt-2 outline-none px-3 py-1 h-[2rem]"
                 placeholder="Enter deadline"
               />
-              <div className='inline-flex gap-2 justify-center items-center'>
-              <button
-                onClick={handleAddTaskList}
-                className="mt-2 bg-blue-500 text-white p-2 rounded-lg"
-              >
-                Add
-              </button>
-              <span onClick={handleShowAddListClose} className='text-[1.3rem]'><CloseIcon/></span>
-              </div>
-
             </div>
-          ) : (
-            <div className='border border-black inline-flex gap-2 w-[300px] py-2 cursor-pointer rounded-[2rem] px-2 todoButtonEffect'
-            onClick={handleShowAddList}>
-               <PlusIcon className='text-[1.5rem]'/>
-               <span >Add new List</span>
-            </div>
-          )
-        }
+
+            <button
+              onClick={handleAddTaskList}
+              className="mt-2 bg-primary-color text-white px-6 py-1 w-full rounded-lg"
+            >
+              Add
+            </button>
 
 
 
-        <div className="mt-10  mx-4">
-
-          <div className='flex flex-col gap-5 md:flex-row md:overflow-x-auto md:w-[95%] md:h-[68vh]'>
-            {tasklists && tasklists?.map((taskList, index) => (
-
-              <Todo
-                key={index}
-                index={index}
-                taskList={taskList}
-                onEdit={() => handleEditTaskList(index)}
-                onSaveEdit={() => handleSaveEditTaskList(index)}
-                onCancelEdit={handleCancelEditTaskList}
-                isEditing={editingTaskListIndex === index}
-                editTaskList={editTaskList}
-                setEditTaskList={setEditTaskList}
-
-              />
-            ))}
           </div>
+          {tasklists && tasklists?.map((taskList, index) => (
+
+            <Todo
+              key={index}
+              index={index}
+              taskList={taskList}
+              onEdit={() => handleEditTaskList(index)}
+              onSaveEdit={() => handleSaveEditTaskList(index)}
+              onCancelEdit={handleCancelEditTaskList}
+              isEditing={editingTaskListIndex === index}
+              editTaskList={editTaskList}
+              setEditTaskList={setEditTaskList}
+
+            />
+          ))}
         </div>
 
       </div>
-    </div>
+    </div >
   );
 }

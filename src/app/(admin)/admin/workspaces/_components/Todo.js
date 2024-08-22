@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import moment from "moment";
+import { fetchTasklist } from "@/redux/slices/tasklistSlice";
 
 const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, editTaskList, setEditTaskList }) => {
     const [isOpen, setIsOpen] = useState(true);
@@ -45,15 +46,22 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
 
     const toggleAccordion = () => setIsOpen(!isOpen);
 
+
     //creating new todo
     const handleAddTodo = async () => {
 
+        if (!newTodo || newTodo == '') {
+            toast.error("Todo is Empty");
+            return
+        }
         const data = {
             title: newTodo,
             workspace_id: taskList.workspace_id
         }
+        console.log(data);
         try {
-            await dispatch(createTodo({ list_id, data }))
+            const res = await dispatch(createTodo({ list_id, data }))
+            setNewTodo('')
             toast.success("Todo added");
 
         } catch (error) {
@@ -64,9 +72,11 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     };
 
     const handleEditTodo = (todoIndex) => {
+        console.log("todoindex->",todoIndex);
         const updatedTodos = todos.map((todo, index) =>
             index === todoIndex ? { ...todo, isEditing: true } : todo
         );
+
         setTodos(updatedTodos);
     };
 
@@ -78,6 +88,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     };
 
     const handleCancelTodoEdit = (todoIndex) => {
+       
         const updatedTodos = todos.map((todo, index) =>
             index === todoIndex ? { ...todo, isEditing: false } : todo
         );
@@ -108,7 +119,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     }
 
     return (
-        <div className="bg-[#f1f2f4] p-4 mb-2 rounded-2xl shadow-xl md:min-w-[300px] md:min-h-[100px]">
+        <div className="bg-[#f1f2f4] p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -120,7 +131,8 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                 draggable
                 pauseOnHover
             />
-            <div className="flex justify-center items-center">
+            <div className="flex justify-between items-center">
+
                 {isEditing ? (
                     <div className="flex-1">
                         <input
@@ -170,7 +182,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                         </button>
                     </div>
                 ) : (
-                    <div className="flex-1 md:flex md:flex-col">
+                    <div className="flex flex-col">
                         <span className="font-semibold text-gray-700 text-[1rem]">{taskList.name}</span>
                         <span className="text-gray-500 text-[0.7rem]"> (Deadline:{moment(taskList.deadline).format('LL')})</span>
                         {/* {taskList.share && (
@@ -178,29 +190,64 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                         )} */}
                     </div>
                 )}
-                <button
-                    onClick={toggleAccordion}
-                    className="bg-gray-300 text-gray-700 p-2 rounded-lg md:hidden"
-                >
-                    {isOpen ? <FcCollapse /> : <FcExpand />}
-                </button>
-                {!isEditing && (
+
+                <div>
                     <button
-                        onClick={onEdit}
-                        className="ml-2  text-white p-2 rounded-lg"
+                        onClick={toggleAccordion}
+                        className="p-2 rounded-lg md:hidden"
                     >
-                        <EditIcon className="text-black" />
+                        {isOpen ? <FcCollapse className="text-gray-700" /> : <FcExpand className="text-gray-700" />}
                     </button>
-                )}
+
+                    {!isEditing && (
+                        <button
+                            onClick={onEdit}
+                            className="ml-2  text-white p-2 rounded-lg"
+                        >
+                            <EditIcon className="text-black" />
+                        </button>
+                    )}
+
+                </div>
+
+
+
             </div>
 
             {isOpen && (
                 <>
                     <div>
-                        <ul className="mt-4">
+                        <ul className="mt-4 flex flex-col justify-start items-start">
                             {todos?.map((todo, todoIndex) => (
-                                <li key={todoIndex} className="group rounded-xl mt-4 flex items-center px-2 bg-white md:h-[2rem] hover:border-[1px] hover:border-primary-color">
-                                    {todo.isEditing ? (
+                                <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-primary-color">
+
+                                    <div className="flex justify-between items-end ">
+                                        <span className="">{todo.title}</span>
+                                        <button
+                                            onClick={() => handleEditTodo(todoIndex)}
+                                            className=" bg-white absolute ml-[85%] "
+                                        >
+                                            <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
+                                        </button>
+                                    </div>
+                                    {isEditing && (
+                                        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 shadow-lg rounded p-4 z-10">
+                                            <h3 className="text-lg font-semibold mb-2">Edit Item</h3>
+                                            <input
+                                                type="text"
+                                                defaultValue={item}
+                                                className="border border-gray-300 rounded p-2 mb-2 w-full"
+                                            />
+                                            <button
+                                                onClick={handleCloseMenu}
+                                                className="bg-red-500 text-white p-2 rounded w-full"
+                                            >
+                                                Close
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* {todo.isEditing ? (
                                         <div className="flex-1">
                                             <input
                                                 type="text"
@@ -233,42 +280,37 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
 
 
 
-                                            <input className={`flex-1 ${todo.isCompleted ? 'line-through text-gray-500' : ''} m-0  outline-none`} value={todo.title} />
-                                            {/* <span className="text-gray-600 ml-2">{todo.label}</span> */}
-                                            {/* <button
-                                                onClick={() => handleToggleComplete(todoIndex)}
-                                                className={`ml-2 ${todo.isCompleted ? 'bg-green-500' : 'bg-gray-300'} text-white p-1 rounded-lg`}
-                                            >
-                                                {todo.isCompleted ? 'Mark' : 'Mark'}
-                                            </button> */}
-                                            <button
-                                                onClick={() => handleEditTodo(todoIndex)}
-                                                className="ml-2 bg-white "
-                                            >
-                                                <EditTodoIcon className="hidden group-hover:block" />
-                                            </button>
+                                            <div className="flex justify-between items-end ">
+                                                <span className="">{todo.title}</span>
+                                                <button
+                                                    onClick={() => handleEditTodo(todoIndex)}
+                                                    className=" bg-white absolute ml-[85%] "
+                                                >
+                                                    <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
+                                                </button>
+                                            </div>
 
 
                                         </>
-                                    )}
+                                    )} */}
                                 </li>
                             ))}
                         </ul>
 
                         {
                             showAddTodo ? (
-                                <div className="mt-4">
+                                <div className="mt-4 flex flex-col justify-start items-start">
                                     <input
                                         type="text"
                                         value={newTodo}
                                         onChange={(e) => setNewTodo(e.target.value)}
-                                        className="w-full p-2 border border-gray-300 rounded-xl md:h-[2rem] outline-none"
+                                        className="w-full p-2 border border-gray-300 rounded-xl h-auto px-3  flex-none outline-none"
                                         placeholder="Enter new todo"
                                     />
                                     <div className="inline-flex gap-2 justify-center items-center ">
                                         <button
                                             onClick={handleAddTodo}
-                                            className="mt-2 bg-blue-500 text-white p-2 rounded-xl md:h-[2rem] flex justify-center items-center"
+                                            className="mt-2 bg-blue-500 text-white p-2 rounded-xl  flex justify-center items-center"
                                         >
                                             Add
                                         </button>

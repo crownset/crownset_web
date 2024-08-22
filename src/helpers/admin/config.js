@@ -2,6 +2,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { SiPowerpages } from "react-icons/si";
 import { SiGooglebigquery } from "react-icons/si";
+import { BsPersonWorkspace } from "react-icons/bs";
 
 export const menuItems = [
     {
@@ -22,7 +23,7 @@ export const menuItems = [
     {
         name: "Workspace",
         href: "/admin/workspaces",
-        icon: MdContentCopy,
+        icon: BsPersonWorkspace,
     },
 ];
 
