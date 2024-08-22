@@ -3,15 +3,15 @@
     {
         "heading": "Better reach",        
         
-        "descripiton": "Amplify your business with our expertise! We provide better reach through targeted strategies, maximizing your online presence and engaging your audience for lasting impact."
+        "descripiton": "Amplify your business with our expert strategies! Achieve better reach through targeted marketing solutions that maximize your online presence and engage your audience for long-lasting impact."
     },
     {
         "heading": "Better solution",
-        "descripiton": "Transform your business with our innovative solutions! We provide better solutions through digital marketing and IT services, driving growth, efficiency, and success for a thriving online presence."
+        "descripiton": "Transform your business with our innovative solutions! We offer better solutions through digital marketing and IT services, driving business growth, operational efficiency, and success for a thriving online presence."
     },
     {
         "heading": "Better outcomes",
-        "descripiton": "Accelerate your business success! We deliver better outcomes through data-driven digital marketing, tailored marketing strategies, and expert IT services, driving revenue growth and long-term sustainability."
+        "descripiton": "Accelerate your business success with our expert solutions! We deliver better outcomes through data-driven digital marketing, tailored marketing strategies, and expert IT services, driving revenue growth and ensuring long-term sustainability."
     }
 ],
 
@@ -157,7 +157,7 @@
 "teamData":[
     {
         "url":"",
-        "name":"Mr. Garvit Chawla",
+        "name":"Dr. Aman",
         "designation":"CEO & Founder"
     },
     {
@@ -207,14 +207,16 @@
     {
       "name": "Website Development",
       "heading": "Website Development Services",
-      "description": "We create custom, professional websites designed to optimize your online presence and engage your audience. Our services include custom web design, responsive development, robust e-commerce solutions, CMS integration, and ongoing maintenance and support. A well-designed website improves brand credibility, user experience, online visibility, and customer engagement. Our professional staff uses the latest technology and best practices to deliver a beautiful, functional, and high-performing website tailored to your business needs.",
+      "description": "Maximize your online potential with our expert Website Development services. We specialize in creating custom, responsive, and user-friendly websites designed to meet your unique business needs and drive online success. Whether you’re a startup or an established enterprise, our web development team delivers high-performance solutions that enhance your digital presence and boost your brand's visibility.",
       "services": [
         "Custom Web Design",
         "Responsive Development",
+        "Website redesign services",
         "Portfolio Website",
         "E-commerce Solutions",
-        "CMS Integration",
-        "Maintenance and Support"
+        "Content Management Systems (CMS)",
+        "Maintenance and Support",
+        "SEO-friendly web development"
       ],
       "whyItIsImportant": "A well-developed website is essential for establishing your brand, reaching a wider audience, and providing a platform for your business to thrive online. It enhances your brand’s reputation, improves user experience, boosts online visibility, and increases customer engagement and conversions. A professional website is a key tool for building trust, attracting organic traffic, and supporting various digital marketing efforts.",
       "howItHelpsYourBusiness": [
@@ -269,7 +271,8 @@
         "Web App Development",
         "UI/UX Design",
         "App Testing and QA",
-        "Maintenance and Support"
+        "App Maintenance and Updates",
+        "Cross-Platform Compatibility"
       ],
       "whyItIsImportant": "An effective app provides a direct channel to engage with your customers, enhances user experience, and offers functionalities that meet user needs. It can drive customer loyalty, increase brand visibility, and streamline business processes.",
       "howItHelpsYourBusiness": [

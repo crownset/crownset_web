@@ -1,7 +1,7 @@
-import { MdContentCopy, MdDashboard, MdOrder } from "react-icons/md";
-import { SiGoogleads } from "react-icons/si";
 import { FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
+import { SiPowerpages } from "react-icons/si";
+import { SiGooglebigquery } from "react-icons/si";
 
 export const menuItems = [
     {
@@ -12,12 +12,12 @@ export const menuItems = [
     {
         name: "Leads Management",
         href: "/admin/leads",
-        icon: SiGoogleads,
+        icon: SiGooglebigquery,
     },
     {
         name: "Projects",
         href: "/admin/projects",
-        icon: MdContentCopy,
+        icon: SiPowerpages,
     },
     {
         name: "Workspace",
