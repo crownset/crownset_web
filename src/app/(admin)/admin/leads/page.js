@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { LuFileEdit } from "react-icons/lu";
-import { BeatLoader } from 'react-spinners';
 import CustomAlert from '@/components/admin/CustomAlert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateForm from '@/components/admin/UpdateForm';
 import axios from 'axios';
 import AddLead from '@/components/admin/AddLead';
+import { CustomLoader } from '@/components/CustomLoader';
+import { FaPlus } from "react-icons/fa6";
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -115,26 +116,18 @@ const Page = () => {
                 pauseOnHover
             />
             {loading ? (
-                <div className="flex justify-center items-center h-full">
-                    <BeatLoader
-                        color={"#0146cf"}
-                        loading={loading}
-                        size={15}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                    />
-                </div>
+                <CustomLoader loading={loading} color={"#0146cf"} size={15}/>
             ) : error ? (
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <>
-                    <div className='text-end'>
-                        <button className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]' onClick={() => setAddModalOpen(!isAddModalOpen)}>
-                            ADD Lead
+                    <div className='flex justify-end'>
+                        <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => setAddModalOpen(!isAddModalOpen)}>
+                            <span><FaPlus/></span>
+                           <span>Lead</span>
                         </button>
                     </div>
                     <div className="flex-1 overflow-y-auto rounded-3xl">
-
                         <table className="min-w-full bg-white border border-gray-300 text-sm">
                             <thead>
                                 <tr className="bg-gray-200">

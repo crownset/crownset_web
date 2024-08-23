@@ -1,8 +1,6 @@
 'use client'
-
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-
 import { RiSearch2Fill as SearchIcon } from "react-icons/ri";
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
 import { MdEmail as EmailIcon } from "react-icons/md";
@@ -26,6 +24,7 @@ import * as images from '@/helpers/icons'
 import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaSearchengin } from "react-icons/fa6";
+import TimeoutModal from './TimeoutModal';
 
 
 const expertiseData = sampledata.expertise;
@@ -61,10 +60,27 @@ const expertiseIcon = {
 }
 
 
+
+
 const HomePage = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsModalOpen(true);
+        }, 2000); // 15000 milliseconds = 15 seconds
+
+        return () => clearTimeout(timer); // Clear timeout if the component unmounts
+    }, []);
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
+         <TimeoutModal isOpen={isModalOpen} onClose={closeModal} />
             <section className='linear-gradient px-5 pt-10 '>
                 <div className='xl:w-11/12 m-auto '>
                     <div className='xl:w-11/12 m-auto'>
@@ -645,9 +661,8 @@ const ImageCard = ({ imageUrl, date, title }) => {
                             <span className='text-bodyTextColor'> By creating engaging content and engaging with fans, businesses can drive traffic to their website, increase sales and build stronger customer relationships.</span></li>
                     </ul>
                 </div>
-
-
             </div>
+           
         </>
     )
 

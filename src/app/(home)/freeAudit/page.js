@@ -78,7 +78,7 @@ const FreeAudit = () => {
           businessName: "",
           contact: "",
           queryContent: "",
-          leadBy: "test lead"
+          leadBy: ""
         });
         toast.success(data?.message);
       })

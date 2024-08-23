@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { CustomLoader } from '../CustomLoader';
 
 const AddLead = ({ onCloseProject, openProject }) => {
     const [user, setUser] = useState(null);
@@ -243,9 +244,9 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         </div>
                     </div>
                     <div>
-                    <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
-                                    Comments
-                                </label>
+                        <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                            Comments
+                        </label>
                         <textarea
                             className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name='comments'
@@ -261,7 +262,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         disabled={isSubmitting}
                         className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
-                        {isSubmitting ? <BeatLoader color="#fff" size={10} /> : "Submit"}
+                        {isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Submit"}
                     </button>
                 </form>
             </div>

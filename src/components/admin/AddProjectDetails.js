@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { CustomLoader } from '../CustomLoader';
 
 const AddProjectDetails = ({ onCloseProject, openProject }) => {
     const [formValues, setFormValues] = useState({
@@ -257,7 +258,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                 className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-lg text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                             >
                                 {
-                                    isSubmitting ? <BeatLoader color="#ffffff" size={10} /> : "Save"
+                                    isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Save"
                                 }
                             </button>
                         </div>
