@@ -297,9 +297,9 @@ const SectionThird = () => {
                 <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
                   '>
                     <Image
-                        className='rounded-[3rem] aspect-auto object-cover px-[1rem]'
+                        className='rounded-[3rem] aspect-auto object-cover  shadow-xl'
                         src={images.homeimg}
-                        width={1280}
+                        width={1180}
                         height={417}
                         alt="Picture of the author"
                     />

@@ -113,7 +113,7 @@ const Page = () => {
               src={images.aboutimg1}
               width={800}
               height={500}
-              className="rounded-[2rem]"
+              className="rounded-[2rem] shadow-xl"
               alt="image"
             />
           </div>
@@ -207,7 +207,7 @@ const Page = () => {
   "
           >
             <Image
-              className="rounded-[3rem] aspect-auto object-cover px-[1rem] h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto"
+              className="rounded-[3rem] aspect-auto object-cover h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto shadow-xl"
               src={images.aboutimg2}
               width={1280}
               height={417}
