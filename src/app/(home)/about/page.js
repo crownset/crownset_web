@@ -9,7 +9,7 @@ export const metadata = {
   {
     title: 'About Us - Crownset Marketing Agency',
     description:  "At Crownset, founded in 2017, we are dedicated to empowering businesses to not just participate in the market but to lead it.With our innovative business solutions and IT services,",
-    url: 'https://www.crownsetmarketing.com/about',
+    url: 'https://www.crownset.com/about',
     type: 'website',
   },
  
