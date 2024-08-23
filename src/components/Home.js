@@ -294,10 +294,10 @@ const SectionThird = () => {
         <>
             <div className='mt-[-3rem] xl:mt-[-9]'>
 
-                <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
+                <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center 
                   '>
                     <Image
-                        className='rounded-[3rem] aspect-auto object-cover  shadow-xl'
+                        className='rounded-[2rem] aspect-auto object-cover  shadow-xl p-3 md:p-0 '
                         src={images.homeimg}
                         width={1180}
                         height={417}
