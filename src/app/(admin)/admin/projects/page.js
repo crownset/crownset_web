@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Page = () => {
   const dispatch = useDispatch();
   const { project, loading, error } = useSelector((state) => state.project);
+  console.log("project====>", project)
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedQueryId, setSelectedQueryId] = useState(null);
@@ -99,7 +100,7 @@ const Page = () => {
           {/* {project.length > 0 ? (
             <> */}
               <div className='flex justify-end w-[98%] m-auto'>
-                <button className='bg-dashboard text-default text-base text-center py-2 px-2 rounded-xl my-3 text-[12px]' onClick={openAddModal}>
+                <button className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]' onClick={openAddModal}>
                   ADD Project
                 </button>
               </div>

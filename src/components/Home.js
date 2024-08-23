@@ -65,18 +65,18 @@ const HomePage = () => {
 
     return (
         <>
-            <section className='linear-gradient px-5 pt-10 '>
+            <section className='linear-gradient px-5 pt-14 '>
                 <div className='xl:w-11/12 m-auto '>
                     <div className='xl:w-11/12 m-auto'>
                         <div className=''>
                             <h1 className='text-center mx-[1.2rem] font-bold text-[2rem] leading-9 
                             tracking-wider md:px-12 lg:text-[3.5rem] lg:leading-[4rem]'>
-                                Strategic Marketing, Dynamic  Business Solutions, Real Results
+                                Strategic Marketing, Business Transformation Solutions, Real Results
                             </h1>
                         </div>
                         <div className=' mt-6 px-4 flex justify-center'>
                             <span className='text-center text-[1.2rem] text-bodyTextColor font-semibold'>
-                                Transform your business with our innovative, results-driven IT services and business solutions
+                            Transform your business with our innovative, results-driven IT services and comprehensive business solutions. Enhance efficiency, drive growth, and stay competitive with cutting-edge technology and expert support.
                             </span>
                         </div>
                     </div>
@@ -214,7 +214,7 @@ const HomePage = () => {
             <section className='p-5 xl:px-10 xl:w-11/12 m-auto  '>
                 <div>
                     <h1 className='text-[2rem] md:text-[2.5rem] xl:text-[3rem] 
-                    md:leading-[3rem] tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>Our Expertise</h1>
+                    md:leading-[3rem] tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>Our Core Services</h1>
 
                     <div className='mt-[3rem] md:grid md:grid-cols-3 md:gap-4 xl:gap-[3rem]'>
 
@@ -258,14 +258,11 @@ const SectionTwo = () => {
                             <h1 className='text-[2rem] md:text-[2.5rem] xl:text-[3rem] md:leading-[3rem] tracking-tighter font-bold leading-8 my-5 xl:text-wrap'>We Offer Comprehensive Business Solution</h1>
                         </div>
                         <div className='mt-5'>
-                            <p className='text-bodyTextColor'>Together, we help our clients achieve tangible, measurable results. Focused on business outcomes — we bring a unique set of expertise and skills to the party.</p>
-                             
-                             <div className='xl:mt-6'>
-                             <Link href="\about">
+                            <p className='text-bodyTextColor'>We specialize in delivering measurable business results that drive real growth and success. Our expert team is dedicated to achieving specific business outcomes, utilizing a proven blend of innovative strategies and industry-leading skills. We work closely with our clients to overcome complex challenges and unlock new opportunities, ensuring their business goals are not just met, but exceeded. By focusing on tangible results and value-driven solutions, we help businesses thrive in today&apos; s competitive landscape. Partner with us to experience the difference that our expertise and commitment can make in your success.</p>
+
+                            <Link href="\about">
                                 <UnderlineButton buttonName={'more about us'} />
                             </Link>
-                             </div>
-                            
 
                         </div>
                     </div>
@@ -300,9 +297,9 @@ const SectionThird = () => {
                 <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
                   '>
                     <Image
-                        className='rounded-[3rem] aspect-auto object-cover px-[1rem]'
+                        className='rounded-[3rem] aspect-auto object-cover  shadow-xl'
                         src={images.homeimg}
-                        width={1280}
+                        width={1180}
                         height={417}
                         alt="Picture of the author"
                     />
@@ -391,7 +388,7 @@ const SectionFour = () => {
                     <div className='mt-10 lg:w-[30rem]'>
 
                         <span className='text-bodyTextColor'>
-                            Crownset stands out as a key partner for your growth and success by providing complete solutions to your needs. Our services include basic marketing strategy, IT services, social media marketing (SMM), and social media optimization (SMO). With Crownset, you can grow your business, grow it, and achieve unparalleled success. Choose Crownset for a holistic approach to elevate your brand and reach new heights. 🚀📈
+                        Crownset is the leading partner for your business growth and success, offering a comprehensive range of solutions including marketing strategy, IT services, social media marketing (SMM), and social media optimization (SMO). With our expert services, you can enhance your business growth, boost brand visibility, and achieve exceptional success. Choose Crownset for a holistic approach to elevate your brand and reach new heights in the competitive landscape. 🚀📈
                         </span>
                     </div>
                     <Link href="/freeAudit">

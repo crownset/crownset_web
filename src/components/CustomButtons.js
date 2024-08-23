@@ -17,8 +17,8 @@ export const DarkButton = ({ buttonText }) => {
 
 export const UnderlineButton = ({buttonName}) => {
   return (
-    <button className='mt-10 sm:mt-6 xl:mt-0 uppercase px-6 py-4
-    font-bold text-[0.8rem] tracking-widest bg-[#e9e5ff] rounded-full
+    <button className='mt-10 sm:mt-6 xl:mt-0 uppercase underline decoration-primary-color hover:decoration-slate-400
+    underline-offset-8 decoration-[2px] font-bold text-[0.8rem] tracking-widest
     '>
         {buttonName}
     </button>

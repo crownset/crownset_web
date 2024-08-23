@@ -47,7 +47,7 @@ const Footer = () => {
                             <p>Ready to speak with a marketing expert? Give us a ring</p>
                         </div>
                         <div className='text-right font-semibold underline-from-left'>
-                            <p>+91 816 869 5799</p>
+                            <p>+91 8287526974</p>
                         </div>
                         <Link href="\freeAudit">
                             <button className='bg-black text-white p-3 rounded-[20px] w-48 flex flex-row justify-around items-center hover:bg-[#805CEB]'>
@@ -84,14 +84,11 @@ const Footer = () => {
                     </div>
                     <div className='flex flex-col justify-center items-center max-md:pr-0 max-md:w-full'>
                         <div className='font-extrabold text-lg'>
-                        127, Tower B, Logix Technova, Sector 132, Noida
-                        </div>
-                        {/* <div className='font-extrabold text-lg'>
-                            <p>6.7/ Average ROAS</p>
+                            {/* <p>6.7/ Average ROAS</p> */}
                         </div>
                         <div className='text-center w-48  max-md:w-full'>
-                            <p>across our 100+ Global Clients on SEO, PPC & Social</p>
-                        </div> */}
+                            <p>127, Tower B, Logix Technova, Sector 132, Noida</p>
+                        </div>
                     </div>
                 </div>
 
