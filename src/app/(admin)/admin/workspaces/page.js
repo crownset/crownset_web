@@ -6,40 +6,36 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice'
 import { toast, ToastContainer } from 'react-toastify';
-
+import { MoonLoader } from "react-spinners";
 const Workspace = () => {
 
     const dispatch = useDispatch();
     const workspaces = useSelector((state) => state.workspace.workspaces);
+    const isLoading = useSelector((state) => state.workspace.loading)
 
     const [isOpen, setIsOpen] = useState(false);
-
     const [newWorkspace, setNewWorkspace] = useState('');
-
-    const toggleAccordion = () => setIsOpen(!isOpen);
-
     const [user, setUser] = useState(null);
+
     useEffect(() => {
-        console.log("here");
+
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
 
         }
-
     }, [dispatch]);
 
+
+
     useEffect(() => {
-        console.log("api")
+
         const fetch = async () => {
             const data = await dispatch(fetchWorkspaces());
-            // setWorkspaces(data);
-
         }
         fetch();
-
     }, [dispatch])
-    //    console.log(workspaces);
+
     const handleAddWorkspace = async () => {
 
         const data = {
@@ -48,6 +44,7 @@ const Workspace = () => {
 
         try {
             const res = await dispatch(createWorkspace(data));
+            
             toast.success('Workspace Created Successfully');
             await dispatch(fetchWorkspaces());
 
@@ -78,20 +75,29 @@ const Workspace = () => {
             />
             <div className=" w-full flex flex-col  justify-center items-center m-auto ">
 
-
                 <div className="my-4  w-[70%] md:w-[50%]  h-[4rem]">
 
-                    <div className='flex bg-white rounded-xl px-3 shadow-md justify-center items-center  hover:border hover:border-primary-color'>
+                    <div className='flex bg-white rounded-xl px-3 shadow-md justify-center items-center  hover:outline hover:outline-primary-color'>
                         <input
                             type="text"
                             value={newWorkspace}
                             onChange={(e) => setNewWorkspace(e.target.value)}
                             className="w-full p-2  outline-none border-none"
-                            placeholder="Enter Workspace Name"
+                            placeholder="Create Workspace"
                         />
-                        <span onClick={handleAddWorkspace}>
-                            <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
-                        </span>
+
+                        {
+                            isLoading ?
+                                (
+                                    <MoonLoader size={15} color="#8153e9" />
+                                ) :
+                                (
+                                    <span onClick={handleAddWorkspace}>
+                                        <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
+                                    </span>
+                                )
+                        }
+
 
                     </div>
 
@@ -100,6 +106,7 @@ const Workspace = () => {
             </div>
 
             <div className='px-10 mt-5 '>
+
                 <ul className="mt-4 md:flex md:gap-5 md:justify-center md:flex-wrap ">
 
                     {workspaces?.map((workspace, index) => (
@@ -113,11 +120,10 @@ const Workspace = () => {
                     ))}
 
                 </ul>
-
             </div>
 
 
-        </div>
+        </div >
     );
 }
 

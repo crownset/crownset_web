@@ -21,15 +21,13 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     const [newTodo, setNewTodo] = useState('');
     const [todos, setTodos] = useState(taskList.todo);
     const [showAddTodo, setShowAddTodo] = useState(false);
+    const [isTaskListEdit, setIsTaskListEdit] = useState(false);
+    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const list_id = taskList?._id;
 
     const dispatch = useDispatch();
     const users = useSelector((state) => state.user.user)
-    // console.log(users);
 
-    // console.log(editTaskList);
-
-    // console.log(taskList);
     useEffect(() => {
         const fetchuser = async () => {
             try {
@@ -72,7 +70,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     };
 
     const handleEditTodo = (todoIndex) => {
-        console.log("todoindex->",todoIndex);
+        console.log("todoindex->", todoIndex);
         const updatedTodos = todos.map((todo, index) =>
             index === todoIndex ? { ...todo, isEditing: true } : todo
         );
@@ -88,7 +86,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
     };
 
     const handleCancelTodoEdit = (todoIndex) => {
-       
+
         const updatedTodos = todos.map((todo, index) =>
             index === todoIndex ? { ...todo, isEditing: false } : todo
         );
@@ -118,8 +116,15 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
 
     }
 
+    const handleEditTaskList = (event) => {
+
+        event.preventDefault();
+        setMenuPosition({ x: event.pageX, y: event.pageY });
+
+    }
+
     return (
-        <div className="bg-[#f1f2f4] p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
+        <div className="bg-[#f1f2f4] p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px]">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -199,25 +204,22 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                         {isOpen ? <FcCollapse className="text-gray-700" /> : <FcExpand className="text-gray-700" />}
                     </button>
 
-                    {!isEditing && (
-                        <button
-                            onClick={onEdit}
-                            className="ml-2  text-white p-2 rounded-lg"
-                        >
-                            <EditIcon className="text-black" />
-                        </button>
-                    )}
+
+                    <button
+
+                        className="ml-2  text-white p-2 rounded-lg"
+                    >
+                        <EditIcon className="text-black" onClick={handleEditTaskList} />
+                    </button>
 
                 </div>
-
-
-
             </div>
 
             {isOpen && (
                 <>
                     <div>
                         <ul className="mt-4 flex flex-col justify-start items-start">
+
                             {todos?.map((todo, todoIndex) => (
                                 <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-primary-color">
 
@@ -230,6 +232,7 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                                             <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
+
                                     {isEditing && (
                                         <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 shadow-lg rounded p-4 z-10">
                                             <h3 className="text-lg font-semibold mb-2">Edit Item</h3>
@@ -327,12 +330,13 @@ const Todo = ({ index, taskList, onEdit, onSaveEdit, onCancelEdit, isEditing, ed
                             )
 
                         }
-
                     </div>
 
 
                 </>
             )}
+
+           
         </div>
     );
 }
