@@ -15,7 +15,7 @@ const FreeAudit = () => {
   const dispatch = useDispatch();
   const [service, setServiceValue] = useState(null)
   const { loading, error , data} = useSelector((state) => state.data);
-  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "", service: "" });
+  const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "website", service: "" });
   const [errors, setErrors] = useState({});
 
   const options = [

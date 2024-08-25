@@ -13,6 +13,8 @@ import axios from 'axios';
 import AddLead from '@/components/admin/AddLead';
 import { CustomLoader } from '@/components/CustomLoader';
 import { FaPlus } from "react-icons/fa6";
+import SuccessLottie from '@/components/admin/SuccessLottie';
+
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -104,6 +106,7 @@ const Page = () => {
 
     return (
         <div className="p-4 h-screen flex flex-col">
+             <SuccessLottie/>
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -127,6 +130,7 @@ const Page = () => {
                            <span>Lead</span>
                         </button>
                     </div>
+                   
                     <div className="flex-1 overflow-y-auto rounded-3xl">
                         <table className="min-w-full bg-white border border-gray-300 text-sm">
                             <thead>
