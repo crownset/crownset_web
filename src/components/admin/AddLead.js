@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { CustomLoader } from '../CustomLoader';
+import { closeAddModal, closeAddSuccessModal, closeSuccessModal, openAddSuccessModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import SuccessModal from './SuccessLottie';
 
 const AddLead = ({ onCloseProject, openProject }) => {
     const [user, setUser] = useState(null);
-
+    const { isSuccessModalOpen, isAddSuccessModal } = useSelector((state) => state.ui)
     const [formValues, setFormValues] = useState({
         fullName: "",
         email: "",
@@ -77,13 +79,13 @@ const AddLead = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(postQuery(formValues)).unwrap();
-            toast.success('Lead added successfully!');
+            // dispatch(closeAddModal())
+            dispatch(openAddSuccessModal());
             dispatch(fetchData());
-            onCloseProject();
         } catch (error) {
             toast.error('Failed to add Lead!');
         } finally {
-            setIsSubmitting(false);
+           setIsSubmitting(false)
         }
     };
 
@@ -99,7 +101,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={() => { onCloseProject() }}
+                        onClick={() => dispatch(closeAddModal())}
                     >
                         <svg
                             className="w-3 h-3"
@@ -266,6 +268,11 @@ const AddLead = ({ onCloseProject, openProject }) => {
                     </button>
                 </form>
             </div>
+            <SuccessModal
+                isOpen={isAddSuccessModal}
+                onClose={() => dispatch(closeAddSuccessModal())}
+                title="Lead Added Successfully."
+            />
         </div>
     );
 };

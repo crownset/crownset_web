@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { CustomLoader } from '../CustomLoader';
+import SuccessModal from './SuccessLottie';
 
 const AddProjectDetails = ({ onCloseProject, openProject }) => {
     const [formValues, setFormValues] = useState({
@@ -21,7 +22,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+   
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
 
@@ -68,9 +69,8 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(addProject(formValues)).unwrap();
-            toast.success('Project added successfully!');
+            setIsSuccessModalOpen(true); // Show success modal
             dispatch(fetchProjects());
-            onCloseProject();
         } catch (error) {
             toast.error('Failed to add project!');
         } finally {
@@ -265,6 +265,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
 
                     </div>
                 </form>
+               
             </div>
         </div>
     );

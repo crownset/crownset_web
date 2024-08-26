@@ -5,6 +5,7 @@ import projectSlice from "./redux/slices/projectSlice"
 import querySlice from "./redux/slices/querySlice"
 import userSlice from "./redux/slices/userSlice"
 import automationSlice from "./redux/slices/automationSlice"
+import uiSlice from "./redux/slices/uiSlice"
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         data: querySlice,
         user: userSlice,
         project: projectSlice,
-        automation : automationSlice
+        automation : automationSlice,
+        ui: uiSlice,
     }
 })
 

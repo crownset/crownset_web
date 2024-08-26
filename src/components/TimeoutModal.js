@@ -6,12 +6,12 @@ import { toast } from 'react-toastify';
 import { CustomLoader } from './CustomLoader';
 
 const TimeoutModal = ({ isOpen, onClose }) => {
-   
+
 
     const dispatch = useDispatch();
     const { loading, error, data } = useSelector((state) => state.data);
     const [service, setServiceValue] = useState(null);
-    const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "", service: "" });
+    const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "website", service: "" });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,39 +41,39 @@ const TimeoutModal = ({ isOpen, onClose }) => {
         e.preventDefault();
         const newErrors = {};
         if (!queryCredential.fullName) {
-          newErrors.fullName = 'This field is required';
+            newErrors.fullName = 'This field is required';
         } else if (!queryCredential.email) {
-          newErrors.email = 'This field is required';
+            newErrors.email = 'This field is required';
         } else if (!queryCredential.businessName) {
-          newErrors.businessName = 'This field is required';
+            newErrors.businessName = 'This field is required';
         } else if (!queryCredential.contact) {
-          newErrors.contact = 'This field is required';
+            newErrors.contact = 'This field is required';
         } else if (!queryCredential.queryContent) {
-          newErrors.queryContent = 'This field is required';
+            newErrors.queryContent = 'This field is required';
         }
         if (Object.keys(newErrors).length > 0) {
-          setErrors(newErrors);
-          return;
+            setErrors(newErrors);
+            return;
         }
         dispatch(postQuery(queryCredential))
-          .unwrap()
-          .then(() => {
-            setQueryCredential({
-              fullName: "",
-              email: "",
-              businessName: "",
-              contact: "",
-              queryContent: "",
-              leadBy: ""
+            .unwrap()
+            .then(() => {
+                setQueryCredential({
+                    fullName: "",
+                    email: "",
+                    businessName: "",
+                    contact: "",
+                    queryContent: "",
+                    leadBy: ""
+                });
+                toast.success(data?.message);
+            })
+            .catch((error) => {
+                toast.error("There was an error saving your query.");
+                console.log(error)
             });
-            toast.success(data?.message);
-          })
-          .catch((error) => {
-            toast.error("There was an error saving your query.");
-            console.log(error)
-          });
-      }
-      if (!isOpen) return null;
+    }
+    if (!isOpen) return null;
     return (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
             <div className="linear-gradient rounded-lg shadow dark:bg-gray-700 p-4 max-w-sm w-full">
@@ -179,11 +179,10 @@ const TimeoutModal = ({ isOpen, onClose }) => {
                         type="submit"
                         className="bg-black text-white w-full font-bold py-3 px-5 rounded-2xl focus:outline-none focus:shadow-outline"
                     >
-                      {loading ?
-                  (
-                    <CustomLoader size={10} color={"#fffff"} loading={loading}/>
-                  )
-                  : 'GET IN TOUCH'}
+                        {loading ?
+                          
+                         <CustomLoader size={10} color={"#ffffff"} loading={loading} />
+                            : 'GET IN TOUCH'}
                     </button>
                 </form>
             </div>
