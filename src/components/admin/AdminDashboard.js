@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -13,10 +13,14 @@ import * as Icon from "@/helpers/icons";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
+import { IoPersonCircleSharp } from "react-icons/io5";
+// import UserInfoModal from './UserDetailsModal serInfoModal';
+import UserDetailsModal from './UserDetailsModal';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [showUserDetails, setShowUserDetails] = useState(false)
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
 
     const dispatch = useDispatch();
@@ -29,6 +33,22 @@ const AdminDashboard = () => {
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
+    const openDetailsModal = () => {
+        setShowUserDetails(true);
+        console.log("detailModal ===>", showUserDetails);
+    };
+
+    const closeDetailsModal = () => {
+        setShowUserDetails(false); // Set false to close modal
+    };
+
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const handleConfirm = async () => {
         try {
@@ -59,8 +79,9 @@ const AdminDashboard = () => {
             />
             <div className="flex">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
+
                     <div className="mt-[14px]">
                         {isSidebarOpen === false ? (
                             <button onClick={toggleSidebar}>
@@ -117,13 +138,24 @@ const AdminDashboard = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-10`}>
-                    <div className='w-[16rem] text-2xl font-semibold'>
-                        <h1>Dashboard</h1>
+                <div className={`fixed w-full flex items-center justify-between bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0 md:ml-20'} transition-all duration-300 ease-in-out shadow z-10`}>
+
+                    <div className='flex items-center w-[60%]'>
+                        <button onClick={toggleSidebar}>
+                            <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
+                        </button>
+                        <div className='w-[16rem] text-lg md:text-2xl font-semibold'>
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
+                    <div className='pt-2'>
+                        <button onClick={openDetailsModal}>
+                            <IoPersonCircleSharp className="h-7 w-7  text-dashboard" />
+                        </button>
                     </div>
                 </div>
             </div>
-
+            <UserDetailsModal openDetails={showUserDetails} closeDetails={closeDetailsModal} data={user} />
             <CustomAlert
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -134,11 +166,6 @@ const AdminDashboard = () => {
                 onConfirm={handleConfirm}
             />
 
-            {/* {status === 'loading' && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <BeatLoader color="#ffffff" />
-                </div>
-            )} */}
         </>
     );
 };
