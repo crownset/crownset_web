@@ -9,24 +9,37 @@ import Workspace from "@/modelCS/workspace";
 export async function PUT(request, { params }) {
     dbConnect();
     try {
-        const { user_id } = params;
 
-        const { tasklist_id } = await request.json();
+        
+        const { user_id } = params;
+        let requestBody;
+        try {
+            requestBody = await request.json();
+        } catch (error) {
+            console.error("Failed to parse JSON:", error);
+            return NextResponse.json({ message: "Invalid JSON format" }, { status: 400 });
+        }
+
+        const {tasklist_id}  =requestBody;
+        
+        // console.log(tasklist_id,user_id);
 
         const list = await TaskList.findOne({ _id: tasklist_id });
+        console.count("here");
 
         if(!list){
             return NextResponse.json({message:"Tasklist not found"},{status:404});
         }
-
+        console.count("here");
         const isUserExistInList = await TaskList.findOne({ assign_to: user_id });
+        console.count("here");
 
         if (isUserExistInList) {
             return NextResponse.json({ message: "User already present" }, { status: 400 });
         }
-       
+        console.count("here");
         const workspace = await Workspace.findOne({ _id: list.workspace_id });
-
+        console.count("here");
         if(!workspace){
             return NextResponse.json({message:"workspace not found"},{status:404});
 

@@ -1,27 +1,45 @@
 "use client"
 import React, { useEffect } from 'react'
 import TaskList from '../_components/TaskList'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchTasklist } from '@/redux/slices/tasklistSlice'
+import { BeatLoader } from 'react-spinners'
 
-const Page = ({params}) => {
+const Page = ({ params }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  const isLoading = useSelector((state) => state.tasklist.isLoading);
+  
 
-    const fetch = async()=>{
-       dispatch(fetchTasklist(params.workspace_id));
+
+  useEffect(() => {
+
+    const fetch = async () => {
+      dispatch(fetchTasklist(params.workspace_id));
     }
     fetch();
 
-  },[dispatch,params.workspace_id])
+  }, [dispatch])
   return (
     <>
-    <TaskList workspace_id={params.workspace_id}/>
-    
+      {/* <TaskList workspace_id={params.workspace_id} /> */}
+      {
+        isLoading ? (
+          <>
+            <div className="flex justify-center items-center w-full h-screen">
+              <BeatLoader />
+
+            </div>
+          </>
+        ) : (
+          <TaskList workspace_id={params.workspace_id} />
+        )
+      }
+
+
     </>
-    
+
   )
 }
 

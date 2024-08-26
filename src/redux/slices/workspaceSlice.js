@@ -3,16 +3,35 @@ import axios from "axios";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-    workspaces: null,
+    workspaces: [],
     error: false,
-    loading: false
+    isCreateWorkspaceLoading: false,
+    deleteWorkspaceLoading: false,
+    editWorkspaceLoading: false,
+    loading: false,
 }
+
+export const editWorkspace = createAsyncThunk(
+    'editworkspace',
+    async ({updateName,workspace_id}) => {
+        
+        try {
+            const res = await axios.put('/api/teams/workspace/editWorkspace', {updateName,workspace_id});
+            return res.data.data;
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+)
 
 export const fetchWorkspaces = createAsyncThunk(
     "fetchWorksapcesforadmin",
     async () => {
         try {
             const allWorkspaces = await axios.get('/api/teams/workspace/getWorkspaces');
+
             return allWorkspaces.data.data
         } catch (error) {
             console.log(error);
@@ -26,11 +45,30 @@ export const createWorkspace = createAsyncThunk(
 
         try {
             const res = await axios.post('/api/teams/workspace', data);
+            return res.data.data;
         } catch (error) {
             console.log(error);
 
         }
 
+    }
+)
+
+export const deleteWorkspace = createAsyncThunk(
+    'deleteworkspace',
+    async (workspace_id, { rejectWithValue }) => {
+
+        try {
+           
+            const res = await axios.put("/api/teams/workspace/deleteWorkspace", { workspace_id });
+            
+            return res.data.data;
+
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(res.data.message);
+
+        }
     }
 )
 
@@ -40,17 +78,48 @@ const workspaceSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(createWorkspace.pending, (state) => {
+            .addCase(editWorkspace.pending, (state, action) => {
                 state.loading = true;
-                state.error = null;
+            })
+            .addCase(editWorkspace.fulfilled, (state, action) => {
+                state.workspaces = state.workspaces.map((data) => {
+                    if (data._id == action.payload._id) {
+                        return action.payload;
+                    }else{
+                        return data;
+                    }
+                })
+                state.loading = false;
+            })
+            .addCase(editWorkspace.rejected, (state) => {
+                state.loading = false;
+            })
+            .addCase(deleteWorkspace.pending, (state) => {
+                state.deleteWorkspaceLoading = true
+
+            })
+            .addCase(deleteWorkspace.fulfilled, (state, action) => {
+
+                state.deleteWorkspaceLoading = false;
+                state.workspaces = state.workspaces.filter((data) => data._id !== action.payload._id);
+
+            })
+            .addCase(deleteWorkspace.rejected, (state) => {
+                state.deleteWorkspaceLoading = false;
+
+            })
+            .addCase(createWorkspace.pending, (state) => {
+                state.isCreateWorkspaceLoading = true;
+
             })
             .addCase(createWorkspace.fulfilled, (state, action) => {
-
-                state.loading = false;
+                //check for null condition
+                state.workspaces.unshift(action.payload);
+                state.isCreateWorkspaceLoading = false;
             })
             .addCase(createWorkspace.rejected, (state, action) => {
-               
-                state.loading = false;
+
+                state.isCreateWorkspaceLoading = false;
             })
             .addCase(fetchWorkspaces.pending, (state) => {
                 state.loading = true;

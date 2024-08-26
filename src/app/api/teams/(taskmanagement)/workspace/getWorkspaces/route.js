@@ -21,8 +21,7 @@ export async function GET(request) {
 
         const user = decode.user;
         if (user.accessId == 1) {
-            const workspace = await Workspace.find({ createdBy: user._id }).sort({ createdAt: -1 });
-
+            const workspace = await Workspace.find({is_deleted:false}).sort({ createdAt: -1 });
 
             return NextResponse.json({
                 message: "All workspaces",
@@ -42,8 +41,6 @@ export async function GET(request) {
         }
 
         return NextResponse.json({messgae:"No Worksapce"});
-
-
 
     } catch (error) {
         console.log("Error in Fetching Workspaces", error);

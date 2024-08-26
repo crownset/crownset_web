@@ -27,19 +27,20 @@ export async function GET(request, { params }) {
 
 
         const user = decode.user;
-        if (!user.accessId || user.accessId !== 1) {
-            console.log("Not Authorized");
-            return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
-        }
+        // if (!user.accessId || user.accessId !== 1) {
+        //     console.log("Not Authorized");
+        //     return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
+        // }
         
-        const workspace = await Workspace.findById(workspace_id).exec();
+        // const workspace = await Workspace.findById(workspace_id).exec();
 
         
         const tasklists = await TaskList.find({ workspace_id: workspace_id });
 
         const list = await Promise.all(
             tasklists.map(async (task) => {
-                const todo = await Todo.find({ tasklist_id: task._id })
+                const todo = await Todo.find({ tasklist_id: task._id }) 
+                console.log(todo);
                 
 
                 const newList = {
@@ -51,16 +52,16 @@ export async function GET(request, { params }) {
             }));
 
         
-        const workspaceWithTasklistsAndTodos = {
-            ...workspace.toObject(),
-            tasklists: list
-        };
+        // const workspaceWithTasklistsAndTodos = {
+        //     ...workspace.toObject(),
+        //     tasklists: list
+        // };
 
 
-        
+    
         return NextResponse.json({
             message: "workspace Details",
-            data: workspaceWithTasklistsAndTodos
+            data: list
         }, { status: 201 })
 
     } catch (error) {

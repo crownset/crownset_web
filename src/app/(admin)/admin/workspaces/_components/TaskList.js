@@ -3,67 +3,124 @@ import { useState } from 'react';
 import Todo from './Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import { createlist } from '@/redux/slices/tasklistSlice';
+import { createlist, editList } from '@/redux/slices/tasklistSlice';
 import { BsPlus as PlusIcon } from "react-icons/bs";
 import { IoMdClose as CloseIcon } from "react-icons/io";
+import { MoonLoader, BeatLoader, ClipLoader } from "react-spinners";
+import { AssginedUserModal, EditTaskListModal, ShareTaskListModal } from './Modals';
 
 export default function TaskList({ workspace_id }) {
 
   const dispatch = useDispatch();
-  const tasklists = useSelector((state) => state.tasklist?.tasklist?.tasklists);
-  //  console.log(tasklists);
+  const tasklists = useSelector((state) => state.tasklist?.tasklist);
+  const { isCreatingList } = useSelector((state) => state.tasklist)
+
+
 
   const [newTaskList, setNewTaskList] = useState({ name: '', deadline: '', workspace_id: workspace_id });
   const [editingTaskListIndex, setEditingTaskListIndex] = useState(null);
   const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '' });
 
+  const [isShareModal, setIsShareModal] = useState(false);
+  const [isAssginedUserModal, setIsAssginedUserModal] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
 
+  const handleAddTaskList = async (e) => {
 
-
-  // add newtasklist
-  const handleAddTaskList = async () => {
-
-    if (newTaskList.name == '') {
+    if (!newTaskList.name || newTaskList.name == '') {
       toast.error("List field should not be empty")
       return;
     }
-    if (newTaskList.deadline == '') {
+    if (!newTaskList.deadline || newTaskList.deadline == '') {
       toast.error("Deadline field should not be empty")
       return;
 
     }
+    try {
 
-    if (newTaskList.name.trim() && newTaskList.deadline.trim()) {
+      await dispatch(createlist(newTaskList));
+      // console.log("here");
+      setNewTaskList({ name: '', deadline: '' });
+      toast.success('List created successfully');
+    } catch (error) {
+      toast.error("Failed to create list")
 
-      try {
-
-        await dispatch(createlist(newTaskList));
-        console.log("here");
-        setNewTaskList({ name: '', deadline: '' });
-        toast.success('List created successfully');
-      } catch (error) {
-        toast.error("Failed to create list")
-
-      }
     }
+
   };
 
   const handleEditTaskList = (index) => {
-    console.log("edit");
+    // console.log("edit");
+    console.log(index);
     const taskList = tasklists[index];
-    // console.log(taskList);
     setEditingTaskListIndex(index);
     setEditTaskList({ name: taskList.name, deadline: taskList.deadline });
   };
+  const handleCancelEditTaskList = () => {
+    console.log("cancel");
+    setEditingTaskListIndex(null)
+  };
+
+
+  // MODAL Handler
+  const handleOpenShareListModal = () => setIsShareModal(true)
+  const handleCloseShareLsitModal = () => setIsShareModal(false)
+  const handleSaveShareList = () => { console.log("save") };
+
+  const handleOpenAssignedUserModal = () => setIsAssginedUserModal(true);
+  const handleCloseAssignedUserModal = () => setIsAssginedUserModal(false);
+
+  const handleOpenEditModal = () => {
+    setIsEditModal(true)
+  };
+  const handleCloseEditModal = () => setIsEditModal(false);
+
+  const handleSaveEditModal = async () => {
+    console.log(editingTaskListIndex);
+    if (!editTaskList.name && !editTaskList.deadline && !editTaskList.share) {
+     
+      return;
+    }
+    
+    const tasklist_id = tasklists[editingTaskListIndex]?._id;
+   
+    const formData = {
+      name: editTaskList.name,
+      deadline: editTaskList.deadline,
+
+    };
+    const data = Object.keys(formData).reduce((acc, key) => {
+      if (formData[key]) {
+        acc[key] = formData[key];
+      }
+      return acc;
+    }, {});
+
+    try {
+      await dispatch(editList({ tasklist_id, data }))
+
+    } catch (error) {
+      console.log(error);
+
+    }
+    handleCloseEditModal();
+    handleCancelEditTaskList();
+  }
+
+  const handleMarkAsDone = () => {
+    console.log("mark as done");
+  }
+
 
   const handleSaveEditTaskList = async (index) => {
 
     if (!editTaskList.name && !editTaskList.deadline && !editTaskList.share) {
-      console.log("no change")
+      // console.log("no change")
       return;
     }
-    console.log("save")
-    const tasklist_id = tasklists[index]._id;
+    // console.log("save")
+    console.log(editTaskList);
+    const tasklist_id = tasklists[index]?._id;
 
     const formData = {
       name: editTaskList.name,
@@ -76,39 +133,15 @@ export default function TaskList({ workspace_id }) {
       }
       return acc;
     }, {});
-    console.log(filteredData)
 
-    // if(!editTaskList.share || editTaskList.share == ''){
-
-    // }
-
-    console.log(editTaskList);
-
-
-    // const updatedTaskLists = [...taskLists];
-    // updatedTaskLists[index] = { ...editTaskList, todos: updatedTaskLists[index].todos };
-    // setTaskLists(updatedTaskLists);
     setEditingTaskListIndex(null);
   };
 
-  const handleCancelEditTaskList = () => {
-    console.log("cancel");
-    setEditingTaskListIndex(null);
-  };
+
 
   return (
     <div className="w-full mx-auto mt-10 ">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
       {/* put condition for admin and employee */}
       <div className="w-full mx-auto  md:overflow-x-auto md:h-[80vh]">
 
@@ -135,12 +168,13 @@ export default function TaskList({ workspace_id }) {
 
             <input
               type="text"
+              name="name"
               value={newTaskList.name}
               onChange={(e) => setNewTaskList({ ...newTaskList, name: e.target.value })}
               className="w-full p-2 border border-gray-300 rounded-xl outline-none px-3 py-1 h-[2rem]"
               placeholder="Enter Task List Name"
             />
-            <div  className='text-gray-400 mt-4'>
+            <div className='text-gray-400 mt-4'>
               <span className='ml-2 mt-4'>Deadline</span>
               <input
                 type="date"
@@ -156,7 +190,10 @@ export default function TaskList({ workspace_id }) {
               onClick={handleAddTaskList}
               className="mt-2 bg-primary-color text-white px-6 py-1 w-full rounded-lg"
             >
-              Add
+              {
+                isCreatingList ? (<ClipLoader size={15} />
+                ) : (<span>Add</span>)
+              }
             </button>
 
 
@@ -168,18 +205,35 @@ export default function TaskList({ workspace_id }) {
               key={index}
               index={index}
               taskList={taskList}
-              onEdit={() => handleEditTaskList(index)}
-              onSaveEdit={() => handleSaveEditTaskList(index)}
-              onCancelEdit={handleCancelEditTaskList}
-              isEditing={editingTaskListIndex === index}
+              handleEditTaskList={() => handleEditTaskList(index)}
+              onCancelEditTaskList={handleCancelEditTaskList}
+              isEditingTaskList={editingTaskListIndex === index}
               editTaskList={editTaskList}
               setEditTaskList={setEditTaskList}
+              workspace_id={workspace_id}
+              onShare={handleOpenShareListModal}
+              onUsers={handleOpenAssignedUserModal}
+              onEdit={handleOpenEditModal}
+              markListDone={handleMarkAsDone}
 
             />
           ))}
         </div>
 
       </div>
+
+      {
+        isShareModal &&
+        <ShareTaskListModal isOpenShare={isShareModal} onClose={handleCloseShareLsitModal}  tasklist_id={tasklists[editingTaskListIndex]._id} />
+      }
+      {
+        isAssginedUserModal &&
+        <AssginedUserModal isOpen={isAssginedUserModal} onClose={handleCloseAssignedUserModal} />
+      }
+      {
+        isEditModal &&
+        <EditTaskListModal isOpen={isEditModal} onClose={handleCloseEditModal} onSave={handleSaveEditModal} editTaskList={editTaskList} setEditTaskList={setEditTaskList} />
+      }
     </div >
   );
 }
