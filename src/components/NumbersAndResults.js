@@ -46,7 +46,7 @@ const AnimatedCard = ({ value, descripiton }) => {
             } else {
                 clearInterval(interval);
                 setTimeout(() => {
-                    setDisplayValue(0);
+                    setDisplayValue(0); 
                     start = 0;
                     interval = setInterval(animate, 20);
                 }, 1500); // Reset after 1.5 seconds and start again

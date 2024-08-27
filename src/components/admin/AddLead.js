@@ -82,6 +82,15 @@ const AddLead = ({ onCloseProject, openProject }) => {
             // dispatch(closeAddModal())
             dispatch(openAddSuccessModal());
             dispatch(fetchData());
+            setFormValues({
+                fullName: "",
+                email: "",
+                contact: "",
+                businessName: "",
+                queryContent: "",
+                service: "",
+                leadBy: ""
+            })
         } catch (error) {
             toast.error('Failed to add Lead!');
         } finally {
