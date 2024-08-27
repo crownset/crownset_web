@@ -203,11 +203,11 @@ const Page = () => {
       <section className="mt-16">
         <div className="mt-[-3rem] xl:mt-[-9]">
           <div
-            className="relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
+            className="relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center 
   "
           >
             <Image
-              className="rounded-[3rem] aspect-auto object-cover h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto shadow-xl"
+              className="rounded-[2rem] xl:w-11/12 m-auto shadow-xl p-3 md:p-0"
               src={images.aboutimg2}
               width={1280}
               height={417}

@@ -1,8 +1,6 @@
 'use client'
-
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-
 import { RiSearch2Fill as SearchIcon } from "react-icons/ri";
 import { TbTargetArrow as TargetArrowIcon } from "react-icons/tb";
 import { MdEmail as EmailIcon } from "react-icons/md";
@@ -26,6 +24,7 @@ import * as images from '@/helpers/icons'
 import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaSearchengin } from "react-icons/fa6";
+import TimeoutModal from './TimeoutModal';
 
 
 const expertiseData = sampledata.expertise;
@@ -61,10 +60,28 @@ const expertiseIcon = {
 }
 
 
+
+
 const HomePage = () => {
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsModalOpen(true);
+        }, 2000); // 15000 milliseconds = 15 seconds
+
+        return () => clearTimeout(timer); // Clear timeout if the component unmounts
+    }, []);
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
+        // <TimeoutModal isOpen={isModalOpen} onClose={closeModal} />    
         <>
+            <TimeoutModal isOpen={isModalOpen} onClose={closeModal} />
             <section className='linear-gradient px-5 pt-14 '>
                 <div className='xl:w-11/12 m-auto '>
                     <div className='xl:w-11/12 m-auto'>
@@ -76,7 +93,7 @@ const HomePage = () => {
                         </div>
                         <div className=' mt-6 px-4 flex justify-center'>
                             <span className='text-center text-[1.2rem] text-bodyTextColor font-semibold'>
-                            Transform your business with our innovative, results-driven IT services and comprehensive business solutions. Enhance efficiency, drive growth, and stay competitive with cutting-edge technology and expert support.
+                                Transform your business with our innovative, results-driven IT services and comprehensive business solutions. Enhance efficiency, drive growth, and stay competitive with cutting-edge technology and expert support.
                             </span>
                         </div>
                     </div>
@@ -294,10 +311,10 @@ const SectionThird = () => {
         <>
             <div className='mt-[-3rem] xl:mt-[-9]'>
 
-                <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
+                <div className='relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center 
                   '>
                     <Image
-                        className='rounded-[3rem] aspect-auto object-cover  shadow-xl'
+                        className='rounded-[2rem] aspect-auto object-cover  shadow-xl p-3 md:p-0 '
                         src={images.homeimg}
                         width={1180}
                         height={417}
@@ -388,7 +405,7 @@ const SectionFour = () => {
                     <div className='mt-10 lg:w-[30rem]'>
 
                         <span className='text-bodyTextColor'>
-                        Crownset is the leading partner for your business growth and success, offering a comprehensive range of solutions including marketing strategy, IT services, social media marketing (SMM), and social media optimization (SMO). With our expert services, you can enhance your business growth, boost brand visibility, and achieve exceptional success. Choose Crownset for a holistic approach to elevate your brand and reach new heights in the competitive landscape. 🚀📈
+                            Crownset is the leading partner for your business growth and success, offering a comprehensive range of solutions including marketing strategy, IT services, social media marketing (SMM), and social media optimization (SMO). With our expert services, you can enhance your business growth, boost brand visibility, and achieve exceptional success. Choose Crownset for a holistic approach to elevate your brand and reach new heights in the competitive landscape. 🚀📈
                         </span>
                     </div>
                     <Link href="/freeAudit">
@@ -645,9 +662,8 @@ const ImageCard = ({ imageUrl, date, title }) => {
                             <span className='text-bodyTextColor'> By creating engaging content and engaging with fans, businesses can drive traffic to their website, increase sales and build stronger customer relationships.</span></li>
                     </ul>
                 </div>
-
-
             </div>
+
         </>
     )
 

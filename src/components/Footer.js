@@ -47,7 +47,7 @@ const Footer = () => {
                             <p>Ready to speak with a marketing expert? Give us a ring</p>
                         </div>
                         <div className='text-right font-semibold underline-from-left'>
-                            <p>+91 8287526974</p>
+                            <p>+91 8448376799</p>
                         </div>
                         <Link href="\freeAudit">
                             <button className='bg-black text-white p-3 rounded-[20px] w-48 flex flex-row justify-around items-center hover:bg-[#805CEB]'>

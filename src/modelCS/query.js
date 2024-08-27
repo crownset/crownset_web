@@ -24,7 +24,7 @@ const querySchema = new Schema({
   leadBy: { 
     type: String, 
     required: true, 
-    default: "website" 
+    // default: "website" 
   },
   service: { 
     type: String, 
