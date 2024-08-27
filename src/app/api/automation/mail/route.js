@@ -51,7 +51,7 @@ export async function POST(request) {
         from: process.env.EMAIL_ID,
         to: data.email,
         subject: 'Follow-Up: Complimentary Growth Strategy Call',
-        html: template()
+        html: template({data})
       };
     
     await transporter.sendMail(mailOptions);
