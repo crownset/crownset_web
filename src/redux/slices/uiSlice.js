@@ -11,6 +11,7 @@ const initialState = {
     isSuccessModalOpen: false,
     selectedQueryId: null,
     selectedQueryData: null,
+    isAutoSuccess:false,
     fullQuery: "",
 };
 
@@ -65,6 +66,12 @@ const uiSlice = createSlice({
         },
         closeEditSuccessModal:(state)=>{
             state.isEditSuccessfull = false
+        },
+        openAutoSuccess:(state)=>{
+            state.isAutoSuccess = true
+        } ,
+        closeAutoSuccess:(state)=>{
+            state.isAutoSuccess = false
         }
     },
 });
@@ -83,7 +90,10 @@ export const {
     openAddSuccessModal,
     closeAddSuccessModal,
     openEditSuccessModal,
-    closeEditSuccessModal
+    closeEditSuccessModal,
+    openAutoSuccess,
+    closeAutoSuccess
+
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

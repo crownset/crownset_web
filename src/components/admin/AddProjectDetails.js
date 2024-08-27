@@ -71,6 +71,17 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
             await dispatch(addProject(formValues)).unwrap();
             setIsSuccessModalOpen(true); // Show success modal
             dispatch(fetchProjects());
+            setFormValues({
+                name: "",
+                email: "",
+                contactNo: "",
+                assignTo: "",
+                remarks: "",
+                businessName: "",
+                projectBy: "",
+                lastFollowUp: "",
+                deadLine: ""
+            })
         } catch (error) {
             toast.error('Failed to add project!');
         } finally {

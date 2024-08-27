@@ -171,7 +171,7 @@ const Page = () => {
                 onClose={() => dispatch(closeModal())}
                 title="Are you sure?"
                 description="Are you sure you want to delete this query?"
-                confirmButtonText="Yes, I'm sure"
+                confirmButtonText={loading ?  <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure" }  
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
