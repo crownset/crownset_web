@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import ClientProvider from "@/redux/ClientProvider";
 
 const kanit = KanitFont({
-  
+   
   subsets: ["latin"],
   weight: ["300"],
 });
