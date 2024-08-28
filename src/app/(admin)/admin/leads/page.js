@@ -120,7 +120,7 @@ const Page = () => {
                                             </span>
                                         </td>
                                         <td className="py-2 text-[12px] border-b text-center ">
-                                            {item?.queryContent.length > 50 ? (
+                                            {item?.queryContent?.length > 50 ? (
                                                 <>
                                                     {item?.queryContent.slice(0, 50)}...
                                                     <button

@@ -113,7 +113,7 @@ const AdminDashboard = () => {
                                 <li key={index}>
                                     <Link href={item.href}>
                                         <button
-                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default text-black" : "text-default hover:bg-default hover:text-black"}`}
+                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-default hover:rounded-3xl hover:text-black"}`}
                                             onClick={() => setSelectedTab(item.name)}
                                         >
                                             <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />

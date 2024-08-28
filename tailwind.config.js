@@ -13,7 +13,7 @@ module.exports = {
       colors: {
         'primary-color': '#6754E9',
         'bodyTextColor': '#615f5b',
-        "dashboard": "#0146cf",
+        "dashboard": "#4d7edd",
         "navbar" : "#f5f6fa",
         "default": "#FFFFFF",
         "black" : "#000000",
