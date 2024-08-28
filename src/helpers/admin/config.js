@@ -19,6 +19,11 @@ export const menuItems = [
         href: "/admin/projects",
         icon: SiPowerpages,
     },
+    {
+        name: "Leaves",
+        href: "/admin/leaves",
+        icon: SiPowerpages,
+    },
 ];
 
 export const logoutItem = {
