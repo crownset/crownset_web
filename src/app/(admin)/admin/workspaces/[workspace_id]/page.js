@@ -13,14 +13,17 @@ const Page = ({ params }) => {
   
 
 
-  useEffect(() => {
+  
 
-    const fetch = async () => {
+
+  useEffect(() => {
+    
+      const fetch = async () => {
       dispatch(fetchTasklist(params.workspace_id));
     }
     fetch();
 
-  }, [dispatch])
+  }, [dispatch,params.workspace_id])
   return (
     <>
       {/* <TaskList workspace_id={params.workspace_id} /> */}

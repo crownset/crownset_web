@@ -107,28 +107,6 @@ const tasklistSlice = createSlice({
                 state.isCreatingTodo = true;
             })
             .addCase(createTodo.fulfilled, (state, action) => {
-                
-                const newTodo = action.payload;
-                const { tasklist_id } = newTodo;
-
-                const tasklistIndex = state.tasklist.findIndex(list => list._id === tasklist_id);
-                // console.log(tasklistIndex);
-
-                if (tasklistIndex !== -1) {
-                    state.tasklist[tasklistIndex].todo.push(action.payload)
-                    // console.log(original(state.tasklist[tasklistIndex]));
-                    // state.tasklist[tasklistIndex].is_deleted = true;
-                   
-                    // console.log(action.payload);
-                    // console.log(original(state.tasklist[tasklistIndex]));
-                    //  state.tasklist[tasklistIndex].todo.push(action.payload);
-                    // console.log(original(state.tasklist))
-                    
-
-                }else{
-
-                  console.log("Tasklist is not found");
-                }
 
                 state.isCreatingTodo = false;
             })

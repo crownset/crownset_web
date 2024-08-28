@@ -25,21 +25,21 @@ export async function PUT(request, { params }) {
         // console.log(tasklist_id,user_id);
 
         const list = await TaskList.findOne({ _id: tasklist_id });
-        console.count("here");
+        
 
         if(!list){
             return NextResponse.json({message:"Tasklist not found"},{status:404});
         }
-        console.count("here");
+        
         const isUserExistInList = await TaskList.findOne({ assign_to: user_id });
-        console.count("here");
+        
 
         if (isUserExistInList) {
             return NextResponse.json({ message: "User already present" }, { status: 400 });
         }
-        console.count("here");
+        
         const workspace = await Workspace.findOne({ _id: list.workspace_id });
-        console.count("here");
+        
         if(!workspace){
             return NextResponse.json({message:"workspace not found"},{status:404});
 

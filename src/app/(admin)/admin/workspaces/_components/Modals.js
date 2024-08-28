@@ -42,94 +42,13 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
     )
 }
 
-//tasklist modals 
-export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEditTaskList }) => {
-
-
-    if (!isOpen) return null;
-    // console.log(editTaskList);
-
-    const formatDateForDisplay = (dateString) => {
-        if (!dateString) return '';
-        return moment(dateString, 'YYYY-MM-DD').format('DD-MM-YYYY');
-    };
-
-    // Convert dd-mm-yyyy to yyyy-mm-dd
-    const parseDateForStorage = (dateString) => {
-        if (!dateString) return '';
-        return moment(dateString, 'DD-MM-YYYY').format('YYYY-MM-DD');
-    };
-
-    const handleDateChange = (date) => {
-        setEditTaskList(prev => ({
-            ...prev,
-            deadline: date // Store as JavaScript Date object
-        }));
-    };
-
-    // Handle input change for name field
-    const handleNameChange = (e) => {
-        setEditTaskList(prev => ({
-            ...prev,
-            name: e.target.value
-        }));
-    };
-
-    return (
-
-        <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
-
-                    <div className="flex items-end justify-end">
-
-                        <button
-                            type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            onClick={onClose}
-                        >
-                            <CloseIcon className="w-3 h-3" />
-
-                        </button>
-                    </div>
-
-                    <div className="p-4 md:p-5 space-y-4">
-
-                        <input
-                            name="name"
-                            value={editTaskList.name}
-                            onChange={handleNameChange}
-                            className="outline outline-primary-color p-1 rounded"
-                            placeholder="Task Name"
-                        />
-                        <DatePicker
-                            selected={editTaskList.deadline}
-                            onChange={handleDateChange}
-                            dateFormat="dd-MM-yyyy"
-                            className="outline outline-primary-color p-1 rounded"
-                            placeholderText="Select deadline"
-                        />
-
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
-                    </div>
-
-                </div>
-            </div>
-        </>
-    )
-}
-
+//tasklist modals
 export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
-
-    if (!isOpenShare) return null;
-
-    const users = useSelector((state) => state.user.user)
-
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState('select user');
     const [user_id, setUserId] = useState('');
-
+    const users = useSelector((state) => state.user.user)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -137,8 +56,6 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
         const fetchuser = async () => {
             try {
                 await dispatch(assignUsers());
-
-
             } catch (error) {
                 console.log("Errors");
 
@@ -146,11 +63,14 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
         }
         fetchuser();
 
-    }, [])
+    }, [dispatch])
+
+    if (!isOpenShare) return null;
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+
     const onSave = async () => {
         if (selectedUser == 'select user') {
             console.log("Select any user");
@@ -169,12 +89,10 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
         }
 
     }
-    const handleSelect = (index) => {
-        // console.log("select");
 
+    const handleSelect = (index) => {
         setSelectedUser(users[index].firstName);
         setUserId(users[index]._id);
-        // console.log(users[index].firstName, users[index]._id);
         setIsOpen(false);
     };
 
@@ -245,6 +163,82 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
 
             </div>
         </>
+
+    )
+}
+
+export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEditTaskList }) => {
+
+    if (!isOpen) return null;
+
+    const formatDateForDisplay = (dateString) => {
+        if (!dateString) return '';
+        return moment(dateString, 'YYYY-MM-DD').format('DD-MM-YYYY');
+    };
+
+
+    const parseDateForStorage = (dateString) => {
+        if (!dateString) return '';
+        return moment(dateString, 'DD-MM-YYYY').format('YYYY-MM-DD');
+    };
+
+    const handleDateChange = (date) => {
+        setEditTaskList(prev => ({
+            ...prev,
+            deadline: date // Store as JavaScript Date object
+        }));
+    };
+
+    // Handle input change for name field
+    const handleNameChange = (e) => {
+        setEditTaskList(prev => ({
+            ...prev,
+            name: e.target.value
+        }));
+    };
+
+    return (
+
+        <>
+            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+
+                    <div className="flex items-end justify-end">
+
+                        <button
+                            type="button"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={onClose}
+                        >
+                            <CloseIcon className="w-3 h-3" />
+
+                        </button>
+                    </div>
+
+                    <div className="p-4 md:p-5 space-y-4">
+
+                        <input
+                            name="name"
+                            value={editTaskList.name}
+                            onChange={handleNameChange}
+                            className="outline outline-primary-color p-1 rounded"
+                            placeholder="Task Name"
+
+                        />
+                        <DatePicker
+                            selected={editTaskList.deadline}
+                            onChange={handleDateChange}
+                            dateFormat="dd-MM-yyyy"
+                            className="outline outline-primary-color p-1 rounded"
+                            placeholderText="Select deadline"
+                        />
+
+                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                    </div>
+
+                </div>
+            </div>
+        </>
     )
 }
 
@@ -287,6 +281,10 @@ export const AssginedUserModal = ({ isOpen, onClose }) => {
 
 //Todo modal
 export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
+    const tasklists = useSelector((state) => state.tasklist?.tasklist);
+    const {isTodoIndex,tasklistIndex} = useSelector((state)=>state.misc)
+    console.log(tasklists[tasklistIndex].todo[isTodoIndex]);
+    const [title,setTitle] = useState(tasklists[tasklistIndex].todo[isTodoIndex].title); 
 
     if (!isOpen) return null;
 
@@ -309,8 +307,8 @@ export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
                     </div>
 
                     <div className="p-4 md:p-5 space-y-4">
-                        <div>Edit Modal</div>
-                        {/* <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" /> */}
+                        {/* <div>Edit Todo Modal</div> */}
+                        <input value={title} onChange={(e) => setTitle(e.target.value)} className="outline outline-primary-color p-1 rounded" />
                         <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
                     </div>
 
@@ -321,6 +319,8 @@ export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
 }
 
 export const TodoLabelsModal = ({ isOpen, onClose, onSave }) => {
+    const tasklists = useSelector((state) => state.tasklist?.tasklist);
+    const {isTodoIndex,tasklistIndex} = useSelector((state)=>state.misc)
 
     if (!isOpen) return null;
 
@@ -341,9 +341,12 @@ export const TodoLabelsModal = ({ isOpen, onClose, onSave }) => {
 
                         </button>
                     </div>
-
+                    {/* #F87168*/}
                     <div className="p-4 md:p-5 space-y-4">
-                        <div>Edit Modal</div>
+                        <div className="w-full h-[2rem] bg-[#4BCE97] cursor-pointer rounded-sm hover:bg-[#7EE2B8]"></div>
+                        <div className="w-full h-[2rem] bg-[#F5CD47] cursor-pointer rounded-sm hover:bg-[#E2B203]"></div>
+                        <div className="w-full h-[2rem] bg-[#FEA362] cursor-pointer rounded-sm hover:bg-[#FEC195]"></div>
+                        <div className="w-full h-[2rem] bg-[#F87168] cursor-pointer rounded-sm hover:bg-[#FD9891]"></div>
                         {/* <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" /> */}
                         <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
                     </div>

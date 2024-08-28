@@ -20,6 +20,7 @@ export async function GET(request) {
 
 
         const user = decode.user;
+        console.log(user);
         if (user.accessId == 1) {
             const workspace = await Workspace.find({is_deleted:false}).sort({ createdAt: -1 });
 

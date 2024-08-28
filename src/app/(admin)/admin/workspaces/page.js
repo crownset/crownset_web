@@ -129,7 +129,7 @@ const Workspace = () => {
             setNewWorkspace('');
         }
     };
-    
+
 
     return (
         <>
@@ -144,38 +144,44 @@ const Workspace = () => {
                 ) :
                     (
                         <div className="w-full  mx-auto mt-10" >
-                           
-                            <div className=" w-full flex flex-col  justify-center items-center m-auto ">
 
-                                <div className="my-4  w-[70%] md:w-[50%]  h-[4rem]">
+                            {user?.data?.accessId == 1 ? (
+                                <div className=" w-full flex flex-col  justify-center items-center m-auto ">
 
-                                    <div className='flex bg-white rounded-xl px-3 shadow-md justify-center items-center  hover:outline hover:outline-primary-color'>
-                                        <input
-                                            type="text"
-                                            value={newWorkspace}
-                                            onChange={(e) => setNewWorkspace(e.target.value)}
-                                            className="w-full p-2  outline-none border-none"
-                                            placeholder="Create Workspace"
-                                        />
+                                    <div className="my-4  w-[70%] md:w-[50%]  h-[4rem]">
 
-                                        {
-                                            isCreateWorkspaceLoading ?
-                                                (
-                                                    <MoonLoader size={15} color="#8153e9" />
-                                                ) :
-                                                (
-                                                    <span onClick={handleAddWorkspace}>
-                                                        <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
-                                                    </span>
-                                                )
-                                        }
+                                        <div className='flex bg-white rounded-xl px-3 shadow-md justify-center items-center  hover:outline hover:outline-primary-color'>
+                                            <input
+                                                type="text"
+                                                value={newWorkspace}
+                                                onChange={(e) => setNewWorkspace(e.target.value)}
+                                                className="w-full p-2  outline-none border-none"
+                                                placeholder="Create Workspace"
+                                            />
 
+                                            {
+                                                isCreateWorkspaceLoading ?
+                                                    (
+                                                        <MoonLoader size={15} color="#8153e9" />
+                                                    ) :
+                                                    (
+                                                        <span onClick={handleAddWorkspace}>
+                                                            <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
+                                                        </span>
+                                                    )
+                                            }
+
+
+                                        </div>
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                            ) : null
+                            }
+
+
 
                             <div className='px-10 mt-5 '>
 

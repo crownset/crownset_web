@@ -15,25 +15,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { MoonLoader, BeatLoader, ClipLoader } from "react-spinners";
 import moment from "moment";
+import { setIsTodoEditMenu, setIsTodoIndex, setTasklsitIndex, setIsTodoEditModal, setIsTodoLabelsModal } from "@/redux/slices/misc";
 
 
-const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEditingTaskList, editTaskList,
+const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, editTaskList,
     setEditTaskList, workspace_id, onShare, onUsers, onEdit, markListDone }) => {
 
     const { isCreatingTodo } = useSelector((state) => state.tasklist)
+  
+    const { isTodoEditMenu, isTodoIndex, tasklistIndex,isTodoEditModal } = useSelector((state) => state.misc);
     const dispatch = useDispatch();
 
-
+    const [user, setUser] = useState(null);
     const [isOpen, setIsOpen] = useState(true);
     const [newTodo, setNewTodo] = useState('');
     const [todos, setTodos] = useState(taskList?.todo);
     const [showAddTodo, setShowAddTodo] = useState(false);
-    const [isEditTodoMenu, setIsEditTodoMenu] = useState(false);
-    const [todoIndex,setTodoIndex] = useState(null);
+    
+
 
     const list_id = taskList?._id;
 
+    useEffect(() => {
+
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+
+        }
+    }, [dispatch]);
+
     const toggleAccordion = () => setIsOpen(!isOpen);
+
 
 
     //creating new todo
@@ -61,37 +74,40 @@ const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEd
 
     };
 
-    const handleOpenEditMenu = () => setIsEditTodoMenu(true);
-    const handleCloseEditMenu = () => setIsEditTodoMenu(false);
 
-    const handleSaveTodo = (todoIndex, newName) => {
-        const updatedTodos = todos.map((todo, index) =>
-            index === todoIndex ? { ...todo, name: newName, isEditing: false } : todo
-        );
-        setTodos(updatedTodos);
-    };
+    const handleOpenTodoEditMenu = (todoIndex) => {
 
-    const handleCancelTodoEdit = (todoIndex) => {
+        dispatch(setIsTodoEditMenu(true))
+        dispatch(setIsTodoIndex(todoIndex));
+        dispatch(setTasklsitIndex(listIndex))
+        
+    }
 
-        const updatedTodos = todos.map((todo, index) =>
-            index === todoIndex ? { ...todo, isEditing: false } : todo
-        );
-        setTodos(updatedTodos);
-    };
+    const handleCloseTodoEditMenu = () => {
+      
+        dispatch(setIsTodoEditMenu(false));
+        dispatch(setIsTodoIndex(null));
+        dispatch(setTasklsitIndex(null));
+    }
 
-    // const handleToggleComplete = (todoIndex) => {
-    //     const updatedTodos = todos.map((todo, index) =>
-    //         index === todoIndex ? { ...todo, isCompleted: !todo.isCompleted } : todo
-    //     );
-    //     setTodos(updatedTodos);
-    // };
+    const handleOpenTodoEdit = () => {
+        dispatch(setIsTodoEditModal(true));
+        
+        console.log("open todo edit");
 
-    const handleLabelChange = (todoIndex, newLabel) => {
-        const updatedTodos = todos.map((todo, index) =>
-            index === todoIndex ? { ...todo, label: newLabel } : todo
-        );
-        setTodos(updatedTodos);
-    };
+    }
+    
+
+    const handleOpenLabels = () => {
+        dispatch(setIsTodoLabelsModal(true));
+        console.log("open labels");
+    }
+   
+
+    const handleTodoMarkDone = (todoIndex) => {
+        console.log("mark done")
+
+    }
 
     const handleShowAddTodo = () => {
         setShowAddTodo(true);
@@ -103,8 +119,9 @@ const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEd
     }
 
 
+
     return (
-        <div className="bg-[#f1f2f4] p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px]">
+        <div className="bg-[#f1f2f4] relative p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -119,9 +136,15 @@ const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEd
                         {isOpen ? <FcCollapse className="text-gray-700" /> : <FcExpand className="text-gray-700" />}
                     </button>
 
-                    <button className="ml-2  text-white p-2 rounded-lg">
-                        <EditIcon className="text-black" onClick={handleEditTaskList} />
-                    </button>
+                    {
+                        user?.data?.accessId == 1 ? (
+                            <button className="ml-2  text-white p-2 rounded-lg">
+                                <EditIcon className="text-black" onClick={handleEditTaskList} />
+                            </button>
+                        ) : null
+                    }
+
+
 
                 </div>
 
@@ -132,6 +155,7 @@ const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEd
                             <span className="cursor-pointer" onClick={onEdit}>Edit</span>
                             <span className="cursor-pointer" onClick={onShare}>Share</span>
                             <span className="cursor-pointer" onClick={onUsers}>Users</span>
+                            <span className="cursor-pointer" >delete</span>
                             {/* <span className="cursor-pointer" onClick={markListDone}>Mark as done</span> */}
                         </div>
                     )
@@ -140,97 +164,34 @@ const Todo = ({ index, taskList, handleEditTaskList,  onCancelEditTaskList, isEd
 
             {isOpen && (
                 <>
-                    <div>
+                    <div className="">
                         <ul className="mt-4 flex flex-col justify-start items-start">
 
                             {todos?.map((todo, todoIndex) => (
-                                <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-primary-color">
+                                <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-primary-color shadow" >
 
                                     <div className="flex justify-between items-end ">
                                         <span className="">{todo.title}</span>
                                         <button
-                                            onClick={() => handleEditTodo(todoIndex)}
-                                            className=" bg-white absolute ml-[85%] "
+                                            onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
+                                            className=" bg-white absolute flex ml-[85%] justify-center items-center"
                                         >
                                             <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
 
                                     {
-                                        isEditTodoMenu && (
+                                        (isTodoIndex == todoIndex && tasklistIndex == listIndex && isTodoEditMenu) && (
                                             <div className="absolute flex flex-col z-10 p-4 bg-white shadow gap-3 rounded-sm right-3 top-10">
-                                                <span><CloseIcon className='text-[1rem] text-bodyTextColor cursor-pointer ml-16' onClick={handleCloseEditMenu} /></span>
-                                                <span className="cursor-pointer" onClick={onEdit}>Edit</span>
-                                                <span className="cursor-pointer" onClick={onShare}>Share</span>
-                                                <span className="cursor-pointer" onClick={onUsers}>Users</span>
-                                                <span className="cursor-pointer" onClick={markListDone}>Mark as done</span>
+                                                <span><CloseIcon className='text-[1rem] text-bodyTextColor cursor-pointer ml-16' onClick={handleCloseTodoEditMenu} /></span>
+                                                <span className="cursor-pointer" onClick={handleOpenTodoEdit}>Edit</span>
+                                                <span className="cursor-pointer" onClick={handleOpenLabels}>labels</span>
+                                                <span className="cursor-pointer" onClick={handleTodoMarkDone}>Mark as done</span>
                                             </div>
                                         )
                                     }
 
-                                    {/* {isEditing && (
-                                        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 shadow-lg rounded p-4 z-10">
-                                            <h3 className="text-lg font-semibold mb-2">Edit Item</h3>
-                                            <input
-                                                type="text"
-                                                defaultValue={item}
-                                                className="border border-gray-300 rounded p-2 mb-2 w-full"
-                                            />
-                                            <button
-                                                onClick={handleCloseMenu}
-                                                className="bg-red-500 text-white p-2 rounded w-full"
-                                            >
-                                                Close
-                                            </button>
-                                        </div>
-                                    )} */}
 
-                                    {/* {todo.isEditing ? (
-                                        <div className="flex-1">
-                                            <input
-                                                type="text"
-                                                value={todo.name}
-                                                onChange={(e) => handleSaveTodo(todoIndex, e.target.value)}
-                                                className="p-2 border border-gray-300 rounded-lg"
-                                            />
-                                            <input
-                                                type="text"
-                                                value={todo.label}
-                                                onChange={(e) => handleLabelChange(todoIndex, e.target.value)}
-                                                className="p-2 border border-gray-300 rounded-lg mt-2"
-                                                placeholder="Label"
-                                            />
-                                            <button
-                                                onClick={() => handleSaveTodo(todoIndex, todo.name)}
-                                                className="ml-2 bg-green-500 text-white p-1 rounded-lg"
-                                            >
-                                                Save
-                                            </button>
-                                            <button
-                                                onClick={() => handleCancelTodoEdit(todoIndex)}
-                                                className="ml-2 bg-red-500 text-white p-1 rounded-lg"
-                                            >
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <>
-
-
-
-                                            <div className="flex justify-between items-end ">
-                                                <span className="">{todo.title}</span>
-                                                <button
-                                                    onClick={() => handleEditTodo(todoIndex)}
-                                                    className=" bg-white absolute ml-[85%] "
-                                                >
-                                                    <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
-                                                </button>
-                                            </div>
-
-
-                                        </>
-                                    )} */}
                                 </li>
                             ))}
                         </ul>

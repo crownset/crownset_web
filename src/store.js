@@ -6,7 +6,8 @@ import querySlice from "./redux/slices/querySlice"
 import userSlice from "./redux/slices/userSlice"
 import workspaceSlice from "./redux/slices/workspaceSlice"
 import tasklistSlice from "./redux/slices/tasklistSlice"
-import todoSlice from "./redux/slices/todoSlice"
+
+import miscSlice from "./redux/slices/misc"
 
 const store = configureStore({
     reducer: {
@@ -16,7 +17,7 @@ const store = configureStore({
         project: projectSlice,
         workspace:workspaceSlice,
         tasklist:tasklistSlice,
-        todo:todoSlice
+        misc:miscSlice,
     }
 })
 
