@@ -22,7 +22,7 @@ import { CardFour, CardThree } from "@/components/Cards";
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
 const ourProficiencyData = sampledata.ourProficiency;
-const teamPic = [images.garvit, images.priyam];
+const teamPic = [images.priyam];
 const linkedinUrl = ["", "https://www.linkedin.com/in/priyampathak"];
 const ourValuesIcon = {
   0: <BulbIcon className="text-primary-color size-[1.5rem]" />,
@@ -371,13 +371,13 @@ const Page = () => {
               {...handlers}
             >
               <div
-                className="flex w-full   transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                className="flex w-[100%] bg-slate-600 justify-center items-center   transition-transform duration-700 ease-in-out"
+                // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {teamData.map((card, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5 "
+                    className="bg-red-600  flex items-center justify-center px-2 mt-5 w-[100%]"
                   >
                     <div className="w-full h-full flex flex-col pb-[1rem]">
                       <div className="rounded-[3rem]">
