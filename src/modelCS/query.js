@@ -34,8 +34,8 @@ const querySchema = new Schema({
 
     assignTo: { 
       type: mongoose.Types.ObjectId, 
-      ref: 'userCS', 
-      default: "66b1c73148101be14038961a"
+      ref: 'userCS',
+      default: "66b313d9b7a36f2644525275"
     },
   
   followUp: { 

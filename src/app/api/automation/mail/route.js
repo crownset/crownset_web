@@ -14,8 +14,6 @@ export async function POST(request) {
   // const accountSid = process.env.TWILIO_ACCOUNT_SID;
   // const authToken = process.env.TWILIO_AUTH_TOKEN;
   // const client = twilio(accountSid, authToken);
-  console.log("maildataBack==>", mailData)
-
 
   try {
 
@@ -29,13 +27,15 @@ export async function POST(request) {
     }
     if (token && token.user.accessId == 1) {
 
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.EMAIL_ID,
-          pass: process.env.EMAIL_PASS,
-        },
-      });
+      // Define email options
+      const mailOptions = {
+        from: process.env.EMAIL_ID,
+        to: data.email,
+        subject: 'Follow-Up: Complimentary Growth Strategy Call',
+        html: template({data})
+      };
+    
+    await transporter.sendMail(mailOptions);
 
       // Read and compile the Handlebars template
       const templatePath = path.join(process.cwd(), "src", "templates", "template1.hbs")
@@ -49,7 +49,7 @@ export async function POST(request) {
 
         // Define email options
         const mailOptions = {
-          from: process.env.EMAIL_USER,
+          from: process.env.EMAIL_ID,
           to: data.email,
           subject: 'Follow-Up: Complimentary Growth Strategy Call',
           html: template()
