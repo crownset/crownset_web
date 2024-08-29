@@ -89,7 +89,8 @@ export async function POST(request) {
       queryContent,
       leadBy,
       service,
-      comments
+      comments,
+      queryDate: Date.now()
     });
     await query.save();
 
