@@ -7,6 +7,25 @@ module.exports = {
   ],
   theme: {
     extend: {
+      scrollbar: {
+        thin: {
+          '::-webkit-scrollbar': {
+            width: '8px',
+          },
+          '::-webkit-scrollbar-track': {
+            background: '#f1f1f1',
+            
+          },
+          '::-webkit-scrollbar-thumb': {
+            background: '#888',
+            
+          },
+          '::-webkit-scrollbar-thumb:hover': {
+            background: '#555',
+          },
+        }
+      },
+
       boxShadow: {
         'left-right-bottom': '0 5px 4px 4px rgba(234,230,255), 0 -2px 25px 4px rgba(234,230,255), -2px 0 4px 4px rgba(234,230,255), 2px 0 4px 4px rgba(234,230,255)'
       },

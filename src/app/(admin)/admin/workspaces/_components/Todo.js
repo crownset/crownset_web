@@ -19,11 +19,11 @@ import { setIsTodoEditMenu, setIsTodoIndex, setTasklsitIndex, setIsTodoEditModal
 
 
 const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, editTaskList,
-    setEditTaskList, workspace_id, onShare, onUsers, onEdit, markListDone }) => {
+    setEditTaskList, workspace_id, onShare, onUsers, onEdit,deleteTaskList}) => {
 
     const { isCreatingTodo } = useSelector((state) => state.tasklist)
-  
-    const { isTodoEditMenu, isTodoIndex, tasklistIndex,isTodoEditModal } = useSelector((state) => state.misc);
+
+    const { isTodoEditMenu, isTodoIndex, tasklistIndex, isTodoEditModal } = useSelector((state) => state.misc);
     const dispatch = useDispatch();
 
     const [user, setUser] = useState(null);
@@ -31,7 +31,8 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     const [newTodo, setNewTodo] = useState('');
     const [todos, setTodos] = useState(taskList?.todo);
     const [showAddTodo, setShowAddTodo] = useState(false);
-    
+
+    const [work,setWork] = useState("") //ontime or delay
 
 
     const list_id = taskList?._id;
@@ -80,11 +81,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         dispatch(setIsTodoEditMenu(true))
         dispatch(setIsTodoIndex(todoIndex));
         dispatch(setTasklsitIndex(listIndex))
-        
+
     }
 
     const handleCloseTodoEditMenu = () => {
-      
+
         dispatch(setIsTodoEditMenu(false));
         dispatch(setIsTodoIndex(null));
         dispatch(setTasklsitIndex(null));
@@ -92,19 +93,19 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
     const handleOpenTodoEdit = () => {
         dispatch(setIsTodoEditModal(true));
-        
+
         console.log("open todo edit");
 
     }
-    
+
 
     const handleOpenLabels = () => {
         dispatch(setIsTodoLabelsModal(true));
         console.log("open labels");
     }
-   
 
-    const handleTodoMarkDone = (todoIndex) => {
+
+    const handleTodoMarkDone = () => {
         console.log("mark done")
 
     }
@@ -118,17 +119,30 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
     }
 
+    const deleteTodo = ()=>{
+        console.log("delete Todo")
+    }
+
 
 
     return (
-        <div className="bg-[#f1f2f4] relative p-4  mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
+        <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
-                <div className="flex flex-col">
+                <div className="flex flex-col px-4">
                     <span className="font-semibold text-gray-700 text-[1rem]">{taskList.name}</span>
-                    <span className="text-gray-500 text-[0.7rem]"> (Deadline:{moment(taskList.deadline).format('LL')})</span>
+                    <span className="text-gray-500 text-[0.7rem]"> (Deadline : {moment(taskList.deadline).format('LL')})</span>
 
+                </div>
+
+                <div>
+                    {
+                        work=="ontime"?(<span className="bg-green-400 p-1 rounded-lg text-[0.8rem]">On time</span>):
+                        work=="delay"?(<span className="bg-red-400 p-1 rounded-lg text-[0.8rem]">Delay</span>):null
+                        
+                    }
+                    
                 </div>
 
                 <div>
@@ -138,24 +152,24 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                     {
                         user?.data?.accessId == 1 ? (
-                            <button className="ml-2  text-white p-2 rounded-lg">
+                            <button className="ml-2  bg-transparent hover:bg-gray-200 hover:rounded-full p-2">
                                 <EditIcon className="text-black" onClick={handleEditTaskList} />
                             </button>
                         ) : null
                     }
-
-
-
                 </div>
 
                 {
                     isEditingTaskList && (
-                        <div className="absolute flex flex-col z-10 p-4 bg-white shadow gap-3 rounded-sm right-3 top-10">
-                            <span><CloseIcon className='text-[1rem] text-bodyTextColor cursor-pointer ml-16' onClick={onCancelEditTaskList} /></span>
-                            <span className="cursor-pointer" onClick={onEdit}>Edit</span>
-                            <span className="cursor-pointer" onClick={onShare}>Share</span>
-                            <span className="cursor-pointer" onClick={onUsers}>Users</span>
-                            <span className="cursor-pointer" >delete</span>
+                        <div className="absolute flex flex-col z-10  bg-white shadow rounded-lg right-3 top-10 py-1 w-[6rem]">
+                            <span className="">
+                                <CloseIcon className='text-[1.5rem] text-bodyTextColor cursor-pointer ml-16 mt-2 bg-transparent hover:bg-gray-200  p-1 rounded-lg' onClick={onCancelEditTaskList} />
+                            </span>
+
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2 " onClick={onEdit}>Edit</span>
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2 " onClick={onShare}>Share</span>
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={onUsers}>Users</span>
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span>
                             {/* <span className="cursor-pointer" onClick={markListDone}>Mark as done</span> */}
                         </div>
                     )
@@ -165,28 +179,29 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
             {isOpen && (
                 <>
                     <div className="">
-                        <ul className="mt-4 flex flex-col justify-start items-start">
+                        <ul className="mt-4 max-h-[30rem] flex flex-col justify-start items-start px-4 scrollbar-custom">
 
                             {todos?.map((todo, todoIndex) => (
-                                <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-primary-color shadow" >
+                                <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow" >
 
                                     <div className="flex justify-between items-end ">
                                         <span className="">{todo.title}</span>
                                         <button
                                             onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
-                                            className=" bg-white absolute flex ml-[85%] justify-center items-center"
+                                            className=" absolute flex ml-[85%] justify-center items-center bg-transparent hover:bg-gray-100 p-1 rounded-full"
                                         >
-                                            <EditTodoIcon className=" md:hidden md:group-hover:block transition-opacity duration-300 ease-in-out" />
+                                            <EditTodoIcon className=" md:hidden md:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
 
                                     {
                                         (isTodoIndex == todoIndex && tasklistIndex == listIndex && isTodoEditMenu) && (
-                                            <div className="absolute flex flex-col z-10 p-4 bg-white shadow gap-3 rounded-sm right-3 top-10">
-                                                <span><CloseIcon className='text-[1rem] text-bodyTextColor cursor-pointer ml-16' onClick={handleCloseTodoEditMenu} /></span>
-                                                <span className="cursor-pointer" onClick={handleOpenTodoEdit}>Edit</span>
-                                                <span className="cursor-pointer" onClick={handleOpenLabels}>labels</span>
-                                                <span className="cursor-pointer" onClick={handleTodoMarkDone}>Mark as done</span>
+                                            <div className="absolute flex flex-col z-10  bg-white shadow rounded-lg right-3 top-10 w-[7rem] ">
+                                                <span><CloseIcon className='text-[1.5rem] text-bodyTextColor cursor-pointer ml-20 mt-2 bg-transparent hover:bg-gray-200 p-1 rounded-lg' onClick={handleCloseTodoEditMenu} /></span>
+                                                <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleOpenTodoEdit}>Edit</span>
+                                                <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleOpenLabels}>labels</span>
+                                                <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleTodoMarkDone}>Mark as done</span>
+                                                <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTodo}>deleted</span>
                                             </div>
                                         )
                                     }
@@ -200,12 +215,12 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                         {
                             showAddTodo ? (
-                                <div className="mt-4 flex flex-col justify-start items-start">
+                                <div className="mt-4 flex flex-col justify-start items-start mx-4">
                                     <input
                                         type="text"
                                         value={newTodo}
                                         onChange={(e) => setNewTodo(e.target.value)}
-                                        className="w-full p-2 border border-gray-300 rounded-xl h-auto px-3  flex-none outline-none"
+                                        className="w-full p-2 border border-gray-300 rounded-xl h-auto px-3  flex-none outline-blue-500"
                                         placeholder="Enter new todo"
                                     />
                                     <div className="inline-flex gap-2 justify-center items-center ">
@@ -217,12 +232,12 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                 isCreatingTodo ? (<ClipLoader size={15} />) : (<span>Add</span>)
                                             }
                                         </button>
-                                        <span onClick={handleShowAddTodoClose}><CloseIcon className="text-[1.3rem] text-bodyTextColor cursor-pointer" /></span>
+                                        <span onClick={handleShowAddTodoClose} className="bg-transparent hover:bg-gray-200 p-2 rounded-lg"><CloseIcon className="text-[1.3rem] text-bodyTextColor cursor-pointer" /></span>
                                     </div>
                                 </div>
                             ) : (
                                 <div
-                                    className=" mt-4 text-bodyTextColor font-semibold gap-1 hover:bg-blue-100 cursor-pointer rounded-xl px-2 py-1 inline-flex justify-center items-center"
+                                    className=" mt-4 text-bodyTextColor font-semibold gap-1 bg-transparent hover:bg-gray-200 cursor-pointer rounded-xl px-3 ml-4 py-1 inline-flex justify-center items-center"
                                     onClick={handleShowAddTodo}>
                                     <span className="text-[1.5rem]"><PlusIcon /></span>
                                     <span className="text-[0.8rem]">Add Todo</span>

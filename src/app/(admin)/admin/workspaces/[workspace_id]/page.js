@@ -4,9 +4,12 @@ import TaskList from '../_components/TaskList'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTasklist } from '@/redux/slices/tasklistSlice'
 import { BeatLoader } from 'react-spinners'
+import { usePathname } from 'next/navigation'
 
 const Page = ({ params }) => {
 
+  const pathname = usePathname()
+  console.log(pathname);
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.tasklist.isLoading);
@@ -36,7 +39,10 @@ const Page = ({ params }) => {
             </div>
           </>
         ) : (
-          <TaskList workspace_id={params.workspace_id} />
+          
+
+            <TaskList workspace_id={params.workspace_id} />
+
         )
       }
 

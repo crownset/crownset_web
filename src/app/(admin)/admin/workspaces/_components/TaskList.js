@@ -29,7 +29,9 @@ export default function TaskList({ workspace_id }) {
   const [isAssginedUserModal, setIsAssginedUserModal] = useState(false);
   const [isEditModal, setIsEditModal] = useState(false);
 
-  const [showAddList,setShowAddList]=useState(false);
+  const [showAddList, setShowAddList] = useState(false);
+
+  const [work, setWork] = useState("ontime") //or delay
   useEffect(() => {
 
     const storedUser = localStorage.getItem('user');
@@ -39,11 +41,11 @@ export default function TaskList({ workspace_id }) {
     }
   }, [dispatch]);
 
-  const handleShowAddList = ()=>{
+  const handleShowAddList = () => {
     setShowAddList(true);
   }
 
-  const handleCloseShowAddList = ()=>{
+  const handleCloseShowAddList = () => {
     setShowAddList(false);
   }
 
@@ -133,10 +135,14 @@ export default function TaskList({ workspace_id }) {
   const HandleCloseLabelModal = () => dispatch(setIsTodoLabelsModal(false));
   const HandleSaveLabel = () => dispatch(setIsTodoLabelsModal(false));
 
-  return (
-    <div className="mt-5">
+  const deleteTaskList = () => {
+    console.log("Delete List")
+  }
 
-      <div className=" md:overflow-x-auto ">
+  return (
+    <div className="mt-5 ">
+
+      <div className=" md:overflow-x-auto md:h-[80vh]">
 
 
         <div className="md:flex md:gap-6 md:justify-start md:items-start ">
@@ -144,7 +150,7 @@ export default function TaskList({ workspace_id }) {
             user?.data?.accessId == 1 ? (
 
               showAddList ? (
-                <div className='bg-gray-100 p-2 rounded-xl shadow-md   md:w-[300px] flex-none'>
+                <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md   md:w-[300px] flex-none'>
 
                   <input
                     type="text"
@@ -167,14 +173,14 @@ export default function TaskList({ workspace_id }) {
                   </div>
 
                   <div
-                   
+
                     className="mt-2 flex gap-4 items-center "
                   >
                     {
                       isCreatingList ? (<ClipLoader size={15} />
-                      ) : (<span className=' bg-primary-color text-white rounded-lg px-2 py-1 cursor-pointer'  onClick={handleAddTaskList}>Add</span>)
+                      ) : (<span className='bg-blue-500 text-white rounded-lg px-2 py-1 cursor-pointer' onClick={handleAddTaskList}>Add</span>)
                     }
-                    <span onClick={handleCloseShowAddList} className='cursor-pointer'><CloseIcon/></span>
+                    <span onClick={handleCloseShowAddList} className='cursor-pointer bg-transparent hover:bg-gray-200 p-1 rounded-lg'><CloseIcon className='text-[1.2rem]' /></span>
                   </div>
 
 
@@ -251,7 +257,7 @@ export default function TaskList({ workspace_id }) {
               onShare={handleOpenShareListModal}
               onUsers={handleOpenAssignedUserModal}
               onEdit={handleOpenEditModal}
-              markListDone={handleMarkAsDone}
+              deleteTaskList={deleteTaskList}
             />
           ))}
         </div>

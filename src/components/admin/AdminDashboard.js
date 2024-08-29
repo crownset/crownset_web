@@ -57,7 +57,7 @@ const AdminDashboard = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="flex">
+            <div className="flex ">
                 <div
                     className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
                 >
@@ -117,7 +117,7 @@ const AdminDashboard = () => {
                         </ul>
                     </div>
                 </div>
-                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-10`}>
+                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-50`}>
                     <div className='w-[16rem] text-2xl font-semibold'>
                         <h1>Dashboard</h1>
                     </div>

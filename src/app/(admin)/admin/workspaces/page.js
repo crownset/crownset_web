@@ -188,27 +188,27 @@ const Workspace = () => {
                                 <ul className="mt-4 md:flex md:gap-5 md:justify-center md:flex-wrap ">
 
                                     {!isLoading && workspaces?.map((workspace, index) => (
-
+                                        // #d0d2d36e
                                         <li key={index}
                                             index={index}
-                                            className="bg-[#d0d2d36e] relative p-2 h-[4rem] text-[1rem] shadow-sm md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2">
+                                            className="bg-gray-200 relative p-2 h-[4rem] text-[1rem] shadow-sm md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2">
                                             {
                                                 user?.data?.accessId == 1 && (
-                                                    <span className="absolute top-1 right-1 cursor-pointer" onClick={() => { handleEditWorkspace(index) }}><EditIcon /></span>
+                                                    <span className="absolute top-1 right-1 cursor-pointer hover:bg-gray-300 hover:rounded-full p-2" onClick={() => { handleEditWorkspace(index) }}><EditIcon /></span>
                                                 )
                                             }
 
                                             {
                                                 workspaceIndex == index && (
-                                                    <div className="absolute flex flex-col top-6 shadow rounded-sm right-1 bg-white p-2 z-10">
-                                                        <CloseIcon className="text-[0.8rem] mr-1 cursor-pointer ml-9" onClick={handleCloseEditWorkspace} />
+                                                    <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10">
+                                                        <CloseIcon className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1" onClick={handleCloseEditWorkspace} />
 
-                                                        <span className="cursor-pointer" onClick={() => { handleOpenModal(index) }}>Edit</span>
-                                                        <span onClick={handleDeleteWorkspace} className="cursor-pointer">Delete</span>
+                                                        <span className="cursor-pointer hover:bg-gray-200 pl-2" onClick={() => { handleOpenModal(index) }}>Edit</span>
+                                                        <span onClick={handleDeleteWorkspace} className="cursor-pointer hover:bg-gray-200 pl-2">Delete</span>
                                                     </div>
                                                 )
                                             }
-                                            <Link href={`/admin/workspaces/${workspace?._id}`} key={index} className="text-bodyTextColor font-semibold">
+                                            <Link href={`/admin/workspaces/${workspace?._id}`} key={index} className="text-bodyTextColor font-semibold hover:bg-gray-300  hover:rounded-2xl py-2 px-4">
                                                 {workspace?.name}
                                             </Link>
                                         </li>

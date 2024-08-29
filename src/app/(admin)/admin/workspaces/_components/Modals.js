@@ -32,8 +32,8 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
                     </div>
 
                     <div className="p-4 md:p-5 space-y-4">
-                        <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" />
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                        <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-blue-500 p-1 rounded" />
+                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
                     </div>
 
                 </div>
@@ -99,8 +99,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
     return (
 
         <>
-            <div className="fixed w-full h-full border border-black inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/3 h-2/3 bg-white rounded-lg shadow dark:bg-gray-700 border border-black">
+            <div className="fixed w-full  inset-0 z-50 flex items-center justify-center overflow-y-hidden overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative p-4 w-1/3 h-3/3 bg-white rounded-lg shadow dark:bg-gray-700 ">
 
                     <div className="flex items-end justify-end">
 
@@ -113,11 +113,11 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
 
                         </button>
                     </div>
-                    <div className="relative inline-block text-left">
+                    <div className="flex justify-center">
                         <button
                             type="button"
                             onClick={toggleDropdown}
-                            className="bg-gray-200 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 w-64 flex justify-between items-center"
+                            className="bg-gray-200 border border-gray-300 rounded-lg px-4 py-2 text-gray-700 w-48 flex justify-between items-center"
                         >
                             {selectedUser}
                             <svg
@@ -136,8 +136,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
                             </svg>
                         </button>
                         {isOpen && (
-                            <div className="absolute right-0 mt-2 bg-white  rounded-lg shadow-lg overflow-y-auto ">
-                                <ul className="py-1 ">
+                            <div className="absolute mt-10 w-48 bg-gray-400  rounded-lg shadow-lg ">
+                                <ul className="py-1 max-h-[10rem] overflow-y-auto scrollbar-custom">
                                     {users?.map((user, index) => (
                                         <li
                                             key={index}
@@ -154,9 +154,9 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
                     </div>
 
 
-                    <div className="p-4 md:p-5 space-y-4">
+                    <div className="p-4 md:p-5 space-y-4  flex justify-center">
 
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
                     </div>
 
                 </div>
@@ -221,7 +221,7 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
                             name="name"
                             value={editTaskList.name}
                             onChange={handleNameChange}
-                            className="outline outline-primary-color p-1 rounded"
+                            className="outline outline-blue-500 p-1 rounded"
                             placeholder="Task Name"
 
                         />
@@ -229,11 +229,11 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
                             selected={editTaskList.deadline}
                             onChange={handleDateChange}
                             dateFormat="dd-MM-yyyy"
-                            className="outline outline-primary-color p-1 rounded"
+                            className="outline outline-blue-500 p-1 rounded"
                             placeholderText="Select deadline"
                         />
 
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
                     </div>
 
                 </div>
@@ -308,8 +308,8 @@ export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
 
                     <div className="p-4 md:p-5 space-y-4">
                         {/* <div>Edit Todo Modal</div> */}
-                        <input value={title} onChange={(e) => setTitle(e.target.value)} className="outline outline-primary-color p-1 rounded" />
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                        <input value={title} onChange={(e) => setTitle(e.target.value)} className="outline outline-blue-500 p-1 rounded" />
+                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
                     </div>
 
                 </div>
@@ -348,7 +348,7 @@ export const TodoLabelsModal = ({ isOpen, onClose, onSave }) => {
                         <div className="w-full h-[2rem] bg-[#FEA362] cursor-pointer rounded-sm hover:bg-[#FEC195]"></div>
                         <div className="w-full h-[2rem] bg-[#F87168] cursor-pointer rounded-sm hover:bg-[#FD9891]"></div>
                         {/* <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" /> */}
-                        <button onClick={onSave} className="bg-primary-color text-white p-1 rounded">Save</button>
+                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
                     </div>
 
                 </div>
