@@ -371,13 +371,13 @@ const Page = () => {
               {...handlers}
             >
               <div
-                className="flex w-[100%] bg-slate-600 justify-center items-center   transition-transform duration-700 ease-in-out"
+                className="flex w-[100%] justify-center items-center   transition-transform duration-700 ease-in-out"
                 // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {teamData.map((card, index) => (
                   <div
                     key={index}
-                    className="bg-red-600  flex items-center justify-center px-2 mt-5 w-[100%]"
+                    className=" flex items-center justify-center px-2 mt-5 w-[100%]"
                   >
                     <div className="w-full h-full flex flex-col pb-[1rem]">
                       <div className="rounded-[3rem]">

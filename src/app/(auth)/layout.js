@@ -28,11 +28,11 @@ export default function AuthLayout({ children }) {
   return (
     <html className={kanit.className}>
       <body className={kanit.className}>
-        <Suspense>
+        {/* <Suspense> */}
         <ClientProvider>
           {children}
         </ClientProvider>
-        </Suspense>
+        {/* </Suspense> */}
         
       </body>
     </html>
