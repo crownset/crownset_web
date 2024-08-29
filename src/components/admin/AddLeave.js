@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LeaveQuery } from '@/redux/slices/leaveSlice';
 
 const AddLeave = ({ onClose }) => {
+    const [userDetail, setUserDetail] = useState(null);
     const [formData, setFormData] = useState({
-        applyTo:"",
-        name: '',
+        userId:"",
+        approvedBy:"",
+        userName: "",
         startDate: '',
         endDate: '',
         reason: ''
@@ -16,7 +18,7 @@ const AddLeave = ({ onClose }) => {
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const filteredData = user.filter(item => item.accessId == "1");
@@ -40,8 +42,8 @@ const AddLeave = ({ onClose }) => {
         e.preventDefault();
         setIsSubmitting(true);
         const newErrors = {};
-        if(!formData?.applyTo){
-            newErrors.applyTo = "required"
+        if(!formData?.approvedBy){
+            newErrors.approvedBy = "required"
         }else if (!formData.startDate) {
             newErrors.startDate = 'Starting date is required';
         }else if (!formData.endDate) {
@@ -58,11 +60,11 @@ const AddLeave = ({ onClose }) => {
         try {
             await dispatch(LeaveQuery(formData)).unwrap();
             setFormData({
-                name: '',
                 startDate: '',
                 endDate: '',
                 reason: ''
             });
+            setErrors({});
             onClose();
         } catch (error) {
             console.error('Failed to add leave:', error);
@@ -71,11 +73,25 @@ const AddLeave = ({ onClose }) => {
         }
     };
 
-    const [userDetail, setUserDetail] = useState(null);
+   
+    // useEffect(() => {
+    //     const storedUser = localStorage.getItem('user');
+    //     if (storedUser) {
+    //         setUserDetail(JSON.parse(storedUser));
+    //     }
+    // }, []);
+
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUserDetail(JSON.parse(storedUser));
+            const parsedUser = JSON.parse(storedUser);
+            setUserDetail(parsedUser);
+            setFormData((prevValues) => ({
+                ...prevValues,
+                userName: parsedUser?.data?.firstName ,
+               userId:parsedUser?.data?._id
+
+            }));
         }
     }, []);
 
@@ -113,14 +129,14 @@ const AddLeave = ({ onClose }) => {
                 <form onSubmit={handleSubmit}>
                     <div className="flex mb-2 space-x-2">
                         <div className='flex-1'>
-                            <label htmlFor="applyTo" className="block text-sm font-medium text-gray-700 text-left">
+                            <label htmlFor="approvedBy" className="block text-sm font-medium text-gray-700 text-left">
                                 To whom:
                             </label>
                             <select
-                                id="applyTo"
-                                name="applyTo"
+                                id="approvedBy"
+                                name="approvedBy"
                                 onChange={handleChange}
-                                value={formData?.applyTo}
+                                value={formData?.approvedBy}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             >
                                 <option value="">Select a user</option>
@@ -130,19 +146,19 @@ const AddLeave = ({ onClose }) => {
                                     </option>
                                 ))}
                             </select>
-                            {errors?.applyTo && <p className="text-red-500 text-sm">{errors?.applyTo}</p>}
+                            {errors?.approvedBy && <p className="text-red-500 text-sm">{errors?.approvedBy}</p>}
                         </div>
                         <div className='flex-1'>
-                            <label htmlFor="nameInput" className="block text-sm font-medium text-gray-700 text-left">
+                            <label htmlFor="userName" className="block text-sm font-medium text-gray-700 text-left">
                                 Name
                             </label>
                             <input
-                                id="nameInput"
-                                value={userDetail?.data?.firstName || ''}
+                                id="userName"
+                                value={formData?.userName}
                                 readOnly
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
-                             {/* {errors?.name && <p className="text-red-500 text-sm">{errors?.name}</p>} */}
+                             {errors?.userName && <p className="text-red-500 text-sm">{errors?.userName}</p>}
                         </div>
                     </div>
                     <div className="flex space-x-2">

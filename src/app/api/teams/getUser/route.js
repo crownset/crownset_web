@@ -14,7 +14,7 @@ export async function GET(request) {
         return NextResponse.json({message: "login required"});
     }
 
-    if (token && token.user.accessId == 1) {
+    if ((token && token.user.accessId == 1) || (token && token.user.accessId == 2) ) {
       const user = await UserCS.find({}, { firstName: 1, accessId: 1 });
       return NextResponse.json(user);
     }
