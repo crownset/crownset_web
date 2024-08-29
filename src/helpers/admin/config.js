@@ -30,3 +30,29 @@ export const logoutItem = {
     name: "Logout",
     icon: FaSignOutAlt,
 };
+
+export const DoughnutChartData = [
+    {
+        lable : "mature",
+        value : 32
+    },
+    {
+        lable : "Premature",
+        value : 45
+    },
+    {
+        lable : "Dead",
+        value : 23
+    }
+]
+
+export const FollowUpChart = [
+    {
+        lable : "yes",
+        value : 32
+    },
+    {
+        lable : "no",
+        value : 45
+    },
+]

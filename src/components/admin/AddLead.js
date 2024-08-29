@@ -79,9 +79,9 @@ const AddLead = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(postQuery(formValues)).unwrap();
-            // dispatch(closeAddModal())
             dispatch(openAddSuccessModal());
-            // dispatch(fetchData());
+            dispatch(fetchData());
+            // dispatch(closeAddModal())
             setFormValues({
                 fullName: "",
                 email: "",
