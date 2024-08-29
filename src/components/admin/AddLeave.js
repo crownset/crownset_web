@@ -3,7 +3,7 @@ import { assignUsers } from '@/redux/slices/userSlice';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
-import { LeaveQuery } from '@/redux/slices/leaveSlice';
+import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
 
 const AddLeave = ({ onClose }) => {
     const [userDetail, setUserDetail] = useState(null);
@@ -22,7 +22,7 @@ const AddLeave = ({ onClose }) => {
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const filteredData = user.filter(item => item.accessId == "1");
-    console.log("filteredData>>>>>", filteredData)
+    //console.log("filteredData>>>>>", filteredData)
 
     const handleChange = (e) => {
         setFormData({
@@ -59,6 +59,7 @@ const AddLeave = ({ onClose }) => {
 
         try {
             await dispatch(LeaveQuery(formData)).unwrap();
+            dispatch(fetchLeave());
             setFormData({
                 startDate: '',
                 endDate: '',

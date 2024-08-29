@@ -15,6 +15,16 @@ export const LeaveQuery = createAsyncThunk(
     }
 )
 
+
+export const fetchLeave = createAsyncThunk(
+    'Leave/fetchData',
+    async () => {
+        const response = await axios.get('/api/leaves/getLeave');
+        console.log("projectResponse==>", response)
+        return response.data;
+    });
+
+
 const initialState = {
     leave: [],
     loading: false,
@@ -22,11 +32,14 @@ const initialState = {
 };
 
 const  leaveSlice = createSlice({
-    name: 'data',
+    name: 'leave',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        handleLeaveActions(builder, LeaveQuery, initialState);
+        handleLeaveActions(builder, LeaveQuery,  initialState);
+        handleLeaveActions(builder, fetchLeave, initialState);
+
+        
     },
 });
 
