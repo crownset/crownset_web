@@ -5,6 +5,8 @@ import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { CustomLoader } from '../CustomLoader';
+import SuccessModal from './SuccessLottie';
 
 const AddProjectDetails = ({ onCloseProject, openProject }) => {
     const [formValues, setFormValues] = useState({
@@ -20,7 +22,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
+   
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
 
@@ -67,9 +69,19 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(addProject(formValues)).unwrap();
-            toast.success('Project added successfully!');
+            setIsSuccessModalOpen(true); // Show success modal
             dispatch(fetchProjects());
-            onCloseProject();
+            setFormValues({
+                name: "",
+                email: "",
+                contactNo: "",
+                assignTo: "",
+                remarks: "",
+                businessName: "",
+                projectBy: "",
+                lastFollowUp: "",
+                deadLine: ""
+            })
         } catch (error) {
             toast.error('Failed to add project!');
         } finally {
@@ -80,7 +92,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
     if (!openProject) return null;
 
     return (
-        <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+        <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
             <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
                 <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -257,13 +269,14 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                                 className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-lg text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                             >
                                 {
-                                    isSubmitting ?  <BeatLoader color="#ffffff" size={10} /> : "Save"
+                                    isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Save"
                                 }
                             </button>
                         </div>
 
                     </div>
                 </form>
+               
             </div>
         </div>
     );

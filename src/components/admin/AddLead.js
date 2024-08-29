@@ -6,10 +6,13 @@ import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { CustomLoader } from '../CustomLoader';
+import { closeAddModal, closeAddSuccessModal, closeSuccessModal, openAddSuccessModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import SuccessModal from './SuccessLottie';
 
 const AddLead = ({ onCloseProject, openProject }) => {
     const [user, setUser] = useState(null);
-
+    const { isSuccessModalOpen, isAddSuccessModal } = useSelector((state) => state.ui)
     const [formValues, setFormValues] = useState({
         fullName: "",
         email: "",
@@ -76,13 +79,22 @@ const AddLead = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(postQuery(formValues)).unwrap();
-            toast.success('Lead added successfully!');
+            // dispatch(closeAddModal())
+            dispatch(openAddSuccessModal());
             dispatch(fetchData());
-            onCloseProject();
+            setFormValues({
+                fullName: "",
+                email: "",
+                contact: "",
+                businessName: "",
+                queryContent: "",
+                service: "",
+                leadBy: ""
+            })
         } catch (error) {
             toast.error('Failed to add Lead!');
         } finally {
-            setIsSubmitting(false);
+           setIsSubmitting(false)
         }
     };
 
@@ -98,7 +110,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={() => { onCloseProject() }}
+                        onClick={() => dispatch(closeAddModal())}
                     >
                         <svg
                             className="w-3 h-3"
@@ -243,9 +255,9 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         </div>
                     </div>
                     <div>
-                    <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
-                                    Comments
-                                </label>
+                        <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                            Comments
+                        </label>
                         <textarea
                             className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name='comments'
@@ -261,10 +273,15 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         disabled={isSubmitting}
                         className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
-                        {isSubmitting ? <BeatLoader color="#fff" size={10} /> : "Submit"}
+                        {isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Submit"}
                     </button>
                 </form>
             </div>
+            <SuccessModal
+                isOpen={isAddSuccessModal}
+                onClose={() => dispatch(closeAddSuccessModal())}
+                title="Lead Added Successfully."
+            />
         </div>
     );
 };

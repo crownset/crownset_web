@@ -4,10 +4,14 @@ import { editQuery, fetchData } from '@/redux/slices/querySlice';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { assignUsers } from '@/redux/slices/userSlice';
+import { closeEditSuccessModal, openEditSuccessModal } from '@/redux/slices/uiSlice';
+import SuccessModal from './SuccessLottie';
+import { CustomLoader } from '../CustomLoader';
 
 const UpdateForm = ({ isOpen, onClose, queryData }) => {
     const dispatch = useDispatch();
     const { user, loading, error } = useSelector((state) => state.user);
+    const { isEditSuccessfull } = useSelector((state) => state.ui)
     const [isRemarkColor, setIsRemarkColor] = useState("Premature")
     const [userDetail, setUserDetail] = useState(null);
     useEffect(() => {
@@ -62,7 +66,8 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
         try {
             await dispatch(editQuery({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
             dispatch(fetchData());
-            onClose();
+            dispatch(openEditSuccessModal());
+            //  onClose();
         } catch (error) {
             console.error('Update failed:', error);
         }
@@ -181,13 +186,20 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full text-black inline-flex items-center justify-center bg-[#e7e7e7] hover:bg-[#93969A] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-[#93969A]"
-                    >
-                        Update Query
+                        className="w-full text-default inline-flex items-center justify-center bg-dashboard focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-[#93969A]"
+                    > {
+                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : " Update Query"
+                        }
+
                     </button>
                 </form>
 
             </div>
+            <SuccessModal
+                isOpen={isEditSuccessfull}
+                onClose={() => dispatch(closeEditSuccessModal())}
+                title="Lead Edited Successfully."
+            />
         </div>
     );
 };

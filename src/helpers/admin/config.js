@@ -2,6 +2,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { SiPowerpages } from "react-icons/si";
 import { SiGooglebigquery } from "react-icons/si";
+import { GiAutomaticSas } from "react-icons/gi";
 
 export const menuItems = [
     {
@@ -23,7 +24,11 @@ export const menuItems = [
         name: "Leaves",
         href: "/admin/leaves",
         icon: SiPowerpages,
-    },
+    },{
+        name: "Automation",
+        href: "/admin/automation",
+        icon: GiAutomaticSas,
+    }
 ];
 
 export const logoutItem = {
