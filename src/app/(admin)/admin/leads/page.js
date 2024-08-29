@@ -63,7 +63,7 @@ const Page = () => {
     };
 
     return (
-        <div className="p-4 h-screen flex flex-col">
+        <div className="p-4 h-[85vh] flex flex-col">
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -88,9 +88,9 @@ const Page = () => {
                         </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto rounded-3xl">
-                        <table className="min-w-full bg-white border border-gray-300 text-sm">
-                            <thead>
+                    <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
+                        <table className="min-w-full bg-white text-sm ">
+                            <thead className='sticky top-0 z-20'>
                                 <tr className="bg-gray-200">
                                     <th className="py-2 border-b min-w-[100px]">Name</th>
                                     <th className="py-2 border-b min-w-[150px]">Email</th>
@@ -107,9 +107,9 @@ const Page = () => {
                                     <th className="py-2 border-b min-w-[100px]">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='z-10'>
                                 {(data && Array.isArray(data) ? data : []).map((item, index) => (
-                                    <tr key={index}>
+                                    <tr key={index} className='even:bg-dashboardUserBg odd:bg-default'>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
@@ -120,7 +120,7 @@ const Page = () => {
                                             </span>
                                         </td>
                                         <td className="py-2 text-[12px] border-b text-center ">
-                                            {item?.queryContent.length > 50 ? (
+                                            {item?.queryContent?.length > 50 ? (
                                                 <>
                                                     {item?.queryContent.slice(0, 50)}...
                                                     <button
@@ -171,7 +171,7 @@ const Page = () => {
                 onClose={() => dispatch(closeModal())}
                 title="Are you sure?"
                 description="Are you sure you want to delete this query?"
-                confirmButtonText={loading ?  <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure" }  
+                confirmButtonText={loading ? <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure"}
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />

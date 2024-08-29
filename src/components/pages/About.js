@@ -275,7 +275,7 @@ const Page = () => {
         </div>
       </section>
 
-      <section className="mt-20 px-5">
+      <section className="mt-20 px-5 hidden">
         <div className="xl:w-11/12 m-auto">
           <h1 className="text-center text-[1.2rem] font-semibold px-5">
             Our Clients

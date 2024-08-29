@@ -69,7 +69,7 @@ const HomePage = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsModalOpen(true);
-        }, 2000); // 15000 milliseconds = 15 seconds
+        }, 15000); // 15000 milliseconds = 15 seconds
 
         return () => clearTimeout(timer); // Clear timeout if the component unmounts
     }, []);

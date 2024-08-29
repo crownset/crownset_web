@@ -35,6 +35,7 @@ export const editProject = createAsyncThunk(
 
 export const addProject = createAsyncThunk('project/addProject', async (projectData) => {
     const response = await axios.post('/api/projects/addProject', projectData);
+    console.log("addProject", response)
     return response.data;
 });
 
