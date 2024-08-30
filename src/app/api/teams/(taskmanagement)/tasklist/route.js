@@ -13,6 +13,7 @@ export async function POST(request) {
 
 
     try {
+        const reqBody = await request.json();
 
         const token = request.cookies.get("authToken:")?.value || '';
 
@@ -31,8 +32,8 @@ export async function POST(request) {
             console.log("Not Authorized");
             return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
         }
-        const reqBody = await request.json();
-
+        
+   
 
         const newTasklist = new TaskList({
             name: reqBody.name,

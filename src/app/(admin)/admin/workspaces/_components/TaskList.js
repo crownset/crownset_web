@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Todo from './Todo';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import { createlist, editList } from '@/redux/slices/tasklistSlice';
+import { createlist, deleteTasklist, editList, fetchTasklist } from '@/redux/slices/tasklistSlice';
 import { BsPlus as PlusIcon } from "react-icons/bs";
 import { IoMdClose as CloseIcon } from "react-icons/io";
 import { MoonLoader, BeatLoader, ClipLoader } from "react-spinners";
@@ -21,7 +21,8 @@ export default function TaskList({ workspace_id }) {
 
   const [user, setUser] = useState(null);
 
-  const [newTaskList, setNewTaskList] = useState({ name: '', deadline: '', workspace_id: workspace_id });
+  const [newTaskListName, setNewTaskListName] = useState('');
+  const [newTaskListDeadline,setNewTaskListDeadline]=useState('');
   const [editingTaskListIndex, setEditingTaskListIndex] = useState(null);
   const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '' });
 
@@ -50,21 +51,33 @@ export default function TaskList({ workspace_id }) {
   }
 
   const handleAddTaskList = async (e) => {
+    e.preventDefault();
+    console.log("add tasklist");
 
-    if (!newTaskList.name || newTaskList.name == '') {
+    if (!newTaskListName) {
       toast.error("List field should not be empty")
+      console.log("name");
       return;
     }
-    if (!newTaskList.deadline || newTaskList.deadline == '') {
+    if (!newTaskListDeadline) {
       toast.error("Deadline field should not be empty")
+      console.log("deadline");
       return;
 
     }
+    const data = {
+      name:newTaskListName,
+      deadline:newTaskListDeadline,
+      workspace_id:workspace_id
+
+    }
+    console.log(data);
     try {
 
-      await dispatch(createlist(newTaskList));
+      await dispatch(createlist(data));
       // console.log("here");
-      setNewTaskList({ name: '', deadline: '' });
+      setNewTaskListName('');
+      setNewTaskListDeadline('');
       toast.success('List created successfully');
     } catch (error) {
       toast.error("Failed to create list")
@@ -95,7 +108,7 @@ export default function TaskList({ workspace_id }) {
   const handleCloseEditModal = () => setIsEditModal(false);
   const handleSaveEditModal = async () => {
     console.log(editingTaskListIndex);
-    if (!editTaskList.name && !editTaskList.deadline && !editTaskList.share) {
+    if (!editTaskList.name && !editTaskList.deadline) {
 
       return;
     }
@@ -125,9 +138,9 @@ export default function TaskList({ workspace_id }) {
     handleCancelEditTaskList();
   }
 
-  const handleMarkAsDone = () => {
-    console.log("mark as done");
-  }
+  // const handleMarkAsDone = () => {
+  //   console.log("mark as done");
+  // }
 
   const handleCloseTodoModal = () => dispatch(setIsTodoEditModal(false));
   const HandleSaveTodoModal = () => dispatch(setIsTodoEditModal(false));
@@ -135,10 +148,27 @@ export default function TaskList({ workspace_id }) {
   const HandleCloseLabelModal = () => dispatch(setIsTodoLabelsModal(false));
   const HandleSaveLabel = () => dispatch(setIsTodoLabelsModal(false));
 
-  const deleteTaskList = () => {
+  const deleteTaskList = async(index) => {
+    const taskList_id = tasklists[index]._id;
+    // console.log(taskList_id);
+    try {
+      await dispatch(deleteTasklist(taskList_id));
+      setEditingTaskListIndex(null);
+      await dispatch(fetchTasklist(workspace_id));
+      
+
+    } catch (error) {
+       console.log("Error in deleting tasklist")
+    }
     console.log("Delete List")
   }
 
+  const handlName = (e)=>{
+    setNewTaskListName(e.target.value);
+  }
+  const handlDeadline = (e)=>{
+    setNewTaskListDeadline(e.target.value);
+  }
   return (
     <div className="mt-5 ">
 
@@ -154,9 +184,8 @@ export default function TaskList({ workspace_id }) {
 
                   <input
                     type="text"
-                    name="name"
-                    value={newTaskList.name}
-                    onChange={(e) => setNewTaskList({ ...newTaskList, name: e.target.value })}
+                    value={newTaskListName}
+                    onChange={handlName}
                     className="w-full p-2 border border-gray-300 rounded-xl outline-none px-3 py-1 h-[2rem]"
                     placeholder="Enter Task List Name"
                   />
@@ -164,9 +193,8 @@ export default function TaskList({ workspace_id }) {
                     <span className='ml-2 mt-4'>Deadline</span>
                     <input
                       type="date"
-                      name="deadline"
-                      value={newTaskList.deadline}
-                      onChange={(e) => setNewTaskList({ ...newTaskList, deadline: e.target.value })}
+                      value={newTaskListDeadline}
+                      onChange={handlDeadline}
                       className="w-full p-2 border border-gray-300 rounded-xl mt-2 outline-none px-3 py-1 h-[2rem]"
                       placeholder="Enter deadline"
                     />
@@ -257,7 +285,7 @@ export default function TaskList({ workspace_id }) {
               onShare={handleOpenShareListModal}
               onUsers={handleOpenAssignedUserModal}
               onEdit={handleOpenEditModal}
-              deleteTaskList={deleteTaskList}
+              deleteTaskList={()=>deleteTaskList(index)}
             />
           ))}
         </div>

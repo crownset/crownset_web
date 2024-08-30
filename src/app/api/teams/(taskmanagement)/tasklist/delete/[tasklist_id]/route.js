@@ -14,13 +14,13 @@ export async function PUT(request, { params }) {
        
         const { tasklist_id } = params;
 
-       console.log("here");
+     
         const token = request.cookies.get("authToken:")?.value || '';
 
         if (!token) {
             return NextResponse.json({ message: "Please Login First" }, { status: 401 })
         }
-        console.log("here");
+        
 
         const decode = await jwt.verify(token, process.env.SECRET_KEY)
         if (!decode) {

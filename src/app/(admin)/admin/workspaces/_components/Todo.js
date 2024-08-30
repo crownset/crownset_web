@@ -32,8 +32,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     const [todos, setTodos] = useState(taskList?.todo);
     const [showAddTodo, setShowAddTodo] = useState(false);
 
-    const [work,setWork] = useState("") //ontime or delay
-
+    console.log(taskList?.status);
 
     const list_id = taskList?._id;
 
@@ -131,15 +130,16 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
             <div className="relative flex justify-between items-center">
 
                 <div className="flex flex-col px-4">
-                    <span className="font-semibold text-gray-700 text-[1rem]">{taskList.name}</span>
-                    <span className="text-gray-500 text-[0.7rem]"> (Deadline : {moment(taskList.deadline).format('LL')})</span>
+                    <span className="font-semibold text-gray-700 text-[1rem]">{taskList?.name}</span>
+                    <span className="text-gray-500 text-[0.7rem]"> (Deadline : {moment(taskList?.deadline).format('LL')})</span>
 
                 </div>
 
                 <div>
                     {
-                        work=="ontime"?(<span className="bg-green-400 p-1 rounded-lg text-[0.8rem]">On time</span>):
-                        work=="delay"?(<span className="bg-red-400 p-1 rounded-lg text-[0.8rem]">Delay</span>):null
+                         taskList?.status=="ontime"?(<span className="bg-green-400 p-1 rounded-lg text-[0.8rem]">{taskList?.status}</span>):
+                         taskList?.status=="delay"?(<span className="bg-red-400 p-1 rounded-lg text-[0.8rem]">{taskList?.status}</span>):
+                        (<span className="bg-yellow-200 p-1 rounded-lg text-[0.8rem]">{taskList?.status}</span>)
                         
                     }
                     
@@ -169,7 +169,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                             <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2 " onClick={onEdit}>Edit</span>
                             <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2 " onClick={onShare}>Share</span>
                             <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={onUsers}>Users</span>
-                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span>
+                            {/* <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span> */}
                             {/* <span className="cursor-pointer" onClick={markListDone}>Mark as done</span> */}
                         </div>
                     )
@@ -185,7 +185,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                 <li key={todoIndex} className="group relative rounded-xl mt-4 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow" >
 
                                     <div className="flex justify-between items-end ">
-                                        <span className="">{todo.title}</span>
+                                        <span className="">{todo?.title}</span>
                                         <button
                                             onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
                                             className=" absolute flex ml-[85%] justify-center items-center bg-transparent hover:bg-gray-100 p-1 rounded-full"
@@ -201,7 +201,6 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                 <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleOpenTodoEdit}>Edit</span>
                                                 <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleOpenLabels}>labels</span>
                                                 <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={handleTodoMarkDone}>Mark as done</span>
-                                                <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTodo}>deleted</span>
                                             </div>
                                         )
                                     }

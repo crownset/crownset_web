@@ -25,7 +25,7 @@ export const createlist = createAsyncThunk(
     async (data) => {
 
         try {
-            // console.log("async")
+            console.log(data)
             const tasklist = await axios.post('/api/teams/tasklist', data);
             // console.log(tasklist.data.data);
             return tasklist.data.data;
@@ -56,14 +56,29 @@ export const editList = createAsyncThunk(
 
 export const shareList = createAsyncThunk(
     'sharelist',
-    async ({ user_id, tasklist_id },{ rejectWithValue }) => {
+    async ({ user_id, tasklist_id }, { rejectWithValue }) => {
         // console.log(tasklist_id)
         try {
-            const res = await axios.put(`/api/teams/tasklist/share/${user_id}`,{tasklist_id});
+            const res = await axios.put(`/api/teams/tasklist/share/${user_id}`, { tasklist_id });
             return res.data.data;
 
         } catch (error) {
             console.log(error);
+        }
+    }
+)
+
+export const deleteTasklist = createAsyncThunk(
+    'deleteTaskList',
+    async (tasklist_id) => {
+        try {
+            // console.log(tasklist_id);
+            const res = await axios.put(`/api/teams/tasklist/delete/${tasklist_id}`);
+            // fetchTasklist();
+            return res.data.data;
+        } catch (error) {
+            console.log(error);
+
         }
     }
 )
@@ -73,12 +88,12 @@ export const shareList = createAsyncThunk(
 
 export const createTodo = createAsyncThunk(
     'createtodo',
-    async ({ list_id, data },{ rejectWithValue }) => {
+    async ({ list_id, data }, { rejectWithValue }) => {
         try {
 
             const res = await axios.post(`/api/teams/task/${list_id}`, data)
             // console.log("todo");
-          
+
             return res.data.data;
 
         } catch (error) {
@@ -88,11 +103,14 @@ export const createTodo = createAsyncThunk(
     }
 )
 
+
+
 const initialState = {
     tasklist: null,
     isLoading: false,
     isCreatingList: false,
     isCreatingTodo: false,
+    isDeleteTasklist: false,
     isError: false
 }
 
@@ -103,6 +121,15 @@ const tasklistSlice = createSlice({
     extraReducers: (builder) => {
 
         builder
+            .addCase(deleteTasklist.pending, (state) => {
+                state.isDeleteTasklist = true;
+            })
+            .addCase(deleteTasklist.fulfilled, (state, action) => {
+                state.isDeleteTasklist = false;
+            })
+            .addCase(deleteTasklist.rejected, (state) => {
+                state.isDeleteTasklist = false;
+            })
             .addCase(createTodo.pending, (state) => {
                 state.isCreatingTodo = true;
             })

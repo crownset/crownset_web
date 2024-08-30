@@ -8,17 +8,12 @@ import { usePathname } from 'next/navigation'
 
 const Page = ({ params }) => {
 
-  const pathname = usePathname()
-  console.log(pathname);
+  // const pathname = usePathname()
+  // console.log(pathname);
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.tasklist.isLoading);
   
-
-
-  
-
-
   useEffect(() => {
     
       const fetch = async () => {
