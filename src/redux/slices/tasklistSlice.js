@@ -3,7 +3,11 @@ import { original } from 'immer'
 import axios from "axios";
 
 
-
+//fetch task list
+//create task list
+//edit task list
+//share list
+//show working user
 export const fetchTasklist = createAsyncThunk(
     'fetchtasklist',
     async (workspace_id) => {
@@ -84,7 +88,10 @@ export const deleteTasklist = createAsyncThunk(
 )
 
 
-
+//create todo
+//mark done todo
+//edit todo
+//set label
 
 export const createTodo = createAsyncThunk(
     'createtodo',
@@ -103,6 +110,19 @@ export const createTodo = createAsyncThunk(
     }
 )
 
+export const markTodoDone = createAsyncThunk(
+    'markdonetodo',
+    async (data,{ rejectWithValue }) => {
+    
+        try {
+            const res = await axios.put('/api/teams/task/markdone', data);
+            return res.data.data;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
 
 
 const initialState = {
@@ -111,6 +131,7 @@ const initialState = {
     isCreatingList: false,
     isCreatingTodo: false,
     isDeleteTasklist: false,
+    isTodoMarkDone: false,
     isError: false
 }
 

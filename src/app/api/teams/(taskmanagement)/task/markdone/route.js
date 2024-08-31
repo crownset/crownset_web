@@ -11,14 +11,21 @@ export async function PUT(req) {
     dbConnect();
 
     try {
-        const { todo_id } = await req.json();
-        console.log(todo_id)
-        const todo = await Todo.findByIdAndUpdate({ _id: todo_id }, { $set: { is_completed: true } }, { new: true });
+        const {todo_id} = await req.json();
+        // console.log("todo_id",todo_id);
+        
+        const todo = await Todo.findById({ _id: todo_id });
         if (!todo) {
             return NextResponse.json({ message: "Todo not found" }, { status: 404 })
         }
+        
+        if(todo.is_completed){
+            return NextResponse.json({message:"Already Done"},{status:200})
+        }
+        
 
-
+        const newtodo = await Todo.findByIdAndUpdate({ _id: todo_id }, { $set: { is_completed: true } }, { new: true });
+       
         const taskListId = todo.tasklist_id;
         const taskList = await TaskList.findById(taskListId);
         if (!taskList) {
@@ -57,16 +64,15 @@ const updateTaskListStatus = async (tasklistId) => {
         if (allTodosCompleted) {
 
             const taskListDeadline = new Date(taskList.deadline);
-            status = now <= taskListDeadline ? 'ontime' : 'delay';
-
-
+            status = now.toISOString().split('T')[0] <= taskListDeadline.toISOString().split('T')[0] ? 'ontime' : 'delay';
             lastCompletedDate = new Date(Math.max(...todos.map(todo => new Date(todo.updatedAt))));
         }
 
 
         await TaskList.findByIdAndUpdate(tasklistId, {
             status,
-            lastCompletedDate
+            lastCompletedDate,
+            is_complete:true
         });
     } catch (error) {
         console.error('Error updating task list status:', error);
