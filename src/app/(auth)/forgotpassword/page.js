@@ -24,7 +24,6 @@ const Page = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (email.trim() === "") {
             setErrors(true);
             return;
