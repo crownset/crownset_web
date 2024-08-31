@@ -15,7 +15,8 @@ import { CustomLoader } from '@/components/CustomLoader';
 import { FaPlus } from "react-icons/fa6";
 import SuccessLottie from '@/components/admin/SuccessLottie';
 import SuccessModal from '@/components/admin/SuccessLottie';
-import { closeAddModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddModal, openDeleteLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import { RxCross2 } from 'react-icons/rx';
 
 
 const Page = () => {
@@ -23,6 +24,11 @@ const Page = () => {
     const { data, loading, error } = useSelector((state) => state.data);
     const { isModalOpen, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
     const [user, setUser] = useState(null);
+
+    const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+    const handleShowSuccessModal = () => {
+        setIsSuccessModalVisible(true);
+    };
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -39,12 +45,12 @@ const Page = () => {
         if (selectedQueryId) {
             try {
                 await dispatch(deleteQuery(selectedQueryId)).unwrap();
-                dispatch(closeModal());
+                dispatch(openDeleteLeadModal(false));
                 dispatch(fetchData());
             } catch (error) {
                 toast.error('Failed to delete query!');
-            } finally {
-                dispatch(openSuccessModal());
+            }finally {
+                dispatch(openSuccessModal(true));
             }
         }
     };
@@ -149,7 +155,7 @@ const Page = () => {
                                                     user?.data?.accessId === 1 ? (
                                                         <button
                                                             className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                                            onClick={() => dispatch(openModal(item._id))}
+                                                            onClick={() => dispatch(openDeleteLeadModal(item._id))}
                                                         >
                                                             <RiDeleteBin5Line className='h-4 w-4' />
                                                         </button>
@@ -168,7 +174,7 @@ const Page = () => {
             )}
             <CustomAlert
                 isOpen={isModalOpen}
-                onClose={() => dispatch(closeModal())}
+                onClose={() => dispatch(openDeleteLeadModal(false))}
                 title="Are you sure?"
                 description="Are you sure you want to delete this query?"
                 confirmButtonText={loading ? <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure"}
@@ -176,28 +182,37 @@ const Page = () => {
                 onConfirm={handleConfirm}
             />
             <UpdateForm isOpen={isEditModalOpen} onClose={() => dispatch(closeEditModal())} queryData={selectedQueryData} />
-            <AddLead openProject={isAddModalOpen} onCloseProject={() => dispatch(closeAddModal())} />
-            <SuccessModal isOpen={isSuccessModalOpen} onClose={() => dispatch(closeSuccessModal())} title={"Lead Deleted Successfully."} />
+            <AddLead openProject={isAddModalOpen} onCloseProject={() => dispatch(closeAddModal())} onSuccess={handleShowSuccessModal} />
+            <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Lead Saved Successfully."} />
+            <SuccessModal isOpen={isSuccessModalOpen} onClose={() => dispatch(openSuccessModal(false))} title={"Lead Deleted Successfully."} />
+            {/* <SuccessModal
+                // isOpen={isAddSuccessModal}
+                onClose={() => dispatch(closeAddSuccessModal())}
+                title="Lead Added Successfully."
+            /> */}
             {/* Query Modal */}
             {isQueryModalOpen && (
                 <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
-                    <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl h-[400px] overflow-hidden">
-                        <h2 className="text-lg font-bold mb-4">Full Query</h2>
+                    <div className="bg-white p-6 rounded-3xl w-[90%] max-w-xl h-[400px] overflow-hidden">
+                        <div className='flex items-center justify-between'>
+                            <h2 className="text-lg font-bold">Full Query</h2>
+                            <RxCross2 className="h-6 w-6 mr-10 text-dashboard" onClick={() => dispatch(closeQueryModal())} />
+                        </div>
+
                         <div className="overflow-y-auto h-[300px]">
                             <p className="text-sm">{fullQuery}</p>
                         </div>
-                        <div className="text-right mb-4">
+                        {/* <div className="text-right">
                             <button
-                                className="bg-blue-500 text-white px-4 py-2 mb-10 rounded hover:bg-blue-600"
+                                className="bg-dashboard text-white mr-3 px-4 py-2  rounded-3xl hover:bg-blue-600"
                                 onClick={() => dispatch(closeQueryModal())}
                             >
                                 Close
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

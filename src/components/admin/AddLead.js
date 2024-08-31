@@ -10,7 +10,7 @@ import { CustomLoader } from '../CustomLoader';
 import { closeAddModal, closeAddSuccessModal, closeSuccessModal, openAddSuccessModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import SuccessModal from './SuccessLottie';
 
-const AddLead = ({ onCloseProject, openProject }) => {
+const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
     const [user, setUser] = useState(null);
     const { isSuccessModalOpen, isAddSuccessModal } = useSelector((state) => state.ui)
     const [formValues, setFormValues] = useState({
@@ -79,9 +79,9 @@ const AddLead = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(postQuery(formValues)).unwrap();
-            dispatch(openAddSuccessModal());
+            dispatch(closeAddModal())
+            onSuccess()
             dispatch(fetchData());
-            // dispatch(closeAddModal())
             setFormValues({
                 fullName: "",
                 email: "",
@@ -102,8 +102,8 @@ const AddLead = ({ onCloseProject, openProject }) => {
 
     return (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
-                <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
+            <div className="bg-white rounded-3xl shadow dark:bg-gray-700 p-1 max-w-md w-full">
+                <div className="flex items-center justify-between p-2 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                         Add Lead Details
                     </h3>
@@ -130,8 +130,8 @@ const AddLead = ({ onCloseProject, openProject }) => {
                         <span className="sr-only">Close modal</span>
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="p-3">
-                    <div className="grid gap-2 mb-4">
+                <form onSubmit={handleSubmit} className="p-2">
+                    <div className="grid gap-2 mb-2">
                         <div className="flex space-x-2">
                             <div className="flex-1">
                                 <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
@@ -143,7 +143,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                                     name="fullName"
                                     value={formValues?.fullName}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-dashboard focus:border-dashboard block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
                                 {errors?.fullName && <p className="text-red-500 text-sm">{errors?.fullName}</p>}
                             </div>
@@ -222,20 +222,20 @@ const AddLead = ({ onCloseProject, openProject }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid gap-2 mb-4">
+                    <div className="grid gap-2 ">
                         <div className="flex space-x-2">
                             <div className="flex-1">
                                 <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
                                     Query
                                 </label>
-                                <input
+                                <textarea
                                     id="queryContent"
                                     name="queryContent"
                                     placeholder="write your query ?"
                                     value={formValues?.queryContent}
                                     onChange={handleChange}
                                     // readOnly
-                                    className="border mb-4 rounded-xl w-full h-[4rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="border mb-2 rounded-xl w-full h-[4rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.queryContent && <p className="text-red-500 text-sm">{errors.queryContent}</p>}
                             </div>
@@ -259,7 +259,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                             Comments
                         </label>
                         <textarea
-                            className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="border mb-2 rounded-xl w-full h-[4rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             name='comments'
                             placeholder="write your Comment..."
                             value={formValues?.comments}
@@ -277,11 +277,7 @@ const AddLead = ({ onCloseProject, openProject }) => {
                     </button>
                 </form>
             </div>
-            <SuccessModal
-                isOpen={isAddSuccessModal}
-                onClose={() => dispatch(closeAddSuccessModal())}
-                title="Lead Added Successfully."
-            />
+            
         </div>
     );
 };

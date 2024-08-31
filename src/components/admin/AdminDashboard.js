@@ -148,14 +148,14 @@ const AdminDashboard = () => {
                         </button>
                         <div className=' hidden md:flex flex-col gap-1'>
                             <div className="flex items-center space-x-2">
-                                <MdOutlineDriveFileRenameOutline className="text-sm" />
+                                <MdOutlineDriveFileRenameOutline className="text-sm text-dashboard" />
                                 <p className="text-sm  text-black">
                                     {user?.data?.firstName} {user?.data?.lastName}
                                 </p>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <FaEnvelope className="text-sm" />
-                                <p className="text-sm  text-black">Email: {user?.data?.email}</p>
+                                <FaEnvelope className="text-sm text-dashboard" />
+                                <p className="text-sm  text-black">{user?.data?.email}</p>
                             </div>
                         </div>
 
