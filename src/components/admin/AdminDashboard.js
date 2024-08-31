@@ -81,7 +81,7 @@ const AdminDashboard = () => {
             />
             <div className="flex">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col z-30`}
                 >
 
                     <div className="mt-[14px]">

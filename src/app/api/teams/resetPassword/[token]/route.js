@@ -4,14 +4,15 @@ import { UserCS } from "@/modelCS/user";
 import bcrypt from 'bcryptjs'
 import { dbConnect } from "@/helpers/db"
 
-export async function POST(request) {
+export async function POST(request,{params}) {
     await dbConnect()
   var { password } = await request.json();
 
   password = bcrypt.hashSync(password, 10);
-
-  const encryptedToken = await request.nextUrl.searchParams.get("token");
-//   console.log("this is encrypted token:",encryptedToken)
+  
+   const encryptedToken = params.token;
+  // const encryptedToken = await request.nextUrl.searchParams.get("token");
+  console.log("this is encrypted token:",encryptedToken)
 
   try {
     const token = jwt.verify(encryptedToken, process.env.SECRET_KEY);

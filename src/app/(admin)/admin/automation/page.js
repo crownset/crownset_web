@@ -71,7 +71,7 @@ const Page = () => {
 
     return (
         <div className='h-screen flex flex-col justify-center items-center'>
-            <div className='bg-navbar shadow-lg rounded-2xl flex flex-col h-[50%] w-[90%] md:h-[60%]'>
+            <div className='bg-default shadow-xl rounded-2xl flex flex-col h-[50%] w-[90%] md:h-[60%]'>
                 <div className='flex flex-col text-sm px-3 py-3 mt-5 md:mt-5 md:ml-10'>
                     <p className='font-semibold'>Upload an Excel file</p>
                     <p>Make sure the file includes name, email, and phone number</p>

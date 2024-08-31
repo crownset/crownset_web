@@ -1,7 +1,6 @@
 "use client";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'next/navigation';
 import { resetPassword } from '@/redux/slices/authSlice';
 import { BeatLoader } from 'react-spinners';
 import Image from 'next/image';
@@ -9,11 +8,12 @@ import imageLogin from "@/assets/images/imageLogin.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+// import { log } from 'handlebars';
 
-const Page = () => {
+const Page = ({ params }) => {
     const dispatch = useDispatch();
-    const searchParams = useSearchParams();
-    const token = searchParams.get("token");
+    const token = params.token;
+    console.log("params.token=>>>>>>", params.token)
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const resetPasswordStatus = useSelector(state => state.auth.resetPasswordStatus);
@@ -27,7 +27,7 @@ const Page = () => {
         }
         if (token) {
             try {
-                await dispatch(resetPassword({ token, password }));
+                await dispatch(resetPassword({token, password}));
                 if (resetPasswordStatus === 'succeeded') {
                     toast.success("Password reset successfully!");
                 }
