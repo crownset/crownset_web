@@ -72,9 +72,9 @@ export async function POST(request) {
         return getResponse("Query Content is required field", 500, false)
     }
 
-    else if(!leadBy || leadBy == ""){
-        return getResponse("Lead By is required field", 500, false)
-    }
+    // else if(!leadBy || leadBy == ""){
+    //     return getResponse("Lead By is required field", 500, false)
+    // }
 
     else if(!service || service == ""){
       return getResponse("Service is required field", 500, false)
@@ -97,6 +97,7 @@ export async function POST(request) {
 
     
     return NextResponse.json({
+      data: query,
       message: "Query Saved Sucessfully",
     });
   } catch (error) {

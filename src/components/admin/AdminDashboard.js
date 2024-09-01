@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -13,10 +13,16 @@ import * as Icon from "@/helpers/icons";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
+import { IoPersonCircleSharp } from "react-icons/io5";
+// import UserInfoModal from './UserDetailsModal serInfoModal';
+import UserDetailsModal from './UserDetailsModal';
+import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
+import { FaEnvelope } from 'react-icons/fa';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [showUserDetails, setShowUserDetails] = useState(false)
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
 
     const dispatch = useDispatch();
@@ -29,6 +35,22 @@ const AdminDashboard = () => {
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
+    const openDetailsModal = () => {
+        setShowUserDetails(true);
+        console.log("detailModal ===>", showUserDetails);
+    };
+
+    const closeDetailsModal = () => {
+        setShowUserDetails(false); // Set false to close modal
+    };
+
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const handleConfirm = async () => {
         try {
@@ -59,8 +81,9 @@ const AdminDashboard = () => {
             />
             <div className="flex ">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64" : "w-20"} bg-dashboard text-black transition-all duration-300 ease-in-out z-10 flex flex-col shadow-md`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col z-30`}
                 >
+
                     <div className="mt-[14px]">
                         {isSidebarOpen === false ? (
                             <button onClick={toggleSidebar}>
@@ -92,7 +115,7 @@ const AdminDashboard = () => {
                                 <li key={index}>
                                     <Link href={item.href}>
                                         <button
-                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default text-black" : "text-default hover:bg-default hover:text-black"}`}
+                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
                                             onClick={() => setSelectedTab(item.name)}
                                         >
                                             <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
@@ -117,13 +140,40 @@ const AdminDashboard = () => {
                         </ul>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-50`}>
                     <div className='w-[16rem] text-2xl font-semibold'>
                         <h1>Dashboard</h1>
+=======
+                <div className={`fixed w-full flex items-center justify-between bg-default p-4 ${isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0 md:ml-20'} transition-all duration-300 ease-in-out shadow-md z-10`}>
+
+                    <div className='flex items-center w-[60%]'>
+                        <button onClick={toggleSidebar}>
+                            <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
+                        </button>
+                        <div className=' hidden md:flex flex-col gap-1'>
+                            <div className="flex items-center space-x-2">
+                                <MdOutlineDriveFileRenameOutline className="text-sm" />
+                                <p className="text-sm  text-black">
+                                    {user?.data?.firstName} {user?.data?.lastName}
+                                </p>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <FaEnvelope className="text-sm" />
+                                <p className="text-sm  text-black">Email: {user?.data?.email}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className='pt-2'>
+                        <button onClick={openDetailsModal}>
+                            <IoPersonCircleSharp className="h-7 w-7  text-dashboard" />
+                        </button>
+>>>>>>> main
                     </div>
                 </div>
             </div>
-
+            <UserDetailsModal openDetails={showUserDetails} closeDetails={closeDetailsModal} data={user} />
             <CustomAlert
                 isOpen={isModalOpen}
                 onClose={closeModal}
@@ -133,12 +183,6 @@ const AdminDashboard = () => {
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
-
-            {/* {status === 'loading' && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <BeatLoader color="#ffffff" />
-                </div>
-            )} */}
         </>
     );
 };

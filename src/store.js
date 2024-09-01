@@ -8,6 +8,8 @@ import workspaceSlice from "./redux/slices/workspaceSlice"
 import tasklistSlice from "./redux/slices/tasklistSlice"
 
 import miscSlice from "./redux/slices/misc"
+import automationSlice from "./redux/slices/automationSlice"
+import uiSlice from "./redux/slices/uiSlice"
 
 const store = configureStore({
     reducer: {
@@ -18,6 +20,8 @@ const store = configureStore({
         workspace:workspaceSlice,
         tasklist:tasklistSlice,
         misc:miscSlice,
+        automation : automationSlice,
+        ui: uiSlice,
     }
 })
 

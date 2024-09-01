@@ -65,13 +65,13 @@ const Page = () => {
             </Link>
           </div>
 
-          <div className='mt-10 w-full object-cover'>
+          <div className='mt-10 w-full object-cover '>
             <Image
               src={images.serviceimg1}
               width={800}
               height={500}
               alt="image"
-              className="rounded-[2rem]"
+              className="rounded-[2rem] shadow-xl"
 
             />
 

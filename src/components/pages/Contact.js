@@ -108,7 +108,7 @@ const Page = () => {
                         <div className='flex flex-col gap-1'>
                             <ul>
                                 <li>Phone number</li>
-                                <li className='font-semibold text-base underline-from-left cursor-pointer'>888-400-5050</li>
+                                <li className='font-semibold text-base underline-from-left cursor-pointer'>91+ 8448376799</li>
                             </ul>
                         </div>
                         <div className='flex flex-col gap-1'>

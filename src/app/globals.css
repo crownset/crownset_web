@@ -60,6 +60,15 @@
     animation: scroll 10s linear infinite;
   }
 
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;   
+  }
+
 }
 
 html {

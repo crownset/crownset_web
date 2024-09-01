@@ -22,7 +22,7 @@ import { CardFour, CardThree } from "@/components/Cards";
 const ourValues = sampledata.ourValues;
 const teamData = sampledata.teamData;
 const ourProficiencyData = sampledata.ourProficiency;
-const teamPic = [images.garvit, images.priyam];
+const teamPic = [images.priyam];
 const linkedinUrl = ["", "https://www.linkedin.com/in/priyampathak"];
 const ourValuesIcon = {
   0: <BulbIcon className="text-primary-color size-[1.5rem]" />,
@@ -113,7 +113,7 @@ const Page = () => {
               src={images.aboutimg1}
               width={800}
               height={500}
-              className="rounded-[2rem]"
+              className="rounded-[2rem] shadow-xl"
               alt="image"
             />
           </div>
@@ -203,11 +203,11 @@ const Page = () => {
       <section className="mt-16">
         <div className="mt-[-3rem] xl:mt-[-9]">
           <div
-            className="relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center
+            className="relative top-[4rem] sm:top-[8rem] lg:top-[12rem] xl:flex xl:justify-center xl:items-center 
   "
           >
             <Image
-              className="rounded-[3rem] aspect-auto object-cover px-[1rem] h-[120px] sm:h-[200px] md:h-[300px] lg:h-[417px] xl:w-11/12 m-auto"
+              className="rounded-[2rem] xl:w-11/12 m-auto shadow-xl p-3 md:p-0"
               src={images.aboutimg2}
               width={1280}
               height={417}
@@ -275,7 +275,7 @@ const Page = () => {
         </div>
       </section>
 
-      <section className="mt-20 px-5">
+      <section className="mt-20 px-5 hidden">
         <div className="xl:w-11/12 m-auto">
           <h1 className="text-center text-[1.2rem] font-semibold px-5">
             Our Clients
@@ -371,13 +371,13 @@ const Page = () => {
               {...handlers}
             >
               <div
-                className="flex w-full   transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                className="flex w-[100%] justify-center items-center   transition-transform duration-700 ease-in-out"
+                // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {teamData.map((card, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-full  flex items-center justify-center px-2 mt-5 "
+                    className=" flex items-center justify-center px-2 mt-5 w-[100%]"
                   >
                     <div className="w-full h-full flex flex-col pb-[1rem]">
                       <div className="rounded-[3rem]">

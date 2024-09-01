@@ -157,13 +157,8 @@
 "teamData":[
     {
         "url":"",
-        "name":"Dr. Aman",
-        "designation":"CEO & Founder"
-    },
-    {
-        "url":"",
         "name":"Mr. Priyam Pathak",
-        "designation":"COO & Founder"
+        "designation":"CEO & Founder"
     }
     
 ],
@@ -265,7 +260,7 @@
     {
       "name": "App Development",
       "heading": "App Development Services",
-      "description": "We specialize in creating high-quality mobile and web applications tailored to your business needs. Our services cover the entire app development lifecycle, from concept and design to development and deployment. We focus on building scalable, user-friendly apps that enhance customer engagement and streamline business operations.",
+      "description": "We Provide Mobile development services with the aim of building the best iOS & Android applications for every size of business. We have delivered 100+ projects successfully by delivering striking UI, Secure app code, and resilient back ends. Our experts help you in creating a user interface and design, coding, and testing, and then make it available for download through an app store or Google Play. We have a team of top software developers. designers, and project managers to build your app from scratch. Our team adapts to your requirements and builds a visually appealing digital product that satisfies your needs.",
       "services": [
         "Mobile App Development",
         "Web App Development",
@@ -311,7 +306,7 @@
     {
       "name": "Digital Marketing",
       "heading": "Digital Marketing Services",
-      "description": "Our digital marketing services help businesses grow their online presence and reach their target audience through strategic campaigns. We offer a range of services including SEO, PPC, social media marketing, and email campaigns to drive traffic, increase engagement, and boost conversions.",
+      "description": " Our digital marketing services help businesses grow their online presence and reach their target audience through strategic campaigns. We offer a range of services including SEO, PPC, social media marketing, and email campaigns to drive traffic, increase engagement, and boost conversions.We help you experience complete growth with full vision and Provide a value-added experience for your customers without compromising on quality standards.Crownset marketing agency is the Best digital marketing agency in India, India offers a  digital service portfolio.",
       "services": [
         "Search Engine Optimization (SEO)",
         "Paid Search Marketing (PPC)",
