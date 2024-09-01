@@ -17,7 +17,7 @@ const Page = ({ params }) => {
   useEffect(() => {
     
       const fetch = async () => {
-      dispatch(fetchTasklist(params.workspace_id));
+      await dispatch(fetchTasklist(params.workspace_id));
     }
     fetch();
 

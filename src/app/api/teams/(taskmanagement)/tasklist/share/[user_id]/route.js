@@ -10,8 +10,9 @@ export async function PUT(request, { params }) {
     dbConnect();
     try {
 
-        
+
         const { user_id } = params;
+
         let requestBody;
         try {
             requestBody = await request.json();
@@ -20,31 +21,34 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ message: "Invalid JSON format" }, { status: 400 });
         }
 
-        const {tasklist_id}  =requestBody;
-        
+
+        const { tasklist_id } = requestBody;
+
         // console.log(tasklist_id,user_id);
 
         const list = await TaskList.findOne({ _id: tasklist_id });
-        
 
-        if(!list){
-            return NextResponse.json({message:"Tasklist not found"},{status:404});
+        // console.log(list);
+        if (!list) {
+            return NextResponse.json({ message: "Tasklist not found" }, { status: 404 });
         }
-        
-        const isUserExistInList = await TaskList.findOne({ assign_to: user_id });
-        
 
-        if (isUserExistInList) {
-            return NextResponse.json({ message: "User already present" }, { status: 400 });
+        // const isUserExistInList = await TaskList.findOne({},{ assign_to: user_id });
+        if (list.assign_to.length > 0) {
+            const isUserExistInList = list.assign_to.filter((user) => user == user_id)
+            if (isUserExistInList) {
+                return NextResponse.json({ message: "User already present" }, { status: 400 });
+            }
         }
-        
+
+
         const workspace = await Workspace.findOne({ _id: list.workspace_id });
-        
-        if(!workspace){
-            return NextResponse.json({message:"workspace not found"},{status:404});
+
+        if (!workspace) {
+            return NextResponse.json({ message: "workspace not found" }, { status: 404 });
 
         }
-        const isUserExistInWorspace = await Workspace.findOne({ members:user_id});
+        const isUserExistInWorspace = await Workspace.findOne({ members: user_id });
 
         if (!isUserExistInWorspace) {
             const workspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {

@@ -4,15 +4,15 @@ import { dbConnect } from "@/helpers/db"
 
 // edit todo
 export async function PUT(request,{params}){
-     dbConnect();
+    await dbConnect();
     const {todo_id} = await params;
     try {
 
-        const updatedData = await request.json();
+        const {title} = await request.json();
         
         console.log(todo_id);
         
-        const todo = await Todo.findOneAndUpdate({_id:todo_id},{$set:updatedData},{new :true})
+        const todo = await Todo.findOneAndUpdate({_id:todo_id},{$set:{title:title}},{new :true})
         
         return NextResponse.json({message:"Todo updated",data:todo},{status:200});
 

@@ -6,10 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
-import { shareList } from "@/redux/slices/tasklistSlice";
+import { editTodo, fetchTasklist, shareList, showWorkingUser, todoLabel } from "@/redux/slices/tasklistSlice";
+import { toast } from "react-toastify";
+import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
+import { ClipLoader } from "react-spinners";
 
 
-export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave }) => {
+export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave, workspace_id }) => {
 
     if (!isOpen) return null;
 
@@ -43,7 +46,7 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
 }
 
 //tasklist modals
-export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
+export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspace_id }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState('select user');
@@ -56,9 +59,10 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
         const fetchuser = async () => {
             try {
                 await dispatch(assignUsers());
+                
             } catch (error) {
-                console.log("Errors");
-
+                
+               return toast.error("Failed To show user");
             }
         }
         fetchuser();
@@ -80,11 +84,12 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
         try {
 
             await dispatch(shareList({ user_id, tasklist_id }));
-
+            await dispatch(fetchTasklist(workspace_id));
+            toast.success("Task list Shared")
             onClose();
 
         } catch (error) {
-            console.log(error);
+            return toast.error("Failed to share tasklist")
 
         }
 
@@ -167,7 +172,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id }) => {
     )
 }
 
-export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEditTaskList }) => {
+export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEditTaskList, workspace_id }) => {
 
     if (!isOpen) return null;
 
@@ -242,7 +247,33 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
     )
 }
 
-export const AssginedUserModal = ({ isOpen, onClose }) => {
+export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }) => {
+
+    const workinguser = useSelector((state) => state.tasklist.workinguser)
+
+    // console.log("called compo")
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+
+            try {
+                // console.log("call");
+                await dispatch(showWorkingUser({ tasklist_id }))
+
+
+
+
+            } catch (error) {
+                console.log("Error in showing user")
+
+            }
+        }
+        fetchUser();
+
+    }, [dispatch, tasklist_id])
+    // console.log(workinguser);
 
     if (!isOpen) return null;
 
@@ -265,8 +296,14 @@ export const AssginedUserModal = ({ isOpen, onClose }) => {
                     </div>
 
                     <div className="p-4 md:p-5 space-y-4">
-                        <div>Show user here</div>
-                        {/* <button className="bg-primary-color text-white p-1 rounded">Save</button> */}
+                        {
+                            workinguser?.map((user, index) => (
+                                <li key={index} className="list-none bg-gray-300 w-full p-2 rounded-md"><span className="text-black ">{user?.firstName}</span></li>
+                            ))
+
+
+                        }
+                        {!workinguser && <div>No Working Member</div>}
                     </div>
 
                 </div>
@@ -275,16 +312,33 @@ export const AssginedUserModal = ({ isOpen, onClose }) => {
     )
 }
 
-//edit todo
-//mark as done todo
-//labels
 
 //Todo modal
-export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
+export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
     const tasklists = useSelector((state) => state.tasklist?.tasklist);
-    const {isTodoIndex,tasklistIndex} = useSelector((state)=>state.misc)
-    console.log(tasklists[tasklistIndex].todo[isTodoIndex]);
-    const [title,setTitle] = useState(tasklists[tasklistIndex].todo[isTodoIndex].title); 
+    const { isTodoIndex, tasklistIndex, isEditTodoLoding } = useSelector((state) => state.misc)
+    // console.log(tasklists[tasklistIndex].todo[isTodoIndex]);
+    const [title, setTitle] = useState(tasklists[tasklistIndex].todo[isTodoIndex].title);
+
+    const dispatch = useDispatch();
+
+    const onSave = async (e) => {
+        e.preventDefault();
+        // console.log("edit todo");
+        const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        // console.log(title);
+        try {
+            await dispatch(editTodo({ todo_id, title }));
+            await dispatch(fetchTasklist(workspace_id));
+            dispatch(setIsTodoEditModal(false));
+            dispatch(setIsTodoEditMenu(false));
+            toast.success("Task editted successfully")
+        } catch (error) {
+            toast.error("Failed to edit Task");
+        }
+    }
+
+
 
     if (!isOpen) return null;
 
@@ -309,7 +363,15 @@ export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
                     <div className="p-4 md:p-5 space-y-4">
                         {/* <div>Edit Todo Modal</div> */}
                         <input value={title} onChange={(e) => setTitle(e.target.value)} className="outline outline-blue-500 p-1 rounded" />
-                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
+                        <button
+                            onClick={onSave}
+                            className=" bg-blue-500 text-white p-1 rounded"
+                        >
+                            {
+                                isEditTodoLoding ? (<ClipLoader size={15} />) : "Save"
+                            }
+
+                        </button>
                     </div>
 
                 </div>
@@ -318,9 +380,34 @@ export const EditTodoModal = ({ isOpen, onClose, onSave }) => {
     )
 }
 
-export const TodoLabelsModal = ({ isOpen, onClose, onSave }) => {
+export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
     const tasklists = useSelector((state) => state.tasklist?.tasklist);
-    const {isTodoIndex,tasklistIndex} = useSelector((state)=>state.misc)
+    const { isTodoLabelLoading } = useSelector((state) => state.tasklist.isTodoLabelLoading)
+    const { isTodoIndex, tasklistIndex } = useSelector((state) => state.misc)
+
+    const [selectedLabel, setSelectedLabel] = useState("");
+    const dispatch = useDispatch();
+
+    const labels = [
+        { value: "Work", color: "#E2B203" },
+        { value: "Urgent", color: "#FEC195" },
+        { value: "Later", color: "#FD9891" }
+    ];
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        try {
+            await dispatch(todoLabel({ todo_id, selectedLabel }))
+            await dispatch(fetchTasklist(workspace_id));
+            onClose();
+            dispatch(setIsTodoEditMenu(false));
+        } catch (error) {
+            console.log(error);
+
+        }
+
+    };
 
     if (!isOpen) return null;
 
@@ -342,14 +429,52 @@ export const TodoLabelsModal = ({ isOpen, onClose, onSave }) => {
                         </button>
                     </div>
                     {/* #F87168*/}
-                    <div className="p-4 md:p-5 space-y-4">
+                    {/* <div className="p-4 md:p-5 space-y-4">
                         <div className="w-full h-[2rem] bg-[#4BCE97] cursor-pointer rounded-sm hover:bg-[#7EE2B8]"></div>
                         <div className="w-full h-[2rem] bg-[#F5CD47] cursor-pointer rounded-sm hover:bg-[#E2B203]"></div>
                         <div className="w-full h-[2rem] bg-[#FEA362] cursor-pointer rounded-sm hover:bg-[#FEC195]"></div>
                         <div className="w-full h-[2rem] bg-[#F87168] cursor-pointer rounded-sm hover:bg-[#FD9891]"></div>
                         {/* <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" /> */}
-                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
-                    </div>
+                    {/* <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
+                    </div> */}
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="w-full">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Label</label>
+                            <div className="flex flex-col gap-4 justify-center items-center w-full ">
+                                {labels.map((label) => (
+                                    <div key={label.value} className="flex items-center w-full ">
+                                        <input
+                                            type="radio"
+                                            id={label.value}
+                                            name="label"
+                                            value={label.value}
+                                            checked={selectedLabel === label.value}
+                                            onChange={(e) => setSelectedLabel(e.target.value)}
+                                            className="hidden w-full"
+                                        />
+                                        <label
+                                            htmlFor={label.value}
+                                            className={`cursor-pointer p-2 rounded-md text-white  w-full ${selectedLabel === label.value ? 'ring-4 ring-offset-2 ring-blue-300' : ''}`}
+                                            style={{ backgroundColor: label.color }}
+                                        >
+                                            {label.value}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white p-2 rounded-xl"
+                        >
+                            {
+                                isTodoLabelLoading ? (<ClipLoader size={15} />) : (<span>Update Label</span>)
+                            }
+
+                        </button>
+                    </form>
 
                 </div>
             </div>

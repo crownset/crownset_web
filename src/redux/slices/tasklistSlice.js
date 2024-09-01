@@ -87,6 +87,19 @@ export const deleteTasklist = createAsyncThunk(
     }
 )
 
+export const showWorkingUser = createAsyncThunk(
+    'showWorkingUSer',
+    async ({tasklist_id}) => {
+        try {
+            const res = await axios.get(`/api/teams/tasklist/assignUsers/${tasklist_id}`);
+            // console.log(res.data.data);
+            return res.data.data
+        } catch (error) {
+
+        }
+    }
+)
+
 
 //create todo
 //mark done todo
@@ -112,8 +125,8 @@ export const createTodo = createAsyncThunk(
 
 export const markTodoDone = createAsyncThunk(
     'markdonetodo',
-    async (data,{ rejectWithValue }) => {
-    
+    async (data, { rejectWithValue }) => {
+
         try {
             const res = await axios.put('/api/teams/task/markdone', data);
             return res.data.data;
@@ -124,14 +137,47 @@ export const markTodoDone = createAsyncThunk(
     }
 )
 
+export const editTodo = createAsyncThunk(
+    'editTodo',
+    async ({ todo_id, title }, { rejectWithValue }) => {
+        try {
+            const res = await axios.put(`/api/teams/task/editTodo/${todo_id}`, { title });
+            console.log(res.data.data);
+            return res.data.data;
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+)
+
+export const todoLabel = createAsyncThunk(
+    'todoLable',
+    async ({ todo_id, selectedLabel }, { rejectWithValue }) => {
+        try {
+            const res = await axios.put(`/api/teams/task/label/${todo_id}`, { selectedLabel });
+            return res.data.data;
+        } catch (error) {
+            console.log(error);
+
+        }
+
+    }
+)
+
 
 const initialState = {
     tasklist: null,
+    workinguser:null,
     isLoading: false,
     isCreatingList: false,
-    isCreatingTodo: false,
     isDeleteTasklist: false,
+    isShareLoading: false,
+    isCreatingTodo: false,
     isTodoMarkDone: false,
+    isEditTodoLoding: false,
+    isTodoLabelLoading: false,
+    isShowUerLoading: false,
     isError: false
 }
 
@@ -142,14 +188,47 @@ const tasklistSlice = createSlice({
     extraReducers: (builder) => {
 
         builder
-            .addCase(deleteTasklist.pending, (state) => {
-                state.isDeleteTasklist = true;
+            .addCase(showWorkingUser.pending, (state) => {
+                state.isShowUerLoading = true;
             })
-            .addCase(deleteTasklist.fulfilled, (state, action) => {
-                state.isDeleteTasklist = false;
+            .addCase(showWorkingUser.fulfilled, (state, action) => {
+                // console.log("fullfilled")
+                // console.log(action.payload);
+                state.workinguser = action.payload;
+                // console.log(state.workinguser);
+                state.isShowUerLoading = false;
+
             })
-            .addCase(deleteTasklist.rejected, (state) => {
-                state.isDeleteTasklist = false;
+            .addCase(showWorkingUser.rejected, (state) => {
+                state.isShowUerLoading = false;
+                console.log("error")
+            })
+            .addCase(shareList.pending, (state) => {
+                state.isShareLoading = true;
+            })
+            .addCase(shareList.fulfilled, (state, action) => {
+                state.isShareLoading = false;
+            })
+            .addCase(shareList.rejected, (state) => {
+                state.isShareLoading = false;
+            })
+            .addCase(todoLabel.pending, (state) => {
+                state.isTodoLabelLoading = true;
+            })
+            .addCase(todoLabel.fulfilled, (state, action) => {
+                state.isTodoLabelLoading = false;
+            })
+            .addCase(todoLabel.rejected, (state) => {
+                state.isTodoLabelLoading = false;
+            })
+            .addCase(editTodo.pending, (state) => {
+                state.isEditTodoLoding = true;
+            })
+            .addCase(editTodo.fulfilled, (state, action) => {
+                state.isEditTodoLoding = false;
+            })
+            .addCase(editTodo.rejected, (state) => {
+                state.isEditTodoLoding = false;
             })
             .addCase(createTodo.pending, (state) => {
                 state.isCreatingTodo = true;

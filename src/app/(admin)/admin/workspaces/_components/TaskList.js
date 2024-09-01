@@ -19,6 +19,7 @@ export default function TaskList({ workspace_id }) {
     isShareModal, isAssginedUserModal, isEditTaskListModal
   } = useSelector((state) => state.misc)
 
+  console.count("count ");
 
   const [user, setUser] = useState(null);
 
@@ -26,7 +27,7 @@ export default function TaskList({ workspace_id }) {
   const [newTaskListDeadline, setNewTaskListDeadline] = useState('');
   const [editingTaskListIndex, setEditingTaskListIndex] = useState(null);
   const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '' });
- 
+
   // console.log("tasklist==>",tasklists[2]?.is_complete);
   //tasklist modal
 
@@ -118,20 +119,22 @@ export default function TaskList({ workspace_id }) {
 
     try {
       await dispatch(editList({ tasklist_id, data }))
+      await dispatch(fetchTasklist(workspace_id));
+      dispatch(setIsEditTaskListModal(false));
+      toast.success("Tasklist Editted Successfully")
 
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to Edit Task List")
 
     }
-    handleCloseEditModal();
-    handleCancelEditTaskList();
+    
   }
 
 
-  const HandleSaveTodoModal = () => dispatch(setIsTodoEditModal(false));
+  // const HandleSaveTodoModal = () => dispatch(setIsTodoEditModal(false));
 
 
-  const HandleSaveLabel = () => dispatch(setIsTodoLabelsModal(false));
+  // const HandleSaveLabel = () => dispatch(setIsTodoLabelsModal(false));
 
   const deleteTaskList = async (index) => {
     const taskList_id = tasklists[index]._id;
@@ -229,7 +232,7 @@ export default function TaskList({ workspace_id }) {
           }
 
           {
-           tasklists && tasklists?.map((taskList, index) => (
+            tasklists && tasklists?.map((taskList, index) => (
 
               <Todo
                 key={index}
@@ -248,12 +251,13 @@ export default function TaskList({ workspace_id }) {
       </div>
 
       {/* taskList Modal */}
-      
+
       {isShareModal &&
         <ShareTaskListModal
           isOpenShare={isShareModal}
           onClose={() => { dispatch(setIsShareModal(false)) }}
           tasklist_id={tasklists[editingTaskListIndex]?._id}
+          workspace_id={workspace_id}
         />
       }
 
@@ -261,6 +265,8 @@ export default function TaskList({ workspace_id }) {
         <AssginedUserModal
           isOpen={isAssginedUserModal}
           onClose={() => { dispatch(setIsAssginedUserModal(false)) }}
+          tasklist_id={tasklists[editingTaskListIndex]?._id}
+          workspace_id={workspace_id}
         />
       }
 
@@ -271,6 +277,7 @@ export default function TaskList({ workspace_id }) {
           onSave={handleSaveEditModal}
           editTaskList={editTaskList}
           setEditTaskList={setEditTaskList}
+          workspace_id={workspace_id}
         />
       }
 
@@ -280,7 +287,8 @@ export default function TaskList({ workspace_id }) {
         <EditTodoModal
           isOpen={isTodoEditModal}
           onClose={() => { dispatch(setIsTodoEditModal(false)) }}
-          onSave={HandleSaveTodoModal}
+          workspace_id={workspace_id}
+
         />
       }
 
@@ -288,7 +296,7 @@ export default function TaskList({ workspace_id }) {
         <TodoLabelsModal
           isOpen={isTodoLabelsModal}
           onClose={() => { dispatch(setIsTodoLabelsModal(false)) }}
-          onSave={HandleSaveLabel}
+          workspace_id={workspace_id}
         />
       }
     </div >

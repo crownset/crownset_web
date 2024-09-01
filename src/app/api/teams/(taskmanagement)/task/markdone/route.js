@@ -8,7 +8,7 @@ import {  NextResponse } from 'next/server';
 
 
 export async function PUT(req) {
-    dbConnect();
+    await dbConnect();
 
     try {
         const {todo_id} = await req.json();
@@ -54,7 +54,6 @@ const updateTaskListStatus = async (tasklistId) => {
 
         const todos = await Todo.find({ tasklist_id: tasklistId });
 
-
         const allTodosCompleted = todos.every(todo => todo.is_completed);
         const now = new Date();
 
@@ -65,15 +64,17 @@ const updateTaskListStatus = async (tasklistId) => {
 
             const taskListDeadline = new Date(taskList.deadline);
             status = now.toISOString().split('T')[0] <= taskListDeadline.toISOString().split('T')[0] ? 'ontime' : 'delay';
-            lastCompletedDate = new Date(Math.max(...todos.map(todo => new Date(todo.updatedAt))));
+            lastCompletedDate = now;
+            await TaskList.findByIdAndUpdate(tasklistId, {
+                status,
+                lastCompletedDate,
+                is_complete:true
+            });
         }
+  
+        return NextResponse.json({message:"Todos are Remaining"});
 
-
-        await TaskList.findByIdAndUpdate(tasklistId, {
-            status,
-            lastCompletedDate,
-            is_complete:true
-        });
+       
     } catch (error) {
         console.error('Error updating task list status:', error);
         return NextResponse.json({ message: "Error in updating task list Status" })
