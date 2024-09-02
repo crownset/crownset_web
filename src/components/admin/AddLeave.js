@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
+import { CustomLoader } from '../CustomLoader';
 
-const AddLeave = ({ onClose }) => {
+
+const AddLeave = ({ onClose, }) => {
     const [userDetail, setUserDetail] = useState(null);
     const [formData, setFormData] = useState({
-        userId:"",
-        approvedBy:"",
+        userId: "",
+        approvedBy: "",
         userName: "",
         startDate: '',
         endDate: '',
@@ -18,7 +20,7 @@ const AddLeave = ({ onClose }) => {
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
     const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const filteredData = user.filter(item => item.accessId == "1");
@@ -30,7 +32,7 @@ const AddLeave = ({ onClose }) => {
             [e.target.name]: e.target.value
         });
     };
-    
+
 
     const handleDateChange = (name, date) => {
         setFormData({
@@ -42,23 +44,22 @@ const AddLeave = ({ onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        const newErrors = {};
-        if(!formData?.approvedBy){
-            newErrors.approvedBy = "required"
-        }else if (!formData.startDate) {
-            newErrors.startDate = 'Starting date is required';
-        }else if (!formData.endDate) {
-            newErrors.endDate = 'Ending date is required';
-        }else if (!formData.reason) {
-            newErrors.reason = 'Reason is required';
-        }
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            setIsSubmitting(false);
-            return;
-        }
-
         try {
+            const newErrors = {};
+            if (!formData?.approvedBy) {
+                newErrors.approvedBy = "required"
+            } else if (!formData.startDate) {
+                newErrors.startDate = 'Starting date is required';
+            } else if (!formData.endDate) {
+                newErrors.endDate = 'Ending date is required';
+            } else if (!formData.reason) {
+                newErrors.reason = 'Reason is required';
+            }
+            if (Object.keys(newErrors).length > 0) {
+                setErrors(newErrors);
+                //setIsSubmitting(false);
+                return;
+            }
             await dispatch(LeaveQuery(formData)).unwrap();
             dispatch(fetchLeave());
             setFormData({
@@ -66,7 +67,7 @@ const AddLeave = ({ onClose }) => {
                 endDate: '',
                 reason: ''
             });
-            setErrors({});
+
             onClose();
         } catch (error) {
             console.error('Failed to add leave:', error);
@@ -75,7 +76,7 @@ const AddLeave = ({ onClose }) => {
         }
     };
 
-   
+
     // useEffect(() => {
     //     const storedUser = localStorage.getItem('user');
     //     if (storedUser) {
@@ -90,8 +91,8 @@ const AddLeave = ({ onClose }) => {
             setUserDetail(parsedUser);
             setFormData((prevValues) => ({
                 ...prevValues,
-                userName: parsedUser?.data?.firstName ,
-               userId:parsedUser?.data?._id
+                userName: parsedUser?.data?.firstName,
+                userId: parsedUser?.data?._id
 
             }));
         }
@@ -100,6 +101,8 @@ const AddLeave = ({ onClose }) => {
     useEffect(() => {
         dispatch(assignUsers());
     }, [dispatch]);
+
+    
 
     return (
         <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
@@ -160,9 +163,10 @@ const AddLeave = ({ onClose }) => {
                                 readOnly
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
-                             {errors?.userName && <p className="text-red-500 text-sm">{errors?.userName}</p>}
+                            {errors?.userName && <p className="text-red-500 text-sm">{errors?.userName}</p>}
                         </div>
                     </div>
+                    
                     <div className="flex space-x-2">
                         <div className="flex-1">
                             <label htmlFor="startDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
@@ -173,12 +177,13 @@ const AddLeave = ({ onClose }) => {
                                 selected={formData?.startDate}
                                 onChange={(date) => handleDateChange('startDate', date)}
                                 dateFormat="yyyy/MM/dd"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                             {errors.startDate && <p className="text-red-500 text-sm">{errors.startDate}</p>}
                         </div>
                         <div className="flex-1">
                             <label htmlFor="endDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
+
                                 End date
                             </label>
                             <DatePicker
@@ -186,7 +191,7 @@ const AddLeave = ({ onClose }) => {
                                 selected={formData.endDate}
                                 onChange={(date) => handleDateChange('endDate', date)}
                                 dateFormat="yyyy/MM/dd"
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                             {errors.endDate && <p className="text-red-500 text-sm">{errors.endDate}</p>}
                         </div>
@@ -196,11 +201,10 @@ const AddLeave = ({ onClose }) => {
                             Reason:
                         </label>
                         <textarea
-                            id="reason"
                             name="reason"
+                            placeholder="write your reason..."
                             value={formData?.reason}
                             onChange={handleChange}
-                            required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         {errors.reason && <p className="text-red-500 text-sm">{errors.reason}</p>}
@@ -208,9 +212,9 @@ const AddLeave = ({ onClose }) => {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     >
-                        {isSubmitting ? 'Submitting...' : 'Submit'}
+                        {isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Submit"}
                     </button>
                 </form>
             </div>

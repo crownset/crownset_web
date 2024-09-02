@@ -12,6 +12,7 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     const filteredData = user.filter(item => item.accessId == "1");
     const [userDetail, setUserDetail] = useState(null);
 
+
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -26,7 +27,8 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
         startDate: new Date(),
         endDate: new Date(),
         reason: '',
-        queryId: "" // Include queryId in the form state
+        queryId: "",
+        status:null,
     });
 
     useEffect(() => {
@@ -38,7 +40,8 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                 startDate: new Date(queryData.startDate) || new Date(),
                 endDate: new Date(queryData.endDate) || new Date(),
                 reason: queryData.reason || '',
-                queryId: queryData._id || '' // Ensure queryId is set from queryData
+                queryId: queryData._id || '',
+                status: queryData.status || false
             });
         }
     }, [queryData]);
@@ -58,16 +61,18 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     const handleDateChange = (name, date) => {
         setFormData((prevValues) => ({
             ...prevValues,
-            [name]: date.toISOString() // Ensure dates are in ISO format
+            [name]: date.toISOString()
         }));
     };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting form data:", formData);
 
         try {
-            // Ensure queryId is included in the request payload
+
             const result = await dispatch(editLeave({ queryId: formData.queryId, updatedData: formData })).unwrap();
             console.log("Update result:", result);
 
@@ -83,11 +88,15 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+        <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+        <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
+            <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                    Update Leave
+                </h3>
                 <button
                     type="button"
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white "
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     onClick={onClose}
                 >
                     <svg
@@ -107,8 +116,7 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                     </svg>
                     <span className="sr-only">Close modal</span>
                 </button>
-
-                <h2 className="text-2xl font-semibold mb-4 flex text-left">Update Leave</h2>
+            </div>
                 <form onSubmit={handleSubmit}>
                     <div className="flex mb-2 space-x-2">
                         <div className='flex-1'>
@@ -149,7 +157,7 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                             </label>
                             <DatePicker
                                 id="startDate"
-                                selected={new Date(formData.startDate)} // Convert to Date object
+                                selected={new Date(formData.startDate)}
                                 onChange={(date) => handleDateChange('startDate', date)}
                                 dateFormat="yyyy/MM/dd"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -161,13 +169,41 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                             </label>
                             <DatePicker
                                 id="endDate"
-                                selected={new Date(formData.endDate)} // Convert to Date object
+                                selected={new Date(formData.endDate)} git
                                 onChange={(date) => handleDateChange('endDate', date)}
                                 dateFormat="yyyy/MM/dd"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             />
                         </div>
                     </div>
+                    {
+                        userDetail?.data?.accessId === 1 ? (
+                            <div className="mb-4">
+                            <label htmlFor="isApproved" className="block text-sm font-medium text-gray-700 text-left">
+                                Approve Leave:
+                            </label>
+                            <div className="flex items-center">
+                                <select
+                                    id="status"
+                                    name="status"
+                                    value={formData?.status}
+                                    defaultValue="pending"
+                                    onChange={handleChange}
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    >
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Reject">Reject</option>
+                                </select>
+                            </div>
+                        </div>
+                        ) : (
+                            null
+                        )
+                    }
+               
+
+
                     <div className="mb-4">
                         <label htmlFor="reason" className="block text-sm font-medium text-gray-700 text-left">
                             Reason:
@@ -180,8 +216,10 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        
                     </div>
-                    <button
+                    
+                      <button
                         type="submit"
                         className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-xs font-semibold text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                     >
