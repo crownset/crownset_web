@@ -112,7 +112,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
             return toast.error("Error in updating todo status")
         }
     }
-    console.log(!taskList.is_complete);
+    // console.log(!taskList.is_complete);
     return (
         <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
 
