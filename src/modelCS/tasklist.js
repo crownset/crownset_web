@@ -25,8 +25,12 @@ const TaskListSchema = new Schema(
             type:Boolean,
             default:false
         },
-        
-        
+        status: {
+            type: String,
+            enum: ['ontime', 'delay', 'incomplete'],
+            default: 'incomplete'
+        }
+                
     },
     {
         timestamps: true

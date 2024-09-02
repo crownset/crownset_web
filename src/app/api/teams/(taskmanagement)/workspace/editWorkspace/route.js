@@ -5,11 +5,9 @@ export async function PUT(request){
      dbConnect();
     // const {workspace_id} = await params;
     try {
-        const {name,workspace_id} = await request.json();
-        
-        
-       
-        const workspace = await Workspace.findOneAndUpdate({_id:workspace_id},{name},{new :true})
+        const {updateName,workspace_id} = await request.json();
+               
+        const workspace = await Workspace.findOneAndUpdate({_id:workspace_id},{$set:{name:updateName}},{new :true})
         return NextResponse.json({message:"Workspace name updated",data:workspace},{status:200});
 
     } catch (error) {

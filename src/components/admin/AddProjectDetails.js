@@ -69,8 +69,8 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(addProject(formValues)).unwrap();
-            setIsSuccessModalOpen(true); // Show success modal
             dispatch(fetchProjects());
+            setIsSuccessModalOpen(true);
             setFormValues({
                 name: "",
                 email: "",
@@ -276,7 +276,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
 
                     </div>
                 </form>
-               
+               <SuccessModal isOpen={is}/>
             </div>
         </div>
     );

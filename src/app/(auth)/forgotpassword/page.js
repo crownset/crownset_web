@@ -24,7 +24,6 @@ const Page = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (email.trim() === "") {
             setErrors(true);
             return;
@@ -87,7 +86,7 @@ const Page = () => {
                                     <BeatLoader
                                         color={"#FFFFFF"}
                                         size={10}
-                                        aria-label="Loading Spinner"
+                                         aria-label="Loading Spinner"
                                         data-testid="loader"
                                     />
                                 )
