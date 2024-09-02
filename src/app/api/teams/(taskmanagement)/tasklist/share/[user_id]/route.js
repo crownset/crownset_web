@@ -47,9 +47,15 @@ export async function PUT(request, { params }) {
         // const isUserExistInList = await TaskList.findOne({},{ assign_to: user_id });
         if (list.assign_to.length > 0) {
             const isUserExistInList = list.assign_to.filter((user) => user == user_id)
-            if (isUserExistInList) {
-                return NextResponse.json({ message: "User already present" }, { status: 400 });
+            if (!isUserExistInList) {
+                const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {
+                    $push: { assign_to: user_id }
+                }, { new: true });
             }
+        } else {
+            const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {
+                $push: { assign_to: user_id }
+            }, { new: true });
         }
 
 
@@ -63,22 +69,23 @@ export async function PUT(request, { params }) {
 
         if (workspace.members.length > 0) {
             const isUserExistInWorkspace = workspace.members.filter((user) => user == user_id)
-            if (isUserExistInWorkspace) {
-                return NextResponse.json({ message: "User already present" }, { status: 400 });
+            if (!isUserExistInWorkspace) {
+                const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
+                    $push: { members: user_id }
+                }, { new: true });
             }
 
-
-
+        }
+        else {
+            const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
+                $push: { members: user_id }
+            }, { new: true });
         }
 
-        const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
-            $push: { members: user_id }
-        }, { new: true });
 
 
-        const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {
-            $push: { assign_to: user_id }
-        }, { new: true });
+
+
 
 
 
