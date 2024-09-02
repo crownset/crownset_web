@@ -1,5 +1,11 @@
 "use client"
-import { setIsAssginedUserModal, setIsEditTaskListModal, setIsShareModal, setIsTodoEditModal, setIsTodoLabelsModal } from '@/redux/slices/misc';
+import {
+  setIsAssginedUserModal,
+  setIsEditTaskListModal,
+  setIsShareModal,
+  setIsTodoEditModal,
+  setIsTodoLabelsModal
+} from '@/redux/slices/misc';
 import { createlist, deleteTasklist, editList, fetchTasklist } from '@/redux/slices/tasklistSlice';
 import { useEffect, useState } from 'react';
 import { BsPlus as PlusIcon } from "react-icons/bs";
@@ -127,7 +133,7 @@ export default function TaskList({ workspace_id }) {
       toast.error("Failed to Edit Task List")
 
     }
-    
+
   }
 
 

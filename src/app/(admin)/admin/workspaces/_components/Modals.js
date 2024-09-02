@@ -1,15 +1,15 @@
 "use client"
+import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
+import { editTodo, fetchTasklist, shareList, showWorkingUser, todoLabel } from "@/redux/slices/tasklistSlice";
 import { assignUsers } from "@/redux/slices/userSlice";
+import moment from "moment";
 import { useEffect, useState } from "react";
-import { IoMdClose as CloseIcon } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from "moment";
-import { editTodo, fetchTasklist, shareList, showWorkingUser, todoLabel } from "@/redux/slices/tasklistSlice";
-import { toast } from "react-toastify";
-import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
+import { IoMdClose as CloseIcon } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 
 export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave, workspace_id }) => {
@@ -35,8 +35,16 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
                     </div>
 
                     <div className="p-4 md:p-5 space-y-4">
-                        <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-blue-500 p-1 rounded" />
-                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
+                        <input
+                            value={updateName} onChange={(e) => setUpdateName(e.target.value)}
+                            className="outline outline-blue-500 p-1 rounded"
+                        />
+                        <button
+                            onClick={onSave}
+                            className=" bg-blue-500 text-white p-1 rounded"
+                        >
+                            Save
+                        </button>
                     </div>
 
                 </div>
@@ -59,10 +67,10 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
         const fetchuser = async () => {
             try {
                 await dispatch(assignUsers());
-                
+
             } catch (error) {
-                
-               return toast.error("Failed To show user");
+
+                return toast.error("Failed To show user");
             }
         }
         fetchuser();
@@ -262,9 +270,6 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
                 // console.log("call");
                 await dispatch(showWorkingUser({ tasklist_id }))
 
-
-
-
             } catch (error) {
                 console.log("Error in showing user")
 
@@ -298,7 +303,12 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
                     <div className="p-4 md:p-5 space-y-4">
                         {
                             workinguser?.map((user, index) => (
-                                <li key={index} className="list-none bg-gray-300 w-full p-2 rounded-md"><span className="text-black ">{user?.firstName}</span></li>
+                                <li
+                                    key={index}
+                                    className="list-none bg-gray-300 w-full p-2 rounded-md"
+                                >
+                                    <span className="text-black ">{user?.firstName}</span>
+                                </li>
                             ))
 
 
@@ -362,7 +372,10 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
 
                     <div className="p-4 md:p-5 space-y-4">
                         {/* <div>Edit Todo Modal</div> */}
-                        <input value={title} onChange={(e) => setTitle(e.target.value)} className="outline outline-blue-500 p-1 rounded" />
+                        <input
+                            value={title} onChange={(e) => setTitle(e.target.value)}
+                            className="outline outline-blue-500 p-1 rounded"
+                        />
                         <button
                             onClick={onSave}
                             className=" bg-blue-500 text-white p-1 rounded"
@@ -428,22 +441,16 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
                         </button>
                     </div>
-                    {/* #F87168*/}
-                    {/* <div className="p-4 md:p-5 space-y-4">
-                        <div className="w-full h-[2rem] bg-[#4BCE97] cursor-pointer rounded-sm hover:bg-[#7EE2B8]"></div>
-                        <div className="w-full h-[2rem] bg-[#F5CD47] cursor-pointer rounded-sm hover:bg-[#E2B203]"></div>
-                        <div className="w-full h-[2rem] bg-[#FEA362] cursor-pointer rounded-sm hover:bg-[#FEC195]"></div>
-                        <div className="w-full h-[2rem] bg-[#F87168] cursor-pointer rounded-sm hover:bg-[#FD9891]"></div>
-                        {/* <input value={updateName} onChange={(e) => setUpdateName(e.target.value)} className="outline outline-primary-color p-1 rounded" /> */}
-                    {/* <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
-                    </div> */}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="w-full">
                             <label className="block text-sm font-medium text-gray-700 mb-2">Label</label>
                             <div className="flex flex-col gap-4 justify-center items-center w-full ">
                                 {labels.map((label) => (
-                                    <div key={label.value} className="flex items-center w-full ">
+                                    <div
+                                        key={label.value}
+                                        className="flex items-center w-full "
+                                    >
                                         <input
                                             type="radio"
                                             id={label.value}

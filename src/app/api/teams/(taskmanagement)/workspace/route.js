@@ -29,6 +29,10 @@ export async function POST(request) {
               return NextResponse.json({message:"You are not authorized"},{status:401})  
         }
         const reqBody =  await request.json();
+
+        if(reqBody.name ==''){
+            return NextResponse.json({message:"workspace name is required"},{status:404});
+        }
         
         
         const newWorkspace = new Workspace({
