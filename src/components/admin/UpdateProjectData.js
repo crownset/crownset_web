@@ -5,8 +5,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { assignUsers } from '@/redux/slices/userSlice';
 import { editProject, fetchProjects } from '@/redux/slices/projectSlice';
 import { toast } from 'react-toastify';
+import { openEditProjectModal } from '@/redux/slices/uiSlice';
 
-const UpdateProjectData = ({ isOpen, onClose, queryData }) => {
+const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const [userDetail, setUserDetail] = useState(null);
@@ -72,7 +73,8 @@ const UpdateProjectData = ({ isOpen, onClose, queryData }) => {
         try {
             await dispatch(editProject({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
             dispatch(fetchProjects());
-            onClose();
+            dispatch(openEditProjectModal(false))
+            onSuccess()
         } catch (error) {
             console.error('Update failed:', error);
         }
@@ -110,7 +112,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData }) => {
                         <span className="sr-only">Close modal</span>
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="p-3">
+                <form onSubmit={handleSubmit} className="p-3" autoComplete='off'>
                     <div className="grid gap-2 mb-4">
                         <div className="flex space-x-2">
                             <div className="flex-1">

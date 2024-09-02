@@ -15,17 +15,16 @@ import { CustomLoader } from '@/components/CustomLoader';
 import { FaPlus } from "react-icons/fa6";
 import SuccessLottie from '@/components/admin/SuccessLottie';
 import SuccessModal from '@/components/admin/SuccessLottie';
-import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddModal, openDeleteLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddLeadModal, openAddModal, openDeleteLeadModal, openEditLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import { RxCross2 } from 'react-icons/rx';
-
 
 const Page = () => {
     const dispatch = useDispatch();
     const { data, loading, error } = useSelector((state) => state.data);
-    const { isModalOpen, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
+    const { isModalOpen, isEditLeadModalOpen, isAddLeadModal, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
     const [user, setUser] = useState(null);
-
     const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+    const [isEditSuccessModal, setIsEditSuccessModal] = useState(false)
     const handleShowSuccessModal = () => {
         setIsSuccessModalVisible(true);
     };
@@ -49,7 +48,7 @@ const Page = () => {
                 dispatch(fetchData());
             } catch (error) {
                 toast.error('Failed to delete query!');
-            }finally {
+            } finally {
                 dispatch(openSuccessModal(true));
             }
         }
@@ -88,7 +87,7 @@ const Page = () => {
             ) : (
                 <>
                     <div className='flex justify-end'>
-                        <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddModal(!isAddModalOpen))}>
+                        <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
                             <span><FaPlus /></span>
                             <span>Lead</span>
                         </button>
@@ -148,7 +147,7 @@ const Page = () => {
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">
                                             <div className='flex gap-3 justify-center items-center'>
-                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditModal(item))}>
+                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditLeadModal(item))}>
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
                                                 {
@@ -181,9 +180,10 @@ const Page = () => {
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
-            <UpdateForm isOpen={isEditModalOpen} onClose={() => dispatch(closeEditModal())} queryData={selectedQueryData} />
-            <AddLead openProject={isAddModalOpen} onCloseProject={() => dispatch(closeAddModal())} onSuccess={handleShowSuccessModal} />
+            <UpdateForm isOpen={isEditLeadModalOpen} onClose={() => dispatch(openEditLeadModal(false))} queryData={selectedQueryData} onSuccess={() => setIsEditSuccessModal(true)} />
+            <AddLead openProject={isAddLeadModal} onCloseProject={() => dispatch(openAddLeadModal(false))} onSuccess={handleShowSuccessModal} />
             <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Lead Saved Successfully."} />
+            <SuccessModal isOpen={isEditSuccessModal} onClose={() => setIsEditSuccessModal(false)} title={"Lead Edited Successfully."} />
             <SuccessModal isOpen={isSuccessModalOpen} onClose={() => dispatch(openSuccessModal(false))} title={"Lead Deleted Successfully."} />
             {/* <SuccessModal
                 // isOpen={isAddSuccessModal}

@@ -8,7 +8,7 @@ import { closeEditSuccessModal, openEditSuccessModal } from '@/redux/slices/uiSl
 import SuccessModal from './SuccessLottie';
 import { CustomLoader } from '../CustomLoader';
 
-const UpdateForm = ({ isOpen, onClose, queryData }) => {
+const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user, loading, error } = useSelector((state) => state.user);
     const { isEditSuccessfull } = useSelector((state) => state.ui)
@@ -65,9 +65,9 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
         e.preventDefault();
         try {
             await dispatch(editQuery({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
+             onClose();
             dispatch(fetchData());
-            dispatch(openEditSuccessModal());
-            //  onClose();
+            onSuccess()
         } catch (error) {
             console.error('Update failed:', error);
         }
@@ -77,7 +77,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
 
     return (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-4 md:p-5 max-w-md w-full">
+            <div className="bg-white rounded-3xl shadow dark:bg-gray-700 p-2 md:p-3 max-w-md w-full">
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                         Update Query
@@ -106,10 +106,10 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className="p-4 md:p-5">
-                    <div className="grid gap-4 mb-4">
+                    <div className="grid gap-4 mb-2">
                         <div className="flex space-x-4">
                             <div className="flex-1">
-                                <label htmlFor="assignTo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="assignTo" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Assign To
                                 </label>
                                 <select
@@ -129,7 +129,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                                 </select>
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="followUp" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="followUp" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Follow Up
                                 </label>
                                 <select
@@ -146,7 +146,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                         </div>
                         <div className="flex space-x-4">
                             <div className="flex-1">
-                                <label htmlFor="lastFollowUp" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="lastFollowUp" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Last Follow Up
                                 </label>
                                 <DatePicker
@@ -156,7 +156,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                                 />
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="remarks" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="remarks" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                                     Remarks
                                 </label>
                                 <select
@@ -175,7 +175,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                     </div>
                     <div>
                         <input
-                            className="border mb-4 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="border mb-2 rounded-xl w-full h-[5rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="comments"
                             name='comments'
                             placeholder="write your Comment..."
@@ -188,7 +188,7 @@ const UpdateForm = ({ isOpen, onClose, queryData }) => {
                         type="submit"
                         className="w-full text-default inline-flex items-center justify-center bg-dashboard focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-[#93969A]"
                     > {
-                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : " Update Query"
+                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Update Query"
                         }
 
                     </button>

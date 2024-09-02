@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { CustomLoader } from '../CustomLoader';
-import { closeAddModal, closeAddSuccessModal, closeSuccessModal, openAddSuccessModal, openSuccessModal } from '@/redux/slices/uiSlice';
+import { closeAddModal, closeAddSuccessModal, closeSuccessModal, openAddLeadModal, openAddSuccessModal, openEditLeadModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import SuccessModal from './SuccessLottie';
 
 const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
@@ -79,7 +79,8 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                 return;
             }
             await dispatch(postQuery(formValues)).unwrap();
-            dispatch(closeAddModal())
+            // dispatch(openEditLeadModal(false))
+            dispatch(openAddLeadModal(false))
             onSuccess()
             dispatch(fetchData());
             setFormValues({
@@ -110,7 +111,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={() => dispatch(closeAddModal())}
+                        onClick={() => dispatch(openAddLeadModal(false))}
                     >
                         <svg
                             className="w-3 h-3"
@@ -130,7 +131,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                         <span className="sr-only">Close modal</span>
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="p-2">
+                <form onSubmit={handleSubmit} className="p-2" autoComplete='off'>
                     <div className="grid gap-2 mb-2">
                         <div className="flex space-x-2">
                             <div className="flex-1">
