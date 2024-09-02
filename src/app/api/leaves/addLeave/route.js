@@ -55,7 +55,8 @@ export async function POST(request){
             reason,
             startDate,
             endDate,
-            approvedBy
+            approvedBy,
+            appliedDate: Date.now()
         })
         await leave.save()
 
