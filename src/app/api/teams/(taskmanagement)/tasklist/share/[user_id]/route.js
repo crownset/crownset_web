@@ -3,13 +3,24 @@ import { UserCS } from "@/modelCS/user";
 import { NextResponse } from "next/server";
 import TaskList from "@/modelCS/tasklist";
 import Workspace from "@/modelCS/workspace";
+import jwt from 'jsonwebtoken'
 
 
 // assign list to user
 export async function PUT(request, { params }) {
-    dbConnect();
+    await dbConnect();
     try {
 
+        const token = request.cookies.get("authToken:")?.value || '';
+
+        if (!token) {
+            return NextResponse.json({ message: "Please Login First" }, { status: 401 })
+        }
+
+        const decode = await jwt.verify(token, process.env.SECRET_KEY)
+        if (!decode) {
+            return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
+        }
 
         const { user_id } = params;
 
@@ -48,14 +59,21 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ message: "workspace not found" }, { status: 404 });
 
         }
-        const isUserExistInWorspace = await Workspace.findOne({ members: user_id });
+        // const isUserExistInWorspace = await Workspace.findOne({ members: user_id });
 
-        if (!isUserExistInWorspace) {
-            const workspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
-                $push: { members: user_id }
-            }, { new: true });
+        if (workspace.members.length > 0) {
+            const isUserExistInWorkspace = workspace.members.filter((user) => user == user_id)
+            if (isUserExistInWorkspace) {
+                return NextResponse.json({ message: "User already present" }, { status: 400 });
+            }
+
+
+
         }
 
+        const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
+            $push: { members: user_id }
+        }, { new: true });
 
 
         const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {

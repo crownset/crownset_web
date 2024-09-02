@@ -13,6 +13,7 @@ export async function POST(request) {
 
 
     try {
+        
         const reqBody = await request.json();
 
         const token = request.cookies.get("authToken:")?.value || '';

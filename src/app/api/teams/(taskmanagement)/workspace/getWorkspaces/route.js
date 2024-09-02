@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 //get all workspaces created by user and assigned to user
 export async function GET(request) {
-    dbConnect()
+    await dbConnect()
     try {
         const token = request.cookies.get("authToken:")?.value || '';
 
