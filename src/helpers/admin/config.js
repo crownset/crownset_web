@@ -38,6 +38,26 @@ export const logoutItem = {
     icon: FaSignOutAlt,
 };
 
+
+export const servicesOptions = [
+    {
+      id: 1,
+      name: 'Digital Marketing'
+    },
+    {
+      id: 2,
+      name: 'Social Media Marketing'
+    },
+    {
+      id: 3,
+      name: "Business Solutions"
+    },
+    {
+      id: 4,
+      name: "IT Services"
+    }
+  ];
+
 export const DoughnutChartData = [
     {
         lable : "mature",

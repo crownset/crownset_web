@@ -10,6 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
+import * as Config from "@/helpers/admin/config"
 
 const FreeAudit = () => {
   const dispatch = useDispatch();
@@ -17,26 +18,7 @@ const FreeAudit = () => {
   const { loading, error , data} = useSelector((state) => state.data);
   const [queryCredential, setQueryCredential] = useState({ fullName: "", email: "", contact: "", businessName: "", queryContent: "", leadBy: "test lead", service: "" });
   const [errors, setErrors] = useState({});
-
-  const options = [
-    {
-      id: 1,
-      name: 'Digital Marketing'
-    },
-    {
-      id: 2,
-      name: 'Social Media Marketing'
-    },
-    {
-      id: 3,
-      name: "Business Solutions"
-    },
-    {
-      id: 4,
-      name: "IT Services"
-    }
-  ];
-
+  
   const handleChange = (e) => {
     setQueryCredential({ ...queryCredential, [e.target.name]: e.target.value });
     if (errors[e.target.name]) {
@@ -169,7 +151,7 @@ const FreeAudit = () => {
               {errors.businessName && <p className="text-red-500 text-sm">{errors.businessName}</p>}
             </div>
             <Select
-              options={options}
+              options={Config?.servicesOptions}
               placeholder="Select Service"
               labelField="name"
               valueField="id"

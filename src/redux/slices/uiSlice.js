@@ -3,12 +3,21 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isModalOpen: false,
-    isEditModalOpen: false,
+    isSuccessModalOpen: false,
+    isAddLeadModal:false,
+    //project
+    isAddProjectDetails:false,
+    isEditProjectDetails:false,
+    isEditProjectID:null,
+    isDeleteProjectID:null,
+    isDeleteProject:false,
+    // old
+    isEditLeadModalOpen: false,
     isAddModalOpen: false,
     isAddSuccessModal:false,
     isEditSuccessfull:false,
     isQueryModalOpen: false,
-    isSuccessModalOpen: false,
+    
     selectedQueryId: null,
     selectedQueryData: null,
     isAutoSuccess:false,
@@ -19,22 +28,34 @@ const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        openModal: (state, action) => {
-            state.isModalOpen = true;
+        //leads page state
+        openDeleteLeadModal: (state, action) => {
+            state.isModalOpen = action.payload;
             state.selectedQueryId = action.payload;
         },
-        closeModal: (state) => {
-            state.isModalOpen = false;
-            state.selectedQueryId = null;
+        openSuccessModal: (state, action) => {
+            state.isSuccessModalOpen = action.payload;
         },
-        openEditModal: (state, action) => {
-            state.isEditModalOpen = true;
+        openEditLeadModal: (state, action) => {
+            state.isEditLeadModalOpen = action.payload;
             state.selectedQueryData = action.payload;
         },
-        closeEditModal: (state) => {
-            state.isEditModalOpen = false;
-            state.selectedQueryData = null;
+        openAddLeadModal: (state, action)=>{
+            state.isAddLeadModal = action.payload;
         },
+        //project page state
+        openAddPojectDetails:(state, action)=>{
+            state.isAddProjectDetails = action.payload
+        },
+        openEditProjectModal:(state , action)=>{
+            state.isEditProjectDetails = action.payload
+            state.isEditProjectID = action.payload;
+        },
+        openDeleteProjects:(state, action)=>{
+            state.isDeleteProject = action.payload
+            state.isDeleteProjectID = action.payload
+        },
+        // old
         openAddModal: (state) => {
             state.isAddModalOpen = true;
         },
@@ -48,9 +69,6 @@ const uiSlice = createSlice({
         closeQueryModal: (state) => {
             state.isQueryModalOpen = false;
             state.fullQuery = "";
-        },
-        openSuccessModal: (state) => {
-            state.isSuccessModalOpen = true;
         },
         closeSuccessModal: (state) => {
             state.isSuccessModalOpen = false;
@@ -77,6 +95,14 @@ const uiSlice = createSlice({
 });
 
 export const {
+    openDeleteLeadModal,
+    openEditLeadModal,
+    openAddLeadModal,
+    // project
+    openAddPojectDetails,
+    openEditProjectModal,
+    openDeleteProjects,
+    //old
     openModal,
     closeModal,
     openEditModal,
