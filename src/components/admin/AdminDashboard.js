@@ -79,7 +79,7 @@ const AdminDashboard = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="flex">
+            <div className="flex ">
                 <div
                     className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col z-30`}
                 >
@@ -140,6 +140,11 @@ const AdminDashboard = () => {
                         </ul>
                     </div>
                 </div>
+<<<<<<< HEAD
+                <div className={`fixed w-full flex items-center bg-[#f5f6fa] p-4 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300 ease-in-out shadow z-50`}>
+                    <div className='w-[16rem] text-2xl font-semibold'>
+                        <h1>Dashboard</h1>
+=======
                 <div className={`fixed w-full flex items-center justify-between bg-default p-4 ${isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0 md:ml-20'} transition-all duration-300 ease-in-out shadow-md z-10`}>
 
                     <div className='flex items-center w-[60%]'>
@@ -164,6 +169,7 @@ const AdminDashboard = () => {
                         <button onClick={openDetailsModal}>
                             <IoPersonCircleSharp className="h-7 w-7  text-dashboard" />
                         </button>
+>>>>>>> main
                     </div>
                 </div>
             </div>
