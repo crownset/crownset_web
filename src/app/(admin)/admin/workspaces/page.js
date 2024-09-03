@@ -1,15 +1,15 @@
 "use client"
 import { BsPlus as PlusIcon } from "react-icons/bs";
 
+import { createWorkspace, deleteWorkspace, editWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createWorkspace, deleteWorkspace, editWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice'
-import { toast, ToastContainer } from 'react-toastify';
-import { MoonLoader, BeatLoader } from "react-spinners";
+import { BeatLoader, MoonLoader } from "react-spinners";
+import { toast } from 'react-toastify';
 // import { BsThreeDots as EditIcon} from "react-icons/bs";
-import { PiDotsThreeOutlineThin as EditIcon } from "react-icons/pi";
 import { IoMdClose as CloseIcon } from "react-icons/io";
+import { PiDotsThreeOutlineThin as EditIcon } from "react-icons/pi";
 import { EditWorkspaceModal } from "./_components/Modals";
 
 const Workspace = () => {
@@ -113,6 +113,10 @@ const Workspace = () => {
 
     const handleAddWorkspace = async () => {
 
+        if(newWorkspace==''){
+            return toast.error("workspaace name is required");
+        }
+
         const data = {
             name: newWorkspace, craetedBy: user.data._id
         }
@@ -194,21 +198,43 @@ const Workspace = () => {
                                             className="bg-gray-200 relative p-2 h-[4rem] text-[1rem] shadow-sm md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2">
                                             {
                                                 user?.data?.accessId == 1 && (
-                                                    <span className="absolute top-1 right-1 cursor-pointer hover:bg-gray-300 hover:rounded-full p-2" onClick={() => { handleEditWorkspace(index) }}><EditIcon /></span>
+                                                    <span
+                                                        className="absolute top-1 right-1 cursor-pointer hover:bg-gray-300 hover:rounded-full p-2"
+                                                        onClick={() => { handleEditWorkspace(index) }}
+                                                    >
+                                                        <EditIcon />
+                                                    </span>
                                                 )
                                             }
 
                                             {
                                                 workspaceIndex == index && (
                                                     <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10">
-                                                        <CloseIcon className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1" onClick={handleCloseEditWorkspace} />
+                                                        <CloseIcon
+                                                            className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1"
+                                                            onClick={handleCloseEditWorkspace}
+                                                        />
 
-                                                        <span className="cursor-pointer hover:bg-gray-200 pl-2" onClick={() => { handleOpenModal(index) }}>Edit</span>
-                                                        <span onClick={handleDeleteWorkspace} className="cursor-pointer hover:bg-gray-200 pl-2">Delete</span>
+                                                        <span
+                                                            className="cursor-pointer hover:bg-gray-200 pl-2"
+                                                            onClick={() => { handleOpenModal(index) }}
+                                                        >
+                                                            Edit
+                                                        </span>
+                                                        <span
+                                                            onClick={handleDeleteWorkspace}
+                                                            className="cursor-pointer hover:bg-gray-200 pl-2"
+                                                        >
+                                                            Delete
+                                                        </span>
                                                     </div>
                                                 )
                                             }
-                                            <Link href={`/admin/workspaces/${workspace?._id}`} key={index} className="text-bodyTextColor font-semibold hover:bg-gray-300  hover:rounded-2xl py-2 px-4">
+                                            <Link
+                                                href={`/admin/workspaces/${workspace?._id}`}
+                                                key={index}
+                                                className="text-bodyTextColor font-semibold hover:bg-gray-300  hover:rounded-2xl py-2 px-4"
+                                            >
                                                 {workspace?.name}
                                             </Link>
                                         </li>

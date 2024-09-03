@@ -45,6 +45,7 @@ export const createWorkspace = createAsyncThunk(
 
         try {
             const res = await axios.post('/api/teams/workspace', data);
+            
             return res.data.data;
         } catch (error) {
             console.log(error);

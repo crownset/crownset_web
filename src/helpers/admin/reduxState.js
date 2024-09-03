@@ -44,3 +44,19 @@ export const handleCases = (builder, asyncThunk, statusKey) => {
             state.error = action.payload;
         });
 };
+
+export const handleLeaveActions = (builder, action, initialState = {}) => {
+    builder
+        .addCase(action.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(action.fulfilled, (state, action) => {
+            state.leave = action.payload;
+            state.loading = false;
+        })
+        .addCase(action.rejected, (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        })
+};

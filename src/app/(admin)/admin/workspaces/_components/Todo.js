@@ -37,12 +37,10 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     const [newTodo, setNewTodo] = useState('');
     const [todos, setTodos] = useState(taskList?.todo);
     const [showAddTodo, setShowAddTodo] = useState(false);
-    // console.log(todos[0].label==="Urgent");
-
+    
     const list_id = taskList?._id;
 
-    // console.log(taskList)
-    console.log(user);
+   
     useEffect(() => {
 
         const storedUser = localStorage.getItem('user');

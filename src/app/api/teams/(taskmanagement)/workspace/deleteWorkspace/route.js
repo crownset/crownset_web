@@ -7,12 +7,12 @@ import jwt from 'jsonwebtoken'
 export async function PUT(request) {
     dbConnect()
     try {
-        console.count("here");
+
         const reqBody = await request.json();
-        console.count("here")
+
         const token = request.cookies.get("authToken:")?.value || '';
 
-        // console.log(reqBody);
+
 
         if (!token) {
             return NextResponse.json({ message: "Please Login First" }, { status: 401 })

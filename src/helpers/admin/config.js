@@ -22,6 +22,10 @@ export const menuItems = [
         icon: SiPowerpages,
     },
     {
+        name: "Leaves",
+        href: "/admin/leaves",
+        icon: SiPowerpages,
+    },{
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,
@@ -37,6 +41,26 @@ export const logoutItem = {
     name: "Logout",
     icon: FaSignOutAlt,
 };
+
+
+export const servicesOptions = [
+    {
+      id: 1,
+      name: 'Digital Marketing'
+    },
+    {
+      id: 2,
+      name: 'Social Media Marketing'
+    },
+    {
+      id: 3,
+      name: "Business Solutions"
+    },
+    {
+      id: 4,
+      name: "IT Services"
+    }
+  ];
 
 export const DoughnutChartData = [
     {

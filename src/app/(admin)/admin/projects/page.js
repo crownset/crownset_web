@@ -13,15 +13,22 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomLoader } from '@/components/CustomLoader';
 import { FaPlus } from 'react-icons/fa';
+import { openAddPojectDetails, openEditProjectModal } from '@/redux/slices/uiSlice';
+import SuccessModal from '@/components/admin/SuccessLottie';
 
 const Page = () => {
   const dispatch = useDispatch();
   const { project, loading, error } = useSelector((state) => state.project);
+  const { isAddProjectDetails, isEditProjectDetails, isEditProjectID } = useSelector((state) => state.ui)
   console.log("project====>", project)
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+  const [isEditSuccess, setIsEditSuccess] = useState(false)
+
+  
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedQueryId, setSelectedQueryId] = useState(null);
-  const [selectedQueryData, setSelectedQueryData] = useState(null);
+  // const [selectedQueryData, setSelectedQueryData] = useState(null);
   const [isAddModalOpen, setAddModalOpen] = useState(false);
 
   useEffect(() => {
@@ -59,7 +66,7 @@ const Page = () => {
   const handleConfirm = async () => {
     if (selectedQueryId) {
       try {
-        await dispatch(deleteProject(selectedQueryId)).unwrap();
+        await dispatch(deleteProject()).unwrap();
         dispatch(fetchProjects());
         toast.success('Project successfully deleted!');
       } catch (error) {
@@ -94,7 +101,7 @@ const Page = () => {
             {/* {project.length > 0 ? (
             <> */}
             <div className='flex justify-end w-[98%] m-auto'>
-              <button className='bg-dashboard text-default text-sm  gap-1 text-center py-2 px-5 flex items-center rounded-3xl my-3 text-[12px]' onClick={openAddModal}>
+              <button className='bg-dashboard text-default text-sm  gap-1 text-center py-2 px-5 flex items-center rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddPojectDetails(true))}>
                 <span><FaPlus /></span>
                 <span>Project</span>
               </button>
@@ -131,7 +138,7 @@ const Page = () => {
                       <td className="py-2 border-b text-[12px] text-center">{moment(item?.deadLine).format('LL')}</td>
                       <td className="py-2 border-b text-center">
                         <div className='flex gap-3 justify-center items-center -z-10'>
-                          <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => openEditModal(item)}>
+                          <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditProjectModal(item))}>
                             <LuFileEdit className='h-4 w-4' />
                           </button>
                           <button
@@ -146,8 +153,13 @@ const Page = () => {
                   ))}
                 </tbody>
               </table>
-              <UpdateProjectData isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
-              <AddProjectDetails openProject={isAddModalOpen} onCloseProject={closeAddModal} />
+              <UpdateProjectData isOpen={isEditProjectDetails} onClose={() => dispatch(openEditProjectModal(false))} queryData={isEditProjectID} onSuccess={()=> setIsEditSuccess(true)} />
+                
+              <AddProjectDetails openProject={isAddProjectDetails} onCloseProject={() => dispatch(openAddPojectDetails(false))} onSuccess={() => setIsSuccessModalVisible(true)} />
+
+              <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Project Saved Successfully."} />
+
+              <SuccessModal isOpen={isEditSuccess} onClose={() => setIsEditSuccess(false)} title={"Project Updated Successfully."} />
               <CustomAlert
                 isOpen={isModalOpen}
                 onClose={closeModal}

@@ -10,6 +10,7 @@ import tasklistSlice from "./redux/slices/tasklistSlice"
 import miscSlice from "./redux/slices/misc"
 import automationSlice from "./redux/slices/automationSlice"
 import uiSlice from "./redux/slices/uiSlice"
+import leaveSlice from "./redux/slices/leaveSlice"
 
 const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
         misc:miscSlice,
         automation : automationSlice,
         ui: uiSlice,
+        leave:leaveSlice,
     }
 })
 
