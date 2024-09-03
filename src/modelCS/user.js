@@ -12,7 +12,8 @@ const userSchema = new Schema({
     doj : {type: String, required: true},
     designation: {type: String, required: true},
     resettoken: {type: String, default:""},
-    isActive: {type: Boolean, default: false}
+    isActive: {type: Boolean, default: false},
+    leaveBalance: { type: Number, default: 0, min: 0, max: 18 }
 })
 
 export const UserCS = mongoose.models.userCS || mongoose.model('userCS',userSchema)

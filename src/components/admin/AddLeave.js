@@ -7,7 +7,7 @@ import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
 import { CustomLoader } from '../CustomLoader';
 
 
-const AddLeave = ({ onClose, }) => {
+const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const [userDetail, setUserDetail] = useState(null);
     const [formData, setFormData] = useState({
         userId: "",
@@ -21,7 +21,7 @@ const AddLeave = ({ onClose, }) => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { user } = useSelector((state) => state.user);
+    const { user, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const filteredData = user.filter(item => item.accessId == "1");
     //console.log("filteredData>>>>>", filteredData)
@@ -67,8 +67,8 @@ const AddLeave = ({ onClose, }) => {
                 endDate: '',
                 reason: ''
             });
-
             onClose();
+            onSuccess()
         } catch (error) {
             console.error('Failed to add leave:', error);
         } finally {
@@ -102,123 +102,138 @@ const AddLeave = ({ onClose, }) => {
         dispatch(assignUsers());
     }, [dispatch]);
 
-    
+    if (!isLeaveOpen) return null;
 
     return (
-        <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-                <button
-                    type="button"
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    onClick={onClose}
-                >
-                    <svg
-                        className="w-3 h-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 14"
-                    >
-                        <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                        />
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
-
-                <h2 className="text-2xl font-semibold mb-4 flex text-left">Apply for Leave</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex mb-2 space-x-2">
-                        <div className='flex-1'>
-                            <label htmlFor="approvedBy" className="block text-sm font-medium text-gray-700 text-left">
-                                To whom:
-                            </label>
-                            <select
-                                id="approvedBy"
-                                name="approvedBy"
-                                onChange={handleChange}
-                                value={formData?.approvedBy}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        <>
+            <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+                <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
+                    <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600"> 
+                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                            Apply Leave
+                        </h3>
+                        <button
+                            type="button"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            onClick={onClose}
+                        >
+                            <svg
+                                className="w-3 h-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 14 14"
                             >
-                                <option value="">Select a user</option>
-                                {filteredData.map((item) => (
-                                    <option key={item._id} value={item._id}>
-                                        {item?.firstName}
-                                    </option>
-                                ))}
-                            </select>
-                            {errors?.approvedBy && <p className="text-red-500 text-sm">{errors?.approvedBy}</p>}
-                        </div>
-                        <div className='flex-1'>
-                            <label htmlFor="userName" className="block text-sm font-medium text-gray-700 text-left">
-                                Name
-                            </label>
-                            <input
-                                id="userName"
-                                value={formData?.userName}
-                                readOnly
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
-                            {errors?.userName && <p className="text-red-500 text-sm">{errors?.userName}</p>}
-                        </div>
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                                />
+                            </svg>
+                            <span className="sr-only">Close modal</span>
+                        </button>
                     </div>
-                    
-                    <div className="flex space-x-2">
-                        <div className="flex-1">
-                            <label htmlFor="startDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
-                                Start date
-                            </label>
-                            <DatePicker
-                                id="startDate"
-                                selected={formData?.startDate}
-                                onChange={(date) => handleDateChange('startDate', date)}
-                                dateFormat="yyyy/MM/dd"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
-                            {errors.startDate && <p className="text-red-500 text-sm">{errors.startDate}</p>}
-                        </div>
-                        <div className="flex-1">
-                            <label htmlFor="endDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
+                    <form onSubmit={handleSubmit} className="p-3" autoComplete='off'>
+                        <div className="grid gap-2 mb-4">
+                            <div className="flex space-x-2">
+                                <div className="flex-1">
+                                    <label htmlFor="name" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                        Name
+                                    </label>
+                                    <input
+                                        id="name"
+                                        type='text'
+                                        name="name"
+                                        value={formData?.userName}
+                                        onChange={handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    />
+                                    {errors?.name && <p className="text-red-500 text-sm">{errors?.name}</p>}
+                                </div>
+                                <div className="flex-1">
+                                    <label htmlFor="approvedBy" className="block mb-1 text-xs text-left font-medium text-gray-900 dark:text-white">
+                                        To Whom
+                                    </label>
+                                    <select
+                                        id="approvedBy"
+                                        name="approvedBy"
+                                        value={formData?.approvedBy}
+                                        onChange={handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    >
+                                        <option value="">Select a user</option>
+                                        {filteredData.map((item) => (
+                                            <option key={item._id} value={item._id}>
+                                                {item?.firstName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors?.approvedBy && <p className="text-red-500 text-sm">{errors?.approvedBy}</p>}
+                                </div>
+                            </div>
+                            <div className="flex space-x-2">
+                                <div className="flex-1 text-left">
+                                    <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                       Start Date
+                                    </label>
+                                    <DatePicker
+                                        id="startDate"
+                                        selected={formData?.startDate}
+                                        onChange={(date) => handleDateChange('startDate', date)}
+                                        dateFormat="yyyy/MM/dd"
+                                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    />
+                                    {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}
+                                </div>
+                                <div className="flex-1 text-left">
+                                    <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                       End Date
+                                    </label>
+                                    <DatePicker
+                                        id="endDate"
+                                        selected={formData?.endDate}
+                                        onChange={(date) => handleDateChange('endDate', date)}
+                                        dateFormat="yyyy/MM/dd"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    />
+                                    {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
+                                </div>
+                            </div>
+                            <div className="flex space-x-2">
+                                <div className="flex-1">
+                                    <label htmlFor="businessName" className="block text-left mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                        Reason
+                                    </label>
+                                    <textarea
+                                        id="reason"
+                                        name="reason"
+                                        type="text"
+                                        value={formData?.reason}
+                                        onChange={handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 h-[4rem]"
+                                    />
+                                    {errors?.reason && <p className="text-red-500 text-sm">{errors?.reason}</p>}
+                                </div>
+                            </div>
+                            <div className="flex ">
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-lg text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+                                >
+                                    {
+                                        loading ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Apply"
+                                    }
+                                </button>
+                            </div>
 
-                                End date
-                            </label>
-                            <DatePicker
-                                id="endDate"
-                                selected={formData.endDate}
-                                onChange={(date) => handleDateChange('endDate', date)}
-                                dateFormat="yyyy/MM/dd"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
-                            {errors.endDate && <p className="text-red-500 text-sm">{errors.endDate}</p>}
                         </div>
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="reason" className="block text-sm font-medium text-gray-700 text-left">
-                            Reason:
-                        </label>
-                        <textarea
-                            name="reason"
-                            placeholder="write your reason..."
-                            value={formData?.reason}
-                            onChange={handleChange}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                        {errors.reason && <p className="text-red-500 text-sm">{errors.reason}</p>}
-                    </div>
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    >
-                        {isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Submit"}
-                    </button>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

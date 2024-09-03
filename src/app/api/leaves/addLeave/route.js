@@ -14,7 +14,8 @@ export async function POST(request){
         reason,
         startDate,
         endDate,
-        approvedBy
+        approvedBy,
+        leaveType
     }
          = await request.json()
 
@@ -48,6 +49,9 @@ export async function POST(request){
         if(!approvedBy || approvedBy == ""){
             return getResponse("Approved By is required", 500, false)
         }
+        if(!leaveType || leaveType == ""){
+            return getResponse("Leave Type is required", 500, false)
+        }
 
         const leave = new Leave({
             userId,
@@ -56,7 +60,8 @@ export async function POST(request){
             startDate,
             endDate,
             approvedBy,
-            appliedDate: Date.now()
+            appliedDate: Date.now(),
+            leaveType
         })
         await leave.save()
 
