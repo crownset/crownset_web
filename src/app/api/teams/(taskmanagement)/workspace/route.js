@@ -24,11 +24,15 @@ export async function POST(request) {
 
 
         const user = decode.user;
-        if(!user.accessId || user.accessId !== 2){
+        if(!user.accessId || user.accessId !== 1){
               console.log("Not Authorized");
               return NextResponse.json({message:"You are not authorized"},{status:401})  
         }
         const reqBody =  await request.json();
+
+        if(reqBody.name ==''){
+            return NextResponse.json({message:"workspace name is required"},{status:404});
+        }
         
         
         const newWorkspace = new Workspace({

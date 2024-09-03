@@ -29,7 +29,7 @@ export default function AuthLayout({ children }) {
             <body className={kanit.className}>
                 <ClientProvider>
                     <AdminDashboard />
-                    <div className="pt-16 pl-0 md:pl-20 transition-all duration-300 ease-in-out h-screen bg-[#f8f7fa]">
+                    <div className="pt-16 pl-0 md:pl-20 transition-all duration-300 ease-in-out h-screen ">
                         {children}
                     </div>
                 </ClientProvider>

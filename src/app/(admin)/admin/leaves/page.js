@@ -16,29 +16,38 @@ import { openQueryModal } from '@/redux/slices/uiSlice';
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
+  const [user, setUser] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedQueryId, setSelectedQueryId] = useState(null);
   const [selectedQueryData, setSelectedQueryData] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isreason, setIsreason] = useState(false);
-  const [fullQuery , setFullQuery] = useState("")
+  const [fullQuery, setFullQuery] = useState("")
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
 
 
   const getRemarkColor = (status) => {
     switch (status) {
-        case 'Pending':
-            return 'bg-premature';
-        case 'Approved':
-            return 'bg-mature';
-        case 'Reject':
-            return 'bg-dead';
-        default:
-            return 'bg-gray-500';
+      case 'Pending':
+        return 'bg-premature';
+      case 'Approved':
+        return 'bg-mature';
+      case 'Reject':
+        return 'bg-dead';
+      default:
+        return 'bg-gray-500';
     }
-};
+  };
 
-  
+
 
   const handleToggle = () => {
     setIsreason(true);
@@ -147,10 +156,10 @@ const Page = () => {
                     <td className="py-2 border-b text-[12px] text-center min-w-[150px]">{moment(leaveItem?.endDate).format('LL')}</td>
                     <td className="py-2 border-b text-[12px] text-center">{moment(leaveItem?.appliedDate).format('LL')}</td>
                     <td className="py-2 text-[12px] border-b text-center">
-                                            <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(leaveItem?.status)}`}>
-                                                {leaveItem?.status}
-                                            </span>
-                                        </td>
+                      <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(leaveItem?.status)}`}>
+                        {leaveItem?.status}
+                      </span>
+                    </td>
 
 
                     <td className="py-2 text-[12px] border-b text-center ">
@@ -159,7 +168,7 @@ const Page = () => {
                           {leaveItem?.reason.slice(0, 50)}...
                           <button
                             className="text-blue-500 underline ml-1"
-                            onClick={()=>handleToggle(setIsreason(true),setFullQuery(leaveItem?.reason))}
+                            onClick={() => handleToggle(setIsreason(true), setFullQuery(leaveItem?.reason))}
                           >View More
                           </button>
                         </>
@@ -167,7 +176,7 @@ const Page = () => {
                         leaveItem?.reason
                       )}
                     </td>
-               <td className="py-2 border-b text-[12px] text-center">{leaveItem?.approvedBy?.firstName}</td>
+                    <td className="py-2 border-b text-[12px] text-center">{leaveItem?.approvedBy?.firstName}</td>
                     <td className="py-2 border-b text-[12px] text-center">
                       <div className='flex gap-3 justify-center items-center -z-10'>
                         <button
@@ -176,12 +185,19 @@ const Page = () => {
                         >
                           <LuFileEdit className='h-4 w-4' />
                         </button>
-                        <button
-                          className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                          onClick={() => handleOpenDeleteModal(leaveItem._id)}
-                        >
-                          <RiDeleteBin5Line className='h-4 w-4' />
-                        </button>
+                        {
+                          user?.data?.accessId === 2 ? (
+                            <button
+                              className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                              onClick={() => handleOpenDeleteModal(leaveItem._id)}
+                            >
+                              <RiDeleteBin5Line className='h-4 w-4' />
+                            </button>
+                          ) : (
+                            null
+                          )
+                        }
+
                       </div>
                     </td>
                   </tr>
@@ -199,22 +215,22 @@ const Page = () => {
               onConfirm={handleDelete}
             />
             {isreason && (
-                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
-                    <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl h-[400px] overflow-hidden">
-                        <h2 className="text-lg font-bold mb-4">Full Query</h2>
-                        <div className="overflow-y-auto h-[300px]">
-                            <p className="text-sm">{fullQuery}</p>
-                        </div>
-                        <div className="text-right mb-4">
-                            <button
-                                className="bg-blue-500 text-white px-4 py-2 mb-10 rounded hover:bg-blue-600"
-                                onClick={() =>setIsreason(false)}
-                            >
-                                Close
-                            </button>
-                        </div>
-                    </div>
+              <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
+                <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl h-[400px] overflow-hidden">
+                  <h2 className="text-lg font-bold mb-4">Full Query</h2>
+                  <div className="overflow-y-auto h-[300px]">
+                    <p className="text-sm">{fullQuery}</p>
+                  </div>
+                  <div className="text-right mb-4">
+                    <button
+                      className="bg-blue-500 text-white px-4 py-2 mb-10 rounded hover:bg-blue-600"
+                      onClick={() => setIsreason(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
+              </div>
             )}
           </div>
         </>

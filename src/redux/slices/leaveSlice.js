@@ -37,19 +37,21 @@ export const editLeave = createAsyncThunk(
         }
     }
 )
-  
 
 
-    export const deleteLeave = createAsyncThunk(
-        "Leave/deleteData",
-        async (queryId, { rejectWithValue }) => {
-            try {
-                const deleteResponse = await axios.put(`/api/leaves/deleteLeave/${queryId}`);
-            } catch (error) {
-                return rejectWithValue(error.response.data);
-            }
+
+export const deleteLeave = createAsyncThunk(
+    "Leave/deleteData",
+    async (leaveId, { rejectWithValue }) => {
+        try {
+            const deleteResponse = await axios.put(`/api/leaves/deleteLeave/${leaveId}`);
+            console.log("leaveDelete", deleteResponse )
+            return deleteResponse.data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
         }
-    )  
+    }
+)
 
 
 const initialState = {
@@ -58,24 +60,24 @@ const initialState = {
     error: null,
 };
 
-const  leaveSlice = createSlice({
+const leaveSlice = createSlice({
     name: 'leave',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        handleLeaveActions(builder, LeaveQuery,  initialState);
+        handleLeaveActions(builder, LeaveQuery, initialState);
         handleLeaveActions(builder, fetchLeave, initialState);
         handleLeaveActions(builder, deleteLeave, initialState, (state, action) => {
             state.leave = state.leave.filter(item => item.id !== action.meta.arg);
-      });
-      handleLeaveActions(builder, editLeave, initialState, (state, action) => {
-        const index = state.leave.findIndex(item => item.id === action.meta.arg);
-        if (index !== -1) {
-            state.leave[index] = { ...state.leave[index], ...action.payload };
-        }
-    });
-      
-        
+        });
+        handleLeaveActions(builder, editLeave, initialState, (state, action) => {
+            const index = state.leave.findIndex(item => item.id === action.meta.arg);
+            if (index !== -1) {
+                state.leave[index] = { ...state.leave[index], ...action.payload };
+            }
+        });
+
+
     },
 });
 

@@ -60,9 +60,20 @@
     animation: scroll 10s linear infinite;
   }
 
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;   
+  }
+
 }
-html{
+
+html {
   scroll-behavior: smooth;
+
   .truncate {
     white-space: nowrap;
     overflow: hidden;
@@ -72,39 +83,71 @@ html{
   }
 
   /* global.css */
-/* Add this to your global CSS file */
-.tooltip {
-  position: absolute;
-  background-color: white;
-  color: black;
-  padding: 8px;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  z-index: 1000;
-  max-width: 200px; /* Adjust as needed */
-  display: none;
-  left: 0;
-  top: 100%;
-  transform: translateY(8px);
-  word-wrap: break-word; /* Ensure long words are wrapped */
+  /* Add this to your global CSS file */
+  .tooltip {
+    position: absolute;
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    z-index: 1000;
+    max-width: 200px;
+    /* Adjust as needed */
+    display: none;
+    left: 0;
+    top: 100%;
+    transform: translateY(8px);
+    word-wrap: break-word;
+    /* Ensure long words are wrapped */
+  }
+
+  .tooltip-container:hover .tooltip {
+    display: block;
+  }
+
+  /* Prevent overflow */
+  .tooltip-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    /* Ensure the tooltip does not overflow the container */
+    max-width: 100%;
+    /* Ensure container does not exceed the table width */
+  }
+
+  .todoButtonEffect {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px; 
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color of the thumb on hover */
+  }
+
+
 }
 
-.tooltip-container:hover .tooltip {
-  display: block;
-}
-
-/* Prevent overflow */
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-  overflow: hidden; /* Ensure the tooltip does not overflow the container */
-  max-width: 100%; /* Ensure container does not exceed the table width */
-}
-
-
-
-}
-html{
+html {
   scroll-behavior: smooth;
 }
+

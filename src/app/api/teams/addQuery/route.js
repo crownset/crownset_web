@@ -97,6 +97,7 @@ export async function POST(request) {
 
     
     return NextResponse.json({
+      data: query,
       message: "Query Saved Sucessfully",
     });
   } catch (error) {

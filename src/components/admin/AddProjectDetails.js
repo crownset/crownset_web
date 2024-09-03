@@ -7,8 +7,9 @@ import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { CustomLoader } from '../CustomLoader';
 import SuccessModal from './SuccessLottie';
+import { openAddPojectDetails } from '@/redux/slices/uiSlice';
 
-const AddProjectDetails = ({ onCloseProject, openProject }) => {
+const AddProjectDetails = ({ onCloseProject, openProject, onSuccess }) => {
     const [formValues, setFormValues] = useState({
         name: "",
         email: "",
@@ -22,7 +23,8 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-   
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
+
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
 
@@ -69,8 +71,9 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                 return;
             }
             await dispatch(addProject(formValues)).unwrap();
-            setIsSuccessModalOpen(true); // Show success modal
+            dispatch(openAddPojectDetails(false))
             dispatch(fetchProjects());
+            onSuccess()
             setFormValues({
                 name: "",
                 email: "",
@@ -101,7 +104,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={() => { onCloseProject() }}
+                        onClick={onCloseProject}
                     >
                         <svg
                             className="w-3 h-3"
@@ -121,7 +124,7 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
                         <span className="sr-only">Close modal</span>
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="p-3">
+                <form onSubmit={handleSubmit} className="p-3" autoComplete='off'>
                     <div className="grid gap-2 mb-4">
                         <div className="flex space-x-2">
                             <div className="flex-1">
@@ -276,7 +279,6 @@ const AddProjectDetails = ({ onCloseProject, openProject }) => {
 
                     </div>
                 </form>
-               
             </div>
         </div>
     );
