@@ -10,11 +10,12 @@ export async function PUT(request,{params}) {
   await dbConnect();
 
   const {
-    reason,
-    startDate,
-    endDate,
-    approvedBy,
-    status
+    // reason,
+    // startDate,
+    // endDate,
+    // approvedBy,
+    status,
+    // leaveType
     } = await request.json()
 
   try {
@@ -35,7 +36,8 @@ export async function PUT(request,{params}) {
 
         return NextResponse.json({message: "You can't update"})
       }
-            
+      
+      
       leave.status = status
 
       
@@ -50,25 +52,25 @@ export async function PUT(request,{params}) {
     
     if (token && token.user.accessId == 2) {
 
-        const leave = await Leave.findById(leaveId);
+        // const leave = await Leave.findById(leaveId);
 
-        if(leave.status =='Approved' || leave.status =='Reject'){
+        // if(leave.status =='Approved' || leave.status =='Reject'){
 
-          return NextResponse.json({message: "You can't update"})
-        }
+        //   return NextResponse.json({message: "You can't update"})
+        // }
         
-        leave.reason = reason
-        leave.startDate = startDate,
-        leave.endDate = endDate,
-        leave.approvedBy = approvedBy
+        // leave.reason = reason
+        // leave.startDate = startDate,
+        // leave.endDate = endDate,
+        // leave.approvedBy = approvedBy
+        // leave.leaveType = leaveType
   
         
-        const updatedLeave = await leave.save()
+        // const updatedLeave = await leave.save()
   
         return NextResponse.json({
-          data: updatedLeave,
-          message: "Leave Successfully Updated",
-          status: 200
+          message: "You Can't update leave",
+          status: 300
         });
       }
   } catch (error) {

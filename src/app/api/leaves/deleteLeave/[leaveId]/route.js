@@ -25,11 +25,15 @@ export async function PUT(request, { params }) {
 
             if(leave.status =='Approved' || leave.status =='Reject'){
 
+                if(leave.startDate<= Date.now()){
+
                 return NextResponse.json({message: "You can't delete"})
+            }
               }
 
             leave.isDeleted = true
 
+            // logic for if we delete the leave after approved before the start date the leave added
 
             const updatedLeave = await leave.save()
 
