@@ -51,7 +51,7 @@ const querySchema = new Schema({
   remarks: {
     type: String,
     required: true,
-    enum: ["Mature", "Premature", "Dead"],
+    enum: ["Premature", "Prospect","DNP","Meeting","Closed","Not Intersted"],
     default: "Premature"
   },
   queryDate: { 
