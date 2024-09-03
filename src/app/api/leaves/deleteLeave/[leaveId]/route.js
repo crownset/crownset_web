@@ -23,6 +23,11 @@ export async function PUT(request, { params }) {
 
             const leave = await Leave.findById(leaveId);
 
+            if(leave.status =='Approved' || leave.status =='Reject'){
+
+                return NextResponse.json({message: "You can't delete"})
+              }
+
             leave.isDeleted = true
 
 

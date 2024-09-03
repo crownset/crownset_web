@@ -30,7 +30,12 @@ export async function PUT(request,{params}) {
     if (token && token.user.accessId == 1) {
 
       const leave = await Leave.findById(leaveId);
-      
+
+      if(leave.status =='Approved' || leave.status =='Reject'){
+
+        return NextResponse.json({message: "You can't update"})
+      }
+            
       leave.status = status
 
       
@@ -45,8 +50,12 @@ export async function PUT(request,{params}) {
     
     if (token && token.user.accessId == 2) {
 
-
         const leave = await Leave.findById(leaveId);
+
+        if(leave.status =='Approved' || leave.status =='Reject'){
+
+          return NextResponse.json({message: "You can't update"})
+        }
         
         leave.reason = reason
         leave.startDate = startDate,
