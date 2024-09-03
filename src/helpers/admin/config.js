@@ -22,6 +22,10 @@ export const menuItems = [
         icon: SiPowerpages,
     },
     {
+        name: "Leaves",
+        href: "/admin/leaves",
+        icon: SiPowerpages,
+    },{
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,

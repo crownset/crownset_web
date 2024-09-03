@@ -52,7 +52,7 @@ const Navbar = () => {
                                     ) : (
                                         <Image src={Icon.openNav_icon} alt='open' className="w-6 h-6" />
                                     )}
-                                </button>
+                                </button>   
                             </div>
                         </div>
                         <div className='max-lg:hidden'>

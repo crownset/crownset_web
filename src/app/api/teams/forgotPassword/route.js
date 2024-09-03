@@ -53,7 +53,7 @@ export async function POST(request){
         else {
 
 
-            user.resettoken = jwt.sign({email},process.env.SECRET_KEY)
+            user.resettoken = jwt.sign({email},process.env.SECRET_KEY,{expiresIn:"1h"})
             
             const updatedUser = await user.save()
 

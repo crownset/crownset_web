@@ -69,7 +69,8 @@ export async function POST(request){
             deadLine,
             lastFollowUp,
             remarks,
-            assignTo
+            assignTo,
+            projectDate: Date.now()
         })
         await project.save()
 

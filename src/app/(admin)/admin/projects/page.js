@@ -66,7 +66,7 @@ const Page = () => {
   const handleConfirm = async () => {
     if (selectedQueryId) {
       try {
-        await dispatch(deleteProject(selectedQueryId)).unwrap();
+        await dispatch(deleteProject()).unwrap();
         dispatch(fetchProjects());
         toast.success('Project successfully deleted!');
       } catch (error) {
