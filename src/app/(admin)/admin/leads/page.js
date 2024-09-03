@@ -92,7 +92,7 @@ const Page = () => {
                             <span>Lead</span>
                         </button>
                     </div>
-
+                    
                     <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
                         <table className="min-w-full bg-white text-sm ">
                             <thead className='sticky top-0 z-20'>

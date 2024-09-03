@@ -10,20 +10,20 @@ import { toast, ToastContainer } from 'react-toastify';
 import CustomAlert from '@/components/admin/CustomAlert';
 import { CustomLoader } from '@/components/CustomLoader';
 import moment from "moment";
-import { openQueryModal } from '@/redux/slices/uiSlice';
+import { openAddLeaveModal, openDeleteLeaveModal, openDeleteSuccessModal, openEditLeaveModal, openQueryModal } from '@/redux/slices/uiSlice';
+import SuccessModal from "@/components/admin/SuccessLottie";
 
 
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
+  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, isEditLeaveModal } = useSelector((state) => state.ui);
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedQueryId, setSelectedQueryId] = useState(null);
   const [selectedQueryData, setSelectedQueryData] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
   const [isreason, setIsreason] = useState(false);
-  const [fullQuery, setFullQuery] = useState("")
+  const [fullQuery, setFullQuery] = useState("");
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -31,8 +31,6 @@ const Page = () => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
-
-
 
   const getRemarkColor = (status) => {
     switch (status) {
@@ -47,21 +45,6 @@ const Page = () => {
     }
   };
 
-
-
-  const handleToggle = () => {
-    setIsreason(true);
-  };
-
-  const handleOpenForm = () => {
-    setIsFormVisible(true);
-  };
-
-  const handleCloseForm = () => {
-    setSelectedQueryId(null);
-    setIsFormVisible(false);
-  };
-
   const openEditModal = (leaveItem) => {
     setSelectedQueryData(leaveItem);
     setIsEditModalOpen(true);
@@ -72,26 +55,16 @@ const Page = () => {
     setIsEditModalOpen(false);
   };
 
-  const handleOpenDeleteModal = (id) => {
-    setSelectedQueryId(id);
-    setModalOpen(true);
-  };
-
-  const handleCloseDeleteModal = () => {
-    setSelectedQueryId(null);
-    setModalOpen(false);
-  };
-
   const handleDelete = async () => {
-    if (selectedQueryId) {
+    console.log("clicked delete");
+    if (isDeleteLeaveID) {
       try {
-        await dispatch(deleteLeave(selectedQueryId)).unwrap();
+        await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
+        dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
-        toast.success('Leave successfully deleted!');
+        dispatch(openDeleteSuccessModal(true))
       } catch (error) {
         toast.error('Failed to delete leave!');
-      } finally {
-        setModalOpen(false);
       }
     }
   };
@@ -101,7 +74,7 @@ const Page = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-4 h-screen flex flex-col">
+    <div className="p-4 h-[85vh] flex flex-col">
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -121,24 +94,21 @@ const Page = () => {
         <>
           <div className='flex justify-end w-[98%] m-auto'>
             <div className="text-end">
-              <button
-                onClick={handleOpenForm}
-                className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'
-              >
-                Apply Leaves
-              </button>
-              {isFormVisible && (
-                <AddLeave
-                  onClose={handleCloseForm}
-                />
-              )}
+              {user?.data?.accessId !== 1 ? (
+                <button
+                  onClick={() => dispatch(openAddLeaveModal(true))}
+                  className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'
+                >
+                  Apply Leave
+                </button>
+              ) : null}
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto rounded-3xl w-[98%] m-auto">
-            <table className="w-[98%] m-auto bg-white border border-gray-300 text-sm">
-              <thead>
+          <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide mt-2 ">
+            <table className="min-w-full bg-white text-sm">
+              <thead className="z-20 sticky top-0">
                 <tr className="bg-gray-200">
-                  <th className="py-2 border-b min-w-[100px]">User Name</th>
+                  <th className="py-2 border-b min-w-[100px]">Name</th>
                   <th className="py-2 border-b min-w-[150px]">Start Date</th>
                   <th className="py-2 border-b min-w-[150px]">End Date</th>
                   <th className="py-2 border-b min-w-[100px]">Applied Date</th>
@@ -148,7 +118,7 @@ const Page = () => {
                   <th className="py-2 border-b min-w-[100px]">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='z-10'>
                 {(leave && Array.isArray(leave) ? leave : []).map((leaveItem, index) => (
                   <tr key={index}>
                     <td className="py-2 border-b text-[12px] text-center">{leaveItem?.userId?.firstName}</td>
@@ -160,16 +130,15 @@ const Page = () => {
                         {leaveItem?.status}
                       </span>
                     </td>
-
-
                     <td className="py-2 text-[12px] border-b text-center ">
                       {leaveItem?.reason?.length > 50 ? (
                         <>
                           {leaveItem?.reason.slice(0, 50)}...
                           <button
                             className="text-blue-500 underline ml-1"
-                            onClick={() => handleToggle(setIsreason(true), setFullQuery(leaveItem?.reason))}
-                          >View More
+                            onClick={() => setIsreason(true) && setFullQuery(leaveItem?.reason)}
+                          >
+                            View More
                           </button>
                         </>
                       ) : (
@@ -178,60 +147,55 @@ const Page = () => {
                     </td>
                     <td className="py-2 border-b text-[12px] text-center">{leaveItem?.approvedBy?.firstName}</td>
                     <td className="py-2 border-b text-[12px] text-center">
-                      <div className='flex gap-3 justify-center items-center -z-10'>
-                        <button
-                          className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                          onClick={() => openEditModal(leaveItem)}
-                        >
-                          <LuFileEdit className='h-4 w-4' />
-                        </button>
+                      <div className='flex gap-3 justify-center items-center'>
                         {
-                          user?.data?.accessId === 2 ? (
+                          user?.data?.accessId !== 2 ? (
                             <button
-                              className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                              onClick={() => handleOpenDeleteModal(leaveItem._id)}
+                              className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF]"
+                              onClick={() => dispatch(openEditLeaveModal(leaveItem))}
                             >
-                              <RiDeleteBin5Line className='h-4 w-4' />
+                              <LuFileEdit className='h-4 w-4' />
                             </button>
                           ) : (
                             null
                           )
                         }
 
+                        {user?.data?.accessId === 2 ? (
+                          <button
+                            className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF]"
+                            onClick={() => dispatch(openDeleteLeaveModal(leaveItem._id))}
+                          >
+                            <RiDeleteBin5Line className='h-4 w-4' />
+                          </button>
+                        ) : null}
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <UpdateLeave isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
+            <AddLeave
+              onClose={() => dispatch(openAddLeaveModal(false))}
+              isLeaveOpen={isAddLeaveModal}
+              onSuccess={() => setIsSuccessModalVisible(true)}
+            />
+            <UpdateLeave
+              isOpen={isEditLeaveModal}
+              onClose={() => dispatch(openEditLeaveModal(false))}
+              queryData={selectedQueryData}
+            />
             <CustomAlert
-              isOpen={isModalOpen}
-              onClose={handleCloseDeleteModal}
+              isOpen={isDeleteLeaveModal}
+              onClose={() => dispatch(openDeleteLeaveModal(false))}
               title="Are you sure?"
               description="Are you sure you want to delete this leave request?"
-              confirmButtonText={loading ? <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure"}
+              confirmButtonText={loading ? <CustomLoader size={5} color={"#ffffff"} /> : "Yes I'm sure"}
               cancelButtonText="No, cancel"
               onConfirm={handleDelete}
             />
-            {isreason && (
-              <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
-                <div className="bg-white p-6 rounded-lg w-[90%] max-w-xl h-[400px] overflow-hidden">
-                  <h2 className="text-lg font-bold mb-4">Full Query</h2>
-                  <div className="overflow-y-auto h-[300px]">
-                    <p className="text-sm">{fullQuery}</p>
-                  </div>
-                  <div className="text-right mb-4">
-                    <button
-                      className="bg-blue-500 text-white px-4 py-2 mb-10 rounded hover:bg-blue-600"
-                      onClick={() => setIsreason(false)}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            <SuccessModal isOpen={isDeleteSuccessModal} onClose={() => dispatch(openDeleteSuccessModal(false))} title={"Leave Deleted Successfully."} />
+            <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Leave Deleted Successfully."} />
           </div>
         </>
       )}

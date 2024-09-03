@@ -21,14 +21,14 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     }, []);
 
     const [formData, setFormData] = useState({
-        userId: "",
-        approvedBy: "",
-        userName: "",
-        startDate: new Date(),
-        endDate: new Date(),
-        reason: '',
-        queryId: "",
-        status:null,
+        // userId: "",
+        // approvedBy: "",
+        // userName: "",
+        // startDate: new Date(),
+        // endDate: new Date(),
+        // reason: '',
+        // queryId: "",
+        status: null,
     });
 
     useEffect(() => {
@@ -65,14 +65,10 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
         }));
     };
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting form data:", formData);
-
         try {
-
             const result = await dispatch(editLeave({ queryId: formData.queryId, updatedData: formData })).unwrap();
             console.log("Update result:", result);
 
@@ -89,137 +85,146 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
 
     return (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-        <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
-            <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    Update Leave
-                </h3>
-                <button
-                    type="button"
-                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    onClick={onClose}
-                >
-                    <svg
-                        className="w-3 h-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 14"
+            <div className="bg-white rounded-3xl shadow dark:bg-gray-700 p-3 max-w-md w-full">
+                <div className="flex items-center justify-between p-3 border-b dark:border-gray-600">
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                        Update Leave
+                    </h3>
+                    <button
+                        type="button"
+                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        onClick={onClose}
                     >
-                        <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                        />
-                    </svg>
-                    <span className="sr-only">Close modal</span>
-                </button>
-            </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex mb-2 space-x-2">
-                        <div className='flex-1'>
-                            <label htmlFor="approvedBy" className="block text-sm font-medium text-gray-700 text-left">
-                                To whom:
-                            </label>
-                            <select
-                                id="approvedBy"
-                                name="approvedBy"
-                                onChange={handleChange}
-                                value={formData?.approvedBy}
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            >
-                                <option value="">Select a user</option>
-                                {filteredData.map((item) => (
-                                    <option key={item._id} value={item._id}>
-                                        {item?.firstName}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className='flex-1'>
-                            <label htmlFor="userName" className="block text-sm font-medium text-gray-700 text-left">
-                                Name
-                            </label>
-                            <input
-                                id="userName"
-                                value={formData?.userName}
-                                readOnly
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        <svg
+                            className="w-3 h-3"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 14"
+                        >
+                            <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                             />
-                        </div>
-                    </div>
-                    <div className="flex space-x-2">
-                        <div className="flex-1">
-                            <label htmlFor="startDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
-                                Start date
-                            </label>
-                            <DatePicker
-                                id="startDate"
-                                selected={new Date(formData.startDate)}
-                                onChange={(date) => handleDateChange('startDate', date)}
-                                dateFormat="yyyy/MM/dd"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
-                        </div>
-                        <div className="flex-1">
-                            <label htmlFor="endDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
-                                End date
-                            </label>
-                            <DatePicker
-                                id="endDate"
-                                selected={new Date(formData.endDate)} git
-                                onChange={(date) => handleDateChange('endDate', date)}
-                                dateFormat="yyyy/MM/dd"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            />
-                        </div>
-                    </div>
+                        </svg>
+                        <span className="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <form onSubmit={handleSubmit} autoComplete='off'>
+                    {/* {
+                        user?.data?.accessId !== 1 ? (
+                            <>
+
+                                <div className="flex mb-2 space-x-2">
+                                    <div className='flex-1'>
+                                        <label htmlFor="approvedBy" className="block text-sm font-medium text-gray-700 text-left">
+                                            To whom:
+                                        </label>
+                                        <select
+                                            id="approvedBy"
+                                            name="approvedBy"
+                                            onChange={handleChange}
+                                            value={formData?.approvedBy}
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        >
+                                            <option value="">Select a user</option>
+                                            {filteredData.map((item) => (
+                                                <option key={item._id} value={item._id}>
+                                                    {item?.firstName}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className='flex-1'>
+                                        <label htmlFor="userName" className="block text-sm font-medium text-gray-700 text-left">
+                                            Name
+                                        </label>
+                                        <input
+                                            id="userName"
+                                            value={formData?.userName}
+                                            readOnly
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex space-x-2">
+                                    <div className="flex-1">
+                                        <label htmlFor="startDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
+                                            Start date
+                                        </label>
+                                        <DatePicker
+                                            id="startDate"
+                                            selected={new Date(formData.startDate)}
+                                            onChange={(date) => handleDateChange('startDate', date)}
+                                            dateFormat="yyyy/MM/dd"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label htmlFor="endDate" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white text-start">
+                                            End date
+                                        </label>
+                                        <DatePicker
+                                            id="endDate"
+                                            selected={new Date(formData.endDate)} git
+                                            onChange={(date) => handleDateChange('endDate', date)}
+                                            dateFormat="yyyy/MM/dd"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        ) : null
+                    } */}
                     {
-                        userDetail?.data?.accessId === 1 ? (
+                        userDetail?.data?.accessId !== 2 ? (
                             <div className="mb-4">
-                            <label htmlFor="isApproved" className="block text-sm font-medium text-gray-700 text-left">
-                                Approve Leave:
-                            </label>
-                            <div className="flex items-center">
-                                <select
-                                    id="status"
-                                    name="status"
-                                    value={formData?.status}
-                                    defaultValue="pending"
-                                    onChange={handleChange}
-                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                <label htmlFor="isApproved" className="block text-sm font-medium text-gray-700 text-left">
+                                    Approve Leave:
+                                </label>
+                                <div className="flex items-center">
+                                    <select
+                                        id="status"
+                                        name="status"
+                                        value={formData?.status}
+                                        defaultValue="pending"
+                                        onChange={handleChange}
+                                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Reject">Reject</option>
-                                </select>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Reject">Reject</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                         ) : (
                             null
                         )
                     }
-               
+                    {/* {
+                        user?.data?.accessId !== 1 ? (
+                            <div className="mb-4">
+                                <label htmlFor="reason" className="block text-sm font-medium text-gray-700 text-left">
+                                    Reason:
+                                </label>
+                                <textarea
+                                    id="reason"
+                                    name="reason"
+                                    value={formData?.reason}
+                                    onChange={handleChange}
+                                    required
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
 
+                            </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="reason" className="block text-sm font-medium text-gray-700 text-left">
-                            Reason:
-                        </label>
-                        <textarea
-                            id="reason"
-                            name="reason"
-                            value={formData?.reason}
-                            onChange={handleChange}
-                            required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        />
-                        
-                    </div>
-                    
-                      <button
+                        ) : null
+                    } */}
+
+                    <button
                         type="submit"
                         className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-xs font-semibold text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                     >
