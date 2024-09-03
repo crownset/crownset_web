@@ -1,4 +1,12 @@
 "use client"
+import { useEffect, useState } from 'react';
+import { BsPlus as PlusIcon } from "react-icons/bs";
+import { IoMdClose as CloseIcon } from "react-icons/io";
+import { useDispatch, useSelector } from 'react-redux';
+import { ClipLoader } from "react-spinners";
+import { toast } from 'react-toastify';
+
+
 import {
   setIsAssginedUserModal,
   setIsEditTaskListModal,
@@ -7,14 +15,9 @@ import {
   setIsTodoLabelsModal
 } from '@/redux/slices/misc';
 import { createlist, deleteTasklist, editList, fetchTasklist } from '@/redux/slices/tasklistSlice';
-import { useEffect, useState } from 'react';
-import { BsPlus as PlusIcon } from "react-icons/bs";
-import { IoMdClose as CloseIcon } from "react-icons/io";
-import { useDispatch, useSelector } from 'react-redux';
-import { ClipLoader } from "react-spinners";
-import { toast } from 'react-toastify';
 import { AssginedUserModal, EditTaskListModal, EditTodoModal, ShareTaskListModal, TodoLabelsModal } from './Modals';
 import Todo from './Todo';
+
 
 export default function TaskList({ workspace_id }) {
 
@@ -25,7 +28,6 @@ export default function TaskList({ workspace_id }) {
     isShareModal, isAssginedUserModal, isEditTaskListModal
   } = useSelector((state) => state.misc)
 
-  // console.count("count ");
 
   const [user, setUser] = useState(null);
 
@@ -33,9 +35,6 @@ export default function TaskList({ workspace_id }) {
   const [newTaskListDeadline, setNewTaskListDeadline] = useState('');
   const [editingTaskListIndex, setEditingTaskListIndex] = useState(null);
   const [editTaskList, setEditTaskList] = useState({ name: '', deadline: '' });
-
-  // console.log("tasklist==>",tasklists[2]?.is_complete);
-  //tasklist modal
 
 
   const [showAddList, setShowAddList] = useState(false);
@@ -53,16 +52,16 @@ export default function TaskList({ workspace_id }) {
 
   const handleAddTaskList = async (e) => {
     e.preventDefault();
-    // console.log("add tasklist");
+
 
     if (!newTaskListName) {
       toast.error("List field should not be empty")
-      // console.log("name");
+
       return;
     }
     if (!newTaskListDeadline) {
       toast.error("Deadline field should not be empty")
-      // console.log("deadline");
+
       return;
 
     }
@@ -72,11 +71,10 @@ export default function TaskList({ workspace_id }) {
       workspace_id: workspace_id
 
     }
-    // console.log(data);
+
     try {
 
       await dispatch(createlist(data));
-      // console.log("here");
       setNewTaskListName('');
       setNewTaskListDeadline('');
       toast.success('List created successfully');
@@ -98,9 +96,7 @@ export default function TaskList({ workspace_id }) {
 
 
   // MODAL Handler
-  //list
 
-  const handleSaveShareList = () => { console.log("save") };
 
   const handleSaveEditModal = async () => {
     console.log(editingTaskListIndex);
@@ -137,14 +133,9 @@ export default function TaskList({ workspace_id }) {
   }
 
 
-  // const HandleSaveTodoModal = () => dispatch(setIsTodoEditModal(false));
-
-
-  // const HandleSaveLabel = () => dispatch(setIsTodoLabelsModal(false));
-
   const deleteTaskList = async (index) => {
     const taskList_id = tasklists[index]._id;
-    // console.log(taskList_id);
+
     try {
       await dispatch(deleteTasklist(taskList_id));
       setEditingTaskListIndex(null);
@@ -170,6 +161,7 @@ export default function TaskList({ workspace_id }) {
       <div className=" md:overflow-x-auto md:h-[80vh]">
 
         <div className="md:flex md:gap-6 md:justify-start md:items-start ">
+
           {user?.data?.accessId == 1 ? (
 
             showAddList ? (
@@ -185,9 +177,7 @@ export default function TaskList({ workspace_id }) {
                 />
 
                 <div className='text-gray-400 mt-4'>
-
                   <span className='ml-2 mt-4'>Deadline</span>
-
                   <input
                     type="date"
                     value={newTaskListDeadline}
@@ -195,11 +185,9 @@ export default function TaskList({ workspace_id }) {
                     className="w-full p-2 border border-gray-300 rounded-xl mt-2 outline-none px-3 py-1 h-[2rem]"
                     placeholder="Enter deadline"
                   />
-
                 </div>
 
                 <div className="mt-2 flex gap-4 items-center">
-
                   {isCreatingList ? (
                     <ClipLoader size={15} />
                   ) : (
@@ -217,21 +205,20 @@ export default function TaskList({ workspace_id }) {
                   >
                     <CloseIcon className='text-[1.2rem]' />
                   </span>
-
                 </div>
 
               </div>
 
             ) : (
+
               <div
                 className='flex gap-2 w-[300px] p-2  flex-none md:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
                 onClick={() => { setShowAddList(true) }}
               >
-
                 <PlusIcon className='text-[1.5rem]' />
                 <span >Add new List</span>
-
               </div>
+
             )
           ) : null
 
@@ -257,7 +244,6 @@ export default function TaskList({ workspace_id }) {
       </div>
 
       {/* taskList Modal */}
-
       {isShareModal &&
         <ShareTaskListModal
           isOpenShare={isShareModal}
