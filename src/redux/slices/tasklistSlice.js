@@ -23,7 +23,7 @@ export const createlist = createAsyncThunk(
     async (data) => {
 
         try {
-            console.log(data)
+            // console.log(data)
             const tasklist = await axios.post('/api/teams/tasklist', data);
             return tasklist.data.data;
 
@@ -130,7 +130,7 @@ export const editTodo = createAsyncThunk(
     async ({ todo_id, title }, { rejectWithValue }) => {
         try {
             const res = await axios.put(`/api/teams/task/editTodo/${todo_id}`, { title });
-            console.log(res.data.data);
+            // console.log(res.data.data);
             return res.data.data;
         } catch (error) {
             console.log(error)
@@ -187,7 +187,7 @@ const tasklistSlice = createSlice({
             })
             .addCase(showWorkingUser.rejected, (state) => {
                 state.isShowUerLoading = false;
-                console.log("error")
+                // console.log("error")
             })
             .addCase(shareList.pending, (state) => {
                 state.isShareLoading = true;
