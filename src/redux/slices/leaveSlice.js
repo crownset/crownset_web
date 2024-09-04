@@ -31,7 +31,8 @@ export const editLeave = createAsyncThunk(
     async ({ queryId, updatedData }, { rejectWithValue }) => {
         try {
             const editResponse = await axios.put(`/api/leaves/updateLeave/${queryId}`, updatedData)
-            return editResponse.data
+            console.log("editResponse", editResponse)
+            return editResponse.data;
         } catch (error) {
             return rejectWithValue(error.response.data)
         }
@@ -55,7 +56,7 @@ export const deleteLeave = createAsyncThunk(
 
 
 const initialState = {
-    leave: [],
+    leave: null,
     loading: false,
     error: null,
 };

@@ -17,11 +17,11 @@ import SuccessModal from "@/components/admin/SuccessLottie";
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
-  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, isEditLeaveModal } = useSelector((state) => state.ui);
+  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, isEditLeaveModal, selectedEditData } = useSelector((state) => state.ui);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedQueryData, setSelectedQueryData] = useState(null);
+  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  // const [selectedQueryData, setSelectedQueryData] = useState(null);
   const [isreason, setIsreason] = useState(false);
   const [fullQuery, setFullQuery] = useState("");
 
@@ -45,15 +45,15 @@ const Page = () => {
     }
   };
 
-  const openEditModal = (leaveItem) => {
-    setSelectedQueryData(leaveItem);
-    setIsEditModalOpen(true);
-  };
+  // const openEditModal = (leaveItem) => {
+  //   setSelectedQueryData(leaveItem);
+  //   setIsEditModalOpen(true);
+  // };
 
-  const closeEditModal = () => {
-    setSelectedQueryData(null);
-    setIsEditModalOpen(false);
-  };
+  // const closeEditModal = () => {
+  //   setSelectedQueryData(null);
+  //   setIsEditModalOpen(false);
+  // };
 
   const handleDelete = async () => {
     console.log("clicked delete");
@@ -183,7 +183,7 @@ const Page = () => {
             <UpdateLeave
               isOpen={isEditLeaveModal}
               onClose={() => dispatch(openEditLeaveModal(false))}
-              queryData={selectedQueryData}
+              queryData={selectedEditData}
             />
             <CustomAlert
               isOpen={isDeleteLeaveModal}
