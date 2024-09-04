@@ -17,6 +17,7 @@ import SuccessLottie from '@/components/admin/SuccessLottie';
 import SuccessModal from '@/components/admin/SuccessLottie';
 import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddLeadModal, openAddModal, openDeleteLeadModal, openEditLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import { RxCross2 } from 'react-icons/rx';
+import { MdSend } from 'react-icons/md';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -92,7 +93,15 @@ const Page = () => {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <>
-                    <div className='flex justify-end'>
+                    <div className='flex justify-end items-center gap-5 cursor-pointer'>
+                        <div className='bg-dashboard flex items-center gap-5  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
+                            <span>
+                                Import Excel File
+                            </span>
+                            <button>
+                                <MdSend className='h-6 w-6' />
+                            </button>
+                        </div>
                         <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
                             <span><FaPlus /></span>
                             <span>Lead</span>

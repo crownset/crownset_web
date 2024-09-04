@@ -7,7 +7,7 @@ export const sendMailData = createAsyncThunk(
     async (mailData, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/automation/mail', { mailData });
-            console.log("data", response.data)
+            console.log("data===========>", response.data)
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);

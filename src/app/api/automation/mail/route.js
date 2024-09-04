@@ -45,6 +45,8 @@ export async function POST(request) {
       if (mailData.length == 0) {
         return NextResponse.json({ message: "no data found in excel sheet" });
       }
+
+      console.log("mailData>>>>>>>>>", mailData)
       for (const data of mailData) {
 
         // Define email options
@@ -52,7 +54,7 @@ export async function POST(request) {
           from: process.env.EMAIL_ID,
           to: data.email,
           subject: 'Follow-Up: Complimentary Growth Strategy Call',
-          html: template()
+          html: template({data})
         };
 
         await transporter.sendMail(mailOptions);
