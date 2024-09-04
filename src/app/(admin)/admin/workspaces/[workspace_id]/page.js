@@ -5,6 +5,7 @@ import { BeatLoader } from 'react-spinners'
 
 import TaskList from '../_components/TaskList'
 import { fetchTasklist } from '@/redux/slices/tasklistSlice'
+import { toast } from 'react-toastify'
 
 
 const Page = ({ params }) => {
@@ -17,7 +18,14 @@ const Page = ({ params }) => {
   useEffect(() => {
 
     const fetch = async () => {
-      await dispatch(fetchTasklist(params.workspace_id));
+
+      try {
+        await dispatch(fetchTasklist(params.workspace_id));
+      } catch (error) {
+        return toast.error("Error in fetching tasklist")
+        
+      }
+      
     }
     fetch();
 

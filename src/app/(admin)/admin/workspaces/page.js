@@ -39,7 +39,13 @@ const Workspace = () => {
     useEffect(() => {
 
         const fetch = async () => {
-            const data = await dispatch(fetchWorkspaces());
+            try {
+                const data = await dispatch(fetchWorkspaces());
+                
+            } catch (error) {
+                return toast.error("Error in fectching Workspaces");
+            }
+           
         }
         fetch();
     }, [dispatch])
@@ -86,7 +92,7 @@ const Workspace = () => {
             handleCloseModal();
 
         } catch (error) {
-            toast.error("Failed to edit workspace");
+           return  toast.error("Failed to edit workspace");
         }
 
 
@@ -105,7 +111,7 @@ const Workspace = () => {
             handleCloseEditWorkspace();
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             return toast.error("Failed To delete Workspace");
 
         }
@@ -186,7 +192,7 @@ const Workspace = () => {
 
                                 <ul className="mt-4 md:flex md:gap-5 md:justify-center md:flex-wrap ">
 
-                                    {!isLoading && workspaces?.map((workspace, index) => (
+                                    {workspaces?.length > 0?(workspaces?.map((workspace, index) => (
 
                                         <li key={index}
                                             index={index}
@@ -234,7 +240,7 @@ const Workspace = () => {
                                             </Link>
                                         </li>
 
-                                    ))}
+                                    ))):(<div className='text-bodyTextColor text-[1.5rem]'>No Workspaces</div>)}
 
                                 </ul>
                             </div>
