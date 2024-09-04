@@ -2,8 +2,9 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { SiPowerpages } from "react-icons/si";
 import { SiGooglebigquery } from "react-icons/si";
-import { BsPersonWorkspace } from "react-icons/bs";
-import { GiAutomaticSas } from "react-icons/gi";
+import { BsPersonWorkspace } from "react-icons/bs"; 
+import { FaCalendarWeek } from "react-icons/fa";
+import { SiAndroidauto } from "react-icons/si";
 
 export const menuItems = [
     {
@@ -24,7 +25,7 @@ export const menuItems = [
     {
         name: "Leaves",
         href: "/admin/leaves",
-        icon: SiPowerpages,
+        icon: FaCalendarWeek,
     },{
         name: "Workspace",
         href: "/admin/workspaces",
@@ -33,7 +34,7 @@ export const menuItems = [
     ,{
         name: "Automation",
         href: "/admin/automation",
-        icon: GiAutomaticSas,
+        icon: SiAndroidauto,
     }
 ];
 

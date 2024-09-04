@@ -34,6 +34,12 @@ const leaveSchema = new Schema({
     default: "Pending"
   },
 
+  leaveType:{
+    type: String, 
+    required: true,
+    enum: ["Full Day", "Half Day"]
+  },
+
   approvedBy:{
     type: mongoose.Types.ObjectId, 
     ref: 'userCS',

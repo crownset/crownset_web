@@ -58,10 +58,16 @@ const Page = () => {
         switch (remark) {
             case 'Premature':
                 return 'bg-premature';
-            case 'Mature':
-                return 'bg-mature';
-            case 'Dead':
+            case 'Prospect':
+                return 'bg-premature';
+            case 'DNP':
                 return 'bg-dead';
+            case 'Meeting':
+                return 'bg-meeting';
+            case 'Closed':
+                return 'bg-mature';
+            case 'Not Intersted':
+                return 'bg-dashboard';
             default:
                 return 'bg-gray-500';
         }
@@ -156,7 +162,7 @@ const Page = () => {
                                                             className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
                                                             onClick={() => dispatch(openDeleteLeadModal(item._id))}
                                                         >
-                                                            <RiDeleteBin5Line   className='h-4 w-4'/>
+                                                            <RiDeleteBin5Line className='h-4 w-4' />
                                                         </button>
                                                     ) : (
                                                         null
