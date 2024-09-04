@@ -18,6 +18,9 @@ import SuccessModal from '@/components/admin/SuccessLottie';
 import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddLeadModal, openAddModal, openDeleteLeadModal, openEditLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import { RxCross2 } from 'react-icons/rx';
 import { MdSend } from 'react-icons/md';
+import { getExcelData } from '@/redux/slices/multipleLeadSlice';
+import { useDropzone } from 'react-dropzone';
+import * as XLSX from 'xlsx';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -28,6 +31,61 @@ const Page = () => {
     const [isEditSuccessModal, setIsEditSuccessModal] = useState(false)
     const handleShowSuccessModal = () => {
         setIsSuccessModalVisible(true);
+    };
+
+    const [mailData, setMailData] = useState([]);
+    const [fileName, setFileName] = useState('');
+    const { isLoading, isSuccess } = useSelector((state) => state.queryData);
+    const { isAutoSuccess } = useSelector((state) => state.ui);
+
+    const handleFile = (file) => {
+        setFileName(file.name);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const data = new Uint8Array(event.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const worksheet = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[worksheet];
+            const jsonData = XLSX.utils.sheet_to_json(sheet);
+            console.log("jsonData==>", jsonData);
+
+            if (jsonData.length === 0) {
+                toast.error('You have no data in the file');
+                return;
+            }
+
+            setMailData(jsonData);
+        };
+        reader.readAsArrayBuffer(file);
+    };
+
+    const onDrop = (acceptedFiles) => {
+        handleFile(acceptedFiles[0]);
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            handleFile(file);
+        }
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+    const handleSend = async () => {
+        try {
+            if (mailData.length > 0) {
+                await dispatch(getExcelData(mailData));
+                setMailData([]);
+                setFileName(''); // Clear the file name after sending
+                // dispatch(openAutoSuccess());
+                fetchData()
+            } else {
+                toast.error("Excel file is required");
+            }
+        } catch (error) {
+            // Handle error
+        }
     };
 
     useEffect(() => {
@@ -95,10 +153,25 @@ const Page = () => {
                 <>
                     <div className='flex justify-end items-center gap-5 cursor-pointer'>
                         <div className='bg-dashboard flex items-center gap-5  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
-                            <span>
-                                Import Excel File
-                            </span>
-                            <button>
+                            <button {...(!fileName ? getRootProps() : {})}>
+                                <span>
+                                    Import Excel File
+                                </span>
+                            </button>
+                            {fileName && (
+                                <div className='flex items-center justify-center gap-3'>
+                                    <div className='mt-2 text-sm text-center'>
+                                        <p>Selected file:{fileName}</p>
+                                    </div>
+                                    <div className='text-center pt-2'>
+                                        <button onClick={() => { setMailData([]), setFileName("") }}>
+                                            <RiDeleteBin5Line className='h-5 w-5 text-red-600' />
+                                        </button>
+                                    </div>
+                                </div>
+
+                            )}
+                            <button onClick={handleSend}>
                                 <MdSend className='h-6 w-6' />
                             </button>
                         </div>

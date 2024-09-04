@@ -68,8 +68,11 @@ export async function PUT(request, { params }) {
         // const isUserExistInWorspace = await Workspace.findOne({ members: user_id });
 
         if (workspace.members.length > 0) {
+            // console.log("here");
             const isUserExistInWorkspace = workspace.members.filter((user) => user == user_id)
-            if (!isUserExistInWorkspace) {
+            // console.log(isUserExistInWorkspace);
+            if (isUserExistInWorkspace.length == 0) {
+                // console.log("work if")
                 const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
                     $push: { members: user_id }
                 }, { new: true });
@@ -77,6 +80,7 @@ export async function PUT(request, { params }) {
 
         }
         else {
+            console.log("work else")
             const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
                 $push: { members: user_id }
             }, { new: true });
@@ -89,7 +93,7 @@ export async function PUT(request, { params }) {
 
 
 
-        return NextResponse.json({ message: `Tasklist assigned `, data: tasklist }, { status: 200 });
+        return NextResponse.json({ message: `Tasklist assigned `,data:{}}, { status: 200 });
 
     } catch (error) {
 

@@ -1,15 +1,16 @@
 "use client"
-import { BsPlus as PlusIcon } from "react-icons/bs";
-
-import { createWorkspace, deleteWorkspace, editWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader, MoonLoader } from "react-spinners";
 import { toast } from 'react-toastify';
-// import { BsThreeDots as EditIcon} from "react-icons/bs";
+
+import { BsPlus as PlusIcon } from "react-icons/bs";
 import { IoMdClose as CloseIcon } from "react-icons/io";
 import { PiDotsThreeOutlineThin as EditIcon } from "react-icons/pi";
+// import { BsThreeDots as EditIcon} from "react-icons/bs";
+
+import { createWorkspace, deleteWorkspace, editWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice';
 import { EditWorkspaceModal } from "./_components/Modals";
 
 const Workspace = () => {
@@ -113,7 +114,7 @@ const Workspace = () => {
 
     const handleAddWorkspace = async () => {
 
-        if(newWorkspace==''){
+        if (newWorkspace == '') {
             return toast.error("workspaace name is required");
         }
 
@@ -137,8 +138,7 @@ const Workspace = () => {
 
     return (
         <>
-            {
-                isLoading ? (
+            {isLoading ? (
                     <>
                         <div className="flex justify-center items-center w-full h-screen">
                             <BeatLoader />
@@ -163,19 +163,14 @@ const Workspace = () => {
                                                 placeholder="Create Workspace"
                                             />
 
-                                            {
-                                                isCreateWorkspaceLoading ?
-                                                    (
-                                                        <MoonLoader size={15} color="#8153e9" />
-                                                    ) :
-                                                    (
-                                                        <span onClick={handleAddWorkspace}>
-                                                            <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
-                                                        </span>
-                                                    )
+                                            {isCreateWorkspaceLoading ? (
+                                                <MoonLoader size={15} color="#8153e9" />
+                                            ) : (
+                                                <span onClick={handleAddWorkspace}>
+                                                    <PlusIcon className="text-primary-color text-[1.7rem] font-bold cursor-pointer" />
+                                                </span>
+                                            )
                                             }
-
-
                                         </div>
 
                                     </div>
@@ -192,44 +187,44 @@ const Workspace = () => {
                                 <ul className="mt-4 md:flex md:gap-5 md:justify-center md:flex-wrap ">
 
                                     {!isLoading && workspaces?.map((workspace, index) => (
-                                        // #d0d2d36e
+
                                         <li key={index}
                                             index={index}
-                                            className="bg-gray-200 relative p-2 h-[4rem] text-[1rem] shadow-sm md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2">
-                                            {
-                                                user?.data?.accessId == 1 && (
+                                            className="bg-gray-200 relative p-2 h-[4rem] text-[1rem] shadow-sm md:h-[8rem] md:w-[12rem] flex justify-center items-center rounded-lg mt-2"
+                                        >
+                                            {user?.data?.accessId == 1 && (
+                                                <span
+                                                    className="absolute top-1 right-1 cursor-pointer hover:bg-gray-300 hover:rounded-full p-2"
+                                                    onClick={() => { handleEditWorkspace(index) }}
+                                                >
+                                                    <EditIcon />
+                                                </span>
+                                            )
+                                            }
+
+                                            {workspaceIndex == index && (
+                                                <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10">
+                                                    <CloseIcon
+                                                        className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1"
+                                                        onClick={handleCloseEditWorkspace}
+                                                    />
+
                                                     <span
-                                                        className="absolute top-1 right-1 cursor-pointer hover:bg-gray-300 hover:rounded-full p-2"
-                                                        onClick={() => { handleEditWorkspace(index) }}
+                                                        className="cursor-pointer hover:bg-gray-200 pl-2"
+                                                        onClick={() => { handleOpenModal(index) }}
                                                     >
-                                                        <EditIcon />
+                                                        Edit
                                                     </span>
-                                                )
+                                                    <span
+                                                        onClick={handleDeleteWorkspace}
+                                                        className="cursor-pointer hover:bg-gray-200 pl-2"
+                                                    >
+                                                        Delete
+                                                    </span>
+                                                </div>
+                                            )
                                             }
 
-                                            {
-                                                workspaceIndex == index && (
-                                                    <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10">
-                                                        <CloseIcon
-                                                            className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1"
-                                                            onClick={handleCloseEditWorkspace}
-                                                        />
-
-                                                        <span
-                                                            className="cursor-pointer hover:bg-gray-200 pl-2"
-                                                            onClick={() => { handleOpenModal(index) }}
-                                                        >
-                                                            Edit
-                                                        </span>
-                                                        <span
-                                                            onClick={handleDeleteWorkspace}
-                                                            className="cursor-pointer hover:bg-gray-200 pl-2"
-                                                        >
-                                                            Delete
-                                                        </span>
-                                                    </div>
-                                                )
-                                            }
                                             <Link
                                                 href={`/admin/workspaces/${workspace?._id}`}
                                                 key={index}
@@ -239,8 +234,7 @@ const Workspace = () => {
                                             </Link>
                                         </li>
 
-                                    ))
-                                    }
+                                    ))}
 
                                 </ul>
                             </div>

@@ -15,8 +15,8 @@ export const getExcelData = createAsyncThunk(
     }
 );
 
-const automationSlice = createSlice({
-    name: 'automation',
+const multipleLeadSlice = createSlice({
+    name: 'multipleLeadSlice',
     initialState: {
         queryData: [],
         isLoading: false,
@@ -43,4 +43,4 @@ const automationSlice = createSlice({
     },
 });
 
-export default automationSlice.reducer;
+export default multipleLeadSlice.reducer;
