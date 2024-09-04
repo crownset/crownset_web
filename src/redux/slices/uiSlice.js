@@ -4,23 +4,30 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     isModalOpen: false,
     isSuccessModalOpen: false,
-    isAddLeadModal:false,
+    isAddLeadModal: false,
     //project
-    isAddProjectDetails:false,
-    isEditProjectDetails:false,
-    isEditProjectID:null,
-    isDeleteProjectID:null,
-    isDeleteProject:false,
+    isAddProjectDetails: false,
+    isEditProjectDetails: false,
+    isEditProjectID: null,
+    isDeleteProjectID: null,
+    isDeleteProject: false,
+    //leave states
+    isAddLeaveModal: false,
+    isDeleteLeaveModal: false,
+    isDeleteLeaveID: null,
+    isDeleteSuccessModal:false,
+    isEditLeaveModal:false,
+    selectedEditData:null,    
     // old
     isEditLeadModalOpen: false,
     isAddModalOpen: false,
-    isAddSuccessModal:false,
-    isEditSuccessfull:false,
+    isAddSuccessModal: false,
+    isEditSuccessfull: false,
     isQueryModalOpen: false,
-    
+
     selectedQueryId: null,
     selectedQueryData: null,
-    isAutoSuccess:false,
+    isAutoSuccess: false,
     fullQuery: "",
 };
 
@@ -40,20 +47,35 @@ const uiSlice = createSlice({
             state.isEditLeadModalOpen = action.payload;
             state.selectedQueryData = action.payload;
         },
-        openAddLeadModal: (state, action)=>{
+        openAddLeadModal: (state, action) => {
             state.isAddLeadModal = action.payload;
         },
         //project page state
-        openAddPojectDetails:(state, action)=>{
+        openAddPojectDetails: (state, action) => {
             state.isAddProjectDetails = action.payload
         },
-        openEditProjectModal:(state , action)=>{
+        openEditProjectModal: (state, action) => {
             state.isEditProjectDetails = action.payload
             state.isEditProjectID = action.payload;
         },
-        openDeleteProjects:(state, action)=>{
+        openDeleteProjects: (state, action) => {
             state.isDeleteProject = action.payload
             state.isDeleteProjectID = action.payload
+        },
+        //Leave Management state
+        openAddLeaveModal: (state, action) => {
+            state.isAddLeaveModal = action.payload
+        },
+        openDeleteLeaveModal: (state, action) => {
+            state.isDeleteLeaveModal = action.payload
+            state.isDeleteLeaveID = action.payload
+        },
+        openEditLeaveModal: (state, action) => {
+            state.isEditLeaveModal = action.payload
+            state.selectedEditData = action.payload
+        },
+        openDeleteSuccessModal : (state, action) => {
+            state.isDeleteSuccessModal = action.payload
         },
         // old
         openAddModal: (state) => {
@@ -73,22 +95,22 @@ const uiSlice = createSlice({
         closeSuccessModal: (state) => {
             state.isSuccessModalOpen = false;
         },
-        openAddSuccessModal:(state)=> {
+        openAddSuccessModal: (state) => {
             state.isAddSuccessModal = true;
         },
-        closeAddSuccessModal:(state)=> {
+        closeAddSuccessModal: (state) => {
             state.isAddSuccessModal = false;
         },
-        openEditSuccessModal:(state)=>{
+        openEditSuccessModal: (state) => {
             state.isEditSuccessfull = true
         },
-        closeEditSuccessModal:(state)=>{
+        closeEditSuccessModal: (state) => {
             state.isEditSuccessfull = false
         },
-        openAutoSuccess:(state)=>{
+        openAutoSuccess: (state) => {
             state.isAutoSuccess = true
-        } ,
-        closeAutoSuccess:(state)=>{
+        },
+        closeAutoSuccess: (state) => {
             state.isAutoSuccess = false
         }
     },
@@ -102,6 +124,11 @@ export const {
     openAddPojectDetails,
     openEditProjectModal,
     openDeleteProjects,
+    //leave
+    openAddLeaveModal,
+    openDeleteLeaveModal,
+    openEditLeaveModal,
+    openDeleteSuccessModal,
     //old
     openModal,
     closeModal,
