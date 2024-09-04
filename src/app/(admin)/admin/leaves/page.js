@@ -12,6 +12,12 @@ import { CustomLoader } from '@/components/CustomLoader';
 import moment from "moment";
 import { openAddLeaveModal, openDeleteLeaveModal, openDeleteSuccessModal, openEditLeaveModal, openQueryModal } from '@/redux/slices/uiSlice';
 import SuccessModal from "@/components/admin/SuccessLottie";
+import { motion } from "framer-motion"
+import Link from "next/link";
+import * as Config from "@/helpers/admin/config"
+import ViewHolidays from "@/components/ViewHoliday";
+
+
 
 
 const Page = () => {
@@ -24,6 +30,12 @@ const Page = () => {
   const [selectedQueryData, setSelectedQueryData] = useState(null);
   const [isreason, setIsreason] = useState(false);
   const [fullQuery, setFullQuery] = useState("");
+
+  const [isClicked, setIsClicked] = useState(false)
+
+  const toggleNavbar = () => {
+    setIsClicked(!isClicked)
+  }
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -45,15 +57,15 @@ const Page = () => {
     }
   };
 
-  const openEditModal = (leaveItem) => {
-    setSelectedQueryData(leaveItem);
-    setIsEditModalOpen(true);
-  };
+  //const openEditModal = (leaveItem) => {
+  // setSelectedQueryData(leaveItem);
+  // setIsEditModalOpen(true);
+  //};
 
-  const closeEditModal = () => {
-    setSelectedQueryData(null);
-    setIsEditModalOpen(false);
-  };
+  // const closeEditModal = () => {
+  //setSelectedQueryData(null);
+  // setIsEditModalOpen(false);
+  //};
 
   const handleDelete = async () => {
     console.log("clicked delete");
@@ -74,7 +86,22 @@ const Page = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-4 h-[85vh] flex flex-col">
+    <>
+    <div className="flex justify-end w-[98%] m-auto mt-3">
+            <div className="text-end">
+              {user?.data?.accessId !== 1 ? (
+                <button
+                  onClick={() => dispatch(openAddLeaveModal(true))}
+                  className='bg-dashboard text-default text-sm text-center py-2 px-2  rounded-3xl my-3 text-[12px]'
+                >
+                  Apply Leave
+                </button>
+              ) : null}
+            </div>
+           
+          </div>
+       <ViewHolidays/>
+      <div className="p-4 h-[85vh] flex flex-col">
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -92,23 +119,16 @@ const Page = () => {
         <div className="text-red-500">Error: {error}</div>
       ) : (
         <>
-          <div className='flex justify-end w-[98%] m-auto'>
-            <div className="text-end">
-              {user?.data?.accessId !== 1 ? (
-                <button
-                  onClick={() => dispatch(openAddLeaveModal(true))}
-                  className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'
-                >
-                  Apply Leave
-                </button>
-              ) : null}
-            </div>
-          </div>
+          
+          
+         
+
           <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide mt-2 ">
             <table className="min-w-full bg-white text-sm">
               <thead className="z-20 sticky top-0">
                 <tr className="bg-gray-200">
                   <th className="py-2 border-b min-w-[100px]">Name</th>
+                  <th className="py-2 border-b min-w-[100px]">Leave Type</th>
                   <th className="py-2 border-b min-w-[150px]">Start Date</th>
                   <th className="py-2 border-b min-w-[150px]">End Date</th>
                   <th className="py-2 border-b min-w-[100px]">Applied Date</th>
@@ -122,6 +142,7 @@ const Page = () => {
                 {(leave && Array.isArray(leave) ? leave : []).map((leaveItem, index) => (
                   <tr key={index}>
                     <td className="py-2 border-b text-[12px] text-center">{leaveItem?.userId?.firstName}</td>
+                    <td className="py-2 border-b text-[12px] text-center">{leaveItem?.leaveType}</td>
                     <td className="py-2 border-b text-[12px] text-center min-w-[150px]">{moment(leaveItem?.startDate).format('LL')}</td>
                     <td className="py-2 border-b text-[12px] text-center min-w-[150px]">{moment(leaveItem?.endDate).format('LL')}</td>
                     <td className="py-2 border-b text-[12px] text-center">{moment(leaveItem?.appliedDate).format('LL')}</td>
@@ -195,11 +216,14 @@ const Page = () => {
               onConfirm={handleDelete}
             />
             <SuccessModal isOpen={isDeleteSuccessModal} onClose={() => dispatch(openDeleteSuccessModal(false))} title={"Leave Deleted Successfully."} />
-            <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Leave Deleted Successfully."} />
+            <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Leave Applied Successfully."} />
+            
           </div>
         </>
       )}
     </div>
+    </>
+  
   );
 };
 
