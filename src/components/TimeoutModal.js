@@ -143,12 +143,12 @@ const TimeoutModal = ({ isOpen, onClose }) => {
                             valueField="id"
                             value={service}
                             onChange={handleSelectChange}
-                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
                         />
                         {errors.service && <p className="text-red-500 text-xs mt-1">{errors.service}</p>}
                     </div>
                     <div>
-                        <label htmlFor="contact" className="block text-xs font-medium text-gray-900 dark:text-white">
+                        <label htmlFor="contact" className="block text-xs font-medium text-gray-900">
                             Contact no.
                         </label>
                         <input
@@ -157,12 +157,12 @@ const TimeoutModal = ({ isOpen, onClose }) => {
                             type="number"
                             value={queryCredential.contact}
                             onChange={handleChange}
-                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 "
                         />
                         {errors.contact && <p className="text-red-500 text-xs mt-1">{errors.contact}</p>}
                     </div>
                     <div>
-                        <label htmlFor="queryContent" className="block text-xs font-medium text-gray-900 dark:text-white">
+                        <label htmlFor="queryContent" className="block text-xs font-medium text-gray-900">
                             Query
                         </label>
                         <textarea
@@ -171,7 +171,7 @@ const TimeoutModal = ({ isOpen, onClose }) => {
                             rows={3}
                             value={queryCredential.queryContent}
                             onChange={handleChange}
-                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                            className="w-full p-2 text-xs bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
                         />
                         {errors.queryContent && <p className="text-red-500 text-xs mt-1">{errors.queryContent}</p>}
                     </div>

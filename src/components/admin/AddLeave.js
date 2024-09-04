@@ -21,7 +21,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { user, loading } = useSelector((state) => state.user);
+    const { user, loading } = useSelector((state) => state.user); 
     const dispatch = useDispatch();
     const filteredData = user.filter(item => item.accessId == "1");
     //console.log("filteredData>>>>>", filteredData)

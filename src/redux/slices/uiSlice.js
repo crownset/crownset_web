@@ -17,7 +17,7 @@ const initialState = {
     isDeleteLeaveID: null,
     isDeleteSuccessModal:false,
     isEditLeaveModal:false,
-    isEditLeaveId:null,    
+    selectedEditData:null,    
     // old
     isEditLeadModalOpen: false,
     isAddModalOpen: false,
@@ -72,7 +72,7 @@ const uiSlice = createSlice({
         },
         openEditLeaveModal: (state, action) => {
             state.isEditLeaveModal = action.payload
-            state.isEditLeaveId = action.payload
+            state.selectedEditData = action.payload
         },
         openDeleteSuccessModal : (state, action) => {
             state.isDeleteSuccessModal = action.payload
