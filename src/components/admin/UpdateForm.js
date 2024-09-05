@@ -65,7 +65,7 @@ const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
         e.preventDefault();
         try {
             await dispatch(editQuery({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
-             onClose();
+            onClose();
             dispatch(fetchData());
             onSuccess()
         } catch (error) {
@@ -167,8 +167,11 @@ const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 >
                                     <option value="Premature">Premature</option>
-                                    <option value="Mature">Mature</option>
-                                    <option value="Dead">Dead</option>
+                                    <option value="Prospect">Prospect</option>
+                                    <option value="DNP">DNP</option>
+                                    <option value="Meeting">Meeting</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Not Intersted">Not Intersted</option>
                                 </select>
                             </div>
                         </div>

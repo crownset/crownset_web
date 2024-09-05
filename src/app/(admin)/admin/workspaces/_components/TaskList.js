@@ -79,7 +79,7 @@ export default function TaskList({ workspace_id }) {
       setNewTaskListDeadline('');
       toast.success('List created successfully');
     } catch (error) {
-      toast.error("Failed to create list")
+       return toast.error("Failed to create list")
 
     }
 
@@ -99,7 +99,7 @@ export default function TaskList({ workspace_id }) {
 
 
   const handleSaveEditModal = async () => {
-    console.log(editingTaskListIndex);
+    // console.log(editingTaskListIndex);
     if (!editTaskList.name && !editTaskList.deadline) {
 
       return;
@@ -126,7 +126,7 @@ export default function TaskList({ workspace_id }) {
       toast.success("Tasklist Editted Successfully")
 
     } catch (error) {
-      toast.error("Failed to Edit Task List")
+      return toast.error("Failed to Edit Task List")
 
     }
 
@@ -143,9 +143,10 @@ export default function TaskList({ workspace_id }) {
 
 
     } catch (error) {
-      console.log("Error in deleting tasklist")
+      // console.log("Error in deleting tasklist")
+      return toast.error("Error in deleting list");
     }
-    console.log("Delete List")
+    // console.log("Delete List")
   }
 
   const handlName = (e) => {
@@ -156,17 +157,17 @@ export default function TaskList({ workspace_id }) {
   }
 
   return (
-    <div className="mt-5 ">
+    <div className="mt-5 mb-10 ">
 
-      <div className=" md:overflow-x-auto md:h-[80vh]">
+      <div className=" flex justify-center md:justify-start md:overflow-x-auto md:h-[80vh]">
 
-        <div className="md:flex md:gap-6 md:justify-start md:items-start ">
+        <div className="flex flex-col justify-center md:flex-row  md:gap-6 md:justify-start md:items-start">
 
           {user?.data?.accessId == 1 ? (
 
             showAddList ? (
 
-              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md   md:w-[300px] flex-none'>
+              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md  w-[280px] sm:w-[500px] md:w-[300px] flex-none'>
 
                 <input
                   type="text"
@@ -212,7 +213,7 @@ export default function TaskList({ workspace_id }) {
             ) : (
 
               <div
-                className='flex gap-2 w-[300px] p-2  flex-none md:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
+                className='flex gap-2 w-[280px]  p-2  flex-none md:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
                 onClick={() => { setShowAddList(true) }}
               >
                 <PlusIcon className='text-[1.5rem]' />

@@ -19,10 +19,11 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
         reason: '',
         leaveType: '',
 
-    });
 
-    const [errors, setErrors] = useState({});
+    });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState({});
+    
 
     const { user, loading } = useSelector((state) => state.user);
 

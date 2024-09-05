@@ -1,7 +1,4 @@
 "use client"
-import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
-import { editTodo, fetchTasklist, shareList, showWorkingUser, todoLabel } from "@/redux/slices/tasklistSlice";
-import { assignUsers } from "@/redux/slices/userSlice";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import DatePicker from 'react-datepicker';
@@ -10,6 +7,12 @@ import { IoMdClose as CloseIcon } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+
+
+import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
+import { editTodo, fetchTasklist, shareList, showWorkingUser, todoLabel } from "@/redux/slices/tasklistSlice";
+import { assignUsers } from "@/redux/slices/userSlice";
+
 
 
 export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave, workspace_id }) => {
@@ -85,8 +88,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
     const onSave = async () => {
         if (selectedUser == 'select user') {
-            console.log("Select any user");
-            return
+            // console.log("Select any user");
+            return toast.error("Please Select user");
         }
 
         try {
@@ -112,8 +115,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
     return (
 
         <>
-            <div className="fixed w-full  inset-0 z-50 flex items-center justify-center overflow-y-hidden overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/3 h-3/3 bg-white rounded-lg shadow dark:bg-gray-700 ">
+            <div className="fixed w-full   inset-0 z-50 flex items-center justify-center overflow-y-hidden overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative p-4   md:w-1/3 md:h-3/3 bg-white rounded-lg shadow dark:bg-gray-700 ">
 
                     <div className="flex items-end justify-end">
 
@@ -126,6 +129,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
                         </button>
                     </div>
+
                     <div className="flex justify-center">
                         <button
                             type="button"
@@ -166,7 +170,6 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
                         )}
                     </div>
 
-
                     <div className="p-4 md:p-5 space-y-4  flex justify-center">
 
                         <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
@@ -179,6 +182,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
     )
 }
+
 
 export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEditTaskList, workspace_id }) => {
 
@@ -213,8 +217,8 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
     return (
 
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="fixed  inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative p-4 w-[240px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
 
                     <div className="flex items-end justify-end">
 
@@ -255,6 +259,7 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
     )
 }
 
+
 export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }) => {
 
     const workinguser = useSelector((state) => state.tasklist.workinguser)
@@ -271,7 +276,8 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
                 await dispatch(showWorkingUser({ tasklist_id }))
 
             } catch (error) {
-                console.log("Error in showing user")
+                // console.log("Error in showing user")
+                return toast.error("Error in showing user");
 
             }
         }
@@ -285,8 +291,8 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
     return (
 
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative p-4 w-[250px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
 
                     <div className="flex items-end justify-end">
 
@@ -313,7 +319,7 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 
 
                         }
-                        {!workinguser && <div>No Working Member</div>}
+                        {!workinguser && (<div>No Working Member</div>)}
                     </div>
 
                 </div>
@@ -321,7 +327,6 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
         </>
     )
 }
-
 
 //Todo modal
 export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
@@ -344,7 +349,7 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
             dispatch(setIsTodoEditMenu(false));
             toast.success("Task editted successfully")
         } catch (error) {
-            toast.error("Failed to edit Task");
+            return toast.error("Failed to edit Task");
         }
     }
 
@@ -355,8 +360,8 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
     return (
 
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
 
                     <div className="flex items-end justify-end">
 
@@ -393,6 +398,7 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
     )
 }
 
+
 export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
     const tasklists = useSelector((state) => state.tasklist?.tasklist);
     const { isTodoLabelLoading } = useSelector((state) => state.tasklist.isTodoLabelLoading)
@@ -416,7 +422,8 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
             onClose();
             dispatch(setIsTodoEditMenu(false));
         } catch (error) {
-            console.log(error);
+            //  console.log(error);
+            return toast.error("Error in updating Label");
 
         }
 
@@ -427,8 +434,8 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
     return (
 
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
 
                     <div className="flex items-end justify-end">
 

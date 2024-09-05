@@ -17,6 +17,10 @@ import SuccessLottie from '@/components/admin/SuccessLottie';
 import SuccessModal from '@/components/admin/SuccessLottie';
 import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddLeadModal, openAddModal, openDeleteLeadModal, openEditLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
 import { RxCross2 } from 'react-icons/rx';
+import { MdSend } from 'react-icons/md';
+import { getExcelData } from '@/redux/slices/multipleLeadSlice';
+import { useDropzone } from 'react-dropzone';
+import * as XLSX from 'xlsx';
 
 const Page = () => {
     const dispatch = useDispatch();
@@ -27,6 +31,61 @@ const Page = () => {
     const [isEditSuccessModal, setIsEditSuccessModal] = useState(false)
     const handleShowSuccessModal = () => {
         setIsSuccessModalVisible(true);
+    };
+    const [queryData, setQueryData] = useState([]);
+    const [fileName, setFileName] = useState('');
+    const { isLoading, isSuccess } = useSelector((state) => state.queryData);
+    const { isAutoSuccess } = useSelector((state) => state.ui);
+
+    const handleFile = (file) => {
+        setFileName(file.name);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const data = new Uint8Array(event.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const worksheet = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[worksheet];
+            const jsonData = XLSX.utils.sheet_to_json(sheet);
+            console.log("jsonData==>", jsonData);
+
+            if (jsonData.length === 0) {
+                toast.error('You have no data in the file');
+                return;
+            }
+
+            setQueryData(jsonData);
+        };
+        reader.readAsArrayBuffer(file);
+    };
+
+    const onDrop = (acceptedFiles) => {
+        handleFile(acceptedFiles[0]);
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            handleFile(file);
+        }
+    };
+
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+    const handleSend = async () => {
+        try {
+            if (queryData.length > 0) {
+                const leadExcelRes = await dispatch(getExcelData(queryData));
+                console.log("leadExcelRes", leadExcelRes)
+                setQueryData([]);
+                setFileName('');
+                dispatch(fetchData());
+                toast.success(leadExcelRes?.payload?.message)
+            } else {
+                toast.error(leadExcelRes?.payload?.message);
+            }
+        } catch (error) {
+            // Handle error
+        }
     };
 
     useEffect(() => {
@@ -58,10 +117,16 @@ const Page = () => {
         switch (remark) {
             case 'Premature':
                 return 'bg-premature';
-            case 'Mature':
-                return 'bg-mature';
-            case 'Dead':
+            case 'Prospect':
+                return 'bg-premature';
+            case 'DNP':
                 return 'bg-dead';
+            case 'Meeting':
+                return 'bg-meeting';
+            case 'Closed':
+                return 'bg-mature';
+            case 'Not Intersted':
+                return 'bg-dashboard';
             default:
                 return 'bg-gray-500';
         }
@@ -86,13 +151,37 @@ const Page = () => {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <>
-                    <div className='flex justify-end'>
-                        <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
+                    <div className='flex justify-end items-center gap-5 cursor-pointer'>
+                        <div className='bg-dashboard flex items-center gap-5 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
+                            <div className='flex items-center gap-5'>
+                                {fileName ? (
+                                    <div className='flex items-center gap-3'>
+                                        <p className='text-sm'> {fileName}
+                                        </p>
+                                        <button onClick={() => { setQueryData([]); setFileName(""); }}>
+                                            <RiDeleteBin5Line className='h-4 w-4 text-red-600' />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button {...(!fileName ? getRootProps() : {})} className='flex items-center'>
+                                        <span>Import Excel </span>
+                                    </button>
+                                )}
+                            </div>
+                            <button onClick={handleSend}>
+                                {
+                                    isLoading ? (<CustomLoader size={10} loading={isLoading} color={"#FFFFFF"} />)
+                                        :
+                                        (<MdSend className='h-6 w-6' />)
+                                }
+                            </button>
+                        </div>
+                        {/* Add Lead button */}
+                        <button className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
                             <span><FaPlus /></span>
                             <span>Lead</span>
                         </button>
                     </div>
-                    
                     <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
                         <table className="min-w-full bg-white text-sm ">
                             <thead className='sticky top-0 z-20'>
@@ -156,7 +245,7 @@ const Page = () => {
                                                             className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
                                                             onClick={() => dispatch(openDeleteLeadModal(item._id))}
                                                         >
-                                                            <RiDeleteBin5Line   className='h-4 w-4'/>
+                                                            <RiDeleteBin5Line className='h-4 w-4' />
                                                         </button>
                                                     ) : (
                                                         null

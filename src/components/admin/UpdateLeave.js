@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
+    const { leave } = useSelector((state) => state.leave);
+    console.log("leave>>>", leave)
     const filteredData = user.filter(item => item.accessId == "1");
     const [userDetail, setUserDetail] = useState(null);
 
@@ -40,6 +42,7 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
                 startDate: new Date(queryData.startDate) || new Date(),
                 endDate: new Date(queryData.endDate) || new Date(),
                 reason: queryData.reason || '',
+                status: queryData.status || '',
                 queryId: queryData._id || '',
                 status: queryData.status || false
             });
@@ -71,10 +74,9 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
         try {
             const result = await dispatch(editLeave({ queryId: formData.queryId, updatedData: formData })).unwrap();
             console.log("Update result:", result);
-
             dispatch(fetchLeave());
             onClose();
-            toast.success('Leave updated successfully');
+            toast.success(result?.message);
         } catch (error) {
             console.error('Update failed:', error);
             toast.error('Failed to update leave');

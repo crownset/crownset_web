@@ -9,7 +9,6 @@ export const fetchLeave = createAsyncThunk(
     'Leave/fetchData',
     async () => {
         const response = await axios.get('/api/leaves/getLeave');
-        console.log("projectResponse==>", response)
         return response.data;
     });
 
@@ -18,7 +17,6 @@ export const LeaveQuery = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/leaves/addLeave", credentials);
-            console.log("postLeadData===>", response)
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -31,7 +29,7 @@ export const editLeave = createAsyncThunk(
     async ({ queryId, updatedData }, { rejectWithValue }) => {
         try {
             const editResponse = await axios.put(`/api/leaves/updateLeave/${queryId}`, updatedData)
-            return editResponse.data
+            return editResponse.data;
         } catch (error) {
             return rejectWithValue(error.response.data)
         }
@@ -45,7 +43,6 @@ export const deleteLeave = createAsyncThunk(
     async (leaveId, { rejectWithValue }) => {
         try {
             const deleteResponse = await axios.put(`/api/leaves/deleteLeave/${leaveId}`);
-            console.log("leaveDelete", deleteResponse )
             return deleteResponse.data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -55,7 +52,7 @@ export const deleteLeave = createAsyncThunk(
 
 
 const initialState = {
-    leave: [],
+    leave: null,
     loading: false,
     error: null,
 };
