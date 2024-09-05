@@ -7,6 +7,7 @@ export const hometwo = require("../assets/images/hometwo.png");
 export const curveline = require("../assets/images/curveline.png");
 // export const garvit = require("../assets/images/garvitsirfinal.png");
 export const priyam = require("../assets/images/priyamsirfinal.png")
+export const pragati = require("../assets/images/pragati.jpg")
 export const amazon_logo = require("../assets/images/amazomvector.png")
 export const boat_logo = require("../assets/images/boatvector.png")
 export const haldirams_logo  = require("../assets/images/haldiramsvector.png")
