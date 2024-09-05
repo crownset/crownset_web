@@ -24,42 +24,65 @@ export async function PUT(request, { params }) {
 
             const leave = await Leave.findById(leaveId);
 
-            if(leave.status =='Approved' || leave.status =='Reject'){
+            if (leave.status == 'Pending') {
 
-                if(leave.startDate<= Date.now()){
+                leave.isDeleted = true
+                const updatedLeave = await leave.save()
 
-                return NextResponse.json({message: "You can't delete"})
+                return NextResponse.json({
+                    data: updatedLeave,
+                    message: "Leave Successfully Deleted",
+                    status: 200
+                });
             }
-              }
-              
+
+            if (leave.status == 'Approved' || leave.status == 'Reject') {
+
+
+                const date = new Date();
+                const dateString = date.toISOString().split('T')[0];
+                const startDate = new Date(leave.startDate)
+                const startDateString = startDate.toISOString().split('T')[0];
+
+                console.log("current date", dateString)
+                console.log("leave startDate", startDateString)
+
+
+
+                if (startDateString <= dateString) {
+
+                    return NextResponse.json({ message: "You can't delete" })
+                }
+            }
+
             leave.isDeleted = true
             const updatedLeave = await leave.save()
 
             const user = await UserCS.findById(leave.userId)
 
-            if(leave.leaveType == 'Full Day'){
+            if (leave.leaveType == 'Full Day') {
 
                 const eDate = new Date(leave.endDate);
                 const sDate = new Date(updatedLeave.startDate);
-      
+
                 eDate.setHours(0, 0, 0, 0)
                 sDate.setHours(0, 0, 0, 0)
-      
-                const takenLeave = ((eDate-sDate)/(1000 * 60 * 60 * 24))+1
-      
+
+                const takenLeave = ((eDate - sDate) / (1000 * 60 * 60 * 24)) + 1
+
                 user.leaveBalance += takenLeave
-      
+
                 const updatedUser = await user.save()
-              }
-      
-              if(updatedLeave.leaveType == 'Half Day'){
-                
+            }
+
+            if (updatedLeave.leaveType == 'Half Day') {
+
                 const takenLeave = 0.5
-      
+
                 user.leaveBalance += takenLeave
-      
+
                 const updatedUser = await user.save()
-              }
+            }
 
             // logic for if we delete the leave after approved before the start date the leave added
 
