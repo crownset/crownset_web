@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
 import { CustomLoader } from '../CustomLoader';
+import * as Config from "@/helpers/admin/config"
 
 
 const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
@@ -15,16 +16,19 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
         userName: "",
         startDate: '',
         endDate: '',
-        reason: ''
+        reason: '',
+        leaveType: '',
+
+
     });
-
-    const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState({});
+    
 
-    const { user, loading } = useSelector((state) => state.user); 
+    const { user, loading } = useSelector((state) => state.user);
+
     const dispatch = useDispatch();
-    const filteredData = user.filter(item => item.accessId == "1");
-    //console.log("filteredData>>>>>", filteredData)
+    const filteredData = user.filter((item) => item.accessId == "1")
 
     const handleChange = (e) => {
         setFormData({
@@ -32,7 +36,6 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
             [e.target.name]: e.target.value
         });
     };
-
 
     const handleDateChange = (name, date) => {
         setFormData({
@@ -50,14 +53,18 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                 newErrors.approvedBy = "required"
             } else if (!formData.startDate) {
                 newErrors.startDate = 'Starting date is required';
-            } else if (!formData.endDate) {
+            }
+            else if (!formData.leaveType) {
+                newErrors.leaveType = 'Leave type is required';
+            }
+
+            else if (!formData.endDate) {
                 newErrors.endDate = 'Ending date is required';
             } else if (!formData.reason) {
                 newErrors.reason = 'Reason is required';
             }
             if (Object.keys(newErrors).length > 0) {
                 setErrors(newErrors);
-                //setIsSubmitting(false);
                 return;
             }
             await dispatch(LeaveQuery(formData)).unwrap();
@@ -65,7 +72,8 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
             setFormData({
                 startDate: '',
                 endDate: '',
-                reason: ''
+                reason: '',
+                leaveType: '',
             });
             onClose();
             onSuccess()
@@ -75,14 +83,6 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
             setIsSubmitting(false);
         }
     };
-
-
-    // useEffect(() => {
-    //     const storedUser = localStorage.getItem('user');
-    //     if (storedUser) {
-    //         setUserDetail(JSON.parse(storedUser));
-    //     }
-    // }, []);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -108,7 +108,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
         <>
             <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
                 <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
-                    <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600"> 
+                    <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                             Apply Leave
                         </h3>
@@ -176,7 +176,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                             <div className="flex space-x-2">
                                 <div className="flex-1 text-left">
                                     <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
-                                       Start Date
+                                        Start Date
                                     </label>
                                     <DatePicker
                                         id="startDate"
@@ -189,7 +189,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                 </div>
                                 <div className="flex-1 text-left">
                                     <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
-                                       End Date
+                                        End Date
                                     </label>
                                     <DatePicker
                                         id="endDate"
@@ -202,8 +202,30 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                 </div>
                             </div>
                             <div className="flex space-x-2">
+                                <div className="flex-1 text-left">
+                                    <label htmlFor="leaveType" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                        Leave Type
+                                    </label>
+                                    <select
+                                        id="leaveType"
+                                        name="leaveType"
+                                        value={formData?.leaveType}
+                                        onChange={handleChange}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    >
+                                        <option value="">Select a leave type</option>
+                                        {Config?.LeaveOption.map((item, id) => (
+                                            <option key={id} value={item.type}>
+                                                {item?.type}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors?.leaveType && <p className="text-red-500 text-sm">{errors?.leaveType}</p>}
+                                </div>
+                            </div>
+                            <div className="flex space-x-2">
                                 <div className="flex-1">
-                                    <label htmlFor="businessName" className="block text-left mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="reason" className="block text-left mb-1 text-xs font-medium text-gray-900 dark:text-white">
                                         Reason
                                     </label>
                                     <textarea
