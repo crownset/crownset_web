@@ -14,7 +14,8 @@ import { IoCheckmarkDoneCircle as DoneIcon } from "react-icons/io5";
 import { MdOutlineModeEditOutline as EditTodoIcon } from "react-icons/md";
 
 
-import {setIsAssginedUserModal,setIsEditTaskListModal,setIsShareModal,setIsTodoEditMenu,setIsTodoEditModal,setIsTodoIndex, setIsTodoLabelsModal,setTasklsitIndex
+import {
+    setIsAssginedUserModal, setIsEditTaskListModal, setIsShareModal, setIsTodoEditMenu, setIsTodoEditModal, setIsTodoIndex, setIsTodoLabelsModal, setTasklsitIndex
 } from "@/redux/slices/misc";
 import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
 
@@ -91,7 +92,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     const handleTodoMarkDone = async () => {
         const todo_id = taskList?.todo[isTodoIndex]?._id;
         // console.log(taskList?.todo[isTodoIndex]?.is_completed);
-        if(taskList?.todo[isTodoIndex]?.is_completed){
+        if (taskList?.todo[isTodoIndex]?.is_completed) {
             return toast.success("Already mark done");
         }
         // console.log(todo_id);
