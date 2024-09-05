@@ -3,13 +3,13 @@ import { UserCS } from "@/modelCS/user";
 import { NextResponse } from "next/server";
 import { dbConnect } from "@/helpers/db";
 
-export async function POST(request) {
+export async function GET(request) {
 
     await dbConnect()
 
     try{
 
-        console.log('Cron job running every 5 minute');
+        console.log('Cron job running at 18.45');
 
         const users = await UserCS.find({});
     

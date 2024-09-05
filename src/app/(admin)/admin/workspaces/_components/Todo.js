@@ -13,15 +13,8 @@ import { IoMdClose as CloseIcon } from "react-icons/io";
 import { IoCheckmarkDoneCircle as DoneIcon } from "react-icons/io5";
 import { MdOutlineModeEditOutline as EditTodoIcon } from "react-icons/md";
 
-import {
-    setIsAssginedUserModal,
-    setIsEditTaskListModal,
-    setIsShareModal,
-    setIsTodoEditMenu,
-    setIsTodoEditModal,
-    setIsTodoIndex,
-    setIsTodoLabelsModal,
-    setTasklsitIndex
+
+import {setIsAssginedUserModal,setIsEditTaskListModal,setIsShareModal,setIsTodoEditMenu,setIsTodoEditModal,setIsTodoIndex, setIsTodoLabelsModal,setTasklsitIndex
 } from "@/redux/slices/misc";
 import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
 
@@ -73,7 +66,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
             toast.success("Todo added");
 
         } catch (error) {
-            toast.error("Failed To add Todo")
+            return toast.error("Failed To add Todo")
 
         }
 
@@ -97,7 +90,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
     const handleTodoMarkDone = async () => {
         const todo_id = taskList?.todo[isTodoIndex]?._id;
-        console.log(todo_id);
+        // console.log(taskList?.todo[isTodoIndex]?.is_completed);
+        if(taskList?.todo[isTodoIndex]?.is_completed){
+            return toast.success("Already mark done");
+        }
+        // console.log(todo_id);
         const data = {
             todo_id
         }
@@ -113,7 +110,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     }
 
     return (
-        <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none md:w-[300px] ">
+        <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] sm:w-">
 
             <div className="relative flex justify-between items-center">
 
@@ -273,12 +270,18 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                             >
                                                 labels
                                             </span>
-                                            <span
-                                                className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                onClick={handleTodoMarkDone}
-                                            >
-                                                Mark as done
-                                            </span>
+                                            {
+                                                user?.data?.accessId == 2 && (
+                                                    <span
+                                                        className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                        onClick={handleTodoMarkDone}
+                                                    >
+                                                        Mark as done
+                                                    </span>
+
+                                                )
+                                            }
+
                                         </div>
                                     )}
 
