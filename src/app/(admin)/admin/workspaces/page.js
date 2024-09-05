@@ -77,6 +77,7 @@ const Workspace = () => {
         setIsEditWorkspace(false);
         setWorkspaceIndex(null);
     }
+    
 
     const handleOnSave = async () => {
 
@@ -103,6 +104,7 @@ const Workspace = () => {
 
 
     }
+
 
     const handleDeleteWorkspace = async () => {
 

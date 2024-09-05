@@ -36,6 +36,7 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
 
                         </button>
                     </div>
+                    <h2 className="text-center">Edit Workspace</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
                         <input
@@ -129,8 +130,9 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
                         </button>
                     </div>
+                    <div> <h2 className="text-center">Assign TaskList</h2></div> 
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-4">
                         <button
                             type="button"
                             onClick={toggleDropdown}
@@ -231,7 +233,8 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
 
                         </button>
                     </div>
-
+                   
+                    <h2 className="text-center">Edit TaskList</h2>
                     <div className="p-4 md:p-5 space-y-4">
 
                         <input
@@ -305,6 +308,7 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 
                         </button>
                     </div>
+                    <h2 className="text-center">Working User</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
                         {
@@ -392,7 +396,7 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
                             className=" bg-blue-500 text-white p-1 rounded"
                         >
                             {
-                                isEditTodoLoding ? (<ClipLoader size={15} />) : "Save"
+                                isEditTodoLoding ? (<ClipLoader size={15} />) : ("Save")
                             }
 
                         </button>
@@ -412,12 +416,7 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
     const [selectedLabel, setSelectedLabel] = useState("");
     const dispatch = useDispatch();
-    if (selectedLabel == tasklists[tasklistIndex].todo[isTodoIndex].label) {
-            
-        onClose();
-        dispatch(setIsTodoEditMenu(false));
-        return;
-    }
+    
 
     const labels = [
         { value: "Work", color: "#E2B203" },
@@ -428,6 +427,12 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        if (selectedLabel=="" ||selectedLabel == tasklists[tasklistIndex].todo[isTodoIndex].label) {
+            
+            onClose();
+            dispatch(setIsTodoEditMenu(false));
+            return;
+        }
         try {
             await dispatch(todoLabel({ todo_id, selectedLabel }))
             await dispatch(fetchTasklist(workspace_id));
