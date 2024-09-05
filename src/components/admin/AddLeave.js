@@ -25,9 +25,9 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { user, loading } = useSelector((state) => state.user);
-       //console.log("user", user)
+
     const dispatch = useDispatch();
-    const filteredData = user.filter(item => item.accessId == "1");
+    const filteredData = user.filter((item) => item.accessId == "1")
 
     const handleChange = (e) => {
         setFormData({

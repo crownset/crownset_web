@@ -108,7 +108,7 @@ export const LeaveOption = [
     },
     {
         id:7,
-        name:"independence day",
+        name:"Independence day",
         date:"15-Aug-2024" 
     },
     {
