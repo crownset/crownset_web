@@ -24,7 +24,7 @@ export async function PUT(request, { params }) {
 
             const leave = await Leave.findById(leaveId);
 
-            if (leave.status == 'Pending') {
+            if (leave.status == 'Pending'|| leave.status == 'Reject') {
 
                 leave.isDeleted = true
                 const updatedLeave = await leave.save()
