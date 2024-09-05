@@ -10,6 +10,8 @@ export async function POST(request) {
 
   try {
 
+    console.log("queryData>>>>", queryData)
+
     const token = await verifyToken()
 
     if (token == "" || !token) {
@@ -57,6 +59,7 @@ export async function POST(request) {
     }
 
   } catch (error) {
+    console.log("this is error", error)
     return getResponse("error in posting query", 500, false);
   }
 }

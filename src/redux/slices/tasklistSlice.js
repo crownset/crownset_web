@@ -21,7 +21,6 @@ export const fetchTasklist = createAsyncThunk(
 export const createlist = createAsyncThunk(
     'createlist',
     async (data) => {
-
         try {
             // console.log(data)
             const tasklist = await axios.post('/api/teams/tasklist', data);

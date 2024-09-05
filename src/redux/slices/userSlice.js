@@ -5,7 +5,6 @@ export const assignUsers = createAsyncThunk(
     'user/assignUsers',
     async () => {
         const assignResponse = await axios.get('/api/teams/getUser');
-        // console.log(assignResponse);
         return assignResponse.data;
     }
 );

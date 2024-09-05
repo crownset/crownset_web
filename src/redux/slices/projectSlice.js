@@ -6,7 +6,6 @@ export const fetchProjects = createAsyncThunk(
     'project/fetchData',
     async () => {
         const response = await axios.get('/api/projects/getProject');
-        console.log("projectResponse==>", response)
         return response.data;
     });
 
@@ -15,6 +14,7 @@ export const deleteProject = createAsyncThunk(
     async (queryId, { rejectWithValue }) => {
         try {
             const deleteResponse = await axios.put(`/api/projects/deleteProject/${queryId}`);
+            return deleteResponse.data
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
