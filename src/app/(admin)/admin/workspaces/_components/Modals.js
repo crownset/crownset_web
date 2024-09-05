@@ -341,6 +341,12 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
         e.preventDefault();
         // console.log("edit todo");
         const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        if (title == tasklists[tasklistIndex].todo[isTodoIndex].title) {
+            // console.log("here")
+            dispatch(setIsTodoEditModal(false));
+            dispatch(setIsTodoEditMenu(false));
+            return;
+        }
         // console.log(title);
         try {
             await dispatch(editTodo({ todo_id, title }));
@@ -406,6 +412,12 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
     const [selectedLabel, setSelectedLabel] = useState("");
     const dispatch = useDispatch();
+    if (selectedLabel == tasklists[tasklistIndex].todo[isTodoIndex].label) {
+            
+        onClose();
+        dispatch(setIsTodoEditMenu(false));
+        return;
+    }
 
     const labels = [
         { value: "Work", color: "#E2B203" },

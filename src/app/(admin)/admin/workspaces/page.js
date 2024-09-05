@@ -82,6 +82,11 @@ const Workspace = () => {
 
         if (workspaceIndex == null) return
 
+        if (updateName == workspaces[workspaceIndex].name) {
+            handleCloseModal();
+            return
+        }
+
         const workspace_id = workspaces[workspaceIndex]?._id;
         if (!workspace_id) return
 
