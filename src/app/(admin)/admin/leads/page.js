@@ -32,8 +32,7 @@ const Page = () => {
     const handleShowSuccessModal = () => {
         setIsSuccessModalVisible(true);
     };
-
-    const [mailData, setMailData] = useState([]);
+    const [queryData, setQueryData] = useState([]);
     const [fileName, setFileName] = useState('');
     const { isLoading, isSuccess } = useSelector((state) => state.queryData);
     const { isAutoSuccess } = useSelector((state) => state.ui);
@@ -54,7 +53,7 @@ const Page = () => {
                 return;
             }
 
-            setMailData(jsonData);
+            setQueryData(jsonData);
         };
         reader.readAsArrayBuffer(file);
     };
@@ -74,14 +73,15 @@ const Page = () => {
 
     const handleSend = async () => {
         try {
-            if (mailData.length > 0) {
-                await dispatch(getExcelData(mailData));
-                setMailData([]);
-                setFileName(''); // Clear the file name after sending
-                // dispatch(openAutoSuccess());
-                fetchData()
+            if (queryData.length > 0) {
+                const leadExcelRes = await dispatch(getExcelData(queryData));
+                console.log("leadExcelRes", leadExcelRes)
+                setQueryData([]);
+                setFileName('');
+                dispatch(fetchData());
+                toast.success(leadExcelRes?.payload?.message)
             } else {
-                toast.error("Excel file is required");
+                toast.error(leadExcelRes?.payload?.message);
             }
         } catch (error) {
             // Handle error
@@ -152,35 +152,36 @@ const Page = () => {
             ) : (
                 <>
                     <div className='flex justify-end items-center gap-5 cursor-pointer'>
-                        <div className='bg-dashboard flex items-center gap-5  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
-                            <button {...(!fileName ? getRootProps() : {})}>
-                                <span>
-                                    Import Excel File
-                                </span>
-                            </button>
-                            {fileName && (
-                                <div className='flex items-center justify-center gap-3'>
-                                    <div className='mt-2 text-sm text-center'>
-                                        <p>Selected file:{fileName}</p>
-                                    </div>
-                                    <div className='text-center pt-2'>
-                                        <button onClick={() => { setMailData([]), setFileName("") }}>
-                                            <RiDeleteBin5Line className='h-5 w-5 text-red-600' />
+                        <div className='bg-dashboard flex items-center gap-5 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
+                            <div className='flex items-center gap-5'>
+                                {fileName ? (
+                                    <div className='flex items-center gap-3'>
+                                        <p className='text-sm'> {fileName}
+                                        </p>
+                                        <button onClick={() => { setQueryData([]); setFileName(""); }}>
+                                            <RiDeleteBin5Line className='h-4 w-4 text-red-600' />
                                         </button>
                                     </div>
-                                </div>
-
-                            )}
+                                ) : (
+                                    <button {...(!fileName ? getRootProps() : {})} className='flex items-center'>
+                                        <span>Import Excel </span>
+                                    </button>
+                                )}
+                            </div>
                             <button onClick={handleSend}>
-                                <MdSend className='h-6 w-6' />
+                                {
+                                    isLoading ? (<CustomLoader size={10} loading={isLoading} color={"#FFFFFF"} />)
+                                        :
+                                        (<MdSend className='h-6 w-6' />)
+                                }
                             </button>
                         </div>
-                        <button className='bg-dashboard flex items-center gap-1  text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
+                        {/* Add Lead button */}
+                        <button className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
                             <span><FaPlus /></span>
                             <span>Lead</span>
                         </button>
                     </div>
-
                     <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
                         <table className="min-w-full bg-white text-sm ">
                             <thead className='sticky top-0 z-20'>

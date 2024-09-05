@@ -6,8 +6,7 @@ export const getExcelData = createAsyncThunk(
     'automation/sendMailData',
     async (queryData, { rejectWithValue }) => {
         try {
-            const response = await axios.post('/api/addMultipleQueries', { queryData });
-            console.log("data", response.data)
+            const response = await axios.post('/api/teams/addMultipleQueries', { queryData });
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message);
