@@ -1,29 +1,29 @@
+import { handleAsyncActions } from '@/helpers/admin/reduxState';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { handleAsyncActions } from "@/helpers/admin/reduxState";
 
 export const fetchData = createAsyncThunk(
     'data/fetchData',
     async () => {
         const response = await axios.get('/api/teams/getQuery');
         return response.data;
-    });
-
+    }
+);
 
 export const postQuery = createAsyncThunk(
-    "data/postData",
+    'data/postData',
     async (credentials, { rejectWithValue }) => {
         try {
-            const response = await axios.post("/api/teams/addQuery", credentials);
-            return response.data
+            const response = await axios.post('/api/teams/addQuery', credentials);
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const deleteQuery = createAsyncThunk(
-    "data/deleteData",
+    'data/deleteData',
     async (queryId, { rejectWithValue }) => {
         try {
             const deleteResponse = await axios.put(`/api/teams/deleteQuery/${queryId}`);
@@ -32,24 +32,26 @@ export const deleteQuery = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
-)
+);
 
 export const editQuery = createAsyncThunk(
-    "data/editData",
+    'data/editData',
     async ({ queryId, updatedData }, { rejectWithValue }) => {
         try {
-            const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`, updatedData)
-            return editResponse.data
+            const editResponse = await axios.put(`/api/teams/updateQuery/${queryId}`, updatedData);
+            return editResponse.data;
         } catch (error) {
-            return rejectWithValue(error.response.data)
+            return rejectWithValue(error.response.data);
         }
     }
-)
-
+);
 
 const initialState = {
     data: [],
-    loading: false,
+    fetching: false,
+    posting: false,
+    deleting: false,
+    updating: false,
     error: null,
 };
 
@@ -58,12 +60,12 @@ const querySlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        handleAsyncActions(builder, fetchData, initialState);
-        handleAsyncActions(builder, postQuery, initialState);
-        handleAsyncActions(builder, deleteQuery, initialState, (state, action) => {
+        handleAsyncActions(builder, fetchData, 'fetching');
+        handleAsyncActions(builder, postQuery, 'posting');
+        handleAsyncActions(builder, deleteQuery, 'deleting', (state, action) => {
             state.data = state.data.filter(item => item.id !== action.meta.arg);
         });
-        handleAsyncActions(builder, editQuery, initialState, (state, action) => {
+        handleAsyncActions(builder, editQuery, 'updating', (state, action) => {
             const index = state.data.findIndex(item => item.id === action.meta.arg);
             if (index !== -1) {
                 state.data[index] = { ...state.data[index], ...action.payload };
