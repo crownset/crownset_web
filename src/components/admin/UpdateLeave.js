@@ -10,7 +10,7 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { leave } = useSelector((state) => state.leave);
-    console.log("leave>>>", leave)
+
     const filteredData = user.filter(item => item.accessId == "1");
     const [userDetail, setUserDetail] = useState(null);
 
@@ -70,15 +70,14 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Submitting form data:", formData);
+    
         try {
             const result = await dispatch(editLeave({ queryId: formData.queryId, updatedData: formData })).unwrap();
-            console.log("Update result:", result);
+            
             dispatch(fetchLeave());
             onClose();
             toast.success(result?.message);
         } catch (error) {
-            console.error('Update failed:', error);
             toast.error('Failed to update leave');
         }
     };
