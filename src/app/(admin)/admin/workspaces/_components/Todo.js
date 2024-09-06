@@ -27,15 +27,15 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
     const { isTodoEditMenu, isTodoIndex, tasklistIndex, isTodoEditModal } = useSelector((state) => state.misc);
     const dispatch = useDispatch();
-
+    // console.log(taskList);
     const [user, setUser] = useState(null);
     const [isOpen, setIsOpen] = useState(true);
     const [newTodo, setNewTodo] = useState('');
-    const [todos, setTodos] = useState(taskList?.todo);
+    const [todos, setTodos] = useState(taskList?.todos);
     const [showAddTodo, setShowAddTodo] = useState(false);
 
     const list_id = taskList?._id;
-
+    // console.log(taskList?.assign_to[0]?.firstName);
 
     useEffect(() => {
 
@@ -90,9 +90,9 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
 
     const handleTodoMarkDone = async () => {
-        const todo_id = taskList?.todo[isTodoIndex]?._id;
+        const todo_id = taskList?.todos[isTodoIndex]?._id;
         // console.log(taskList?.todo[isTodoIndex]?.is_completed);
-        if (taskList?.todo[isTodoIndex]?.is_completed) {
+        if (taskList?.todos[isTodoIndex]?.is_completed) {
             return toast.success("Already mark done");
         }
         // console.log(todo_id);
@@ -122,6 +122,12 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                     </span>
                     <span className="text-gray-500 text-[0.7rem]">
                         (Deadline : {moment(taskList?.deadline).format('LL')})
+                    </span>
+                    <span className="text-gray-500 text-[0.7rem] flex ">
+                        ( {taskList?.assign_to?.map((user,index)=>(
+                            <li key={index} className='list-none mr-1 text-gray-600'>{user.firstName}</li>
+                        ))
+                        })
                     </span>
                 </div>
 
