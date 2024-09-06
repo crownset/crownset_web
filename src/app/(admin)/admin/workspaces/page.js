@@ -77,10 +77,16 @@ const Workspace = () => {
         setIsEditWorkspace(false);
         setWorkspaceIndex(null);
     }
+    
 
     const handleOnSave = async () => {
 
         if (workspaceIndex == null) return
+
+        if (updateName == workspaces[workspaceIndex].name) {
+            handleCloseModal();
+            return
+        }
 
         const workspace_id = workspaces[workspaceIndex]?._id;
         if (!workspace_id) return
@@ -98,6 +104,7 @@ const Workspace = () => {
 
 
     }
+
 
     const handleDeleteWorkspace = async () => {
 
