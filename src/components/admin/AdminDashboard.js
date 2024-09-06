@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                         <button onClick={toggleSidebar}>
                             <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
                         </button>
-                        {
+                        {/* {
                             user ? (
                                 <div className=' hidden md:flex flex-col gap-1'>
                                     <div className="flex items-center space-x-2">
@@ -162,7 +162,7 @@ const AdminDashboard = () => {
                             ) : (
                                 <CustomLoader size={10} color={"#FFFFFF"} />
                             )
-                        }
+                        } */}
                     </div>
                     <div className='pt-2'>
                         <button onClick={openDetailsModal}>

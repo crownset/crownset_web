@@ -275,71 +275,70 @@ const Page = () => {
         </div>
       </section>
 
-      <section className="mt-20 px-5 hidden">
+      <section className="mt-20 px-5">
         <div className="xl:w-11/12 m-auto">
           <h1 className="text-center text-[1.2rem] font-semibold px-5">
             Our Clients
           </h1>
           <div className="overflow-hidden">
             <div className="flex gap-4 mt-10 animate-scroll">
-              {/* First set of images */}
               <div className="flex gap-6">
                 <Image
-                  src={images?.boat_logo}
+                  src={images?.elysian}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.amazon_logo}
+                  src={images?.carmell}
+                  width={200}
+                  height={34}
+                  alt="logo"
+                />
+                <Image
+                  src={images?.rasana}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.benz_logo}
+                  src={images?.mittalGroup}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.haldirams_logo}
+                  src={images?.mrjb}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.hyundai_logo}
+                  src={images?.daloom}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.kfc_logo}
+                  src={images?.jaguar}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.lv_logo}
+                  src={images?.aryanLifts}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.nestle_logo}
+                  src={images?.webinn}
                   width={171}
                   height={34}
                   alt="logo"
                 />
                 <Image
-                  src={images?.netflix_logo}
-                  width={171}
-                  height={34}
-                  alt="logo"
-                />
-                <Image
-                  src={images?.nike_logo}
+                  src={images?.snk}
                   width={171}
                   height={34}
                   alt="logo"
@@ -355,97 +354,37 @@ const Page = () => {
         <div className="">
           <div>
             <h2 className="font-bold text-[1rem] md:mt-12 ">TEAM</h2>
-            <h1
-              className="text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
-            md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]"
-            >
+            <h1 className="text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
+        md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]">
               Founding Member Spotlight
             </h1>
           </div>
-
-          {/* mobile view */}
           <div className="mt-6 md:hidden">
-            <div
-              className="relative w-full overflow-hidden"
-              data-carousel="slide"
-              {...handlers}
-            >
-              <div
-                className="flex w-[100%] justify-center items-center   transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
-                {teamData.map((card, index) => (
-                  <div
-                    key={index}
-                    className=" flex items-center justify-center px-2 mt-5 w-[100%]"
-                  >
-                    <div className="w-full h-full flex flex-col pb-[1rem]">
-                      <div className="rounded-[3rem]">
-                        <Image
-                          src={teamPic[index]}
-                          width={700}
-                          height={300}
-                          alt="Picture of the author"
-                          className="rounded-[3rem] h-[300px]"
-                        />
-                      </div>
-                      <div className="flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10">
-                        <div>
-                          <p className="text-xl font-bold leading-6 ">
-                            {card.name}
-                          </p>
-                          <h2 className="text-bodyTextColor text-sm">
-                            {card.designation}
-                          </h2>
-                        </div>
-                        <div className="flex flex-row gap-5 items-center">
-                          <div>
-                            <Link href={linkedinUrl[index]} target="_blank">
-                              <Icon icon={<LinkedinIcon />} />
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* <div className='flex justify-center items-center space-x-3'>
-              <button onClick={goToPrevious}><GrFormPreviousLink className='text-[2rem]' /></button>
-              <button onClick={goToNext}><GrFormNextLink className='text-[2rem]' />   </button>
-            </div> */}
-          </div>
-
-          <div className="hidden md:block">
-            <div className="flex justify-between items-center mt-5">
-              {teamData.map((card, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center px-2 mt-5 "
-                >
-                  <div className=" flex flex-col pb-[1rem]">
+            <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
+              <div className="flex w-[100%] justify-center items-center transition-transform duration-700 ease-in-out">
+                <div className="flex items-center justify-center px-2 mt-5 w-[100%]">
+                  <div className="w-full h-full flex flex-col pb-[1rem]">
                     <div className="rounded-[3rem]">
                       <Image
-                        src={teamPic[index]}
-                        width={300}
+                        src={teamPic[0]}
+                        width={700}
                         height={300}
                         alt="Picture of the author"
-                        className="rounded-[3rem] lg:w-[400px] xl:w-[450px]"
+                        className="rounded-[3rem] h-[300px]"
                       />
                     </div>
                     <div className="flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10">
                       <div>
                         <p className="text-xl font-bold leading-6 ">
-                          {card.name}
+                          {teamData[0].name} 
                         </p>
                         <h2 className="text-bodyTextColor text-sm">
-                          {card.designation}
+                          {teamData[0].designation}
                         </h2>
                       </div>
                       <div className="flex flex-row gap-5 items-center">
                         <div>
-                          <Link href={linkedinUrl[index]} target="_blank">
+                          <Link href={linkedinUrl[0]} target="_blank">
                             <Icon icon={<LinkedinIcon />} />
                           </Link>
                         </div>
@@ -453,11 +392,133 @@ const Page = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop view for first member */}
+          <div className="hidden md:block">
+            <div className="flex justify-between items-center mt-5">
+              <div className="flex items-center justify-center px-2 mt-5">
+                <div className="flex flex-col pb-[1rem]">
+                  <div className="rounded-[3rem]">
+                    <Image
+                      src={teamPic[0]} // Show first member's image
+                      width={300}
+                      height={300}
+                      alt="Picture of the author"
+                      className="rounded-[3rem] lg:w-[400px] xl:w-[450px]"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10">
+                    <div>
+                      <p className="text-xl font-bold leading-6 ">
+                        {teamData[0].name} {/* First member's name */}
+                      </p>
+                      <h2 className="text-bodyTextColor text-sm">
+                        {teamData[0].designation} {/* First member's designation */}
+                      </h2>
+                    </div>
+                    <div className="flex flex-row gap-5 items-center">
+                      <div>
+                        <Link href={linkedinUrl[0]} target="_blank">
+                          <Icon icon={<LinkedinIcon />} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <section className="px-5 mt-10 xl:w-11/12 m-auto">
+        <div className="">
+          <div>
+            <h1 className="text-bold mt-4 pr-5 text-[1.8rem] leading-8 font-[700] 
+        md:text-[2.5rem] md:leading-[2.3rem] lg:text-[4rem] lg:leading-[4rem]">
+              Leading Member
+            </h1>
+          </div>
+
+          {/* mobile view for second member */}
+          <div className="mt-6 md:hidden">
+            <div className="relative w-full overflow-hidden" data-carousel="slide" {...handlers}>
+              <div className="flex w-[100%] justify-center items-center transition-transform duration-700 ease-in-out">
+                <div className="flex items-center justify-center px-2 mt-5 w-[100%]">
+                  <div className="w-full h-full flex flex-col pb-[1rem]">
+                    <div className="rounded-[3rem]">
+                      <Image
+                        src={teamPic[1]} // Show second member's image
+                        width={700}
+                        height={300}
+                        alt="Picture of the author"
+                        className="rounded-[3rem] h-[300px]"
+                      />
+                    </div>
+                    <div className="flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10">
+                      <div>
+                        <p className="text-xl font-bold leading-6 ">
+                          {teamData[1].name} {/* Second member's name */}
+                        </p>
+                        <h2 className="text-bodyTextColor text-sm">
+                          {teamData[1].designation} {/* Second member's designation */}
+                        </h2>
+                      </div>
+                      <div className="flex flex-row gap-5 items-center">
+                        <div>
+                          <Link href={linkedinUrl[1]} target="_blank">
+                            <Icon icon={<LinkedinIcon />} />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop view for second member */}
+          <div className="hidden md:block">
+            <div className="flex justify-between items-center mt-5">
+              <div className="flex items-center justify-center px-2 mt-5">
+                <div className="flex flex-col pb-[1rem]">
+                  <div className="rounded-[3rem]">
+                    <Image
+                      src={teamPic[1]} // Show second member's image
+                      width={300}
+                      height={300}
+                      alt="Picture of the author"
+                      className="rounded-[3rem] lg:w-[400px] xl:w-[450px]"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center gap-2 px-[2rem] mt-10 md:grid md:grid-cols-2 gap:10">
+                    <div>
+                      <p className="text-xl font-bold leading-6 ">
+                        {teamData[1].name} {/* Second member's name */}
+                      </p>
+                      <h2 className="text-bodyTextColor text-sm">
+                        {teamData[1].designation} {/* Second member's designation */}
+                      </h2>
+                    </div>
+                    <div className="flex flex-row gap-5 items-center">
+                      <div>
+                        <Link href={linkedinUrl[1]} target="_blank">
+                          <Icon icon={<LinkedinIcon />} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section className="mt-10 px-5 hidden">
         <div className="flex items-center justify-center gap-5 py-10 max-md:flex-col">
