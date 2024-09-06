@@ -14,7 +14,7 @@ const Page = ({ params }) => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.tasklist.isLoading);
-  // const workspaces = useSelector((state) => state.workspace.workspaces);
+  
   const [workspaces,setWorkspaces] = useState(null);
   const [name,setName] = useState(null);
   
@@ -37,7 +37,8 @@ const Page = ({ params }) => {
     const fetch = async () => {
 
       try {
-        await dispatch(fetchTasklist(params.workspace_id));
+        const res = await dispatch(fetchTasklist(params.workspace_id));
+        
       } catch (error) {
         return toast.error("Error in fetching tasklist")
 

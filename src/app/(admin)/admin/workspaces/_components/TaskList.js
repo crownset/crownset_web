@@ -74,10 +74,12 @@ export default function TaskList({ workspace_id }) {
 
     try {
 
-      await dispatch(createlist(data));
+      const res = await dispatch(createlist(data));
+      // console.log(res);
+      await dispatch(fetchTasklist(workspace_id))
       setNewTaskListName('');
       setNewTaskListDeadline('');
-      toast.success('List created successfully');
+      toast.success(res?.data?.data?.message);
     } catch (error) {
        return toast.error("Failed to create list")
 

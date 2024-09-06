@@ -64,6 +64,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
     const [selectedUser, setSelectedUser] = useState('select user');
     const [user_id, setUserId] = useState('');
     const users = useSelector((state) => state.user.user)
+    const user = users?.filter((item)=> item?.accessId === 2)
+    // console.log(user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -108,8 +110,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
     }
 
     const handleSelect = (index) => {
-        setSelectedUser(users[index].firstName);
-        setUserId(users[index]._id);
+        setSelectedUser(user[index].firstName);
+        setUserId(user[index]._id);
         setIsOpen(false);
     };
 
@@ -157,7 +159,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
                         {isOpen && (
                             <div className="absolute mt-10 w-48 bg-gray-400  rounded-lg shadow-lg ">
                                 <ul className="py-1 max-h-[10rem] overflow-y-auto scrollbar-custom">
-                                    {users?.map((user, index) => (
+                                    {user?.map((user, index) => (
                                         <li
                                             key={index}
                                             onClick={() => { handleSelect(index) }}
@@ -266,8 +268,6 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
 export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }) => {
 
     const workinguser = useSelector((state) => state.tasklist.workinguser)
-
-    // console.log("called compo")
 
     const dispatch = useDispatch();
 

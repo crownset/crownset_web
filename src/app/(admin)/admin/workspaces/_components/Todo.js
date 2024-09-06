@@ -123,8 +123,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                     <span className="text-gray-500 text-[0.7rem]">
                         (Deadline : {moment(taskList?.deadline).format('LL')})
                     </span>
-                    <span className="text-gray-500 text-[0.7rem]">
-                        (working : {taskList?.assign_to[0]?.firstName})
+                    <span className="text-gray-500 text-[0.7rem] flex ">
+                        ( {taskList?.assign_to?.map((user,index)=>(
+                            <li key={index} className='list-none mr-1 text-gray-600'>{user.firstName}</li>
+                        ))
+                        })
                     </span>
                 </div>
 
