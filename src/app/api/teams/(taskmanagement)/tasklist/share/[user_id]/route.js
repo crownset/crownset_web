@@ -1,28 +1,25 @@
 import { dbConnect } from "@/helpers/db";
-import { UserCS } from "@/modelCS/user";
 import { NextResponse } from "next/server";
 import TaskList from "@/modelCS/tasklist";
 import Workspace from "@/modelCS/workspace";
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
-
-// assign list to user
+// assign list to single user
 export async function PUT(request, { params }) {
-    await dbConnect();
     try {
-
+        await dbConnect();
         const token = request.cookies.get("authToken:")?.value || '';
 
         if (!token) {
-            return NextResponse.json({ message: "Please Login First" }, { status: 401 })
+            return NextResponse.json({ message: "Please Login First" }, { status: 401 });
         }
 
-        const decode = await jwt.verify(token, process.env.SECRET_KEY)
+        const decode = await jwt.verify(token, process.env.SECRET_KEY);
         if (!decode) {
-            return NextResponse.json({ message: "You are not authorized" }, { status: 401 })
+            return NextResponse.json({ message: "You are not authorized" }, { status: 401 });
         }
 
-        const { user_id } = params;
+        const { user_id } = params; // Single user_id for assignment
 
         let requestBody;
         try {
@@ -32,73 +29,47 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ message: "Invalid JSON format" }, { status: 400 });
         }
 
-
         const { tasklist_id } = requestBody;
-
-        // console.log(tasklist_id,user_id);
-
         const list = await TaskList.findOne({ _id: tasklist_id });
 
-        // console.log(list);
         if (!list) {
             return NextResponse.json({ message: "Tasklist not found" }, { status: 404 });
         }
 
-        // const isUserExistInList = await TaskList.findOne({},{ assign_to: user_id });
-        if (list.assign_to.length > 0) {
-            const isUserExistInList = list.assign_to.filter((user) => user == user_id)
-            if (!isUserExistInList) {
-                const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {
-                    $push: { assign_to: user_id }
-                }, { new: true });
-            }
-        } else {
-            const tasklist = await TaskList.findOneAndUpdate({ _id: tasklist_id }, {
-                $push: { assign_to: user_id }
-            }, { new: true });
+        // Check if the user is already in the tasklist
+        if (!list.assign_to.includes(user_id)) {
+            // Add user to the tasklist if not already present
+            await TaskList.findOneAndUpdate(
+                { _id: tasklist_id },
+                { $push: { assign_to: user_id } },
+                { new: true }
+            );
         }
-
 
         const workspace = await Workspace.findOne({ _id: list.workspace_id });
 
         if (!workspace) {
-            return NextResponse.json({ message: "workspace not found" }, { status: 404 });
-
-        }
-        // const isUserExistInWorspace = await Workspace.findOne({ members: user_id });
-
-        if (workspace.members.length > 0) {
-            // console.log("here");
-            const isUserExistInWorkspace = workspace.members.filter((user) => user == user_id)
-            // console.log(isUserExistInWorkspace);
-            if (isUserExistInWorkspace.length == 0) {
-                // console.log("work if")
-                const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
-                    $push: { members: user_id }
-                }, { new: true });
-            }
-
-        }
-        else {
-            console.log("work else")
-            const updateWorkspace = await Workspace.findOneAndUpdate({ _id: list.workspace_id }, {
-                $push: { members: user_id }
-            }, { new: true });
+            // If workspace doesn't exist, remove the user from the tasklist
+            await TaskList.findOneAndUpdate(
+                { _id: tasklist_id },
+                { $pull: { assign_to: user_id } }
+            );
+            return NextResponse.json({ message: "Workspace not found, user removed from tasklist" }, { status: 404 });
         }
 
+        // Add user to workspace if not already a member
+        if (!workspace.members.includes(user_id)) {
+            await Workspace.findOneAndUpdate(
+                { _id: list.workspace_id },
+                { $push: { members: user_id } },
+                { new: true }
+            );
+        }
 
-
-
-
-
-
-
-        return NextResponse.json({ message: `Tasklist assigned `,data:{}}, { status: 200 });
+        return NextResponse.json({ message: `Tasklist successfully assigned to user`, data: {} }, { status: 200 });
 
     } catch (error) {
-
-        console.log("Failed to Assign Tasklist", error);
-        return NextResponse.json({ message: "Failed to Assign Tasklist" }, { status: 200 });
-
+        console.log("Failed to assign tasklist", error);
+        return NextResponse.json({ message: "Failed to assign tasklist" }, { status: 500 });
     }
 }

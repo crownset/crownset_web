@@ -57,6 +57,7 @@ const AdminDashboard = () => {
             await dispatch(logoutUser()).unwrap();
             Cookies.remove("authToken:");
             localStorage.removeItem('user');
+            localStorage.removeItem('workspaces')
             toast.success("Logout successful!");
             router.push("/teams");
         } catch (error) {

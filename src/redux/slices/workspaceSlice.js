@@ -3,7 +3,7 @@ import axios from "axios";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-    workspaces: [],
+    workspaces: null,
     error: false,
     isCreateWorkspaceLoading: false,
     deleteWorkspaceLoading: false,
@@ -30,8 +30,9 @@ export const fetchWorkspaces = createAsyncThunk(
     "fetchWorksapcesforadmin",
     async () => {
         try {
-            const allWorkspaces = await axios.get('/api/teams/workspace/getWorkspaces');
-
+            const allWorkspaces = await axios.get('/api/teams/workspace/getWorkspaces'); 
+            const workspaces = await allWorkspaces;
+            localStorage.setItem("workspaces", JSON.stringify(allWorkspaces))
             return allWorkspaces.data.data
         } catch (error) {
             console.log(error);
@@ -115,7 +116,7 @@ const workspaceSlice = createSlice({
             })
             .addCase(createWorkspace.fulfilled, (state, action) => {
                 //check for null condition
-                state.workspaces.unshift(action.payload);
+                state.workspaces = action.payload;
                 state.isCreateWorkspaceLoading = false;
             })
             .addCase(createWorkspace.rejected, (state, action) => {
@@ -128,6 +129,7 @@ const workspaceSlice = createSlice({
             .addCase(fetchWorkspaces.fulfilled, (state, action) => {
                 // console.log(action.payload);
                 state.workspaces = action.payload;
+                // console.log(state.workspaces);
                 state.loading = false;
             })
             .addCase(fetchWorkspaces.rejected, (state, action) => {

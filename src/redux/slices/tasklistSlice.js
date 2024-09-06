@@ -6,13 +6,17 @@ import axios from "axios";
 
 export const fetchTasklist = createAsyncThunk(
     'fetchtasklist',
-    async (workspace_id) => {
+    async (workspace_id, { rejectWithValue }) => {
         try {
-            const tasklistData = await axios.get(`/api/teams/workspace/${workspace_id}`)
-            return tasklistData.data.data
+            // console.log(workspace_id);
+            const tasklistData = await axios.get(`/api/teams/workspace/${workspace_id}`);
+            // console.log(tasklistData);
+
+            return tasklistData.data.data;
 
         } catch (error) {
-            console.log(error);
+            return rejectWithValue(error?.response?.data?.message);
+
 
         }
     }
@@ -24,6 +28,7 @@ export const createlist = createAsyncThunk(
         try {
             // console.log(data)
             const tasklist = await axios.post('/api/teams/tasklist', data);
+            // console.log(tasklist);
             return tasklist.data.data;
 
         } catch (error) {
@@ -51,7 +56,7 @@ export const editList = createAsyncThunk(
 export const shareList = createAsyncThunk(
     'sharelist',
     async ({ user_id, tasklist_id }, { rejectWithValue }) => {
-       
+
         try {
             const res = await axios.put(`/api/teams/tasklist/share/${user_id}`, { tasklist_id });
             return res.data.data;
@@ -66,9 +71,9 @@ export const deleteTasklist = createAsyncThunk(
     'deleteTaskList',
     async (tasklist_id) => {
         try {
-            
+
             const res = await axios.put(`/api/teams/tasklist/delete/${tasklist_id}`);
-            
+
             return res.data.data;
         } catch (error) {
             console.log(error);
@@ -179,7 +184,7 @@ const tasklistSlice = createSlice({
                 state.isShowUerLoading = true;
             })
             .addCase(showWorkingUser.fulfilled, (state, action) => {
-                
+
                 state.workinguser = action.payload;
                 state.isShowUerLoading = false;
 
@@ -230,7 +235,7 @@ const tasklistSlice = createSlice({
 
             })
             .addCase(createlist.fulfilled, (state, action) => {
-                state.tasklist.push(action.payload);
+
                 state.isCreatingList = false;
 
             })
@@ -247,6 +252,7 @@ const tasklistSlice = createSlice({
             })
             .addCase(fetchTasklist.rejected, (state) => {
                 state.isLoading = false;
+                // console.log("Error is here")
                 state.isError = true;
             })
 
