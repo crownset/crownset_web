@@ -1,3 +1,4 @@
+
 "use client"
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -23,19 +24,20 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
 
         <>
             <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
 
                         </button>
                     </div>
+                    <h2 className="text-center">Edit Workspace</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
                         <input
@@ -56,13 +58,14 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
     )
 }
 
-//tasklist modals
 export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspace_id }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState('select user');
     const [user_id, setUserId] = useState('');
     const users = useSelector((state) => state.user.user)
+    const user = users?.filter((item)=> item?.accessId === 2)
+    // console.log(user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -107,8 +110,8 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
     }
 
     const handleSelect = (index) => {
-        setSelectedUser(users[index].firstName);
-        setUserId(users[index]._id);
+        setSelectedUser(user[index].firstName);
+        setUserId(user[index]._id);
         setIsOpen(false);
     };
 
@@ -116,21 +119,22 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
         <>
             <div className="fixed w-full   inset-0 z-50 flex items-center justify-center overflow-y-hidden overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4   md:w-1/3 md:h-3/3 bg-white rounded-lg shadow dark:bg-gray-700 ">
+                <div className="relative p-4   md:w-1/3 md:h-3/3 bg-white rounded-lg shadow  ">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
 
                         </button>
                     </div>
+                    <div> <h2 className="text-center">Assign TaskList</h2></div> 
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-4">
                         <button
                             type="button"
                             onClick={toggleDropdown}
@@ -155,7 +159,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
                         {isOpen && (
                             <div className="absolute mt-10 w-48 bg-gray-400  rounded-lg shadow-lg ">
                                 <ul className="py-1 max-h-[10rem] overflow-y-auto scrollbar-custom">
-                                    {users?.map((user, index) => (
+                                    {user?.map((user, index) => (
                                         <li
                                             key={index}
                                             onClick={() => { handleSelect(index) }}
@@ -218,20 +222,21 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
 
         <>
             <div className="fixed  inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-[240px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative p-4 w-[240px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow ">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
 
                         </button>
                     </div>
-
+                   
+                    <h2 className="text-center">Edit TaskList</h2>
                     <div className="p-4 md:p-5 space-y-4">
 
                         <input
@@ -264,8 +269,6 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 
     const workinguser = useSelector((state) => state.tasklist.workinguser)
 
-    // console.log("called compo")
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -292,19 +295,20 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 
         <>
             <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-[250px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative p-4 w-[250px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow ">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
 
                         </button>
                     </div>
+                    <h2 className="text-center">Working User</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
                         {
@@ -332,15 +336,23 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
     const tasklists = useSelector((state) => state.tasklist?.tasklist);
     const { isTodoIndex, tasklistIndex, isEditTodoLoding } = useSelector((state) => state.misc)
-    // console.log(tasklists[tasklistIndex].todo[isTodoIndex]);
-    const [title, setTitle] = useState(tasklists[tasklistIndex].todo[isTodoIndex].title);
+    
+    const [title, setTitle] = useState(tasklists?.[tasklistIndex]?.todos?.[isTodoIndex]?.title );
+    // console.log(title);
 
     const dispatch = useDispatch();
+   
 
     const onSave = async (e) => {
         e.preventDefault();
-        // console.log("edit todo");
-        const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        
+        const todo_id = tasklists[tasklistIndex]?.todos[isTodoIndex]?._id;
+        if (title == tasklists[tasklistIndex]?.todos[isTodoIndex]?.title) {
+
+            dispatch(setIsTodoEditModal(false));
+            dispatch(setIsTodoEditMenu(false));
+            return;
+        }
         // console.log(title);
         try {
             await dispatch(editTodo({ todo_id, title }));
@@ -361,13 +373,13 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
 
         <>
             <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow ">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
@@ -386,7 +398,7 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
                             className=" bg-blue-500 text-white p-1 rounded"
                         >
                             {
-                                isEditTodoLoding ? (<ClipLoader size={15} />) : "Save"
+                                isEditTodoLoding ? (<ClipLoader size={15} />) : ("Save")
                             }
 
                         </button>
@@ -406,6 +418,7 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
     const [selectedLabel, setSelectedLabel] = useState("");
     const dispatch = useDispatch();
+    
 
     const labels = [
         { value: "Work", color: "#E2B203" },
@@ -415,7 +428,13 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const todo_id = tasklists[tasklistIndex].todo[isTodoIndex]._id;
+        const todo_id = tasklists[tasklistIndex]?.todos[isTodoIndex]?._id;
+        if (selectedLabel=="" ||selectedLabel == tasklists[tasklistIndex]?.todos[isTodoIndex]?.label) {
+            
+            onClose();
+            dispatch(setIsTodoEditMenu(false));
+            return;
+        }
         try {
             await dispatch(todoLabel({ todo_id, selectedLabel }))
             await dispatch(fetchTasklist(workspace_id));
@@ -435,13 +454,13 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
         <>
             <div className="fixed w-full inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
+                <div className="relative w-[280px] p-4 md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow">
 
                     <div className="flex items-end justify-end">
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />

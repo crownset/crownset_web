@@ -10,10 +10,10 @@ import { dbConnect } from "@/helpers/db"
 export async function POST(request) {
 
     await dbConnect()
-  const { email, password } = await request.json();
+  const { eid, password } = await request.json();
 
   try {
-    const user = await UserCS.findOne({ email: email });
+    const user = await UserCS.findOne({ eid: eid });
 
     if (user == null) {
       return NextResponse.json({ message: "user not found" });

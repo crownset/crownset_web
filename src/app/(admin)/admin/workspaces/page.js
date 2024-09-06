@@ -77,10 +77,16 @@ const Workspace = () => {
         setIsEditWorkspace(false);
         setWorkspaceIndex(null);
     }
+    
 
     const handleOnSave = async () => {
 
         if (workspaceIndex == null) return
+
+        if (updateName == workspaces[workspaceIndex].name) {
+            handleCloseModal();
+            return
+        }
 
         const workspace_id = workspaces[workspaceIndex]?._id;
         if (!workspace_id) return
@@ -88,6 +94,7 @@ const Workspace = () => {
 
         try {
             await dispatch(editWorkspace({ updateName, workspace_id })).unwrap();
+            await dispatch(fetchWorkspaces());
             toast.success("Workspace Editted Successful")
             handleCloseModal();
 
@@ -99,6 +106,7 @@ const Workspace = () => {
 
     }
 
+
     const handleDeleteWorkspace = async () => {
 
         if (workspaceIndex === null) return;
@@ -107,7 +115,9 @@ const Workspace = () => {
         try {
 
             await dispatch(deleteWorkspace(workspace_id)).unwrap();
+            await dispatch(fetchWorkspaces());
             toast.success("Workspace Deleted Successfully")
+
             handleCloseEditWorkspace();
 
         } catch (error) {
@@ -130,6 +140,7 @@ const Workspace = () => {
 
         try {
             const res = await dispatch(createWorkspace(data));
+            await dispatch(fetchWorkspaces());
             toast.success('Workspace Created Successfully');
         } catch (error) {
             toast.error('Failed to create Workspace');
