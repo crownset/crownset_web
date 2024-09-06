@@ -13,7 +13,9 @@ const userSchema = new Schema({
     designation: {type: String, required: true},
     resettoken: {type: String, default:""},
     isActive: {type: Boolean, default: false},
-    leaveBalance: { type: Number, default: 0, min: 0, max: 15 }
+    leaveBalance: { type: Number, default: 0, min: 0, max: 15 },
+    department: {type: String, enum: ["IT","Sales","Design"], required: true}
+
 })
 
 export const UserCS = mongoose.models.userCS || mongoose.model('userCS',userSchema)

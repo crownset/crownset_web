@@ -8,10 +8,10 @@ export async function POST(request) {
 
   await dbConnect()
 
-  const {uid,email,password,firstName,lastName,dob,doj,designation} = await request.json();
+  const {uid,email,password,firstName,lastName,dob,doj,designation,department} = await request.json();
 
   const user = new UserCS({
-    uid,email,password,firstName,lastName,dob,doj,designation
+    uid,email,password,firstName,lastName,dob,doj,designation,department
   });
 
   try {
@@ -47,6 +47,10 @@ export async function POST(request) {
     if(!designation || designation==""){
         return getResponse("Designation should not be empty", 500, false)
     }
+
+    if(!department || department==""){
+      return getResponse("Department should not be empty", 500, false)
+  }
 
     user.password = bcrypt.hashSync(
       user.password,
