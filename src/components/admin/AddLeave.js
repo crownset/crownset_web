@@ -112,6 +112,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                             Apply Leave
                         </h3>
+                        
                         <button
                             type="button"
                             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -197,6 +198,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         selected={formData?.endDate}
                                         onChange={(date) => handleDateChange('endDate', date)}
                                         dateFormat="yyyy/MM/dd"
+                                        minDate={new Date()} 
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     />
                                     {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
