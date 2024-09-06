@@ -163,7 +163,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         onChange={handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     >
-                                        <option value="">Select a user</option>
+                                        <option value="">Applied to</option>
                                         {filteredData.map((item) => (
                                             <option key={item._id} value={item._id}>
                                                 {item?.firstName}
@@ -183,6 +183,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         selected={formData?.startDate}
                                         onChange={(date) => handleDateChange('startDate', date)}
                                         dateFormat="yyyy/MM/dd"
+                                        minDate={new Date()} 
                                         className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     />
                                     {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}

@@ -68,7 +68,7 @@ const Page = () => {
   // };
 
   const handleDelete = async () => {
-    console.log("clicked delete");
+  
     if (isDeleteLeaveID) {
       try {
         await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
