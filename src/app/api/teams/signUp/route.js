@@ -8,16 +8,16 @@ export async function POST(request) {
 
   await dbConnect()
 
-  const {uid,email,password,firstName,lastName,dob,doj,designation,department} = await request.json();
+  const {eid,email,password,firstName,lastName,dob,doj,designation,department} = await request.json();
 
   const user = new UserCS({
-    uid,email,password,firstName,lastName,dob,doj,designation,department
+    eid,email,password,firstName,lastName,dob,doj,designation,department
   });
 
   try {
 
-    if(!uid || uid == ""){
-        return getResponse("UID should not be empty", 500, false)
+    if(!eid || eid == ""){
+        return getResponse("EID should not be empty", 500, false)
     }
 
     if(!email || email==""){
@@ -57,14 +57,14 @@ export async function POST(request) {
       10
     );
     
-    let checkEmail = []
-    checkEmail = await UserCS.find({email: user.email})
+    let checkEID = []
+    checkEID = await UserCS.find({eid: user.eid})
 
-    console.log(checkEmail)
+    console.log(checkEID)
     
-    if(!checkEmail.length == 0){
+    if(!checkEID.length == 0){
         return NextResponse.json({
-            message: "please sign up with valid mail",
+            message: "please sign up with valid EID",
             success: false
         })
     }
