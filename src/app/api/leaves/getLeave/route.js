@@ -19,8 +19,7 @@ export async function GET(request) {
     if(token && token.user.accessId ==1){
 
       const leave = await Leave.find({
-        isDeleted: false,
-        approvedBy: token.user._id
+        isDeleted: false
     }).populate("userId",{"firstName":1,"accessId":1},UserCS).populate("approvedBy",{"firstName":1,"accessId":1},UserCS).sort({"appliedDate":-1})
       return NextResponse.json(leave)
     }
