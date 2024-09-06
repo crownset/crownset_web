@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BeatLoader } from 'react-spinners'
 
@@ -14,6 +14,23 @@ const Page = ({ params }) => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector((state) => state.tasklist.isLoading);
+  // const workspaces = useSelector((state) => state.workspace.workspaces);
+  const [workspaces,setWorkspaces] = useState(null);
+  const [name,setName] = useState(null);
+  
+  useEffect(() => {
+    const storedWorkspaces = localStorage.getItem('workspaces');
+    if (storedWorkspaces) {
+      const parsedWorkspaces = JSON.parse(storedWorkspaces);
+      setWorkspaces(parsedWorkspaces);
+
+     
+      const workspace = parsedWorkspaces?.data?.data?.filter(work => work?._id === params.workspace_id);
+      if (workspace && workspace.length > 0) {
+        setName(workspace[0]?.name);
+      }
+    }
+  }, [params.workspace_id]);
 
   useEffect(() => {
 
@@ -23,9 +40,9 @@ const Page = ({ params }) => {
         await dispatch(fetchTasklist(params.workspace_id));
       } catch (error) {
         return toast.error("Error in fetching tasklist")
-        
+
       }
-      
+
     }
     fetch();
 
@@ -40,7 +57,13 @@ const Page = ({ params }) => {
           </div>
         </>
       ) : (
-        <TaskList workspace_id={params.workspace_id} />
+        <div className='mt-10 md:ml-5'>
+          
+            {name&& (<h1 className='text-center sticky text-[2rem] font-semibold text-gray-700'>{name}</h1>)}
+      
+          
+          <TaskList workspace_id={params.workspace_id} />
+        </div>
       )
       }
 

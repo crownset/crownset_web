@@ -8,7 +8,9 @@ export const fetchTasklist = createAsyncThunk(
     'fetchtasklist',
     async (workspace_id) => {
         try {
-            const tasklistData = await axios.get(`/api/teams/workspace/${workspace_id}`)
+            
+            const tasklistData = await axios.get(`/api/teams/workspace/${workspace_id}`);
+
             return tasklistData.data.data
 
         } catch (error) {
