@@ -17,26 +17,21 @@ import Link from "next/link";
 import * as Config from "@/helpers/admin/config"
 import ViewHolidays from "@/components/ViewHoliday";
 
-
-
-
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
   const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, isEditLeaveModal, selectedEditData } = useSelector((state) => state.ui);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
-  // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  // const [selectedQueryData, setSelectedQueryData] = useState(null);
   const [isreason, setIsreason] = useState(false);
   const [fullQuery, setFullQuery] = useState("");
-
-  const [isClicked, setIsClicked] = useState(false)
-
-  const toggleNavbar = () => {
-    setIsClicked(!isClicked)
+  const checkLeaveBalance = () => {
+    if (user?.data?.leaveBalance === 0) {
+      toast.error("you have no leaves to apply")
+    } else {
+      dispatch(openAddLeaveModal(true))
+    }
   }
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -57,30 +52,22 @@ const Page = () => {
     }
   };
 
-  // const openEditModal = (leaveItem) => {
-  //   setSelectedQueryData(leaveItem);
-  //   setIsEditModalOpen(true);
-  // };
-
-  // const closeEditModal = () => {
-  //   setSelectedQueryData(null);
-  //   setIsEditModalOpen(false);
-  // };
-
   const handleDelete = async () => {
+    try {
+      if (isDeleteLeaveID) {
 
-    if (isDeleteLeaveID) {
-      try {
-     const LeaveData =  await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
-        //console.log("leaveData",  LeaveData )
+        const LeaveData = await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
+        console.log("leaveData", LeaveData)
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
-        dispatch(openDeleteSuccessModal(true))
-  
-      } 
-       catch (error) {
-        toast.error('Failed to delete leave!');
+        if (LeaveData?.message === "Leave Successfully Deleted") {
+          dispatch(openDeleteSuccessModal(true))
+        } else {
+          toast.error(LeaveData?.message)
+        }
       }
+    } catch (error) {
+      toast.error(LeaveData?.message)
     }
   };
 
@@ -91,14 +78,14 @@ const Page = () => {
   return (
     <>
       <div className="flex justify-between items-center w-[98%] m-auto mt-3">
-      {user?.data?.accessId !== 1 ? (
-        <div className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'>
-          Balance Leave: {user?.data?.leaveBalance}
+        {user?.data?.accessId !== 1 ? (
+          <div className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'>
+            Balance Leave: {user?.data?.leaveBalance}
           </div>
-            ) : null}
+        ) : null}
         {user?.data?.accessId !== 1 ? (
           <button
-            onClick={() => dispatch(openAddLeaveModal(true))}
+            onClick={checkLeaveBalance}
             className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'
           >
             Apply Leave
@@ -124,7 +111,7 @@ const Page = () => {
           <div className="text-red-500">Error: {error}</div>
         ) : (
           <>
-          <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide mt-2 ">
+            <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide mt-2 ">
               <table className="min-w-full bg-white text-sm">
                 <thead className="z-20 sticky top-0">
                   <tr className="bg-gray-200">
