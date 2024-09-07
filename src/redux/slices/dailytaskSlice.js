@@ -6,8 +6,19 @@ export const fetchTaskData = createAsyncThunk(
     'daily/fetchTaskData',
     async () => {
         const response = await axios.get('/api/teams/getTask');
-        // console.log()
         return response.data;
+    }
+);
+
+export const postTask = createAsyncThunk(
+    'daily/postTask',
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await axios.post('/api/teams/dailyTask', credentials);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
 );
 
@@ -25,6 +36,7 @@ const dailytaskSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         handleDailyTaskAsyncActions(builder, fetchTaskData, 'fetchingTaskLoading');
+        handleDailyTaskAsyncActions(builder, postTask, 'postingTaskLoading');
         // handleAsyncActions(builder, postQuery, 'posting');
         // handleAsyncActions(builder, deleteQuery, 'deleting', (state, action) => {
         //     state.data = state.data.filter(item => item.id !== action.meta.arg);

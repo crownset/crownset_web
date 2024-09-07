@@ -6,9 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { LuFileEdit } from 'react-icons/lu';
 import { CustomLoader } from '@/components/CustomLoader';
+import AddDailyTask from '@/components/admin/AddDailyTask';
+import { openDailyTaskModal } from '@/redux/slices/uiSlice';
 
 const page = () => {
     const { daily, fetchingTaskLoading, error } = useSelector((state) => state.daily);
+    const {isAddTaskOpen} = useSelector((state) => state.ui)
+    console.log("isAddTaskOpen",isAddTaskOpen)
     console.log("daily>>", daily?.tasks)
     const dispatch = useDispatch()
 
@@ -17,9 +21,9 @@ const page = () => {
     }, [dispatch]);
 
     const getRemarkColor = (review) => {
-        return review ? 'bg-premature' : 'bg-dashboard';
-      };
-      
+        return review ? 'bg-mature' : 'bg-dead';
+    };
+
 
     return (
         <>
@@ -30,7 +34,7 @@ const page = () => {
                     ) : (
                         <>
                             <div className='flex justify-end w-[98%] m-auto'>
-                                <button className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
+                                <button className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openDailyTaskModal(true))}>
                                     <span><FaPlus /></span>
                                     <span>Task</span>
                                 </button>
@@ -70,21 +74,11 @@ const page = () => {
                                         ))}
                                     </tbody>
                                 </table>
-                                {/* <UpdateProjectData isOpen={isEditModalOpen} onClose={closeEditModal} queryData={selectedQueryData} />
-    <AddProjectDetails openProject={isAddModalOpen} onCloseProject={closeAddModal} />
-    <CustomAlert
-      isOpen={isModalOpen}
-      onClose={closeModal}
-      title="Are you sure?"
-      description="Are you sure you want to delete this Project?"
-      confirmButtonText="Yes, I'm sure"
-      cancelButtonText="No, cancel"
-      onConfirm={handleConfirm}
-    /> */}
                             </div>
                         </>
                     )
                 }
+                <AddDailyTask openDailyTask={isAddTaskOpen}/>
             </div>
 
 
