@@ -14,7 +14,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 const Page = () => {
   const [isForgot, setIsforgot] = useState(false);
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const [credentials, setCredentials] = useState({ eid: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -35,8 +35,8 @@ const Page = () => {
     setLoading(true)
     try {
       const newErrors = {};
-      if (!credentials?.email) {
-        newErrors.email = 'Email is required';
+      if (!credentials?.eid) {
+        newErrors.eid = 'eid is required';
       } else if (!credentials?.password) {
         newErrors.password = 'Password is required';
       }
@@ -45,6 +45,7 @@ const Page = () => {
         return;
       }
       const result = await dispatch(loginUser(credentials));
+      console.log("resultLogin>>>>>", result)
       const token = Cookies.get('authToken:');
       if (token) {
         router.push("/admin");
@@ -101,16 +102,16 @@ const Page = () => {
               </button>
             </div>
             <div className="relative mb-4">
-              <label htmlFor="email" className="leading-10 text-sm text-gray-600 font-bold">Email</label>
+              <label htmlFor="eid" className="leading-10 text-sm text-gray-600 font-bold">EID</label>
               <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={credentials.email}
+                type="text"
+                placeholder="eid"
+                name="eid"
+                value={credentials?.eid}
                 onChange={handleChange}
                 className="w-full bg-white rounded border border-gray-300 focus:border-dashboard focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
-              {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
+              {errors?.eid && <p className="text-red-500 text-sm">{errors?.eid}</p>}
             </div>
             <div className="relative mb-4">
               <label htmlFor="password" className="leading-10 text-sm text-gray-600 font-bold">Password</label>
