@@ -11,7 +11,9 @@ const UpdateLeave = ({ isOpen, onClose, queryData }) => {
     const { user } = useSelector((state) => state.user);
     const { leave } = useSelector((state) => state.leave);
 
-    const filteredData = user.filter(item => item.accessId == "1");
+   // const filteredData = user.filter(item => item.accessId == "1");
+   const filteredData = Array.isArray(user) ? user.filter((item) => item.accessId == "1") : [];
+
     const [userDetail, setUserDetail] = useState(null);
 
 
