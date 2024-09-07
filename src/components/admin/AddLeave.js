@@ -23,7 +23,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
-    
+
 
     const { user, loading } = useSelector((state) => state.user);
 
@@ -67,7 +67,8 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                 setErrors(newErrors);
                 return;
             }
-            await dispatch(LeaveQuery(formData)).unwrap();
+            const addLeaveRes = await dispatch(LeaveQuery(formData)).unwrap();
+            console.log("addLeaveRes", addLeaveRes)
             dispatch(fetchLeave());
             setFormData({
                 startDate: '',
@@ -112,6 +113,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                             Apply Leave
                         </h3>
+
                         <button
                             type="button"
                             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -163,7 +165,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         onChange={handleChange}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     >
-                                        <option value="">Select a user</option>
+                                        <option value="">Applied to</option>
                                         {filteredData.map((item) => (
                                             <option key={item._id} value={item._id}>
                                                 {item?.firstName}
@@ -171,34 +173,6 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         ))}
                                     </select>
                                     {errors?.approvedBy && <p className="text-red-500 text-sm">{errors?.approvedBy}</p>}
-                                </div>
-                            </div>
-                            <div className="flex space-x-2">
-                                <div className="flex-1 text-left">
-                                    <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
-                                        Start Date
-                                    </label>
-                                    <DatePicker
-                                        id="startDate"
-                                        selected={formData?.startDate}
-                                        onChange={(date) => handleDateChange('startDate', date)}
-                                        dateFormat="yyyy/MM/dd"
-                                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    />
-                                    {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}
-                                </div>
-                                <div className="flex-1 text-left">
-                                    <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
-                                        End Date
-                                    </label>
-                                    <DatePicker
-                                        id="endDate"
-                                        selected={formData?.endDate}
-                                        onChange={(date) => handleDateChange('endDate', date)}
-                                        dateFormat="yyyy/MM/dd"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    />
-                                    {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
                                 </div>
                             </div>
                             <div className="flex space-x-2">
@@ -223,6 +197,41 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                     {errors?.leaveType && <p className="text-red-500 text-sm">{errors?.leaveType}</p>}
                                 </div>
                             </div>
+                            <div className="flex space-x-2">
+                                <div className="flex-1 text-left">
+                                    <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                        Start Date
+                                    </label>
+                                    <DatePicker
+                                        id="startDate"
+                                        selected={formData?.startDate}
+                                        onChange={(date) => handleDateChange('startDate', date)}
+                                        dateFormat="yyyy/MM/dd"
+                                        minDate={new Date()}
+                                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    />
+                                    {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}
+                                </div>
+
+                               
+                                <div className="flex-1 text-left">
+                                    <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                        End Date
+                                    </label>
+                                    <DatePicker
+                                        id="endDate"
+                                        selected={formData?.endDate}
+                                        onChange={(date) => handleDateChange('endDate', date)}
+                                        dateFormat="yyyy/MM/dd"
+                                        minDate={new Date()}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    />
+                                    {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
+                                </div>
+                                 
+                            </div>
+                               
+
                             <div className="flex space-x-2">
                                 <div className="flex-1">
                                     <label htmlFor="reason" className="block text-left mb-1 text-xs font-medium text-gray-900 dark:text-white">

@@ -1,17 +1,19 @@
-export const handleAsyncActions = (builder, action, initialState = {}) => {
+export const handleAsyncActions = (builder, action, loadingKey, customCases) => {
     builder
         .addCase(action.pending, (state) => {
-            state.loading = true;
+            state[loadingKey] = true;
             state.error = null;
         })
         .addCase(action.fulfilled, (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
+            if (!customCases) {
+                state.data = action.payload;
+            }
+            state[loadingKey] = false;
         })
         .addCase(action.rejected, (state, action) => {
             state.error = action.error.message;
-            state.loading = false;
-        })
+            state[loadingKey] = false;
+        });
 };
 
 export const handleActionsProject = (builder, action, initialState = {}) => {

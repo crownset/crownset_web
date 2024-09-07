@@ -14,10 +14,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BeatLoader } from 'react-spinners';
 import { IoPersonCircleSharp } from "react-icons/io5";
-// import UserInfoModal from './UserDetailsModal serInfoModal';
 import UserDetailsModal from './UserDetailsModal';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { FaEnvelope } from 'react-icons/fa';
+import { CustomLoader } from '../CustomLoader';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
     };
 
     const closeDetailsModal = () => {
-        setShowUserDetails(false); // Set false to close modal
+        setShowUserDetails(false);
     };
 
     const [user, setUser] = useState(null);
@@ -142,24 +142,28 @@ const AdminDashboard = () => {
                     </div>
                 </div>
                 <div className={`fixed w-full flex items-center justify-between bg-default p-4 ${isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0 md:ml-20'} transition-all duration-300 ease-in-out shadow-md z-10`}>
-
                     <div className='flex items-center w-[60%]'>
                         <button onClick={toggleSidebar}>
                             <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
                         </button>
-                        <div className=' hidden md:flex flex-col gap-1'>
-                            <div className="flex items-center space-x-2">
-                                <MdOutlineDriveFileRenameOutline className="text-sm text-dashboard" />
-                                <p className="text-sm  text-black">
-                                    {user?.data?.firstName} {user?.data?.lastName}
-                                </p>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <FaEnvelope className="text-sm text-dashboard" />
-                                <p className="text-sm  text-black">{user?.data?.email}</p>
-                            </div>
-                        </div>
-
+                        {/* {
+                            user ? (
+                                <div className=' hidden md:flex flex-col gap-1'>
+                                    <div className="flex items-center space-x-2">
+                                        <MdOutlineDriveFileRenameOutline className="text-sm text-dashboard" />
+                                        <p className="text-sm  text-black">
+                                            {user?.data?.firstName} {user?.data?.lastName}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <FaEnvelope className="text-sm text-dashboard" />
+                                        <p className="text-sm  text-black">{user?.data?.email}</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <CustomLoader size={10} color={"#FFFFFF"} />
+                            )
+                        } */}
                     </div>
                     <div className='pt-2'>
                         <button onClick={openDetailsModal}>

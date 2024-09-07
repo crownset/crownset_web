@@ -24,7 +24,7 @@ import * as XLSX from 'xlsx';
 
 const Page = () => {
     const dispatch = useDispatch();
-    const { data, loading, error } = useSelector((state) => state.data);
+    const { data, fetching, error, deleting } = useSelector((state) => state.data);
     const { isModalOpen, isEditLeadModalOpen, isAddLeadModal, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
     const [user, setUser] = useState(null);
     const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
@@ -52,7 +52,6 @@ const Page = () => {
                 toast.error('You have no data in the file');
                 return;
             }
-
             setQueryData(jsonData);
         };
         reader.readAsArrayBuffer(file);
@@ -80,11 +79,9 @@ const Page = () => {
                 setFileName('');
                 dispatch(fetchData());
                 toast.success(leadExcelRes?.payload?.message)
-            } else {
-                toast.error(leadExcelRes?.payload?.message);
             }
         } catch (error) {
-            // Handle error
+            toast.error(leadExcelRes?.payload?.message);
         }
     };
 
@@ -145,8 +142,8 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            {loading ? (
-                <CustomLoader loading={loading} color={"#0146cf"} size={15} />
+            {fetching ? (
+                <CustomLoader loading={fetching} color={"#0146cf"} size={15} />
             ) : error ? (
                 <div className="text-red-500">Error: {error}</div>
             ) : (
@@ -265,7 +262,7 @@ const Page = () => {
                 onClose={() => dispatch(openDeleteLeadModal(false))}
                 title="Are you sure?"
                 description="Are you sure you want to delete this query?"
-                confirmButtonText={loading ? <CustomLoader size={10} loading={loading} color={"#FFFFFF"} /> : "Yes, I'm sure"}
+                confirmButtonText={deleting ? <CustomLoader size={10} loading={deleting} color={"#FFFFFF"} /> : "Yes, I'm sure"}
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
