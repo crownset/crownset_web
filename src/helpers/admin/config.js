@@ -26,16 +26,21 @@ export const menuItems = [
         name: "Leaves",
         href: "/admin/leaves",
         icon: FaCalendarWeek,
-    }, {
+    },{
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,
     },
-    , {
+    {
         name: "Automation",
         href: "/admin/automation",
         icon: SiAndroidauto,
-    }
+    },
+    {
+        name: "Daily Task",
+        href: "/admin/dailytask",
+        icon: SiAndroidauto,
+    },
 ];
 
 export const logoutItem = {
