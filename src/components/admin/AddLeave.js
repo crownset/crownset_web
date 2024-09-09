@@ -32,7 +32,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const filteredData = Array.isArray(user) ? user.filter((item) => item.accessId == "1") : [];
    // {(data && Array.isArray(data) ? data : []).map((item, index)
     // const filteredData = user.filter((item) => item.accessId == "1")
-     console.log(filteredData)
+    // console.log(filteredData)
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -71,7 +71,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                 return;
             }
             const addLeaveRes = await dispatch(LeaveQuery(formData)).unwrap();
-            // console.log("addLeaveRes", addLeaveRes)
+             //console.log("addLeaveRes", addLeaveRes)
             dispatch(fetchLeave());
             setFormData({
                 startDate: '',

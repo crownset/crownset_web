@@ -10,23 +10,24 @@ import { toast, ToastContainer } from 'react-toastify';
 import CustomAlert from '@/components/admin/CustomAlert';
 import { CustomLoader } from '@/components/CustomLoader';
 import moment from "moment";
-import { openAddLeaveModal, openDeleteLeaveModal, openDeleteSuccessModal, openEditLeaveModal, openQueryModal } from '@/redux/slices/uiSlice';
+import { openAddLeaveModal, openDeleteLeaveModal, openDeleteSuccessModal, openEditLeaveModal, openLeaveReasonModal, openQueryModal } from '@/redux/slices/uiSlice';
 import SuccessModal from "@/components/admin/SuccessLottie";
 import { motion } from "framer-motion"
 import Link from "next/link";
 import * as Config from "@/helpers/admin/config"
 import ViewHolidays from "@/components/ViewHoliday";
+import { RxCross2 } from "react-icons/rx";
 
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
-  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, isEditLeaveModal, selectedEditData } = useSelector((state) => state.ui);
+  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID,fullReason, isEditLeaveModal, selectedEditData, isLeaveResonModal } = useSelector((state) => state.ui);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
-  const [isreason, setIsreason] = useState(false);
-  const [fullQuery, setFullQuery] = useState("");
+  
+
   const checkLeaveBalance = () => {
-    if (user?.data?.leaveBalance === 0) {
+    if (user?.data?.leaveBalance == 0  ) {
       toast.error("you have no leaves to apply")
     } else {
       dispatch(openAddLeaveModal(true))
@@ -57,7 +58,7 @@ const Page = () => {
       if (isDeleteLeaveID) {
 
         const LeaveData = await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
-        console.log("leaveData", LeaveData)
+        // console.log("leaveData", LeaveData)
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
         if (LeaveData?.message === "Leave Successfully Deleted") {
@@ -145,7 +146,8 @@ const Page = () => {
                             {leaveItem?.reason.slice(0, 50)}...
                             <button
                               className="text-blue-500 underline ml-1"
-                              onClick={() => setIsreason(true) && setFullQuery(leaveItem?.reason)}
+                              onClick={() => dispatch(openLeaveReasonModal(leaveItem?.reason))}
+
                             >
                               View More
                             </button>
@@ -205,7 +207,28 @@ const Page = () => {
               />
               <SuccessModal isOpen={isDeleteSuccessModal} onClose={() => dispatch(openDeleteSuccessModal(false))} title={"Leave Deleted Successfully."} />
               <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Leave Applied Successfully."} />
+              {isLeaveResonModal && (
+                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
+                  <div className="bg-white p-6 rounded-3xl w-[90%] max-w-xl h-[400px] overflow-hidden">
+                    <div className='flex items-center justify-between'>
+                      <h2 className="text-lg font-bold">Full Query</h2>
+                      <RxCross2 className="h-6 w-6 mr-10 text-dashboard" onClick={() => dispatch(openLeaveReasonModal(false))} />
+                    </div>
 
+                    <div className="overflow-y-auto h-[300px]">
+                      <p className="text-sm">{fullReason}</p>
+                    </div>
+                    {/* <div className="text-right">
+                            <button
+                                className="bg-dashboard text-white mr-3 px-4 py-2  rounded-3xl hover:bg-blue-600"
+                                onClick={() => dispatch(closeQueryModal())}
+                            >
+                                Close
+                            </button>
+                        </div> */}
+                  </div>
+                </div>
+              )}
             </div>
           </>
         )}
