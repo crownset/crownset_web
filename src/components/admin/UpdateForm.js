@@ -11,6 +11,7 @@ import { CustomLoader } from '../CustomLoader';
 const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user, loading, error } = useSelector((state) => state.user);
+    console.log("users>>>>>>>>>>>", user)
     const { updating } = useSelector((state) => state.data);
     const { isEditSuccessfull } = useSelector((state) => state.ui)
     const [isRemarkColor, setIsRemarkColor] = useState("Premature")
