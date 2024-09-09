@@ -236,7 +236,7 @@ const Page = () => {
                                                 <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditLeadModal(item))}>
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
-                                                {   
+                                                {
                                                     user?.data?.accessId === 1 ? (
                                                         <button
                                                             className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"

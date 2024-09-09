@@ -24,6 +24,7 @@ const AdminDashboard = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [showUserDetails, setShowUserDetails] = useState(false)
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
+    const [expandedMenu, setExpandedMenu] = useState(null);
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -110,23 +111,50 @@ const AdminDashboard = () => {
                             </div>
                         )}
                     </div>
-                    <div className="flex-1 flex flex-col p-4 mt-[4rem]">
+                    <div className="flex-1 flex flex-col p-4 mt-[4rem] overflow-y-auto max-h-[calc(100vh-4rem)] scrollbar-hide ">
                         <ul className="space-y-4">
                             {menuItems.map((item, index) => (
                                 <li key={index}>
-                                    <Link href={item.href}>
+                                    <div>
                                         <button
                                             className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                            onClick={() => setSelectedTab(item.name)}
+                                            onClick={() => {
+                                                if (item.subItems) {
+                                                    setExpandedMenu(expandedMenu === item.name ? null : item.name);
+                                                } else {
+                                                    setSelectedTab(item.name);
+                                                    router.push(item.href);
+                                                }
+                                            }}
                                         >
                                             <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
                                         </button>
-                                    </Link>
+                                        {item.subItems && expandedMenu === item.name && (
+                                            <ul className="ml-8 space-y-2">
+                                                {item.subItems.map((subItem, subIndex) => (
+                                                    <li key={subIndex}>
+                                                        <Link href={subItem.href}>
+                                                            <button
+                                                                className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === subItem.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                                                onClick={() => setSelectedTab(subItem.name)}
+                                                            >
+                                                                {/* Render the icon as a JSX component */}
+                                                                <subItem.icon className={`h-5 w-5 mr-2 ${selectedTab === subItem.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                                                <span className="ml-2">{subItem.name}</span>
+                                                            </button>
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+
+                                        )}
+                                    </div>
                                 </li>
                             ))}
                         </ul>
                     </div>
+
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>
@@ -146,24 +174,6 @@ const AdminDashboard = () => {
                         <button onClick={toggleSidebar}>
                             <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
                         </button>
-                        {/* {
-                            user ? (
-                                <div className=' hidden md:flex flex-col gap-1'>
-                                    <div className="flex items-center space-x-2">
-                                        <MdOutlineDriveFileRenameOutline className="text-sm text-dashboard" />
-                                        <p className="text-sm  text-black">
-                                            {user?.data?.firstName} {user?.data?.lastName}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <FaEnvelope className="text-sm text-dashboard" />
-                                        <p className="text-sm  text-black">{user?.data?.email}</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <CustomLoader size={10} color={"#FFFFFF"} />
-                            )
-                        } */}
                     </div>
                     <div className='pt-2'>
                         <button onClick={openDetailsModal}>

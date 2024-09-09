@@ -10,6 +10,7 @@ import { openEditProjectModal } from '@/redux/slices/uiSlice';
 const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
+    console.log("user>>>>>>>>>>>>>>>", user)
     const [userDetail, setUserDetail] = useState(null);
 
     useEffect(() => {

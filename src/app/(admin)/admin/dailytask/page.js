@@ -80,8 +80,6 @@ const Page = () => {
                 }
                 <AddDailyTask openDailyTask={isAddTaskOpen}/>
             </div>
-
-
         </>
 
     )

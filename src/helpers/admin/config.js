@@ -5,6 +5,8 @@ import { SiGooglebigquery } from "react-icons/si";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { FaCalendarWeek } from "react-icons/fa";
 import { SiAndroidauto } from "react-icons/si";
+import { VscTasklist } from "react-icons/vsc";
+import { FaLaptopCode } from "react-icons/fa6";
 
 export const menuItems = [
     {
@@ -26,7 +28,7 @@ export const menuItems = [
         name: "Leaves",
         href: "/admin/leaves",
         icon: FaCalendarWeek,
-    },{
+    }, {
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,
@@ -39,8 +41,15 @@ export const menuItems = [
     {
         name: "Daily Task",
         href: "/admin/dailytask",
-        icon: SiAndroidauto,
-    },
+        icon: VscTasklist,
+        subItems: [
+            { name: "IT", href: "/admin/dailytask/IT", icon:FaLaptopCode },
+            { name: "Sales", href: "/admin/dailytask/Sales", icon:FaLaptopCode },
+            { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon:FaLaptopCode },
+            { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon:FaLaptopCode },
+        ]
+            
+    }
 ];
 
 export const logoutItem = {
@@ -78,69 +87,69 @@ export const LeaveOption = [
         type: 'Half Day'
     }
 ];
- 
- export const permanentholidays=[
+
+export const permanentholidays = [
     {
-        id:1,
-        name:"New Year's Day",
-        date:"01-Jan-2024"
+        id: 1,
+        name: "New Year's Day",
+        date: "01-Jan-2024"
 
     },
     {
-        id:2,
-        name:"Republic Day",
-        date:"26-Feb-2024"
+        id: 2,
+        name: "Republic Day",
+        date: "26-Feb-2024"
     },
     {
-        id:3,
-        name:"Maha shivaratri",
-        date:"08-Mar-2024" 
+        id: 3,
+        name: "Maha shivaratri",
+        date: "08-Mar-2024"
     },
     {
-        id:4,
-        name:"Holi",
-        date:"25-Mar-2024" 
+        id: 4,
+        name: "Holi",
+        date: "25-Mar-2024"
     },
     {
-        id:5,
-        name:"Good Friday",
-        date:"08-Mar-2024" 
+        id: 5,
+        name: "Good Friday",
+        date: "08-Mar-2024"
     },
     {
-        id:6,
-        name:"Maha shivaratri",
-        date:"08-Mar-2024" 
+        id: 6,
+        name: "Maha shivaratri",
+        date: "08-Mar-2024"
     },
     {
-        id:7,
-        name:"Independence day",
-        date:"15-Aug-2024" 
+        id: 7,
+        name: "Independence day",
+        date: "15-Aug-2024"
     },
     {
-        id:8,
-        name:"Raksha Bandhan",
-        date:"19-Aug-2024" 
+        id: 8,
+        name: "Raksha Bandhan",
+        date: "19-Aug-2024"
     }, {
-        id:9,
-        name:"Gandhi Jayenti",
-        date:"02-Oct-2024" 
+        id: 9,
+        name: "Gandhi Jayenti",
+        date: "02-Oct-2024"
     },
     {
-        id:10,
-        name:"Vijayadashami",
-        date:"12-Oct-2024" 
+        id: 10,
+        name: "Vijayadashami",
+        date: "12-Oct-2024"
     },
     {
-        id:11,
-        name:"Diwali",
-        date:"01-Nov-2024" 
+        id: 11,
+        name: "Diwali",
+        date: "01-Nov-2024"
     },
     {
-        id:12,
-        name:"Christmas",
-        date:"25-Dec-2024" 
+        id: 12,
+        name: "Christmas",
+        date: "25-Dec-2024"
     }
- ]
+]
 
 
 
