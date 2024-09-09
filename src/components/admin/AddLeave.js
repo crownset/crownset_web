@@ -28,10 +28,11 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const { user, loading } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
+    
     const filteredData = Array.isArray(user) ? user.filter((item) => item.accessId == "1") : [];
-
+   // {(data && Array.isArray(data) ? data : []).map((item, index)
     // const filteredData = user.filter((item) => item.accessId == "1")
-
+     console.log(filteredData)
     const handleChange = (e) => {
         setFormData({
             ...formData,
