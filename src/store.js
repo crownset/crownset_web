@@ -12,6 +12,7 @@ import automationSlice from "./redux/slices/automationSlice"
 import uiSlice from "./redux/slices/uiSlice"
 import leaveSlice from "./redux/slices/leaveSlice"
 import multipleLeadSlice from "./redux/slices/multipleLeadSlice"
+import dailytaskSlice from "./redux/slices/dailytaskSlice"
 
 const store = configureStore({
     reducer: {
@@ -25,7 +26,8 @@ const store = configureStore({
         automation : automationSlice,
         ui: uiSlice,
         leave:leaveSlice,
-        queryData:multipleLeadSlice
+        queryData:multipleLeadSlice,
+        daily:dailytaskSlice
     }
 })
 

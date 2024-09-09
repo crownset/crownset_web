@@ -36,7 +36,7 @@ const Page = () => {
     try {
       const newErrors = {};
       if (!credentials?.eid) {
-        newErrors.eid = 'EID is required';
+        newErrors.eid = 'eid is required';
       } else if (!credentials?.password) {
         newErrors.password = 'Password is required';
       }
@@ -45,6 +45,7 @@ const Page = () => {
         return;
       }
       const result = await dispatch(loginUser(credentials));
+      console.log("resultLogin>>>>>", result)
       const token = Cookies.get('authToken:');
       if (token) {
         router.push("/admin");
@@ -103,10 +104,10 @@ const Page = () => {
             <div className="relative mb-4">
               <label htmlFor="eid" className="leading-10 text-sm text-gray-600 font-bold">EID</label>
               <input
-                type="eid"
-                placeholder="EID"
+                type="text"
+                placeholder="eid"
                 name="eid"
-                value={credentials.eid}
+                value={credentials?.eid}
                 onChange={handleChange}
                 className="w-full bg-white rounded border border-gray-300 focus:border-dashboard focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />

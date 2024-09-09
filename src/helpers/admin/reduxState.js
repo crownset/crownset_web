@@ -62,3 +62,21 @@ export const handleLeaveActions = (builder, action, initialState = {}) => {
             state.loading = false;
         })
 };
+
+export const handleDailyTaskAsyncActions = (builder, action, loadingKey, customCases) => {
+    builder
+        .addCase(action.pending, (state) => {
+            state[loadingKey] = true;
+            state.error = null;
+        })
+        .addCase(action.fulfilled, (state, action) => {
+            if (!customCases) {
+                state.daily = action.payload;
+            }
+            state[loadingKey] = false;
+        })
+        .addCase(action.rejected, (state, action) => {
+            state.error = action.error.message;
+            state[loadingKey] = false;
+        });
+};
