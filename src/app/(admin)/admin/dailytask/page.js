@@ -9,7 +9,7 @@ import { CustomLoader } from '@/components/CustomLoader';
 import AddDailyTask from '@/components/admin/AddDailyTask';
 import { openDailyTaskModal } from '@/redux/slices/uiSlice';
 
-const page = () => {
+const Page = () => {
     const { daily, fetchingTaskLoading, error } = useSelector((state) => state.daily);
     const {isAddTaskOpen} = useSelector((state) => state.ui)
     console.log("isAddTaskOpen",isAddTaskOpen)
@@ -87,4 +87,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
