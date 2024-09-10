@@ -10,10 +10,11 @@ const DepartmentUsers = ({ params }) => {
     const { user, loading } = useSelector((state) => state.user);
 
     useEffect(() => {
-        dispatch(assignUsers());
+        dispatch(assignUsers()); 
     }, [dispatch]);
 
     const filteredUsers = user.filter((user) => user.department === department);
+    console.log("filteredUsers", filteredUsers)
 
     return (
         <>

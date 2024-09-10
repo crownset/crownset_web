@@ -102,7 +102,6 @@ const AddDailyTask = ({ openDailyTask }) => {
                 </div>
             </div>
         </div>
-
     )
 }
 

@@ -20,6 +20,10 @@ const initialState = {
     selectedEditData: null,
     //dailyTask states
     isAddTaskOpen: false,
+    isopenEditTaskModal :false,
+    selectedDailyTaskId : null,
+    isOpenShareTask : false,
+    selectedShareTaskId:null,
     // old
     isEditLeadModalOpen: false,
     isAddModalOpen: false,
@@ -83,6 +87,14 @@ const uiSlice = createSlice({
         openDailyTaskModal: (state, action)=>{
             state.isAddTaskOpen = action.payload
         },
+        openEditDailyTask: (state, action) => {
+            state.isopenEditTaskModal = action.payload
+            state.selectedDailyTaskId = action.payload
+        },
+        openShareTaskModal : (state, action) => {
+            state.isOpenShareTask = action.payload
+            state.selectedShareTaskId = action.payload
+        },
 
         // old
         openAddModal: (state) => {
@@ -138,6 +150,8 @@ export const {
     openDeleteSuccessModal,
     //dailyTask states
     openDailyTaskModal,
+    openEditDailyTask,
+    openShareTaskModal,
     //old
     openModal,
     closeModal,
