@@ -21,7 +21,8 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
         queryContent: "",
         service: "",
         leadBy: "",
-        // comments: ""
+        comments: "",
+        address:""
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,6 +74,8 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                 newErrors.queryContent = 'Remarks are required';
             } else if (!formValues?.comments) {
                 newErrors.comments = 'comments are required';
+            } else if (!formValues?.address) {
+                newErrors.address = 'comments are required';
             }
             if (Object.keys(newErrors).length > 0) {
                 setErrors(newErrors);
@@ -90,7 +93,9 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                 businessName: "",
                 queryContent: "",
                 service: "",
-                leadBy: ""
+                leadBy: "",
+                comments:"",
+                address:""
             })
         } catch (error) {
             toast.error('Failed to add Lead!');
@@ -255,6 +260,22 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                             </div> */}
                         </div>
                     </div>
+
+                    <div>
+                        <label htmlFor="address" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                            Address
+                        </label>
+                        <textarea
+                            className="border mb-2 rounded-xl w-full h-[4rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name='address'
+                            placeholder="write address"
+                            value={formValues?.address}
+                            onChange={handleChange}
+                            maxLength={250}
+                        />
+                        {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+                    </div>
+
                     <div>
                         <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
                             Comments
