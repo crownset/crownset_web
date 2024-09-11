@@ -50,8 +50,7 @@ export const menuItems = [
             { name: "Sales", href: "/admin/dailytask/Sales", icon:SiSellfy },
             { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon:BsPersonFill },
             { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon:SiAdobelightroom },
-        ]
-            
+        ]    
     }
 ];
 

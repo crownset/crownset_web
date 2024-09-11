@@ -80,3 +80,21 @@ export const handleDailyTaskAsyncActions = (builder, action, loadingKey, customC
             state[loadingKey] = false;
         });
 };
+
+export const handleSharedAsyncActions = (builder, action, loadingKey, customCases) => {
+    builder
+        .addCase(action.pending, (state) => {
+            state[loadingKey] = true;
+            state.error = null;
+        })
+        .addCase(action.fulfilled, (state, action) => {
+            if (!customCases) {
+                state.shared = action.payload;
+            }
+            state[loadingKey] = false;
+        })
+        .addCase(action.rejected, (state, action) => {
+            state.error = action.error.message;
+            state[loadingKey] = false;
+        });
+};

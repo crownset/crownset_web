@@ -10,13 +10,16 @@ import { assignUsers } from '@/redux/slices/userSlice';
 
 const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
     const dispatch = useDispatch();
-    const { updatingTaskLoading } = useSelector((state) => state.daily);
+    const { taskShareLoading } = useSelector((state) => state.daily);
     const { user, loading } = useSelector((state) => state.user);
     console.log("shareUser>>>>>>>", user)
     const [formValues, setFormValues] = useState({
         share_with: [],
         task_id: ""
     });
+
+    console.log("formValues", formValues?.task_id)
+    console.log("share_with", formValues?.share_with)
 
     useEffect(() => {
         if (taskData) {
@@ -41,7 +44,9 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const taskShareRes = await dispatch(shareDailyTask({ task_id: formValues.task_id, share_with_id: formValues })).unwrap();
+            const userIds = formValues.share_with.map(user => user.value);
+            console.log("userIds>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", userIds)
+            const taskShareRes = await dispatch(shareDailyTask({ task_id: formValues.task_id, share_with_id: userIds })).unwrap();
             console.log("taskShareRes>>>>>>>>>", taskShareRes)
             dispatch(fetchTaskData());
             dispatch(openShareTaskModal(false));
@@ -82,10 +87,10 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
                                     <Select
                                         id="share_with"
                                         name="share_with"
-                                        options={user?.map((item) => ({ value: item._id, label: item.firstName }))} // map to value/label pairs
-                                        values={formValues?.share_with} // select currently shared users
+                                        options={user?.map((item) => ({ value: item._id, label: item.firstName }))} // value = user ID, label = user name
+                                        values={formValues?.share_with} // currently shared users
                                         onChange={handleSelectChange} // update selected users
-                                        multi
+                                        // multi
                                         placeholder="Select users"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     />
@@ -95,8 +100,8 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
                                 type="submit"
                                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full justify-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >
-                                {updatingTaskLoading ? (
-                                    <CustomLoader loading={updatingTaskLoading} color={"#FFFFFF"} size={10} />
+                                {taskShareLoading ? (
+                                    <CustomLoader loading={taskShareLoading} color={"#FFFFFF"} size={10} />
                                 ) : "Share"}
                             </button>
                         </form>

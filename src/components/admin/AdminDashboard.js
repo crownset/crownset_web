@@ -116,18 +116,20 @@ const AdminDashboard = () => {
                                         <button
                                             className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
                                             onClick={() => {
-                                                if (item.subItems) {
+                                                if (item.name === "Daily Task" && user?.data?.accessId === 1) {
                                                     setExpandedMenu(expandedMenu === item.name ? null : item.name);
+                                                } else if (item.name === "Daily Task") {
+                                                    router.push(item.href);
                                                 } else {
                                                     setSelectedTab(item.name);
                                                     router.push(item.href);
                                                 }
-                                            }}
+                                            }} 
                                         >
                                             <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
                                         </button>
-                                        {item.subItems && expandedMenu === item.name && (
+                                        {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
                                             <ul className="space-y-4">
                                                 {item.subItems.map((subItem, subIndex) => (
                                                     <li key={subIndex}>
@@ -147,6 +149,7 @@ const AdminDashboard = () => {
                                     </div>
                                 </li>
                             ))}
+
                         </ul>
                     </div>
 

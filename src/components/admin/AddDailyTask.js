@@ -46,7 +46,6 @@ const AddDailyTask = ({ openDailyTask }) => {
             console.log("PostTaskRes>>>>", PostTaskRes)
             // dispatch(openEditLeadModal(false))
             dispatch(openDailyTaskModal(false))
-            // onSuccess()
             dispatch(fetchTaskData());
             setFormValues({
                 taskmessage: "",
@@ -90,12 +89,12 @@ const AddDailyTask = ({ openDailyTask }) => {
                                     selected={formValues?.estimated_date}
                                     onChange={(date) => handleDateChange('estimated_date', date)}
                                     dateFormat="yyyy/MM/dd"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-[370px] p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
                                 {errors?.estimated_date && <p className="text-red-500 text-sm">{errors?.estimated_date}</p>}
                             </div>
                         </div>
-                        <button type="submit" class="text-white inline-flex items-center bg-blue-700 text-center w-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleSubmit}>
+                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full justify-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={handleSubmit}>
                             Add
                         </button>
                     </form>

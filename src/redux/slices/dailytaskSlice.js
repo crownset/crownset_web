@@ -39,20 +39,22 @@ export const shareDailyTask = createAsyncThunk(
     "daily/shareDailyTask",
     async ({ task_id, share_with_id }, { rejectWithValue }) => {
         try {
-            const sharetTaskResponse = await axios.put(`/api/teams/share/${task_id}`, share_with_id)
-            console.log("sharetTaskResponse", sharetTaskResponse)
-            return sharetTaskResponse.data;
+            const response = await axios.put(`/api/teams/share/${task_id}`, {share_with_id});
+            console.log("shareTaskResponse", response);
+            return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data)
+            return rejectWithValue(error.response.data);
         }
     }
-)
+);
+
 
 const initialState = {
     daily: [],
     fetchingTaskLoading: false,
     postingTaskLoading: false,
     updatingTaskLoading: false,
+    taskShareLoading: false,
     error: null,
 };
 
@@ -69,7 +71,7 @@ const dailytaskSlice = createSlice({
                 state.daily[index] = { ...state.daily[index], ...action.payload };
             }
         });
-        handleDailyTaskAsyncActions(builder, shareDailyTask, "updatingTaskLoading", (state, action) => {
+        handleDailyTaskAsyncActions(builder, shareDailyTask, "taskShareLoading", (state, action) => {
             const index = state.daily.findIndex(item => item.id === action.meta.arg);
             if (index !== -1) {
                 state.daily[index] = { ...state.daily[index], ...action.payload };

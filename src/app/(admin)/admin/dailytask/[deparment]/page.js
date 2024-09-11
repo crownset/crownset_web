@@ -3,18 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { assignUsers } from '@/redux/slices/userSlice';
 import { CustomLoader } from '@/components/CustomLoader';
+import { useRouter } from 'next/navigation';
 
 const DepartmentUsers = ({ params }) => {
     const department = decodeURIComponent(params.deparment);
     const dispatch = useDispatch();
     const { user, loading } = useSelector((state) => state.user);
+    const router = useRouter();
 
     useEffect(() => {
-        dispatch(assignUsers()); 
+        dispatch(assignUsers());
     }, [dispatch]);
 
     const filteredUsers = user.filter((user) => user.department === department);
     console.log("filteredUsers", filteredUsers)
+
+    const handleToShare = (id) => {
+        router.push(`/admin/dailytask/shared/${id}`)
+    }
 
     return (
         <>
@@ -31,6 +37,7 @@ const DepartmentUsers = ({ params }) => {
                                         <div
                                             key={user.id}
                                             className="flex cursor-pointer flex-col justify-center items-center bg-dashboardUserBg px-4 py-3 rounded-2xl text-center shadow-md"
+                                            onClick={() => handleToShare(user?._id)}
                                         >
                                             <div className="text-lg font-medium">{user.firstName}</div>
                                         </div>
