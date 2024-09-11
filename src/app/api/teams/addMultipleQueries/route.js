@@ -19,6 +19,13 @@ export async function POST(request) {
     }
     if ((token && token.user.accessId == 1) || (token && token.user.accessId == 2)) {
 
+      const createdBy = token.user._id
+
+      queryData.forEach(obj => {
+        obj.createdBy = createdBy;
+      });
+
+
       for (const query of queryData) {
 
         if (!query.fullName || query.fullName == "") {
