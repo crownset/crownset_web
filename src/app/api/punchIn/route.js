@@ -2,8 +2,8 @@
 import { OFFICE_LOCATION, calculateDistance } from '../../../utils/location';
 import { NextResponse } from 'next/server';
 import { dbConnect } from "@/helpers/db";
-import { verifyToken } from "@/helpers/tokenVerify";
-import { Attendence } from '@/modelCS/attendence';
+// import { verifyToken } from "@/helpers/tokenVerify";
+// import { Attendence } from '@/modelCS/attendence';
 
 export async function POST(request) {
 
@@ -23,9 +23,8 @@ try{
   if (distance <= 100) {
     console.log(`Punch-in: User ${userId} at ${latitude}, ${longitude}`);
     return NextResponse.json({ status: 'Punched In' });
-  } else {
-    return NextResponse.json({ status: 'Location out of range' });
-  }
+  } 
+  return NextResponse.json({ status: 'Location out of range' });
 }
 
 catch(error){
