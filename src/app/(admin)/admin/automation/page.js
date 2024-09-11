@@ -83,7 +83,7 @@ const Page = () => {
                                 isLoading ? (
                                     <CustomLoader size={10} loading={isLoading} color={"#0146cf"} />
                                 ) : (
-                                    <IoCloudUploadOutline className='h-10 w-10' />
+                                    <IoCloudUploadOutline className='h-10 w-10 cursor-pointer' />
                                 )
                             }
 
