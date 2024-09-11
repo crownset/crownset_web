@@ -9,7 +9,7 @@ export async function PUT(request,{params}) {
 
   await dbConnect();
 
-  const {assignTo,followUp,lastFollowUp,remarks,comments} = await request.json()
+  const {assignTo,followUp,lastFollowUp,remarks,comments,address} = await request.json()
 
   try {
 
@@ -29,7 +29,8 @@ export async function PUT(request,{params}) {
       query.followUp = followUp,
       query.lastFollowUp = lastFollowUp,
       query.remarks = remarks,
-      query.comments = comments
+      query.comments = comments,
+      query.address = address
       
       const updatedQuery = await query.save()
 

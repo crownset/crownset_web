@@ -25,11 +25,16 @@ export async function GET(request) {
     if(token && token.user.accessId == 2){
 
       const query = await Query.find(
-      {$and:{
+      {$or:[
+        {
+            isDeleted: false,
+            assignTo: token.user._id,
 
-        isDeleted:false,
-        assignTo: token.user._id
-      }
+        },
+        {
+            isDeleted: false,
+            createdBy: token.user._id
+        }]
       }).populate("assignTo","firstName",UserCS).sort({"queryDate":-1})
       return NextResponse.json(query)
     }

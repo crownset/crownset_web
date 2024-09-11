@@ -25,7 +25,7 @@ export async function POST(request) {
         user.isActive = true
         await user.save()
 
-        const token = jwt.sign({user},process.env.SECRET_KEY,{expiresIn:"1h"})
+        const token = jwt.sign({user},process.env.SECRET_KEY,{expiresIn:"12h"})
         
         const response = NextResponse.json({
             data: user,
