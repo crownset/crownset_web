@@ -1,17 +1,18 @@
 "use client"
-import React, { useState } from 'react';
+import SuccessModal from '@/components/admin/SuccessLottie';
+import { CustomLoader } from '@/components/CustomLoader';
+import { sendMailData } from '@/redux/slices/automationSlice';
+import { closeAutoSuccess, openAutoSuccess } from '@/redux/slices/uiSlice';
+
+
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import * as XLSX from 'xlsx';
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdSend } from "react-icons/md";
-import { useDispatch, useSelector } from 'react-redux';
-import { sendMailData } from '@/redux/slices/automationSlice';
-import { toast } from 'react-toastify';
-import SuccessModal from '@/components/admin/SuccessLottie';
-import { closeAutoSuccess, openAutoSuccess } from '@/redux/slices/uiSlice';
-import { CustomLoader } from '@/components/CustomLoader';
-import { LuFileEdit } from 'react-icons/lu';
 import { RiDeleteBin5Line } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as XLSX from 'xlsx';
 
 const Page = () => {
     const [mailData, setMailData] = useState([]);
@@ -76,7 +77,10 @@ const Page = () => {
                     <p className='font-semibold'>Upload an Excel file</p>
                     <p>Make sure the file includes name, email, and phone number</p>
                 </div>
-                <div className='border-dashed border-2 border-dashboard w-[90%] m-auto h-[7rem] md:h-[15rem] rounded-lg' {...(!fileName ? getRootProps() : {})}>
+                <div
+                    className='border-dashed border-2 border-dashboard w-[90%] m-auto h-[7rem] md:h-[15rem] rounded-lg'
+                    {...(!fileName ? getRootProps() : {})}
+                >
                     <div className='flex flex-col items-center justify-center h-full'>
                         <div>
                             {
@@ -112,7 +116,11 @@ const Page = () => {
                     </button>
                 </div>
             </div>
-            <SuccessModal isOpen={isAutoSuccess} onClose={() => dispatch(closeAutoSuccess())} title="Emails sent successfully" />
+            <SuccessModal
+                isOpen={isAutoSuccess}
+                onClose={() => dispatch(closeAutoSuccess())}
+                title="Emails sent successfully"
+            />
         </div>
     );
 };
