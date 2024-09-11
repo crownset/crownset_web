@@ -108,15 +108,15 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     return (
         <>
             <div className="fixed border-[10px] top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-                <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
-                    <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
-                        <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                <div className="bg-white rounded-lg shadow  p-3 max-w-md w-full">
+                    <div className="flex items-center justify-between p-3 border-b rounded-t ">
+                        <h3 className="text-sm font-semibold text-gray-900 ">
                             Apply Leave
                         </h3>
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
                             onClick={onClose}
                         >
                             <svg
@@ -141,7 +141,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                         <div className="grid gap-2 mb-4">
                             <div className="flex space-x-2">
                                 <div className="flex-1">
-                                    <label htmlFor="name" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="name" className="block mb-1 text-left text-xs font-medium text-gray-900 ">
                                         Name
                                     </label>
                                     <input
@@ -150,12 +150,12 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         name="name"
                                         value={formData?.userName}
                                         onChange={handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                     />
                                     {errors?.name && <p className="text-red-500 text-sm">{errors?.name}</p>}
                                 </div>
                                 <div className="flex-1">
-                                    <label htmlFor="approvedBy" className="block mb-1 text-xs text-left font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="approvedBy" className="block mb-1 text-xs text-left font-medium text-gray-900 ">
                                         To Whom
                                     </label>
                                     <select
@@ -163,7 +163,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         name="approvedBy"
                                         value={formData?.approvedBy}
                                         onChange={handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                     >
                                         <option value="">Applied to</option>
                                         {filteredData.map((item) => (
@@ -177,7 +177,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                             </div>
                             <div className="flex space-x-2">
                                 <div className="flex-1 text-left">
-                                    <label htmlFor="leaveType" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="leaveType" className="block mb-1 text-left text-xs font-medium text-gray-900 ">
                                         Leave Type
                                     </label>
                                     <select
@@ -185,7 +185,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         name="leaveType"
                                         value={formData?.leaveType}
                                         onChange={handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                     >
                                         <option value="">Select a leave type</option>
                                         {Config?.LeaveOption.map((item, id) => (
@@ -199,7 +199,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                             </div>
                             <div className="flex space-x-2">
                                 <div className="flex-1 text-left">
-                                    <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="startDate" className="block mb-1 text-left text-xs font-medium text-gray-900 ">
                                         Start Date
                                     </label>
                                     <DatePicker
@@ -208,14 +208,14 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         onChange={(date) => handleDateChange('startDate', date)}
                                         dateFormat="yyyy/MM/dd"
                                         minDate={new Date()}
-                                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                     />
                                     {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}
                                 </div>
 
                                
                                 <div className="flex-1 text-left">
-                                    <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 ">
                                         End Date
                                     </label>
                                     <DatePicker
@@ -224,7 +224,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         onChange={(date) => handleDateChange('endDate', date)}
                                         dateFormat="yyyy/MM/dd"
                                         minDate={new Date()}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                     />
                                     {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
                                 </div>
@@ -234,7 +234,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
 
                             <div className="flex space-x-2">
                                 <div className="flex-1">
-                                    <label htmlFor="reason" className="block text-left mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                    <label htmlFor="reason" className="block text-left mb-1 text-xs font-medium text-gray-900 ">
                                         Reason
                                     </label>
                                     <textarea
@@ -243,7 +243,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                         type="text"
                                         value={formData?.reason}
                                         onChange={handleChange}
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 h-[4rem]"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2  h-[4rem]"
                                     />
                                     {errors?.reason && <p className="text-red-500 text-sm">{errors?.reason}</p>}
                                 </div>
