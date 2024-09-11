@@ -108,14 +108,14 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
 
     return (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white rounded-3xl shadow dark:bg-gray-700 p-1 max-w-md w-full">
-                <div className="flex items-center justify-between p-2 border-b rounded-t dark:border-gray-600">
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+            <div className="bg-white rounded-3xl shadow  p-1 max-w-md w-full">
+                <div className="flex items-center justify-between p-2 border-b rounded-t ">
+                    <h3 className="text-sm font-semibold text-gray-900 ">
                         Add Lead Details
                     </h3>
                     <button
                         type="button"
-                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
                         onClick={() => dispatch(openAddLeadModal(false))}
                     >
                         <svg
@@ -140,7 +140,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     <div className="grid gap-2 mb-2">
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Name
                                 </label>
                                 <input
@@ -149,12 +149,12 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     name="fullName"
                                     value={formValues?.fullName}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-dashboard focus:border-dashboard block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-dashboard focus:border-dashboard block w-full p-2 "
                                 />
                                 {errors?.fullName && <p className="text-red-500 text-sm">{errors?.fullName}</p>}
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Email
                                 </label>
                                 <input
@@ -163,14 +163,14 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     name="email"
                                     value={formValues?.email}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                                 {errors?.email && <p className="text-red-500 text-sm">{errors?.email}</p>}
                             </div>
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="contact" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="contact" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Contact No.
                                 </label>
                                 <input
@@ -179,12 +179,12 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     type="number"
                                     value={formValues?.contact}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                 />
                                 {errors?.contact && <p className="text-red-500 text-sm">{errors?.contact}</p>}
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="assignTo" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="assignTo" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Business Name
                                 </label>
                                 <input
@@ -192,14 +192,14 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     name="businessName"
                                     value={formValues?.businessName}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                                 {errors?.businessName && <p className="text-red-500 text-sm">{errors?.businessName}</p>}
                             </div>
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="businessName" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="businessName" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Services
                                 </label>
                                 <input
@@ -208,12 +208,12 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     type="text"
                                     value={formValues?.service}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                 />
                                 {errors?.service && <p className="text-red-500 text-sm">{errors?.service}</p>}
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="queryContent" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="queryContent" className="block mb-1 text-xs font-medium text-gray-900">
                                     Lead By
                                 </label>
                                 <input
@@ -222,7 +222,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                                     value={formValues?.leadBy}
                                     readOnly
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2  "
                                 />
                                 {/* {errors?.leadBy && <p className="text-red-500 text-sm">{errors?.queryContent}</p>} */}
                             </div>
@@ -231,7 +231,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     <div className="grid gap-2 ">
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Query
                                 </label>
                                 <textarea
@@ -262,7 +262,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="address" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                        <label htmlFor="address" className="block mb-1 text-xs font-medium text-gray-900">
                             Address
                         </label>
                         <textarea
@@ -277,7 +277,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     </div>
 
                     <div>
-                        <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                        <label htmlFor="leadBy" className="block mb-1 text-xs font-medium text-gray-900 ">
                             Comments
                         </label>
                         <textarea
@@ -293,7 +293,7 @@ const AddLead = ({ onCloseProject, openProject, onSuccess }) => {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        className="w-full text-white bg-dashboard hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     >
                         {isSubmitting ? <CustomLoader loading={isSubmitting} color={"#ffffff"} size={10} /> : "Submit"}
                     </button>
