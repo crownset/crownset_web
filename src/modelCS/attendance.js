@@ -1,14 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
-const attendenceSchema = new Schema({
+const attendanceSchema = new Schema({
     
   userId: { 
     type: mongoose.Types.ObjectId, 
     ref: 'userCS',
     required: true
-  },
-  ip: { 
-    type: String, 
   },
   punchIn: { 
     type: Date, 
@@ -19,7 +16,6 @@ const attendenceSchema = new Schema({
   hours: {
     type: String, 
   },
-  timestamp: true
-});
+},  {timestamp: true});
 
-export const Attendence = mongoose.models.attendence || mongoose.model("attendence", attendenceSchema);
+export const Attendance = mongoose.models.attendance || mongoose.model("attendance", attendanceSchema);

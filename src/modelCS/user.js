@@ -97,6 +97,9 @@ const userSchema = new Schema({
     },
     pno: {
         type: String
+    },
+    ip:{
+        type:String
     }
 })
 
