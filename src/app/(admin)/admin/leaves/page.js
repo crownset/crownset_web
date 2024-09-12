@@ -55,10 +55,10 @@ const Page = () => {
 
   const handleDelete = async () => {
     try {
-      if (isDeleteLeaveID) {
+      if (isDeleteLeaveID) {S
 
         const LeaveData = await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
-        // console.log("leaveData", LeaveData)
+    
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
         if (LeaveData?.message === "Leave Successfully Deleted") {
