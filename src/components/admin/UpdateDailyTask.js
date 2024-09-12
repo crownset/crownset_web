@@ -1,13 +1,14 @@
 import { editDailyTask, fetchTaskData } from '@/redux/slices/dailytaskSlice';
-import { openEditDailyTask } from '@/redux/slices/uiSlice';
+import { openEditDailyTask, openSharedTaskModal } from '@/redux/slices/uiSlice';
 import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomLoader } from '../CustomLoader';
+import { getSharedTask } from '@/redux/slices/sharedTaskSlice';
 
-const UpdateDailyTask = ({ isOpenEditTask, taskData, onClose }) => {
+export const UpdateDailyTask = ({ isOpenEditTask, taskData, onClose }) => {
     const dispatch = useDispatch();
     const { updatingTaskLoading } = useSelector((state) => state.daily)
     const [formValues, setFormValues] = useState({
@@ -110,4 +111,4 @@ const UpdateDailyTask = ({ isOpenEditTask, taskData, onClose }) => {
     )
 }
 
-export default UpdateDailyTask
+

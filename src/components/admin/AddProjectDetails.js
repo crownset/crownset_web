@@ -70,10 +70,11 @@ const AddProjectDetails = ({ onCloseProject, openProject, onSuccess }) => {
                 setErrors(newErrors);
                 return;
             }
-            await dispatch(addProject(formValues)).unwrap();
+            const projectRes = await dispatch(addProject(formValues)).unwrap();
+            console.log("projectRes>>>", projectRes)
+            toast.success(projectRes?.data)
             dispatch(openAddPojectDetails(false))
             dispatch(fetchProjects());
-            onSuccess()
             setFormValues({
                 name: "",
                 email: "",
@@ -86,7 +87,7 @@ const AddProjectDetails = ({ onCloseProject, openProject, onSuccess }) => {
                 deadLine: ""
             })
         } catch (error) {
-            toast.error('Failed to add project!');
+            toast.error(error.message || "Failed to add project");
         } finally {
             setIsSubmitting(false);
         }
@@ -104,7 +105,7 @@ const AddProjectDetails = ({ onCloseProject, openProject, onSuccess }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={onCloseProject}
+                        onClick={() => dispatch(openAddPojectDetails(false))}
                     >
                         <svg
                             className="w-3 h-3"
@@ -260,7 +261,7 @@ const AddProjectDetails = ({ onCloseProject, openProject, onSuccess }) => {
                                     selected={formValues.deadLine}
                                     onChange={(date) => handleDateChange('deadLine', date)}
                                     dateFormat="yyyy/MM/dd"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-[390px] p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
                                 {errors?.deadLine && <p className="text-red-500 text-sm">{errors?.deadLine}</p>}
                             </div>

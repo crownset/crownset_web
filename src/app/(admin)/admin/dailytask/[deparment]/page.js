@@ -3,19 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { assignUsers } from '@/redux/slices/userSlice';
 import { CustomLoader } from '@/components/CustomLoader';
-import { useRouter } from 'next/navigation';
 
 const DepartmentUsers = ({ params }) => {
     const department = decodeURIComponent(params.deparment);
     const dispatch = useDispatch();
     const { user, loading } = useSelector((state) => state.user);
-    const router = useRouter();
 
     useEffect(() => {
         dispatch(assignUsers());
     }, [dispatch]);
 
-    const filteredUsers = user.filter((user) => user.department === department);
+    const filteredUsers = user?.filter((user) => user.department === department);
     console.log("filteredUsers", filteredUsers)
 
     const handleToShare = (id) => {

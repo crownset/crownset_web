@@ -18,11 +18,14 @@ export const getSharedTask = createAsyncThunk(
     }
 );
 
+
+
 const initialState = {
     shared: [],
     sharedLoading: false,
     error: null,
 };
+
 
 const sharedSlice = createSlice({
     name: "shared",

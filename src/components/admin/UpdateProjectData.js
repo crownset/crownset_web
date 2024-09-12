@@ -6,11 +6,12 @@ import { assignUsers } from '@/redux/slices/userSlice';
 import { editProject, fetchProjects } from '@/redux/slices/projectSlice';
 import { toast } from 'react-toastify';
 import { openEditProjectModal } from '@/redux/slices/uiSlice';
+import { CustomLoader } from '../CustomLoader';
 
 const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
-    console.log("user>>>>>>>>>>>>>>>", user)
+    const { loading } = useSelector((state) => state.project)
     const [userDetail, setUserDetail] = useState(null);
 
     useEffect(() => {
@@ -72,12 +73,24 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(editProject({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
-            dispatch(fetchProjects());
+            const editProjectRes = await dispatch(editProject({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
+            toast.success(editProjectRes.message)
             dispatch(openEditProjectModal(false))
-            onSuccess()
+            dispatch(fetchProjects());
+            setFormValues({
+                name: "",
+                email: "",
+                contactNo: "",
+                assignTo: "",
+                remarks: "",
+                businessName: "",
+                projectBy: "",
+                lastFollowUp: new Date(),
+                deadLine: "",
+                queryId: ''
+            })
         } catch (error) {
-            console.error('Update failed:', error);
+            toast.error(error.message || "Failed to update project");
         }
     };
 
@@ -93,7 +106,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                     <button
                         type="button"
                         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        onClick={onClose}
+                        onClick={() => dispatch(openEditProjectModal(false))}
                     >
                         <svg
                             className="w-3 h-3"
@@ -238,7 +251,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     selected={formValues.lastFollowUp}
                                     onChange={(date) => handleDateChange('lastFollowUp', date)}
                                     dateFormat="MM/dd/yyyy"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-[400px] p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 />
                             </div>
                         </div>
@@ -247,6 +260,10 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                         type="submit"
                         className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-xs font-semibold text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                     >
+                        {
+                            loading ?
+                                (<CustomLoader loading={loading} color={"#FFFFFF"} size={10} />) : "Update"
+                        }
                         Update
                     </button>
                 </form>
