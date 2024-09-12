@@ -18,7 +18,6 @@ export async function verifyToken(){
           else{
             token = jwt.verify(tokenCookie, process.env.SECRET_KEY);
 
-            console.log("verify",token)
             
             return token
 
