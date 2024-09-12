@@ -23,11 +23,12 @@ import { usePathname } from 'next/navigation';
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [showUserDetails, setShowUserDetails] = useState(false)
+    const [showUserDetails, setShowUserDetails] = useState(false);
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
+    const [expandedMenu, setExpandedMenu] = useState(null);
 
     const pathname = usePathname();
-   
+
     const dispatch = useDispatch();
     const router = useRouter();
     const status = useSelector((state) => state.auth.status);
@@ -40,7 +41,6 @@ const AdminDashboard = () => {
     const closeModal = () => setModalOpen(false);
     const openDetailsModal = () => {
         setShowUserDetails(true);
-        console.log("detailModal ===>", showUserDetails);
     };
 
     const closeDetailsModal = () => {
@@ -83,28 +83,26 @@ const AdminDashboard = () => {
                 draggable
                 pauseOnHover
             />
-            <div className="flex ">
+            <div className="flex">
                 <div
                     className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col z-30`}
                 >
-
                     <div className="mt-[14px]">
-                        {isSidebarOpen === false ? (
+                        {!isSidebarOpen ? (
                             <button onClick={toggleSidebar}>
                                 <RxHamburgerMenu className="h-6 w-[3.25rem] ml-2 mt-2 text-default" />
                             </button>
                         ) : (
-                            <div className='flex items-center justify-between  h-[2rem]'>
-                                <div className=''>
+                            <div className="flex items-center justify-between h-[2rem]">
+                                <div>
                                     <Image
                                         src={Icon?.crownsetLogo}
                                         alt="Crownset Logo"
                                         width={150}
                                         height={20}
-                                        className=' p-0 ml-[12px] mt-[2rem]'
+                                        className="p-0 ml-[12px] mt-[2rem]"
                                     />
                                 </div>
-
                                 <div>
                                     <button onClick={toggleSidebar}>
                                         <RxCross2 className="h-6 w-6 mr-[12px] mt-[2.5rem] text-default" />
@@ -113,38 +111,56 @@ const AdminDashboard = () => {
                             </div>
                         )}
                     </div>
-                    <div className="flex-1 flex flex-col p-4 mt-[4rem]">
+                    <div className="flex-1 flex flex-col p-4 mt-[4rem] overflow-y-auto max-h-[calc(100vh-4rem)] scrollbar-hide">
                         <ul className="space-y-4">
                             {menuItems.map((item, index) => (
                                 <li key={index}>
-
-
-                                    <Link
-                                        href={item.href}
-                                        className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${pathname === item.href
-                                                ? 'bg-default rounded-3xl text-black'
-                                                : 'text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black'
-                                            }`}
-                                    >
-                                        <item.icon
-                                            className={`h-5 w-5 mr-2 ${pathname === item.href ? 'text-black' : 'text-default group-hover:text-black'
-                                                }`}
-                                        />
-                                        <span className={`${!isSidebarOpen && 'hidden'} ml-2`}>{item.name}</span>
-                                    </Link>
-                                    {/* <Link href={item.href}>
-                                        <button
-                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${pathname == item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                           
+                                    <div>
+                                        <Link
+                                            href={user?.data?.accessId === 1 ? "#" : item.href} 
+                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${pathname === item.href ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (item.name === "Daily Task") {
+                                                    if (user?.data?.accessId === 1) {
+                                                        setExpandedMenu(expandedMenu === item.name ? null : item.name);
+                                                    } else {
+                                                        router.push(item.href);
+                                                    }
+                                                } else {
+                                                    setSelectedTab(item.name);
+                                                    router.push(item.href);
+                                                }
+                                            }}
                                         >
-                                            <item.icon className={`h-5 w-5 mr-2 ${pathname == item.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                            <item.icon className={`h-5 w-5 mr-2 ${pathname === item.href ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
-                                        </button>
-                                    </Link> */}
+                                        </Link>
+
+                                        {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
+                                            <ul className="space-y-4">
+                                                {item.subItems.map((subItem, subIndex) => (
+                                                    <li key={subIndex}>
+                                                        <Link href={subItem.href}>
+                                                            <button
+                                                                className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out ${selectedTab === subItem.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                                                onClick={() => setSelectedTab(subItem.name)}
+                                                            >
+                                                                <subItem.icon className={`h-5 w-5 mr-2 ${selectedTab === subItem.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                                                <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{subItem.name}</span>
+                                                            </button>
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
                                 </li>
                             ))}
+
                         </ul>
                     </div>
+
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>
@@ -160,32 +176,14 @@ const AdminDashboard = () => {
                     </div>
                 </div>
                 <div className={`fixed w-full flex items-center justify-between bg-default p-4 ${isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0 md:ml-20'} transition-all duration-300 ease-in-out shadow-md z-10`}>
-                    <div className='flex items-center w-[60%]'>
+                    <div className="flex items-center w-[60%]">
                         <button onClick={toggleSidebar}>
                             <RxHamburgerMenu className={`h-6 w-[3.25rem] ${isSidebarOpen ? "hidden" : null}  text-black md:hidden`} />
                         </button>
-                        {/* {
-                            user ? (
-                                <div className=' hidden md:flex flex-col gap-1'>
-                                    <div className="flex items-center space-x-2">
-                                        <MdOutlineDriveFileRenameOutline className="text-sm text-dashboard" />
-                                        <p className="text-sm  text-black">
-                                            {user?.data?.firstName} {user?.data?.lastName}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <FaEnvelope className="text-sm text-dashboard" />
-                                        <p className="text-sm  text-black">{user?.data?.email}</p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <CustomLoader size={10} color={"#FFFFFF"} />
-                            )
-                        } */}
                     </div>
-                    <div className='pt-2'>
+                    <div className="pt-2">
                         <button onClick={openDetailsModal}>
-                            <IoPersonCircleSharp className="h-7 w-7  text-dashboard" />
+                            <IoPersonCircleSharp className="h-7 w-7 text-dashboard" />
                         </button>
                     </div>
                 </div>
