@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,13 +22,13 @@ import { RxCross2 } from "react-icons/rx";
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
-  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID,fullReason, isEditLeaveModal, selectedEditData, isLeaveResonModal } = useSelector((state) => state.ui);
+  const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, fullReason, isEditLeaveModal, selectedEditData, isLeaveResonModal } = useSelector((state) => state.ui);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
-  
+
 
   const checkLeaveBalance = () => {
-    if (user?.data?.leaveBalance == 0  ) {
+    if (user?.data?.leaveBalance == 0) {
       toast.error("you have no leaves to apply")
     } else {
       dispatch(openAddLeaveModal(true))
@@ -55,24 +56,23 @@ const Page = () => {
 
   const handleDelete = async () => {
     try {
-      if (isDeleteLeaveID) {S
-
+      if (isDeleteLeaveID) {
         const LeaveData = await dispatch(deleteLeave(isDeleteLeaveID)).unwrap();
-    
+
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
         if (LeaveData?.message === "Leave Successfully Deleted") {
-          dispatch(openDeleteSuccessModal(true))
+          dispatch(openDeleteSuccessModal(true));
         } else {
-          toast.error(LeaveData?.message)
+          toast.error(LeaveData?.message);
         }
       }
     } catch (error) {
-      toast.error(LeaveData?.message)
+      toast.error(error?.message || "An error occurred while deleting the leave.");
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
     dispatch(fetchLeave());
   }, [dispatch]);
 
