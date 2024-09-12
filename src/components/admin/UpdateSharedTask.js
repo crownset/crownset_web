@@ -42,7 +42,7 @@ const UpdateSharedTask = ({ isOpenEditShared, onCloseEditShared, taskData }) => 
                 dispatch(openEditDailyTask(false));
             } else {
                 const shareTaskEditRes = await dispatch(editDailyTask({ task_id: sharedFormValues.task_id, updatedData: sharedFormValues })).unwrap();
-                await dispatch(getSharedTask());
+                await dispatch(getSharedTask ());
                 console.log("taskEditRes", shareTaskEditRes);
                 dispatch(openSharedTaskModal(false));
                 toast.success(shareTaskEditRes?.message);
