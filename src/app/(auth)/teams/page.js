@@ -45,7 +45,7 @@ const Page = () => {
         return;
       }
       const result = await dispatch(loginUser(credentials));
-      console.log("resultLogin>>>>>", result)
+    //  console.log("resultLogin>>>>>", result)
       const token = Cookies.get('authToken:');
       if (token) {
         router.push("/admin");

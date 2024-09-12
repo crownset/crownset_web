@@ -80,3 +80,18 @@ export const handleDailyTaskAsyncActions = (builder, action, loadingKey, customC
             state[loadingKey] = false;
         });
 };
+export const handleAttendanceActions = (builder, action, initialState = {}) => {
+    builder
+        .addCase(action.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(action.fulfilled, (state, action) => {
+            state.attendance = action.payload;
+            state.loading = false;
+        })
+        .addCase(action.rejected, (state, action) => {
+            state.error = action.error.message;
+            state.loading = false;
+        })
+};
