@@ -84,14 +84,14 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
 
     return (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg shadow dark:bg-gray-700 p-3 max-w-md w-full">
-                <div className="flex items-center justify-between p-3 border-b rounded-t dark:border-gray-600">
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+            <div className="bg-white rounded-lg shadow  p-3 max-w-md w-full">
+                <div className="flex items-center justify-between p-3 border-b rounded-t ">
+                    <h3 className="text-sm font-semibold text-gray-900 ">
                         Update Project Details
                     </h3>
                     <button
                         type="button"
-                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center "
                         onClick={onClose}
                     >
                         <svg
@@ -116,7 +116,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                     <div className="grid gap-2 mb-4">
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Name
                                 </label>
                                 <input
@@ -124,11 +124,11 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="name"
                                     value={formValues?.name}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Email
                                 </label>
                                 <input
@@ -136,13 +136,13 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="email"
                                     value={formValues?.email}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="contact" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="contact" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Contact No.
                                 </label>
                                 <input
@@ -151,11 +151,11 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     type="number"
                                     value={formValues?.contactNo}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="assignTo" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="assignTo" className="block mb-1 text-xs font-medium text-gray-900 ">
                                     Assign To
                                 </label>
                                 <select
@@ -163,7 +163,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="assignTo"
                                     value={formValues?.assignTo}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 >
                                     {user.map((item) => (
                                         <option key={item._id} value={item._id}>
@@ -175,7 +175,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="businessName" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="businessName" className="block mb-1 text-xs font-medium text-gray-900">
                                     Business Name
                                 </label>
                                 <input
@@ -183,11 +183,11 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="businessName"
                                     value={formValues?.businessName}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="remarks" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="remarks" className="block mb-1 text-xs font-medium text-gray-900">
                                     Remarks
                                 </label>
                                 <input
@@ -195,13 +195,13 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="remarks"
                                     value={formValues?.remarks}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="projectBy" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="projectBy" className="block mb-1 text-xs font-medium text-gray-900">
                                     Project By
                                 </label>
                                 <input
@@ -209,11 +209,11 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="projectBy"
                                     value={formValues?.projectBy}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="deadline" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="deadline" className="block mb-1 text-xs font-medium text-gray-900">
                                     Deadline
                                 </label>
                                 <input
@@ -222,13 +222,13 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     type="date"
                                     value={formValues?.deadLine}
                                     onChange={handleChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 "
                                 />
                             </div>
                         </div>
                         <div className="flex space-x-2">
                             <div className="flex-1">
-                                <label htmlFor="lastFollowUp" className="block mb-1 text-xs font-medium text-gray-900 dark:text-white">
+                                <label htmlFor="lastFollowUp" className="block mb-1 text-xs font-medium text-gray-900">
                                     Last Follow-Up
                                 </label>
                                 <DatePicker
@@ -237,7 +237,7 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     selected={formValues.lastFollowUp}
                                     onChange={(date) => handleDateChange('lastFollowUp', date)}
                                     dateFormat="MM/dd/yyyy"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
                                 />
                             </div>
                         </div>

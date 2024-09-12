@@ -68,6 +68,14 @@ const querySchema = new Schema({
     type: String, 
     required:true,
     default: "Comments By Website"
+  },
+  address:{
+    type: String,
+    default: "N/A"
+  },
+  createdBy:{
+    type: mongoose.Types.ObjectId, 
+    ref: 'userCS'
   }
 });
 

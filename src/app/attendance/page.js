@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import "@/app/globals.css";
 import 'react-calendar/dist/Calendar.css';
+import {  punchData } from '@/redux/slices/attendanceSlice';
 
 const Page = () => {
     const [date, setDate] = useState(new Date());

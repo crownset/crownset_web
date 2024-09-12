@@ -91,7 +91,7 @@ const Page = () => {
         <>
           {/* {project.length > 0 ? (
             <> */}
-          <div className='flex justify-end w-[98%] m-auto'>
+          <div className='flex justify-end w-[98%] m-auto mt-5'>
             <button className='bg-dashboard text-default text-sm  gap-1 text-center py-2 px-5 flex items-center rounded-3xl my-3 text-[12px]' onClick={openAddModal}>
               <span><FaPlus /></span>
               <span>Project</span>
