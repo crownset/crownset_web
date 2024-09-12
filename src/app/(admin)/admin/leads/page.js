@@ -1,25 +1,25 @@
 "use client"
-import querySlice, { deleteQuery, fetchData } from '@/redux/slices/querySlice'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import moment from 'moment';
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { LuFileEdit } from "react-icons/lu";
+import AddLead from '@/components/admin/AddLead';
 import CustomAlert from '@/components/admin/CustomAlert';
+import SuccessModal from '@/components/admin/SuccessLottie';
+import UpdateForm from '@/components/admin/UpdateForm';
+import { CustomLoader } from '@/components/CustomLoader';
+import { getExcelData } from '@/redux/slices/multipleLeadSlice';
+import { deleteQuery, fetchData } from '@/redux/slices/querySlice';
+import { closeQueryModal, openAddLeadModal, openDeleteLeadModal, openEditLeadModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
+
+
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { FaPlus } from "react-icons/fa6";
+import { LuFileEdit } from "react-icons/lu";
+import { MdSend } from 'react-icons/md';
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { RxCross2 } from 'react-icons/rx';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UpdateForm from '@/components/admin/UpdateForm';
-import axios from 'axios';
-import AddLead from '@/components/admin/AddLead';
-import { CustomLoader } from '@/components/CustomLoader';
-import { FaPlus } from "react-icons/fa6";
-import SuccessLottie from '@/components/admin/SuccessLottie';
-import SuccessModal from '@/components/admin/SuccessLottie';
-import { closeAddModal, closeAddSuccessModal, closeEditModal, closeEditSuccessModal, closeModal, closeQueryModal, closeSuccessModal, openAddLeadModal, openAddModal, openDeleteLeadModal, openEditLeadModal, openEditModal, openModal, openQueryModal, openSuccessModal } from '@/redux/slices/uiSlice';
-import { RxCross2 } from 'react-icons/rx';
-import { MdSend } from 'react-icons/md';
-import { getExcelData } from '@/redux/slices/multipleLeadSlice';
-import { useDropzone } from 'react-dropzone';
 import * as XLSX from 'xlsx';
 
 const Page = () => {
@@ -174,7 +174,10 @@ const Page = () => {
                             </button>
                         </div>
                         {/* Add Lead button */}
-                        <button className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]' onClick={() => dispatch(openAddLeadModal(true))}>
+                        <button
+                            className='bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'
+                            onClick={() => dispatch(openAddLeadModal(true))}
+                        >
                             <span><FaPlus /></span>
                             <span>Lead</span>
                         </button>
@@ -195,6 +198,7 @@ const Page = () => {
                                     <th className="py-2 border-b min-w-[100px]">Follow Up</th>
                                     <th className="py-2 border-b min-w-[150px]">Last Follow Up</th>
                                     <th className="py-2 border-b min-w-[100px]">Query Date</th>
+                                    <th className="py-2 border-b min-w-[100px]">Address</th>
                                     <th className="py-2 border-b min-w-[100px]">Actions</th>
                                 </tr>
                             </thead>
@@ -231,9 +235,26 @@ const Page = () => {
                                         <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
+                                        <td className="py-2 text-[12px] border-b text-center ">
+                                            {item?.address?.length > 50 ? (
+                                                <>
+                                                    {item?.address.slice(0, 50)}...
+                                                    <button
+                                                        className="text-blue-500 underline ml-1"
+                                                        onClick={() => dispatch(openQueryModal(item?.address))}
+                                                    >
+                                                        View More
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                item?.address
+                                            )}
+                                        </td>
                                         <td className="py-2 text-[12px] border-b text-center">
                                             <div className='flex gap-3 justify-center items-center'>
-                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditLeadModal(item))}>
+                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                    onClick={() => dispatch(openEditLeadModal(item))}
+                                                >
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
                                                 {
@@ -257,6 +278,7 @@ const Page = () => {
                     </div>
                 </>
             )}
+
             <CustomAlert
                 isOpen={isModalOpen}
                 onClose={() => dispatch(openDeleteLeadModal(false))}
@@ -266,23 +288,50 @@ const Page = () => {
                 cancelButtonText="No, cancel"
                 onConfirm={handleConfirm}
             />
-            <UpdateForm isOpen={isEditLeadModalOpen} onClose={() => dispatch(openEditLeadModal(false))} queryData={selectedQueryData} onSuccess={() => setIsEditSuccessModal(true)} />
-            <AddLead openProject={isAddLeadModal} onCloseProject={() => dispatch(openAddLeadModal(false))} onSuccess={handleShowSuccessModal} />
-            <SuccessModal isOpen={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} title={"Lead Saved Successfully."} />
-            <SuccessModal isOpen={isEditSuccessModal} onClose={() => setIsEditSuccessModal(false)} title={"Lead Edited Successfully."} />
-            <SuccessModal isOpen={isSuccessModalOpen} onClose={() => dispatch(openSuccessModal(false))} title={"Lead Deleted Successfully."} />
+
+            <UpdateForm
+                isOpen={isEditLeadModalOpen}
+                onClose={() => dispatch(openEditLeadModal(false))}
+                queryData={selectedQueryData}
+                onSuccess={() => setIsEditSuccessModal(true)}
+            />
+
+            <AddLead
+                openProject={isAddLeadModal}
+                onCloseProject={() => dispatch(openAddLeadModal(false))}
+                onSuccess={handleShowSuccessModal}
+            />
+
+            <SuccessModal
+                isOpen={isSuccessModalVisible}
+                onClose={() => setIsSuccessModalVisible(false)}
+                title={"Lead Saved Successfully."}
+            />
+
+            <SuccessModal
+                isOpen={isEditSuccessModal}
+                onClose={() => setIsEditSuccessModal(false)}
+                title={"Lead Edited Successfully."}
+            />
+
+            <SuccessModal
+                isOpen={isSuccessModalOpen}
+                onClose={() => dispatch(openSuccessModal(false))}
+                title={"Lead Deleted Successfully."}
+            />
             {/* <SuccessModal
                 // isOpen={isAddSuccessModal}
                 onClose={() => dispatch(closeAddSuccessModal())}
                 title="Lead Added Successfully."
             /> */}
+
             {/* Query Modal */}
             {isQueryModalOpen && (
                 <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 py-2">
                     <div className="bg-white p-6 rounded-3xl w-[90%] max-w-xl h-[400px] overflow-hidden">
                         <div className='flex items-center justify-between'>
-                            <h2 className="text-lg font-bold">Full Query</h2>
-                            <RxCross2 className="h-6 w-6 mr-10 text-dashboard" onClick={() => dispatch(closeQueryModal())} />
+                            <h2 className="text-lg font-bold">Full Detail</h2>
+                            <RxCross2 className="h-6 w-6 mr-10 text-dashboard cursor-pointer" onClick={() => dispatch(closeQueryModal())} />
                         </div>
 
                         <div className="overflow-y-auto h-[300px]">
@@ -299,6 +348,7 @@ const Page = () => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

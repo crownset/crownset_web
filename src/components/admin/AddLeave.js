@@ -28,8 +28,10 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const { user, loading } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
-    const filteredData = user.filter((item) => item.accessId == "1")
+    
+    const filteredData = Array.isArray(user) ? user.filter((item) => item.accessId == "1") : [];
 
+   
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -68,7 +70,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                 return;
             }
             const addLeaveRes = await dispatch(LeaveQuery(formData)).unwrap();
-            console.log("addLeaveRes", addLeaveRes)
+            
             dispatch(fetchLeave());
             setFormData({
                 startDate: '',
@@ -213,7 +215,7 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                     {errors?.startDate && <p className="text-red-500 text-sm">{errors?.startDate}</p>}
                                 </div>
 
-                               
+
                                 <div className="flex-1 text-left">
                                     <label htmlFor="endDate" className="block mb-1 text-left text-xs font-medium text-gray-900 dark:text-white">
                                         End Date
@@ -228,9 +230,9 @@ const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
                                     />
                                     {errors?.endDate && <p className="text-red-500 text-sm">{errors?.endDate}</p>}
                                 </div>
-                                 
+
                             </div>
-                               
+
 
                             <div className="flex space-x-2">
                                 <div className="flex-1">

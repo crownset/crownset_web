@@ -18,6 +18,7 @@ import UserDetailsModal from './UserDetailsModal';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { FaEnvelope } from 'react-icons/fa';
 import { CustomLoader } from '../CustomLoader';
+import { usePathname } from 'next/navigation';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -25,6 +26,8 @@ const AdminDashboard = () => {
     const [showUserDetails, setShowUserDetails] = useState(false);
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
     const [expandedMenu, setExpandedMenu] = useState(null);
+
+    const pathname = usePathname();
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -113,22 +116,27 @@ const AdminDashboard = () => {
                             {menuItems.map((item, index) => (
                                 <li key={index}>
                                     <div>
-                                        <button
-                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                            onClick={() => {
-                                                if (item.name === "Daily Task" && user?.data?.accessId === 1) {
-                                                    setExpandedMenu(expandedMenu === item.name ? null : item.name);
-                                                } else if (item.name === "Daily Task") {
-                                                    router.push(item.href);
+                                        <Link
+                                            href={user?.data?.accessId === 1 ? "#" : item.href} 
+                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${pathname === item.href ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (item.name === "Daily Task") {
+                                                    if (user?.data?.accessId === 1) {
+                                                        setExpandedMenu(expandedMenu === item.name ? null : item.name);
+                                                    } else {
+                                                        router.push(item.href);
+                                                    }
                                                 } else {
                                                     setSelectedTab(item.name);
                                                     router.push(item.href);
                                                 }
-                                            }} 
+                                            }}
                                         >
-                                            <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                            <item.icon className={`h-5 w-5 mr-2 ${pathname === item.href ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
-                                        </button>
+                                        </Link>
+
                                         {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
                                             <ul className="space-y-4">
                                                 {item.subItems.map((subItem, subIndex) => (

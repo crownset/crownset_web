@@ -117,34 +117,35 @@ export const permanentholidays = [
         name: "Good Friday",
         date: "08-Mar-2024"
     },
+    
     {
-        id: 6,
-        name: "Maha shivaratri",
-        date: "08-Mar-2024"
+        id:6,
+        name:"Independence day",
+        date:"15-Aug-2024" 
     },
     {
-        id: 7,
-        name: "Independence day",
-        date: "15-Aug-2024"
-    },
-    {
-        id: 8,
-        name: "Raksha Bandhan",
-        date: "19-Aug-2024"
+        id:7,
+        name:"Raksha Bandhan",
+        date:"19-Aug-2024" 
     }, {
-        id: 9,
-        name: "Gandhi Jayenti",
-        date: "02-Oct-2024"
+        id:8,
+        name:"Gandhi Jayenti",
+        date:"02-Oct-2024" 
     },
     {
-        id: 10,
-        name: "Vijayadashami",
-        date: "12-Oct-2024"
+        id:9,
+        name:"Vijayadashami",
+        date:"12-Oct-2024" 
     },
     {
-        id: 11,
-        name: "Diwali",
-        date: "01-Nov-2024"
+        id:10,
+        name:" Choti Diwali ",
+        date:"31-Oct-2024" 
+    },
+    {
+        id:11,
+        name:"Diwali",
+        date:"01-Nov-2024" 
     },
     {
         id: 12,

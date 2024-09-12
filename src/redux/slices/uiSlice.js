@@ -18,6 +18,8 @@ const initialState = {
     isDeleteSuccessModal: false,
     isEditLeaveModal: false,
     selectedEditData: null,
+    isLeaveResonModal : false,
+    fullReason:"",
     //dailyTask states
     isAddTaskOpen: false,
     isopenEditTaskModal :false,
@@ -85,6 +87,10 @@ const uiSlice = createSlice({
         },
         openDeleteSuccessModal: (state, action) => {
             state.isDeleteSuccessModal = action.payload
+        },
+        openLeaveReasonModal: (state, action) => {
+            state.isLeaveResonModal = action.payload
+            state.fullReason = action.payload;
         },
         //dailyTask states
         openDailyTaskModal: (state, action)=>{
@@ -155,6 +161,7 @@ export const {
     openDeleteLeaveModal,
     openEditLeaveModal,
     openDeleteSuccessModal,
+    openLeaveReasonModal,
     //dailyTask states
     openDailyTaskModal,
     openEditDailyTask,
