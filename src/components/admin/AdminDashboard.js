@@ -18,6 +18,7 @@ import UserDetailsModal from './UserDetailsModal';
 import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { FaEnvelope } from 'react-icons/fa';
 import { CustomLoader } from '../CustomLoader';
+import { usePathname } from 'next/navigation';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -25,6 +26,8 @@ const AdminDashboard = () => {
     const [showUserDetails, setShowUserDetails] = useState(false)
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
 
+    const pathname = usePathname();
+   
     const dispatch = useDispatch();
     const router = useRouter();
     const status = useSelector((state) => state.auth.status);
@@ -114,15 +117,30 @@ const AdminDashboard = () => {
                         <ul className="space-y-4">
                             {menuItems.map((item, index) => (
                                 <li key={index}>
-                                    <Link href={item.href}>
+
+
+                                    <Link
+                                        href={item.href}
+                                        className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${pathname === item.href
+                                                ? 'bg-default rounded-3xl text-black'
+                                                : 'text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black'
+                                            }`}
+                                    >
+                                        <item.icon
+                                            className={`h-5 w-5 mr-2 ${pathname === item.href ? 'text-black' : 'text-default group-hover:text-black'
+                                                }`}
+                                        />
+                                        <span className={`${!isSidebarOpen && 'hidden'} ml-2`}>{item.name}</span>
+                                    </Link>
+                                    {/* <Link href={item.href}>
                                         <button
-                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${selectedTab === item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                            onClick={() => setSelectedTab(item.name)}
+                                            className={`group flex items-center p-2 rounded w-full transition-transform duration-300 transform hover:translate-x-2 ${pathname == item.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                           
                                         >
-                                            <item.icon className={`h-5 w-5 mr-2 ${selectedTab === item.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                            <item.icon className={`h-5 w-5 mr-2 ${pathname == item.name ? "text-black" : "text-default group-hover:text-black"}`} />
                                             <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
                                         </button>
-                                    </Link>
+                                    </Link> */}
                                 </li>
                             ))}
                         </ul>
