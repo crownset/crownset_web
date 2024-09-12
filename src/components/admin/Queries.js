@@ -43,8 +43,8 @@ const Queries = () => {
               <div className='ml-1'>{user?.data?.firstName} {user?.data?.lastName}</div>
             </div>
             <div className='flex flex-col justify-center items-center bg-dashboardUserBg px-2 py-2 rounded-2xl md:px-3 md:py-3'>
-              <div>UID:</div>
-              <div className='ml-1'>{user?.data?.uid}</div>
+              <div>EID:</div>
+              <div className='ml-1'>{user?.data?.eid}</div>
             </div>
             <div className='flex flex-col justify-center items-center bg-dashboardUserBg px-2 py-2 rounded-2xl md:px-3 md:py-3'>
               <div>Email:</div>

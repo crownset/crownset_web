@@ -13,6 +13,7 @@ import uiSlice from "./redux/slices/uiSlice"
 import leaveSlice from "./redux/slices/leaveSlice"
 import multipleLeadSlice from "./redux/slices/multipleLeadSlice"
 import dailytaskSlice from "./redux/slices/dailytaskSlice"
+import sharedTaskSlice from "./redux/slices/sharedTaskSlice"
 
 const store = configureStore({
     reducer: {
@@ -27,7 +28,8 @@ const store = configureStore({
         ui: uiSlice,
         leave:leaveSlice,
         queryData:multipleLeadSlice,
-        daily:dailytaskSlice
+        daily:dailytaskSlice,
+        shared:sharedTaskSlice
     }
 })
 
