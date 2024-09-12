@@ -51,7 +51,8 @@ try{
 
     const attendance = new Attendance({
       userId: token.user._id,
-      punchIn: Date.now()
+      punchIn: Date.now(),
+      punchOut: null
     })
 
     await attendance.save()
@@ -61,6 +62,7 @@ try{
 }
 
 catch(error){
+  console.log(error)
     return NextResponse.json({
         message: "error in post request",
         status: 300});
