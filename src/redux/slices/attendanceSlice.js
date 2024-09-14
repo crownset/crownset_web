@@ -9,6 +9,7 @@ export const punchInData = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchIn", credentials);
+            console.log(response);
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,7 +17,7 @@ export const punchInData = createAsyncThunk(
     }
 )
 const initialState = {
-    attendance: null,
+    punchData: {},
     loading: false,
     error: null,
 };

@@ -22,11 +22,18 @@ export const menuItems = [
         href: "/admin/projects",
         icon: SiPowerpages,
     },
+
+    {
+        name: "attendance",
+        href: "/admin/attendance",
+        icon: FaCalendarWeek,
+
+    },
     {
         name: "Leaves",
         href: "/admin/leaves",
         icon: FaCalendarWeek,
-    },{
+    }, {
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,
@@ -78,70 +85,70 @@ export const LeaveOption = [
         type: 'Half Day'
     }
 ];
- 
- export const permanentholidays=[
+
+export const permanentholidays = [
     {
-        id:1,
-        name:"New Year's Day",
-        date:"01-Jan-2024"
+        id: 1,
+        name: "New Year's Day",
+        date: "01-Jan-2024"
 
     },
     {
-        id:2,
-        name:"Republic Day",
-        date:"26-Feb-2024"
+        id: 2,
+        name: "Republic Day",
+        date: "26-Feb-2024"
     },
     {
-        id:3,
-        name:"Maha shivaratri",
-        date:"08-Mar-2024" 
+        id: 3,
+        name: "Maha shivaratri",
+        date: "08-Mar-2024"
     },
     {
-        id:4,
-        name:"Holi",
-        date:"25-Mar-2024" 
+        id: 4,
+        name: "Holi",
+        date: "25-Mar-2024"
     },
     {
-        id:5,
-        name:"Good Friday",
-        date:"08-Mar-2024" 
+        id: 5,
+        name: "Good Friday",
+        date: "08-Mar-2024"
     },
-    
+
     {
-        id:6,
-        name:"Independence day",
-        date:"15-Aug-2024" 
+        id: 6,
+        name: "Independence day",
+        date: "15-Aug-2024"
     },
     {
-        id:7,
-        name:"Raksha Bandhan",
-        date:"19-Aug-2024" 
+        id: 7,
+        name: "Raksha Bandhan",
+        date: "19-Aug-2024"
     }, {
-        id:8,
-        name:"Gandhi Jayenti",
-        date:"02-Oct-2024" 
+        id: 8,
+        name: "Gandhi Jayenti",
+        date: "02-Oct-2024"
     },
     {
-        id:9,
-        name:"Vijayadashami",
-        date:"12-Oct-2024" 
+        id: 9,
+        name: "Vijayadashami",
+        date: "12-Oct-2024"
     },
     {
-        id:10,
-        name:" Choti Diwali ",
-        date:"31-Oct-2024" 
+        id: 10,
+        name: " Choti Diwali ",
+        date: "31-Oct-2024"
     },
     {
-        id:11,
-        name:"Diwali",
-        date:"01-Nov-2024" 
+        id: 11,
+        name: "Diwali",
+        date: "01-Nov-2024"
     },
     {
-        id:12,
-        name:"Christmas",
-        date:"25-Dec-2024" 
+        id: 12,
+        name: "Christmas",
+        date: "25-Dec-2024"
     }
- ]
+]
 
 
 
