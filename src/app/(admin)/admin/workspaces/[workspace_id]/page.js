@@ -48,6 +48,7 @@ const Page = ({ params }) => {
     fetch();
 
   }, [dispatch, params.workspace_id])
+  
   return (
     <>
 

@@ -6,10 +6,12 @@ import { assignUsers } from '@/redux/slices/userSlice';
 import { editProject, fetchProjects } from '@/redux/slices/projectSlice';
 import { toast } from 'react-toastify';
 import { openEditProjectModal } from '@/redux/slices/uiSlice';
+import { CustomLoader } from '../CustomLoader';
 
 const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
+    const { loading } = useSelector((state) => state.project)
     const [userDetail, setUserDetail] = useState(null);
 
     useEffect(() => {
@@ -71,12 +73,24 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(editProject({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
-            dispatch(fetchProjects());
+            const editProjectRes = await dispatch(editProject({ queryId: formValues.queryId, updatedData: formValues })).unwrap();
+            toast.success(editProjectRes.message)
             dispatch(openEditProjectModal(false))
-            onSuccess()
+            dispatch(fetchProjects());
+            setFormValues({
+                name: "",
+                email: "",
+                contactNo: "",
+                assignTo: "",
+                remarks: "",
+                businessName: "",
+                projectBy: "",
+                lastFollowUp: new Date(),
+                deadLine: "",
+                queryId: ''
+            })
         } catch (error) {
-            console.error('Update failed:', error);
+            toast.error(error.message || "Failed to update project");
         }
     };
 
@@ -246,6 +260,10 @@ const UpdateProjectData = ({ isOpen, onClose, queryData, onSuccess }) => {
                         type="submit"
                         className="inline-flex w-full justify-center rounded-lg bg-primary-600 px-4 py-2 text-xs font-semibold text-white bg-dashboard shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                     >
+                        {
+                            loading ?
+                                (<CustomLoader loading={loading} color={"#FFFFFF"} size={10} />) : "Update"
+                        }
                         Update
                     </button>
                 </form>

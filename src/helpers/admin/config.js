@@ -5,6 +5,11 @@ import { SiGooglebigquery } from "react-icons/si";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { FaCalendarWeek } from "react-icons/fa";
 import { SiAndroidauto } from "react-icons/si";
+import { VscTasklist } from "react-icons/vsc";
+import { FaLaptopCode } from "react-icons/fa6";
+import { SiSellfy } from "react-icons/si";
+import { BsPersonFill } from "react-icons/bs";
+import { SiAdobelightroom } from "react-icons/si";
 
 export const menuItems = [
     {
@@ -26,7 +31,7 @@ export const menuItems = [
         name: "Leaves",
         href: "/admin/leaves",
         icon: FaCalendarWeek,
-    },{
+    }, {
         name: "Workspace",
         href: "/admin/workspaces",
         icon: BsPersonWorkspace,
@@ -39,8 +44,14 @@ export const menuItems = [
     {
         name: "Daily Task",
         href: "/admin/dailytask",
-        icon: SiAndroidauto,
-    },
+        icon: VscTasklist,
+        subItems: [
+            { name: "IT", href: "/admin/dailytask/IT", icon:FaLaptopCode },
+            { name: "Sales", href: "/admin/dailytask/Sales", icon:SiSellfy },
+            { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon:BsPersonFill },
+            { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon:SiAdobelightroom },
+        ]    
+    }
 ];
 
 export const logoutItem = {
@@ -78,33 +89,33 @@ export const LeaveOption = [
         type: 'Half Day'
     }
 ];
- 
- export const permanentholidays=[
+
+export const permanentholidays = [
     {
-        id:1,
-        name:"New Year's Day",
-        date:"01-Jan-2024"
+        id: 1,
+        name: "New Year's Day",
+        date: "01-Jan-2024"
 
     },
     {
-        id:2,
-        name:"Republic Day",
-        date:"26-Feb-2024"
+        id: 2,
+        name: "Republic Day",
+        date: "26-Feb-2024"
     },
     {
-        id:3,
-        name:"Maha shivaratri",
-        date:"08-Mar-2024" 
+        id: 3,
+        name: "Maha shivaratri",
+        date: "08-Mar-2024"
     },
     {
-        id:4,
-        name:"Holi",
-        date:"25-Mar-2024" 
+        id: 4,
+        name: "Holi",
+        date: "25-Mar-2024"
     },
     {
-        id:5,
-        name:"Good Friday",
-        date:"08-Mar-2024" 
+        id: 5,
+        name: "Good Friday",
+        date: "08-Mar-2024"
     },
     
     {
@@ -137,11 +148,11 @@ export const LeaveOption = [
         date:"01-Nov-2024" 
     },
     {
-        id:12,
-        name:"Christmas",
-        date:"25-Dec-2024" 
+        id: 12,
+        name: "Christmas",
+        date: "25-Dec-2024"
     }
- ]
+]
 
 
 
