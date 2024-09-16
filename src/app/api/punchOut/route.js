@@ -7,14 +7,14 @@ import { Attendance } from '@/modelCS/attendance';
 
 export async function POST(request) {
 
-  await dbConnect()
+  await dbConnect();
 
   try {
 
-    const token = await verifyToken()
+    const token = await verifyToken();
 
     if (token == "" || !token) {
-      return NextResponse.json({ message: "login required" });
+      return NextResponse.json({ message: "Login required" });
     }
 
     const { ip, latitude, longitude } = await request.json();
@@ -59,12 +59,26 @@ export async function POST(request) {
         return NextResponse.json({ message: "No punch-in record found" });
       }
 
-      attendance.punchOut = Date.now();
+      // Set punch out time
+      const punchOutTime = Date.now();
+      attendance.punchOut = punchOutTime;
+
+      // Calculate work hours
+      const punchInTime = new Date(attendance.punchIn);
+      const workedMilliseconds = punchOutTime - punchInTime;
+      const workedHours = (workedMilliseconds / (1000 * 60 * 60)).toFixed(2); // Convert to hours
+
+      attendance.hours = workedHours
+
+      // Save attendance record
       await attendance.save();
 
-      return NextResponse.json({ status: 'Punched Out' });
+      return NextResponse.json({
+        status: 'Punched Out',
+        workedHours: `${workedHours} hours`
+      });
     }
-    
+
     return NextResponse.json({ status: 'Location out of range' });
   } catch (error) {
     return NextResponse.json({
