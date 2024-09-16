@@ -78,7 +78,7 @@ const UpdateSharedTask = ({ isOpenEditShared, onCloseEditShared, taskData }) => 
                         <div className="grid gap-4 mb-4">
                             <div className="min-w-full">
                                 <label htmlFor="review" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                                    Follow Up
+                                    Review
                                 </label>
                                 <select
                                     id="review"
