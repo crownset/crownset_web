@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotation</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Quotation Header Table -->
+    <table style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto;">
+      <tr>
+        <td style="font-size: 20px; margin: 0; border: 1px solid white;">
+          <div>
+            <h1 style="font-weight: bold; font-size: 25px; padding-left: 35px; color: #6c46e4;">Quotation</h1>
+          </div>
+          <div style="display: flex;">
+            <ul>
+              <li style="list-style: none; font-size: 12px;">Quotation No #</li>
+              <li style="list-style: none; font-size: 12px;">Quotation Date</li>
+              <li style="list-style: none; font-size: 12px;">Valid Till Date</li>
+            </ul>
+            <ul>
+              <li style="list-style: none; font-size: 12px; font-weight: bold;"><%= quotation_no %></li>
+              <li style="list-style: none; font-size: 12px; font-weight: bold;"><%= quotation_date %></li>
+              <li style="list-style: none; font-size: 12px; font-weight: bold;"><%= valid_date %></li>
+            </ul>
+          </div>
+        </td>
+        <td style="font-size: 15px; margin: 0; border: 1px solid white;" colspan="2">
+          <div style="display: flex; justify-content: flex-end; align-items: flex-end; height: 100%; padding: 10px;">
+            <img src="crownsetfinal.png" alt="Logo" style="width: 100px; height: auto; margin-right: 10px;">
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Quotation Details Table -->
+    <table style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto;">
+      <tr>
+        <td style="font-size: 15px; margin: 0; border: 1px solid white; background-color: #c9bbf5; border-radius: 10px; width: 50%;">
+          <ul>
+            <li style="list-style: none; font-size: 20px; padding-bottom: 5px; color:#6c46e4; font-weight: bold;">
+              Quotation From
+            </li>
+            <li style="list-style: none; font-size: 15px; font-weight: bolder; padding-bottom: 5px;">Crownset Marketing Agency</li>
+            <li style="list-style: none; font-size: 12px; padding-bottom: 5px;">127, Tower B, Logix Technova, Sector 132, Noida</li>
+            <li style="list-style: none; font-size: 12px; padding-bottom: 5px;">Uttar Pradesh, India - 201304</li>
+          </ul>
+        </td>
+        <td style="font-size: 15px; margin: 0; border: 1px solid white; background-color: #c9bbf5; border-radius: 10px; width: 50%;">
+          <ul>
+            <li style="list-style: none; font-size: 20px; padding-bottom: 5px; color:#6c46e4; font-weight: bold;">
+              Quotation For
+            </li>
+            <li style="list-style: none; font-size: 12px; font-weight: bolder; padding-bottom: 5px;"><%= quotation_for %></li>
+            <li style="list-style: none; font-size: 12px; padding-bottom: 5px;">India</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Quotation Items Table -->
+    <table style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto; margin-top: 5px; border-radius: 10px;">
+      <tr style="padding: 5px;">
+        <td style="font-size: 20px; margin: 0; background-color: #6c46e4; color:white;">Item</td>
+        <td style="font-size: 20px; margin: 0; text-align: center; background-color: #6c46e4; color:white;">Quantity</td>
+        <td style="font-size: 20px; margin: 0; text-align: center; background-color: #6c46e4; color:white;">Rate</td>
+        <td style="font-size: 20px; margin: 0; text-align: center; background-color: #6c46e4; color:white;">Amount</td>
+      </tr>
+      <% items.forEach(function(item) { %>
+      <tr>
+        <td style="font-size: 15px; padding: 5px; border: 1px solid white;">
+          <% item.name.forEach(function(namePart, index) { %>
+            <div><%= namePart %></div>
+          <% }); %>
+        </td>
+        <td style="font-size: 15px; padding: 5px; border: 1px solid white; text-align: center;"><%= item.quantity %></td>
+        <td style="font-size: 15px; padding: 5px; border: 1px solid white; text-align: center;">₹ <%= item.rate %></td>
+        <td style="font-size: 15px; padding: 5px; border: 1px solid white; text-align: center;">₹ <%= item.amount %></td>
+      </tr>
+      <% }); %>
+      <tr>
+        <td colspan="3" style="font-size: 15px; text-align: right; padding: 5px; border: 1px solid white; font-weight: bold;">Total Amount</td>
+        <td style="font-size: 15px; text-align: center; padding: 5px; border: 1px solid white; font-weight: 600;">₹ <%= total %></td>
+      </tr>
+    </table>
+
+    <!-- Disclaimer Table -->
+    <table style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto; margin-top: 5px; border-radius: 10px;">
+      <tr style="padding: 5px;">
+        <td style="font-size: 15px; margin: 0; color:black;">This is an electronically generated document, no signature required.</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

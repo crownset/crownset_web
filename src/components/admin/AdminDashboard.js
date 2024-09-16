@@ -19,6 +19,9 @@ import { MdOutlineDriveFileRenameOutline } from 'react-icons/md';
 import { FaEnvelope } from 'react-icons/fa';
 import { CustomLoader } from '../CustomLoader';
 import { usePathname } from 'next/navigation';
+import CustomTooltip from './CustomTooltip';
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -85,7 +88,7 @@ const AdminDashboard = () => {
             />
             <div className="flex">
                 <div
-                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out z-10 flex flex-col z-30`}
+                    className={`fixed top-0 left-0 h-full ${isSidebarOpen ? "w-64 md:w-64" : "w-0 md:w-20"} bg-dashboard shadow-lg text-black transition-all duration-300 ease-in-out flex flex-col z-30`}
                 >
                     <div className="mt-[14px]">
                         {!isSidebarOpen ? (
@@ -115,52 +118,65 @@ const AdminDashboard = () => {
                         <ul className="space-y-4">
                             {menuItems.map((item, index) => (
                                 <li key={index}>
-                                    <div>
-                                        <Link
-                                            href={user?.data?.accessId === 1 ? "#" : item.href} 
-                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${pathname === item.href ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                if (item.name === "Daily Task") {
-                                                    if (user?.data?.accessId === 1) {
-                                                        setExpandedMenu(expandedMenu === item.name ? null : item.name);
-                                                    } else {
-                                                        router.push(item.href);
-                                                    }
+                                    <Link
+                                        href={user?.data?.accessId === 1 ? "#" : item.href}
+                                        className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${pathname === item.href ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (item.name === "Daily Task") {
+                                                if (user?.data?.accessId === 1) {
+                                                    setExpandedMenu(expandedMenu === item.name ? null : item.name);
                                                 } else {
-                                                    setSelectedTab(item.name);
                                                     router.push(item.href);
                                                 }
-                                            }}
-                                        >
-                                            <item.icon className={`h-5 w-5 mr-2 ${pathname === item.href ? "text-black" : "text-default group-hover:text-black"}`} />
-                                            <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
-                                        </Link>
+                                            } else {
+                                                setSelectedTab(item.name);
+                                                router.push(item.href);
+                                            }
+                                        }}
+                                        data-tooltip-id={`tooltip-${item.name}`}
+                                        data-tooltip-content={item.name}
+                                    >
+                                        <item.icon className={`h-5 w-5 mr-2 ${pathname === item.href ? "text-black" : "text-default group-hover:text-black"}`} />
+                                        <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
 
-                                        {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
-                                            <ul className="space-y-4">
-                                                {item.subItems.map((subItem, subIndex) => (
-                                                    <li key={subIndex}>
-                                                        <Link href={subItem.href}>
-                                                            <button
-                                                                className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out ${selectedTab === subItem.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                                                onClick={() => setSelectedTab(subItem.name)}
-                                                            >
-                                                                <subItem.icon className={`h-5 w-5 mr-2 ${selectedTab === subItem.name ? "text-black" : "text-default group-hover:text-black"}`} />
-                                                                <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{subItem.name}</span>
-                                                            </button>
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </div>
+                                    </Link>
+                                    {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
+                                        <ul className="space-y-4">
+                                            {item.subItems.map((subItem, subIndex) => (
+                                                <li key={subIndex}>
+                                                    <Link href={subItem.href}
+                                                        data-tooltip-id={`tooltip-${subItem.name}`}
+                                                        data-tooltip-content={subItem.name}>
+                                                        <button
+                                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out ${selectedTab === subItem.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
+                                                            onClick={() => setSelectedTab(subItem.name)}
+                                                        >
+                                                            <subItem.icon className={`h-5 w-5 mr-2 ${selectedTab === subItem.name ? "text-black" : "text-default group-hover:text-black"}`} />
+                                                            <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{subItem.name}</span>
+                                                        </button>
+                                                    </Link>
+                                                    {
+                                                        isSidebarOpen === false && (
+                                                            <Tooltip id={`tooltip-${subItem.name}`} place="right" offset={20} className="z-50 custom-tooltip" />
+                                                        )
+                                                    }
+
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                    {
+                                        isSidebarOpen === false && (
+                                            <Tooltip id={`tooltip-${item.name}`} place="right" offset={20} className="z-50 custom-tooltip" />
+                                        )
+                                    }
+
                                 </li>
                             ))}
 
                         </ul>
                     </div>
-
                     <div className="p-4 mt-auto">
                         <ul className="space-y-4">
                             <li>

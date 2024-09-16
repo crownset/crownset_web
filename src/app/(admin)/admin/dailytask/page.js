@@ -53,33 +53,44 @@ const Page = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {daily?.tasks?.map((item, index) => (
-                                            <tr key={item.id} defaultValue={index} className='even:bg-dashboardUserBg odd:bg-default'>
-                                                <td className="py-2 border-b text-[12px] text-center">{item?.taskmessage}</td>
-                                                <td className="py-2 border-b text-[12px] text-center">{moment(item?.estimated_date).format('LL')}</td>
-                                                <td className="py-2 border-b text-[12px] text-center">{moment(item?.actual_date).format('LL')}</td>
-                                                <td className="py-2 border-b text-[12px] text-center">
-                                                    {item?.share_with?.map(person => person.firstName).join(",")}
-                                                </td>
-                                                <td className="py-2 border-b text-[12px] text-center">
-                                                    <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item?.review)}`}>
-                                                        {item?.review ? "Yes" : "No"}
-                                                    </span>
-                                                </td>
-
-                                                <td className="py-2 border-b text-center">
-                                                    <div className='flex gap-3 justify-center items-center -z-10'>
-                                                        <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditDailyTask(item))}>
-                                                            <LuFileEdit className='h-4 w-4' />
-                                                        </button>
-                                                        <button className="text-mature border border-mature p-1 rounded-md hover:bg-mature hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openShareTaskModal(item))}>
-                                                            <FaShareSquare className='h-4 w-4' />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                        {daily?.tasks?.map((item, index) => {
+                                            const isSameDate = moment(item?.estimated_date).isSame(item?.actual_date, 'day');
+                                            return (
+                                                <tr key={item.id} defaultValue={index} className='even:bg-dashboardUserBg odd:bg-default'>
+                                                    <td className="py-2 border-b text-[12px] text-center">{item?.taskmessage}</td>
+                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                        <span className={`py-1 px-2 text-black rounded-3xl ${isSameDate ? 'bg-green-500 text-white' : ''}`}>
+                                                            {moment(item?.estimated_date).format('LL')}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                        <span className={`py-1 px-2 text-black rounded-3xl ${isSameDate ? 'bg-green-500 text-white' : ''}`}>
+                                                            {moment(item?.actual_date).format('LL')}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                        {item?.share_with?.map(person => person.firstName).join(",")}
+                                                    </td>
+                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                        <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item?.review)}`}>
+                                                            {item?.review ? "Yes" : "No"}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-2 border-b text-center">
+                                                        <div className='flex gap-3 justify-center items-center -z-10'>
+                                                            <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openEditDailyTask(item))}>
+                                                                <LuFileEdit className='h-4 w-4' />
+                                                            </button>
+                                                            <button className="text-mature border border-mature p-1 rounded-md hover:bg-mature hover:text-white hover:border-[#FFFFFF] translate-x-1" onClick={() => dispatch(openShareTaskModal(item))}>
+                                                                <FaShareSquare className='h-4 w-4' />
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
                                     </tbody>
+
                                 </table>
                             </div>
                         </>
