@@ -56,7 +56,7 @@ try{
     })
 
     await attendance.save()
-    return NextResponse.json({ status: 'Punched In' });
+    return NextResponse.json({ data: attendance, status: 'Punched In' });
   } 
   return NextResponse.json({ status: 'Location out of range' });
 }

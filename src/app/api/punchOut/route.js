@@ -74,12 +74,13 @@ export async function POST(request) {
       await attendance.save();
 
       return NextResponse.json({
+        data: attendance,
         status: 'Punched Out',
         workedHours: `${workedHours} hours`
       });
     }
 
-    return NextResponse.json({ status: 'Location out of range' });
+    return NextResponse.json({status: 'Location out of range' });
   } catch (error) {
     return NextResponse.json({
       message: "Error in post request",
