@@ -27,6 +27,13 @@ export const menuItems = [
         href: "/admin/projects",
         icon: SiPowerpages,
     },
+
+    {
+        name: "attendance",
+        href: "/admin/attendance",
+        icon: FaCalendarWeek,
+
+    },
     {
         name: "Leaves",
         href: "/admin/leaves",
@@ -117,35 +124,35 @@ export const permanentholidays = [
         name: "Good Friday",
         date: "08-Mar-2024"
     },
-    
+
     {
-        id:6,
-        name:"Independence day",
-        date:"15-Aug-2024" 
+        id: 6,
+        name: "Independence day",
+        date: "15-Aug-2024"
     },
     {
-        id:7,
-        name:"Raksha Bandhan",
-        date:"19-Aug-2024" 
+        id: 7,
+        name: "Raksha Bandhan",
+        date: "19-Aug-2024"
     }, {
-        id:8,
-        name:"Gandhi Jayenti",
-        date:"02-Oct-2024" 
+        id: 8,
+        name: "Gandhi Jayenti",
+        date: "02-Oct-2024"
     },
     {
-        id:9,
-        name:"Vijayadashami",
-        date:"12-Oct-2024" 
+        id: 9,
+        name: "Vijayadashami",
+        date: "12-Oct-2024"
     },
     {
-        id:10,
-        name:" Choti Diwali ",
-        date:"31-Oct-2024" 
+        id: 10,
+        name: " Choti Diwali ",
+        date: "31-Oct-2024"
     },
     {
-        id:11,
-        name:"Diwali",
-        date:"01-Nov-2024" 
+        id: 11,
+        name: "Diwali",
+        date: "01-Nov-2024"
     },
     {
         id: 12,
