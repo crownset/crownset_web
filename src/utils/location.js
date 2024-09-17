@@ -1,5 +1,6 @@
 // src/utils/location.js
-import os from 'os';
+// import os from 'os';
+import macAddr from "macaddress-local-machine";
 
 export const OFFICE_LOCATION = {
     // latitude: 28.49615,  // Example latitude
@@ -29,9 +30,20 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
   }
   
 
-export async function macAddress() {
-  const networkInterfaces = os.networkInterfaces();
+// export async function macAddress() {
+//   const networkInterfaces = os.networkInterfaces();
 
-  const macAddress = networkInterfaces.en0 ? networkInterfaces.en0[0].mac : 'Not found';
+//   console.log("macaddress", networkInterfaces)
+//   const macAddress = networkInterfaces.en0 ? networkInterfaces.en0[0].mac : 'Not found';
+//   return macAddress
+// }
+
+
+
+export async function macAddress() {
+  // Get the first MAC address
+  const macAdd = macAddr.first();
+  const macAddress = macAdd.macAddr
+  console.log(macAddress);
   return macAddress
 }
