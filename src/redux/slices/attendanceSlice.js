@@ -4,11 +4,36 @@ import { handleAttendanceActions } from "@/helpers/admin/reduxState";
 
 
 
-export const punchInData = createAsyncThunk(
-    "Attendance/postData",
+export const punchInDatas = createAsyncThunk(
+    "Attendance/postDatain",
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchIn", credentials);
+            console.log(response);
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+export const punchOutData = createAsyncThunk(
+    "Attendance/postDataout",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await axios.post("/api/punchOut", credentials);
+            console.log(response);
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+export const getData = createAsyncThunk(
+    'Attendance/getData',
+    async ( date, { rejectWithValue }) => {
+        try {
+            const response = await axios.post('/api/getAttendance', date);
+            console.log(response);
             return response.data
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -16,7 +41,7 @@ export const punchInData = createAsyncThunk(
     }
 )
 const initialState = {
-    attendance: null,
+    attendance: [],
     loading: false,
     error: null,
 };
@@ -26,8 +51,10 @@ const attendanceSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        handleAttendanceActions(builder, punchInData, initialState);
-        
+        handleAttendanceActions(builder, punchInDatas, initialState);
+        handleAttendanceActions(builder, punchOutData, initialState);
+        handleAttendanceActions(builder, getData, initialState);
+
 
     },
 });
