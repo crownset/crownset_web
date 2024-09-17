@@ -238,6 +238,7 @@ export default function TaskList({ workspace_id }) {
                 onCancelEditTaskList={handleCancelEditTaskList}
                 isEditingTaskList={editingTaskListIndex === index}
                 workspace_id={workspace_id}
+                deleteTaskList={()=>deleteTaskList(index)}
               />
             ))
           }

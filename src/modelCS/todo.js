@@ -23,7 +23,7 @@ const todoSchema = new Schema(
     },
     label: {
       type: String,
-      enum: ["Work", "Urgent", "Later"],
+      enum: ["Moderate", "Urgent"],
       default: null
 
     },
