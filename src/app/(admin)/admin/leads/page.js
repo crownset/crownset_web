@@ -148,7 +148,40 @@ const Page = () => {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <>
-                    <div className='flex justify-end items-center gap-5 cursor-pointer'>
+                    <div className='flex justify-end items-center gap-5 cursor-pointer mb-10 mt-4'>
+                        <div className='flex gap-1'>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Total Leads</span>
+                                <span className='text-gray-600 font-semibold'>{data.totalCount}</span>
+                            </div>
+
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Premature</span>
+                                <span className='text-gray-600 font-semibold'>{data.prematureCount}</span>
+                            </div>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Prospect</span>
+                                <span className='text-gray-600 font-semibold'>{data.prospectCount}</span>
+                            </div>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>DNP</span>
+                                <span className='text-gray-600 font-semibold'>{data.DNPCount}</span>
+                            </div>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Meeting</span>
+                                <span className='text-gray-600 font-semibold'>{data.meetingCount}</span>
+                            </div>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Closed</span>
+                                <span className='text-gray-600 font-semibold'>{data.closedCount}</span>
+                            </div>
+                            <div className='border border-gray-400 shadow-sm flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
+                                <span className='text-gray-700 font-semibold'>Not Intersted</span>
+                                <span className='text-gray-600 font-semibold'>{data.notinterstedCount}</span>
+                            </div>
+                           
+
+                        </div>
                         <div className='bg-dashboard flex items-center gap-5 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
                             <div className='flex items-center gap-5'>
                                 {fileName ? (
@@ -203,7 +236,7 @@ const Page = () => {
                                 </tr>
                             </thead>
                             <tbody className='z-10'>
-                                {(data && Array.isArray(data) ? data : []).map((item, index) => (
+                                {(data.query && Array.isArray(data.query) ? data.query : []).map((item, index) => (
                                     <tr key={index} className='even:bg-dashboardUserBg odd:bg-default'>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
                                         <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
