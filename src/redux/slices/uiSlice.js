@@ -18,8 +18,8 @@ const initialState = {
     isDeleteSuccessModal: false,
     isEditLeaveModal: false,
     selectedEditData: null,
-    isLeaveResonModal : false,
-    fullReason:"",
+    isLeaveResonModal: false,
+    fullReason: "",
     //dailyTask states
     isAddTaskOpen: false,
     isopenEditTaskModal :false,
@@ -40,6 +40,12 @@ const initialState = {
     selectedQueryData: null,
     isAutoSuccess: false,
     fullQuery: "",
+    //attendance
+    date: new Date(),
+    isModalOpen: false,
+    isPunchOutConfirmOpen: false,
+    punchData: {},
+    errorMessage: "",
 };
 
 const uiSlice = createSlice({
@@ -93,7 +99,7 @@ const uiSlice = createSlice({
             state.fullReason = action.payload;
         },
         //dailyTask states
-        openDailyTaskModal: (state, action)=>{
+        openDailyTaskModal: (state, action) => {
             state.isAddTaskOpen = action.payload
         },
         openEditDailyTask: (state, action) => {
@@ -144,8 +150,27 @@ const uiSlice = createSlice({
         },
         closeAutoSuccess: (state) => {
             state.isAutoSuccess = false
-        }
-    },
+        },
+        //attendance
+
+        setDate: (state, action) => {
+            state.date = action.payload;
+        },
+        setIsModalOpen: (state, action) => {
+            state.isModalOpen = action.payload;
+        },
+        setIsPunchOutConfirmOpen: (state, action) => {
+            state.isPunchOutConfirmOpen = action.payload;
+        },
+        setPunchData: (state, action) => {
+            const { dateKey, data } = action.payload;
+            state.punchData[dateKey] = data; // Update punchData for the specific date
+        },
+        setErrorMessage: (state, action) => {
+            state.errorMessage = action.payload;
+        },
+
+    }
 });
 
 export const {
@@ -184,7 +209,12 @@ export const {
     openEditSuccessModal,
     closeEditSuccessModal,
     openAutoSuccess,
-    closeAutoSuccess
+    closeAutoSuccess,
+    setDate,
+    setIsModalOpen,
+    setIsPunchOutConfirmOpen,
+    setPunchData,
+    setErrorMessage,
 
 } = uiSlice.actions;
 
