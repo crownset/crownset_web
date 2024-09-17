@@ -1,7 +1,11 @@
 // src/utils/location.js
+import os from 'os';
+
 export const OFFICE_LOCATION = {
-    latitude: 28.49615,  // Example latitude
-    longitude: 77.53601 // Example longitude
+    // latitude: 28.49615,  // Example latitude
+    // longitude: 77.53601 // Example longitude
+    latitude : 28.5085489,
+    longitude : 77.3789009
   };
   
 
@@ -24,3 +28,10 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c; // Distance in meters
   }
   
+
+export async function macAddress() {
+  const networkInterfaces = os.networkInterfaces();
+
+  const macAddress = networkInterfaces.en0 ? networkInterfaces.en0[0].mac : 'Not found';
+  return macAddress
+}

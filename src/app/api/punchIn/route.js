@@ -1,9 +1,11 @@
 // src/pages/api/punch-in.js
-import { OFFICE_LOCATION, calculateDistance } from '../../../utils/location';
+import { OFFICE_LOCATION, calculateDistance, macAddress} from '../../../utils/location';
 import { NextResponse } from 'next/server';
 import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
+
+
 
 export async function POST(request) {
 
@@ -16,7 +18,10 @@ try{
   if(token== "" || !token){
     return NextResponse.json({message: "login required"});
 }
-  const {ip, latitude, longitude} = await request.json();
+
+  const ip = await macAddress()
+
+  const {latitude, longitude} = await request.json();
 
   if(token.user.ip==""){
     return NextResponse.json({message: "Add you ip on your user"});
@@ -56,7 +61,7 @@ try{
     })
 
     await attendance.save()
-    return NextResponse.json({ status: 'Punched In' });
+    return NextResponse.json({ data: attendance, status: 'Punched In' });
   } 
   return NextResponse.json({ status: 'Location out of range' });
 }
