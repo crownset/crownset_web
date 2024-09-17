@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "start:cron": "node cron-job.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@next/font": "^14.2.5",
