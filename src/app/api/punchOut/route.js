@@ -1,5 +1,5 @@
 // src/pages/api/punch-out.js
-import { OFFICE_LOCATION, calculateDistance } from '../../../utils/location';
+import { OFFICE_LOCATION, calculateDistance, macAddress} from '../../../utils/location';
 import { NextResponse } from 'next/server';
 import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
@@ -17,7 +17,9 @@ export async function POST(request) {
       return NextResponse.json({ message: "Login required" });
     }
 
-    const { ip, latitude, longitude } = await request.json();
+    const ip = await macAddress()
+
+    const {latitude, longitude } = await request.json();
 
     if (token.user.ip == "") {
       return NextResponse.json({ message: "Add your IP to your user profile" });
@@ -74,12 +76,13 @@ export async function POST(request) {
       await attendance.save();
 
       return NextResponse.json({
+        data: attendance,
         status: 'Punched Out',
         workedHours: `${workedHours} hours`
       });
     }
 
-    return NextResponse.json({ status: 'Location out of range' });
+    return NextResponse.json({status: 'Location out of range' });
   } catch (error) {
     return NextResponse.json({
       message: "Error in post request",

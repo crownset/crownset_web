@@ -69,9 +69,10 @@
     display: none;
     width: 0px;
   }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
-    scrollbar-width: none;   
+    scrollbar-width: none;
   }
 
 }
@@ -130,23 +131,28 @@ html {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
-  
+
   .scrollbar-custom::-webkit-scrollbar {
-    width: 8px; 
+    width: 8px;
   }
-  
+
   .scrollbar-custom::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-    border-radius: 10px; 
+    background: #f1f1f1;
+    border-radius: 10px;
   }
-  
+
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: #888; /* Color of the scrollbar thumb */
-    border-radius: 10px; /* Rounded corners for the thumb */
+    background: #888; 
+    border-radius: 10px;
   }
-  
+
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color of the thumb on hover */
+    background: #555;
+  }
+
+  .custom-tooltip {
+    background-color: #2e4c85;
+    color: #FFFFFF;
   }
 
 
@@ -155,4 +161,3 @@ html {
 html {
   scroll-behavior: smooth;
 }
-

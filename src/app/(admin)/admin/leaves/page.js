@@ -214,7 +214,7 @@ useEffect(() => {
                   <div className="bg-white p-6 rounded-3xl w-[90%] max-w-xl h-[400px] overflow-hidden">
                     <div className='flex items-center justify-between'>
                       <h2 className="text-lg font-bold">Full Query</h2>
-                      <RxCross2 className="h-6 w-6 mr-10 text-dashboard" onClick={() => dispatch(openLeaveReasonModal(false))} />
+                      <RxCross2 className="h-6 w-6 mr-10 text-dashboard cursor-pointer" onClick={() => dispatch(openLeaveReasonModal(false))} />
                     </div>
 
                     <div className="overflow-y-auto h-[300px]">

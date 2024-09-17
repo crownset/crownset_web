@@ -123,7 +123,7 @@ const Page = () => {
             const location = await getLocation()
             const ipAddress = await getIPAddress()
             console.log("loaction>>>>>>>>", location)
-            const puchoutRes = dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude, ip: ipAddress }))
+            const puchoutRes = dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude, }))
             console.log("puchoutRes>>>>>>>>>", puchoutRes)
             dispatch(getData());
         } catch (error) {
