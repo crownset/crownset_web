@@ -15,13 +15,16 @@ import { MdOutlineModeEditOutline as EditTodoIcon } from "react-icons/md";
 
 
 import {
-    setIsAssginedUserModal, setIsEditTaskListModal, setIsShareModal, setIsTodoEditMenu, setIsTodoEditModal, setIsTodoIndex, setIsTodoLabelsModal, setTasklsitIndex
+    setIsAssginedUserModal, setIsEditTaskListModal,
+    setIsShareModal, setIsTodoEditMenu,
+    setIsTodoEditModal, setIsTodoIndex,
+    setIsTodoLabelsModal, setTasklsitIndex
 } from "@/redux/slices/misc";
 import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
 
 
 
-const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, workspace_id }) => {
+const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, workspace_id, deleteTaskList }) => {
 
     const { isCreatingTodo } = useSelector((state) => state.tasklist)
 
@@ -124,7 +127,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                         (Deadline : {moment(taskList?.deadline).format('LL')})
                     </span>
                     <span className="text-gray-500 text-[0.7rem] flex ">
-                        ( {taskList?.assign_to?.map((user,index)=>(
+                        ( {taskList?.assign_to?.map((user, index) => (
                             <li key={index} className='list-none mr-1 text-gray-600'>{user.firstName}</li>
                         ))
                         })
@@ -200,7 +203,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                             >
                                 Users
                             </span>
-                            {/* <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span> */}
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span>
                             {/* <span className="cursor-pointer" onClick={markListDone}>Mark as done</span> */}
                         </div>
 
@@ -245,12 +248,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
 
                                     <div className="h-[4px] absolute">
-                                        {todo?.label === 'Work' ? (
+                                        {todo?.label === 'Moderate' ? (
                                             <div className="bg-[#E2B203] h-[4px] w-[2.5rem] rounded-2xl"></div>
                                         ) : todo?.label === "Urgent" ? (
-                                            <div className="bg-[#FEC195]  h-[4px] w-[2.5rem] rounded-2xl"></div>
-                                        ) : todo?.label === 'Later' ? (
                                             <div className="bg-[#FD9891]  h-[4px] w-[2.5rem] rounded-2xl"></div>
+
                                         ) : null
 
                                         }
@@ -265,18 +267,28 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                     onClick={handleCloseTodoEditMenu}
                                                 />
                                             </span>
-                                            <span
-                                                className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                onClick={() => { dispatch(setIsTodoEditModal(true)) }}
-                                            >
-                                                Edit
-                                            </span>
-                                            <span
-                                                className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                onClick={() => { dispatch(setIsTodoLabelsModal(true)) }}
-                                            >
-                                                labels
-                                            </span>
+                                            {
+                                                user?.data?.accessId == 1 && (
+                                                    <>
+
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={() => { dispatch(setIsTodoEditModal(true)) }}
+                                                        >
+                                                            Edit
+                                                        </span>
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={() => { dispatch(setIsTodoLabelsModal(true)) }}
+                                                        >
+                                                            labels
+                                                        </span>
+                                                    </>
+
+                                                )
+
+                                            }
+
                                             {
                                                 user?.data?.accessId == 2 && (
                                                     <span
