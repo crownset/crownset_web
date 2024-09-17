@@ -159,9 +159,9 @@ export default function TaskList({ workspace_id }) {
   }
 
   return (
-    <div className="mt-5 mb-10 ">
+    <div className="mt-5 mb-10   md:max-h-[69vh] md:overflow-y-auto md:overflow-x-auto pb-3 pr-6">
 
-      <div className=" flex justify-center md:justify-start md:overflow-x-auto md:h-[80vh]">
+      <div className="flex relative justify-center md:justify-start ">
 
         <div className="flex flex-col justify-center md:flex-row  md:gap-6 md:justify-start md:items-start">
 

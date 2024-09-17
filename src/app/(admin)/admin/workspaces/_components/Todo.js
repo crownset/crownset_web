@@ -114,7 +114,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     }
 
     return (
-        <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] sm:w-">
+        <div className="bg-gray-100  py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -220,7 +220,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                     <div className="">
 
 
-                        <ul className="mt-4 max-h-[30rem] flex flex-col justify-start items-start px-4 scrollbar-custom">
+                        <ul className="mt-4  flex flex-col justify-start items-start px-4 scrollbar-custom">
 
                             {todos?.map((todo, todoIndex) => (
 
