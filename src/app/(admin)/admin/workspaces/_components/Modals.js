@@ -421,9 +421,9 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
     
 
     const labels = [
-        { value: "Work", color: "#E2B203" },
-        { value: "Urgent", color: "#FEC195" },
-        { value: "Later", color: "#FD9891" }
+        { value: "Moderate", color: "#E2B203" },
+        { value: "Urgent", color: "#FD9891" }
+        
     ];
 
     const handleSubmit = async (e) => {
