@@ -87,7 +87,55 @@ export async function GET(request) {
 
       // }
       ).populate("assignTo","firstName",UserCS).sort({"queryDate":-1})
-      return NextResponse.json(query)
+
+      const totalCount = await Query.countDocuments({
+        isDeleted: false,
+        assignTo: token.user._id
+        });
+
+      const prematureCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Premature",
+        assignTo: token.user._id
+      });
+
+      const prospectCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Prospect" ,
+        assignTo: token.user._id
+      });
+      const DNPCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "DNP",
+        assignTo: token.user._id
+      });
+
+      const meetingCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Meeting",
+        assignTo: token.user._id
+      });
+      const closedCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Closed",
+        assignTo: token.user._id
+      });      
+      const notinterstedCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Not Intersted",
+        assignTo: token.user._id
+
+      });
+      return NextResponse.json({
+        query,
+        totalCount,
+        prematureCount,
+        prospectCount,
+        DNPCount,
+        meetingCount,
+        closedCount,
+        notinterstedCount
+      })
     }
 
 
