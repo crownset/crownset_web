@@ -16,28 +16,80 @@ export async function GET(request) {
     if(token== "" || !token){
       return NextResponse.json({message: "login required"});
   }
-    if(token && token.user.accessId ==1){
+  // for local pragati mongoid = 66da8f154eb2cd1b2374b1b3 
+    if(token && token.user.accessId ==1 || token && token.user._id =="66c4374c872fcfa51ba1bf96"){
 
       const query = await Query.find({isDeleted:false}).populate("assignTo",{"firstName":1,"accessId":1},UserCS).sort({"queryDate":-1})
       console.log("this is populated 1", query)
-      return NextResponse.json(query)
+
+      const totalCount = await Query.countDocuments({
+        isDeleted: false 
+        });
+
+      const prematureCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Premature" 
+      });
+
+      const prospectCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Prospect" 
+      });
+      const DNPCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "DNP" 
+      });
+
+      const meetingCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Meeting" 
+      });
+      const closedCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Closed" 
+      });      
+      const notinterstedCount = await Query.countDocuments({
+        isDeleted: false, 
+        remarks: "Not Intersted" 
+      });
+
+
+      return NextResponse.json({
+        query,
+        totalCount,
+        prematureCount,
+        prospectCount,
+        DNPCount,
+        meetingCount,
+        closedCount,
+        notinterstedCount
+      })
     }
     if(token && token.user.accessId == 2){
 
       const query = await Query.find(
-      {$or:[
-        {
-            isDeleted: false,
-            assignTo: token.user._id,
 
-        },
         {
-            isDeleted: false,
-            createdBy: token.user._id
-        }]
-      }).populate("assignTo","firstName",UserCS).sort({"queryDate":-1})
+        isDeleted: false,
+        assignTo: token.user._id
+      }
+
+      // {$or:[
+      //   {
+      //       isDeleted: false,
+      //       assignTo: token.user._id,
+
+      //   },
+      //   {
+      //       isDeleted: false,
+      //       createdBy: token.user._id
+      //   }]
+
+      // }
+      ).populate("assignTo","firstName",UserCS).sort({"queryDate":-1})
       return NextResponse.json(query)
     }
+
 
     else {
       return NextResponse.json({message: "login with right credentials"})

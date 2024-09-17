@@ -58,6 +58,7 @@ export async function POST(request) {
       comments,
       queryDate: Date.now(),
       address,
+      assignTo: token.user._id,
       createdBy: token.user._id
     });
     await query.save();

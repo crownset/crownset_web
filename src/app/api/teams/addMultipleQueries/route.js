@@ -22,7 +22,8 @@ export async function POST(request) {
       const createdBy = token.user._id
 
       queryData.forEach(obj => {
-        obj.createdBy = createdBy;
+        obj.createdBy = createdBy
+        obj.assignTo = createdBy
       });
 
 
