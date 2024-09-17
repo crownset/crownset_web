@@ -16,7 +16,7 @@ const Page = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [punchData, setPunchData] = useState({});
     const dispatch = useDispatch();
-    const { punchDatas, loading, error } = useSelector((state) => state.attendance);
+    const { attendance, punchInData, punchOutData, loading, error } = useSelector((state) => state.attendance);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
