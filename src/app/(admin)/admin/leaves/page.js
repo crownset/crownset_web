@@ -61,6 +61,8 @@ const Page = () => {
 
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
+  
+
         if (LeaveData?.message === "Leave Successfully Deleted") {
           dispatch(openDeleteSuccessModal(true));
         } else {

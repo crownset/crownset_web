@@ -22,6 +22,13 @@ const initialState = {
     fullReason: "",
     //dailyTask states
     isAddTaskOpen: false,
+    isopenEditTaskModal :false,
+    selectedDailyTaskId : null,
+    isOpenShareTask : false,
+    selectedShareTaskId:null,
+    // shared task modal
+    isOpenSharedEditTask: false,
+    selectedSharedTaskId:null,
     // old
     isEditLeadModalOpen: false,
     isAddModalOpen: false,
@@ -95,7 +102,19 @@ const uiSlice = createSlice({
         openDailyTaskModal: (state, action) => {
             state.isAddTaskOpen = action.payload
         },
-
+        openEditDailyTask: (state, action) => {
+            state.isopenEditTaskModal = action.payload
+            state.selectedDailyTaskId = action.payload
+        },
+        openShareTaskModal : (state, action) => {
+            state.isOpenShareTask = action.payload
+            state.selectedShareTaskId = action.payload
+        },
+        //shareed task state 
+        openSharedTaskModal : (state, action) => {
+            state.isOpenSharedEditTask = action.payload,
+            state.selectedSharedTaskId = action.payload
+        }, 
         // old
         openAddModal: (state) => {
             state.isAddModalOpen = true;
@@ -170,6 +189,10 @@ export const {
     openLeaveReasonModal,
     //dailyTask states
     openDailyTaskModal,
+    openEditDailyTask,
+    openShareTaskModal,
+    //shared task state
+    openSharedTaskModal,
     //old
     openModal,
     closeModal,

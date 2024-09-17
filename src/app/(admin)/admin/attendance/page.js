@@ -1,31 +1,30 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import "@/app/globals.css";
 import 'react-calendar/dist/Calendar.css';
 //import {setDate, setIsModalOpen,setIsPunchOutConfirmOpen,setPunchData, setErrorMessage,} from '@/redux/slices/uiSlice';
 //import { useDispatch, useSelector } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { punchInDatas, punchOutData } from '@/redux/slices/attendanceSlice';
+import { punchInDatas, punchOutData, getData } from '@/redux/slices/attendanceSlice';
 
 
 const Page = () => {
     const [date, setDate] = useState(new Date());
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isPunchOutConfirmOpen, setIsPunchOutConfirmOpen] = useState(false);
-    const [punchData, setPunchData] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [punchData, setPunchData] = useState({});
     const dispatch = useDispatch();
     const { punchDatas, loading, error } = useSelector((state) => state.attendance);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    //useEffect(() => {
+      //  dispatch(fetchData());
+    //}, [dispatch])
 
     const onChange = (newDate) => {
-        dispatch(punchInDatas({ date: new Date().toDateString() }));
-
-        console.log(punchInDatas)
         setDate(newDate);
         setIsModalOpen(true);
         setErrorMessage("");
@@ -33,7 +32,7 @@ const Page = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setIsPunchOutConfirmOpen(false)
+
     };
     const closeModals = () => {
 
@@ -41,11 +40,7 @@ const Page = () => {
     };
 
     const handlePunchOutConfirm = () => {
-        dispatch(punchOutData({ date: new Date().toDateString() }));
         setIsPunchOutConfirmOpen(true);
-    };
-    const closePunchOutConfirmModal = () => {
-        setIsPunchOutConfirmOpen(false);
     };
 
     const getLocation = () => {
@@ -76,24 +71,97 @@ const Page = () => {
         }
     };
 
-    const handlePunchInOut = async () => {
+    const handlePunchIn = async () => {
         try {
             const location = await getLocation()
             const ipAddress = await getIPAddress()
             console.log("loaction>>>>>>>>", location)
-            // const requestBody = {
-                // latitude: location.latitude,
-                // longitude: location.longitude,
-                // ip: ipAddress
-            // }
-            // console.log(requestBody?.ip)
-            const puchInRes = dispatch(punchInDatas({ latitude : location.latitude , longitude : location.longitude , ip:ipAddress }))
+            const puchInRes = dispatch(punchInDatas({ latitude: location.latitude, longitude: location.longitude, ip: ipAddress }))
             console.log("puchInRes>>>>>>>>>", puchInRes)
+            dispatch(getData());
+
         } catch (error) {
             console.log(error)
         }
+        const currentTime = new Date().toLocaleTimeString();
+        const dateKey = date.toDateString();
+        setPunchData((prevData) => {
+            //const isPunchedIn = prevData[dateKey]?.isPunchedIn;
+            const punchInTime = prevData[dateKey]?.punchInTime;
+            if (!punchInTime) {
+                return {
+                    ...prevData,
+                    [dateKey]: {
+                        isPunchedIn: true,
+                        punchInTime: currentTime,
+                        punchOutTime: null,
+                        completed: false,
+                    },
+                };
+            } else if (!prevData[dateKey]?.punchOutTime) {
+
+                return {
+                    ...prevData,
+                    [dateKey]: {
+                        ...prevData[dateKey],
+                        punchOutTime: currentTime,
+                        completed: true,
+                    },
+                };
+            }
+
+            return prevData;
+        });
+
+        setIsModalOpen(false);
+        setIsPunchOutConfirmOpen(false)
+
 
     };
+    const handlePunchOut = async () => {
+        try {
+            const location = await getLocation()
+            const ipAddress = await getIPAddress()
+            console.log("loaction>>>>>>>>", location)
+            const puchoutRes = dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude, ip: ipAddress }))
+            console.log("puchoutRes>>>>>>>>>", puchoutRes)
+            dispatch(getData());
+        } catch (error) {
+            console.log(error)
+        }
+        const currentTime = new Date().toLocaleTimeString();
+        const dateKey = date.toDateString();
+
+        setPunchData((prevData) => {
+            const punchInTime = prevData[dateKey]?.punchInTime;
+            if (!punchInTime) {
+                return {
+                    ...prevData,
+                    [dateKey]: {
+                        isPunchedIn: true,
+                        punchInTime: currentTime,
+                        punchOutTime: null,
+                        completed: false,
+                    },
+                };
+            } else if (!prevData[dateKey]?.punchOutTime) {
+                return {
+                    ...prevData,
+                    [dateKey]: {
+                        ...prevData[dateKey],
+                        punchOutTime: currentTime,
+                        completed: true,
+                    },
+                };
+            }
+
+            return prevData;
+        });
+        setIsModalOpen(false);
+        setIsPunchOutConfirmOpen(false)
+    };
+
+
 
     const dateKey = date.toDateString();
     const selectedDate = punchData[dateKey];
@@ -186,7 +254,7 @@ const Page = () => {
                                             <button
                                                 type="button"
                                                 className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm sm:text-base inline-flex items-center px-4 py-2.5 sm:px-5 sm:py-2.5 text-center"
-                                                onClick={handlePunchInOut}
+                                                onClick={handlePunchIn}
                                             >
                                                 Punch In
                                             </button>
@@ -236,7 +304,7 @@ const Page = () => {
                                 <button
                                     type="button"
                                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm sm:text-base inline-flex items-center px-4 py-2.5 sm:px-5 sm:py-2.5 text-center"
-                                    onClick={handlePunchInOut}
+                                    onClick={handlePunchOut}
                                 >
                                     Yes, Punch Out
                                 </button>

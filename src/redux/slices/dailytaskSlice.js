@@ -22,11 +22,39 @@ export const postTask = createAsyncThunk(
     }
 );
 
+export const editDailyTask = createAsyncThunk(
+    "daily/editDailyTask",
+    async ({ task_id, updatedData }, { rejectWithValue }) => {
+        try {
+            const editTaskResponse = await axios.put(`/api/teams/edit/${task_id}`, updatedData)
+            console.log("editTaskResponse", editTaskResponse)
+            return editTaskResponse.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+export const shareDailyTask = createAsyncThunk(
+    "daily/shareDailyTask",
+    async ({ task_id, share_with_id }, { rejectWithValue }) => {
+        try {
+            const response = await axios.put(`/api/teams/share/${task_id}`, {share_with_id});
+            console.log("shareTaskResponse", response);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+
 const initialState = {
     daily: [],
     fetchingTaskLoading: false,
     postingTaskLoading: false,
     updatingTaskLoading: false,
+    taskShareLoading: false,
     error: null,
 };
 
@@ -37,16 +65,18 @@ const dailytaskSlice = createSlice({
     extraReducers: (builder) => {
         handleDailyTaskAsyncActions(builder, fetchTaskData, 'fetchingTaskLoading');
         handleDailyTaskAsyncActions(builder, postTask, 'postingTaskLoading');
-        // handleAsyncActions(builder, postQuery, 'posting');
-        // handleAsyncActions(builder, deleteQuery, 'deleting', (state, action) => {
-        //     state.data = state.data.filter(item => item.id !== action.meta.arg);
-        // });
-        // handleAsyncActions(builder, editQuery, 'updating', (state, action) => {
-        //     const index = state.data.findIndex(item => item.id === action.meta.arg);
-        //     if (index !== -1) {
-        //         state.data[index] = { ...state.data[index], ...action.payload };
-        //     }
-        // });
+        handleDailyTaskAsyncActions(builder, editDailyTask, "updatingTaskLoading", (state, action) => {
+            const index = state.daily.findIndex(item => item.id === action.meta.arg);
+            if (index !== -1) {
+                state.daily[index] = { ...state.daily[index], ...action.payload };
+            }
+        });
+        handleDailyTaskAsyncActions(builder, shareDailyTask, "taskShareLoading", (state, action) => {
+            const index = state.daily.findIndex(item => item.id === action.meta.arg);
+            if (index !== -1) {
+                state.daily[index] = { ...state.daily[index], ...action.payload };
+            }
+        });
     },
 });
 

@@ -5,6 +5,11 @@ import { SiGooglebigquery } from "react-icons/si";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { FaCalendarWeek } from "react-icons/fa";
 import { SiAndroidauto } from "react-icons/si";
+import { VscTasklist } from "react-icons/vsc";
+import { FaLaptopCode } from "react-icons/fa6";
+import { SiSellfy } from "react-icons/si";
+import { BsPersonFill } from "react-icons/bs";
+import { SiAdobelightroom } from "react-icons/si";
 
 export const menuItems = [
     {
@@ -46,8 +51,14 @@ export const menuItems = [
     {
         name: "Daily Task",
         href: "/admin/dailytask",
-        icon: SiAndroidauto,
-    },
+        icon: VscTasklist,
+        subItems: [
+            { name: "IT", href: "/admin/dailytask/IT", icon:FaLaptopCode },
+            { name: "Sales", href: "/admin/dailytask/Sales", icon:SiSellfy },
+            { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon:BsPersonFill },
+            { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon:SiAdobelightroom },
+        ]    
+    }
 ];
 
 export const logoutItem = {

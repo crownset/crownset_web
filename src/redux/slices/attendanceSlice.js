@@ -28,10 +28,18 @@ export const punchOutData = createAsyncThunk(
         }
     }
 )
-
-
-
-
+export const getData = createAsyncThunk(
+    'Attendance/getData',
+    async ( date, { rejectWithValue }) => {
+        try {
+            const response = await axios.post('/api/getAttendance', date);
+            console.log(response);
+            return response.data
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 const initialState = {
     attendance: [],
     loading: false,
@@ -45,6 +53,8 @@ const attendanceSlice = createSlice({
     extraReducers: (builder) => {
         handleAttendanceActions(builder, punchInDatas, initialState);
         handleAttendanceActions(builder, punchOutData, initialState);
+        handleAttendanceActions(builder, getData, initialState);
+
 
     },
 });

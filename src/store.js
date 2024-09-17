@@ -15,6 +15,7 @@ import multipleLeadSlice from "./redux/slices/multipleLeadSlice"
 import dailytaskSlice from "./redux/slices/dailytaskSlice"
 import attendanceSlice from "./redux/slices/attendanceSlice"
 
+import sharedTaskSlice from "./redux/slices/sharedTaskSlice"
 
 const store = configureStore({
     reducer: {
@@ -30,7 +31,8 @@ const store = configureStore({
         leave:leaveSlice,
         queryData:multipleLeadSlice,
         daily:dailytaskSlice,
-        attendance:attendanceSlice
+        attendance:attendanceSlice,
+        shared:sharedTaskSlice
     }
 })
 
