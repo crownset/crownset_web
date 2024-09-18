@@ -135,7 +135,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     }
 
     return (
-        <div className="bg-gray-100  py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] ">
+        <div className="bg-gray-100  py-4 px-0   mt-5 sm:mt-0 rounded-2xl shadow flex-none w-[280px] sm:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -175,7 +175,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                 <div>
                     <button
-                        className="p-2 rounded-lg md:hidden"
+                        className="p-2 rounded-lg sm:hidden"
                         onClick={toggleAccordion}
                     >
                         {isOpen ?
@@ -247,7 +247,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                                 <li
                                     key={todoIndex}
-                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
+                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px]  sm:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
                                 >
 
 
@@ -267,7 +267,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                             onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
                                             className=" absolute flex ml-[85%] justify-center items-center bg-transparent hover:bg-gray-100 p-1 rounded-full"
                                         >
-                                            <EditTodoIcon className=" md:hidden md:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
+                                            <EditTodoIcon className=" sm:hidden sm:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
 
