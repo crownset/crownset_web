@@ -20,7 +20,7 @@ import {
     setIsTodoEditModal, setIsTodoIndex,
     setIsTodoLabelsModal, setTasklsitIndex
 } from "@/redux/slices/misc";
-import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
+import { createTodo, fetchTasklist, markForReview, markTodoDone } from '@/redux/slices/tasklistSlice';
 
 
 
@@ -96,7 +96,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         const todo_id = taskList?.todos[isTodoIndex]?._id;
         // console.log(taskList?.todo[isTodoIndex]?.is_completed);
         if (taskList?.todos[isTodoIndex]?.is_completed) {
-            return toast.success("Already mark done");
+            return toast.success("Already Approved");
         }
         // console.log(todo_id);
         const data = {
@@ -108,6 +108,27 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
             dispatch(setIsTodoIndex(null));
             await dispatch(fetchTasklist(workspace_id));
             toast.success("Todo Mark Done")
+        } catch (error) {
+            return toast.error("Error in updating todo status")
+        }
+    }
+
+    const handleTodoMarkForReview = async () => {
+        const todo_id = taskList?.todos[isTodoIndex]?._id;
+        // console.log(taskList?.todo[isTodoIndex]?.is_completed);
+        if (taskList?.todos[isTodoIndex]?.mark_for_review) {
+            return toast.success("Already Requested");
+        }
+        // console.log(todo_id);
+        const data = {
+            todo_id
+        }
+
+        try {
+            await dispatch(markForReview(data));
+            dispatch(setIsTodoIndex(null));
+            await dispatch(fetchTasklist(workspace_id));
+            toast.success("Todo Mark For Review")
         } catch (error) {
             return toast.error("Error in updating todo status")
         }
@@ -234,7 +255,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                         <span className="">{todo?.title}</span>
                                         <div className="mr-6 flex items-center">
                                             {
-                                                todo?.is_completed && <span><DoneIcon className="text-green-700" /></span>
+                                                todo?.is_completed ? (<span><DoneIcon className="text-green-700" /></span>
+
+                                                ) : todo?.mark_for_review ? (
+                                                    <span className="text-blue-500">Review</span>
+                                                ) : null
                                             }
                                             {/* <span><DoneIcon className="text-green-700 " /></span> */}
                                         </div>
@@ -283,6 +308,12 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                         >
                                                             labels
                                                         </span>
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={handleTodoMarkDone}
+                                                        >
+                                                            Approved
+                                                        </span>
                                                     </>
 
                                                 )
@@ -293,9 +324,9 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                 user?.data?.accessId == 2 && (
                                                     <span
                                                         className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                        onClick={handleTodoMarkDone}
+                                                        onClick={handleTodoMarkForReview}
                                                     >
-                                                        Mark as done
+                                                        Mark For Review
                                                     </span>
 
                                                 )
