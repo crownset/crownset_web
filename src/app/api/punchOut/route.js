@@ -78,7 +78,8 @@ export async function POST(request) {
       return NextResponse.json({
         data: attendance,
         status: 'Punched Out',
-        workedHours: `${workedHours} hours`
+        workedHours: `${workedHours} hours`,
+        isPunchOut: true
       });
     }
 
