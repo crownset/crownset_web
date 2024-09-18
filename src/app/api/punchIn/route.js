@@ -43,6 +43,18 @@ try{
     return NextResponse.json({message: "login with right Device"});
   }
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set time to start of the day
+
+  const alreadyPunchedIn = await Attendance.findOne({
+    userId: token.user._id,
+    punchIn: { $gte: today }
+  });
+
+  if (alreadyPunchedIn) {
+    return NextResponse.json({ message: 'Already punched in for today', status: 'Already Punched In' });
+  }
+
   // Calculate distance
   const distance = calculateDistance(
     latitude,
@@ -52,7 +64,7 @@ try{
   );
 
   // Check if within 100 meters
-  if (distance <= 100) {
+  if (distance <= 300) {
 
     const attendance = new Attendance({
       userId: token.user._id,
