@@ -33,7 +33,7 @@ export async function GET(request, { params }) {
             tasklists = await TaskList.find({ workspace_id: workspace_id, is_deleted: false })
                 .populate('assign_to', 'firstName email'); // Populate assigned users (name, email)
         } else if (user.accessId == 2) {
-            tasklists = await TaskList.find({ workspace_id: workspace_id, assign_to: user._id })
+            tasklists = await TaskList.find({ workspace_id: workspace_id, assign_to: user._id ,is_deleted:false})
                 .populate('assign_to', 'firstName email'); // Populate assigned users (name, email)
         } else {
             return NextResponse.json({ message: "No Tasklist Found for this workspace",data:[] }, { status: 200 });
