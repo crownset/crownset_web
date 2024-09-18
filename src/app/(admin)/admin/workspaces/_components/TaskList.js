@@ -159,17 +159,17 @@ export default function TaskList({ workspace_id }) {
   }
 
   return (
-    <div className="mt-5 mb-10   md:h-[69vh] md:overflow-y-auto md:overflow-x-auto pb-3 pr-6">
+    <div className="mt-5 mb-10   sm:h-[69vh] sm:overflow-y-auto sm:overflow-x-auto pb-3 pr-6">
 
-      <div className="flex relative justify-center md:justify-start ">
+      <div className="flex relative justify-center sm:justify-start ">
 
-        <div className="flex flex-col justify-center md:flex-row  md:gap-6 md:justify-start md:items-start">
+        <div className="flex flex-col justify-center sm:flex-row  sm:gap-6 sm:justify-start sm:items-start">
 
           {user?.data?.accessId == 1 ? (
 
             showAddList ? (
 
-              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md  w-[280px] sm:w-[500px] md:w-[300px] flex-none'>
+              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md  w-[280px]  sm:w-[300px] flex-none'>
 
                 <input
                   type="text"
@@ -215,7 +215,7 @@ export default function TaskList({ workspace_id }) {
             ) : (
 
               <div
-                className='flex gap-2 w-[280px]  p-2  flex-none md:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
+                className='flex gap-2 w-[280px]  p-2  flex-none sm:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
                 onClick={() => { setShowAddList(true) }}
               >
                 <PlusIcon className='text-[1.5rem]' />
