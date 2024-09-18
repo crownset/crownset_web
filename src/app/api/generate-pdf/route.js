@@ -11,7 +11,10 @@ export async function POST(req) {
             quotation_for,
             items, total } = await req.json();
         // const total = items.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-
+            console.log("backend>>>", quotation_date,
+                valid_date,
+                quotation_for,
+                items)
         const templatePath = path.join(process.cwd(), 'src', 'views', 'template.ejs');
         const html = await ejs.renderFile(templatePath, {
             quotation_no,

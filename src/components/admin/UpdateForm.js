@@ -192,7 +192,8 @@ const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
                     <button
                         type="submit"
                         className="w-full text-default inline-flex items-center justify-center bg-dashboard focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    > {
+                    >
+                        {
                             updating ? <CustomLoader loading={updating} color={"#ffffff"} size={10} /> : "Update Query"
                         }
 

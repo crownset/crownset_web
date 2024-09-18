@@ -10,6 +10,7 @@ import { FaLaptopCode } from "react-icons/fa6";
 import { SiSellfy } from "react-icons/si";
 import { BsPersonFill } from "react-icons/bs";
 import { SiAdobelightroom } from "react-icons/si";
+import { FaFilePdf } from "react-icons/fa";
 
 export const menuItems = [
     {
@@ -21,6 +22,11 @@ export const menuItems = [
         name: "Leads Management",
         href: "/admin/leads",
         icon: SiGooglebigquery,
+    },
+    {
+        name: "Quotation/Invoice",
+        href: "/admin/quotation",
+        icon: FaFilePdf,
     },
     {
         name: "Projects",
@@ -53,11 +59,11 @@ export const menuItems = [
         href: "/admin/dailytask",
         icon: VscTasklist,
         subItems: [
-            { name: "IT", href: "/admin/dailytask/IT", icon:FaLaptopCode },
-            { name: "Sales", href: "/admin/dailytask/Sales", icon:SiSellfy },
-            { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon:BsPersonFill },
-            { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon:SiAdobelightroom },
-        ]    
+            { name: "IT", href: "/admin/dailytask/IT", icon: FaLaptopCode },
+            { name: "Sales", href: "/admin/dailytask/Sales", icon: SiSellfy },
+            { name: "HR/Admin", href: "/admin/dailytask/HR%2FAdmin", icon: BsPersonFill },
+            { name: "Design/Social Media", href: "/admin/dailytask/Design%2FSocial%20Media", icon: SiAdobelightroom },
+        ]
     }
 ];
 
