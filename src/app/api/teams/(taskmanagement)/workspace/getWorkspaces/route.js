@@ -32,7 +32,7 @@ export async function GET(request) {
         }
 
         if (user.accessId == 2) {
-            const workspaces = await Workspace.find({ members: user._id });
+            const workspaces = await Workspace.find({ members: user._id,is_deleted:false });
             if (!workspaces) {
                 return NextResponse.json({ message: "No Assigned Workspace is Found" }, { status: 404 });
             }

@@ -27,6 +27,10 @@ const todoSchema = new Schema(
       default: null
 
     },
+    mark_for_review:{
+         type:Boolean,
+         default:false
+    },
     is_completed: {
       type: Boolean,
       default: false

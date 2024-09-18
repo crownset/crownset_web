@@ -129,6 +129,20 @@ export const markTodoDone = createAsyncThunk(
     }
 )
 
+export const markForReview = createAsyncThunk(
+    'markdonetodo',
+    async (data, { rejectWithValue }) => {
+
+        try {
+            const res = await axios.put('/api/teams/task/mark-for-review', data);
+            return res.data.data;
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
+
 export const editTodo = createAsyncThunk(
     'editTodo',
     async ({ todo_id, title }, { rejectWithValue }) => {

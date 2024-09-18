@@ -20,7 +20,7 @@ import {
     setIsTodoEditModal, setIsTodoIndex,
     setIsTodoLabelsModal, setTasklsitIndex
 } from "@/redux/slices/misc";
-import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
+import { createTodo, fetchTasklist, markForReview, markTodoDone } from '@/redux/slices/tasklistSlice';
 
 
 
@@ -96,7 +96,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         const todo_id = taskList?.todos[isTodoIndex]?._id;
         // console.log(taskList?.todo[isTodoIndex]?.is_completed);
         if (taskList?.todos[isTodoIndex]?.is_completed) {
-            return toast.success("Already mark done");
+            return toast.success("Already Approved");
         }
         // console.log(todo_id);
         const data = {
@@ -113,8 +113,29 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         }
     }
 
+    const handleTodoMarkForReview = async () => {
+        const todo_id = taskList?.todos[isTodoIndex]?._id;
+        // console.log(taskList?.todo[isTodoIndex]?.is_completed);
+        if (taskList?.todos[isTodoIndex]?.mark_for_review) {
+            return toast.success("Already Requested");
+        }
+        // console.log(todo_id);
+        const data = {
+            todo_id
+        }
+
+        try {
+            await dispatch(markForReview(data));
+            dispatch(setIsTodoIndex(null));
+            await dispatch(fetchTasklist(workspace_id));
+            toast.success("Todo Mark For Review")
+        } catch (error) {
+            return toast.error("Error in updating todo status")
+        }
+    }
+
     return (
-        <div className="bg-gray-100  py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] ">
+        <div className="bg-gray-100  py-4 px-0   mt-5 sm:mt-0 rounded-2xl shadow flex-none w-[280px] sm:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -154,7 +175,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                 <div>
                     <button
-                        className="p-2 rounded-lg md:hidden"
+                        className="p-2 rounded-lg sm:hidden"
                         onClick={toggleAccordion}
                     >
                         {isOpen ?
@@ -226,7 +247,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                                 <li
                                     key={todoIndex}
-                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
+                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px]  sm:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
                                 >
 
 
@@ -234,7 +255,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                         <span className="">{todo?.title}</span>
                                         <div className="mr-6 flex items-center">
                                             {
-                                                todo?.is_completed && <span><DoneIcon className="text-green-700" /></span>
+                                                todo?.is_completed ? (<span><DoneIcon className="text-green-700" /></span>
+
+                                                ) : todo?.mark_for_review ? (
+                                                    <span className="text-blue-500">Review</span>
+                                                ) : null
                                             }
                                             {/* <span><DoneIcon className="text-green-700 " /></span> */}
                                         </div>
@@ -242,7 +267,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                             onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
                                             className=" absolute flex ml-[85%] justify-center items-center bg-transparent hover:bg-gray-100 p-1 rounded-full"
                                         >
-                                            <EditTodoIcon className=" md:hidden md:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
+                                            <EditTodoIcon className=" sm:hidden sm:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
 
@@ -283,6 +308,12 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                         >
                                                             labels
                                                         </span>
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={handleTodoMarkDone}
+                                                        >
+                                                            Approved
+                                                        </span>
                                                     </>
 
                                                 )
@@ -293,9 +324,9 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                 user?.data?.accessId == 2 && (
                                                     <span
                                                         className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                        onClick={handleTodoMarkDone}
+                                                        onClick={handleTodoMarkForReview}
                                                     >
-                                                        Mark as done
+                                                        Mark For Review
                                                     </span>
 
                                                 )
