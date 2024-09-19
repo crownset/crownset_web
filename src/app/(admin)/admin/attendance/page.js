@@ -63,12 +63,12 @@ const Page = () => {
       const fetchedData = await dispatch(getData({ date: formattedDate })).unwrap();
       
       if (punchInRes?.status === "Location out of range") {
-        toast.error(punchInRes?.status);
-        setIsPunchedOut(true);
+           toast.error(punchInRes?.status);
+           setIsPunchedOut(true);
       } else {
-        toast.success(punchInRes?.status);
-        setIsPunchedIn(true);
-        setIsPunchedOut(false);
+          toast.success(punchInRes?.status);
+          setIsPunchedIn(true);
+          setIsPunchedOut(false);
       }
 
     } catch (error) {
