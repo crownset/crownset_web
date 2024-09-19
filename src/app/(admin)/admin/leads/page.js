@@ -25,6 +25,7 @@ import * as XLSX from 'xlsx';
 const Page = () => {
     const dispatch = useDispatch();
     const { data, fetching, error, deleting } = useSelector((state) => state.data);
+    console.log("dataLeads>>>", data)
     const { isModalOpen, isEditLeadModalOpen, isAddLeadModal, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
     const [user, setUser] = useState(null);
     const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);

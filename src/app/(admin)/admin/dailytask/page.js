@@ -21,10 +21,29 @@ const Page = () => {
         dispatch(fetchTaskData());
     }, [dispatch]);
 
-    const getRemarkColor = (review) => {
-        return review ? 'bg-green-500' : 'bg-red-500';
+    // const getRemarkColor = (review) => {
+    //     return review ? 'bg-green-500' : 'bg-red-500';
+    // };
+
+    const getStatus = (estimatedDate, actualDate) => {
+        const isSameDate = moment(estimatedDate).isSame(actualDate, 'day');
+        const isDelayed = moment(actualDate).isAfter(estimatedDate);
+        if (isSameDate) {
+            return 'On Time';
+        } else if (isDelayed) {
+            return 'Delay';
+        }
+        return '';
     };
 
+    const getStatusClass = (status) => {
+        if (status === 'On Time') {
+            return 'bg-green-500 text-white';
+        } else if (status === 'Delay') {
+            return 'bg-red-500 text-white';
+        }
+        return '';
+    };
 
     return (
         <>
@@ -48,32 +67,41 @@ const Page = () => {
                                             <th className="py-2 border-b min-w-[100px]">Estimated Date</th>
                                             <th className="py-2 border-b min-w-[100px]">Actual Date</th>
                                             <th className="py-2 border-b min-w-[100px]">Shared</th>
-                                            <th className="py-2 border-b min-w-[100px]">Review</th>
+                                            {/* <th className="py-2 border-b min-w-[100px]">Review</th> */}
+                                            <th className="py-2 border-b min-w-[100px]">Status</th> {/* New Status Column */}
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {daily?.tasks?.map((item, index) => {
                                             const isSameDate = moment(item?.estimated_date).isSame(item?.actual_date, 'day');
+                                            const status = getStatus(item?.estimated_date, item?.actual_date); // Get status
                                             return (
                                                 <tr key={item.id} defaultValue={index} className='even:bg-dashboardUserBg odd:bg-default'>
                                                     <td className="py-2 border-b text-[12px] text-center">{item?.taskmessage}</td>
                                                     <td className="py-2 border-b text-[12px] text-center">
-                                                        <span className={`py-1 px-2 text-black rounded-3xl ${isSameDate ? 'bg-green-500 text-white' : ''}`}>
+                                                        <span className="py-1 px-2 text-black rounded-3xl">
                                                             {moment(item?.estimated_date).format('LL')}
                                                         </span>
                                                     </td>
                                                     <td className="py-2 border-b text-[12px] text-center">
-                                                        <span className={`py-1 px-2 text-black rounded-3xl ${isSameDate ? 'bg-green-500 text-white' : ''}`}>
+                                                        <span className="py-1 px-2 text-black rounded-3xl">
                                                             {moment(item?.actual_date).format('LL')}
                                                         </span>
                                                     </td>
-                                                    <td className="py-2 border-b text-[12px] text-center">
-                                                        {item?.share_with?.map(person => person.firstName).join(",")}
+                                                    <td className="py-2 border-b text-[12px] text-center flex justify-center items-center gap-2">
+                                                        <span className=''>
+                                                            {item?.share_with?.map(person => person.firstName).join(",")}
+                                                        </span>
                                                     </td>
-                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                    {/* <td className="py-2 border-b text-[12px] text-center">
                                                         <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item?.review)}`}>
                                                             {item?.review ? "Yes" : "No"}
+                                                        </span>
+                                                    </td> */}
+                                                    <td className="py-2 border-b text-[12px] text-center">
+                                                        <span className={`py-1 px-2 text-black rounded-3xl ${getStatusClass(status)}`}>
+                                                            {status}
                                                         </span>
                                                     </td>
                                                     <td className="py-2 border-b text-center">
@@ -101,8 +129,7 @@ const Page = () => {
                 <ShareDailyTask isOpenShareTask={isOpenShareTask} onClose={() => dispatch(openShareTaskModal(false))} taskData={selectedShareTaskId} />
             </div>
         </>
-
     )
 }
 
-export default Page
+export default Page;

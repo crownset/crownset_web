@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
     const [formData, setFormData] = useState({
@@ -40,14 +41,31 @@ const Page = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(generatePDF(formData));
+        try {
+            const responsePdf = await dispatch(generatePDF(formData));
+            console.log("responsePdf", responsePdf)
+            toast.success("Quotation downloaded successfully")
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit} class="w-full max-w-screen-lg mx-auto mt-10">
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+            <form onSubmit={handleSubmit} class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
                 <div className="text-3xl font-semibold italic mb-10 underline text-center">
                     <h1>Generate Quotation</h1>
                 </div>
@@ -211,7 +229,7 @@ const Page = () => {
                         class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         {
-                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Generate PDF"
+                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Download PDF"
                         }
                     </button>
                 </div>

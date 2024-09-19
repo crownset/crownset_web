@@ -12,14 +12,11 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
     const dispatch = useDispatch();
     const { taskShareLoading } = useSelector((state) => state.daily);
     const { user, loading } = useSelector((state) => state.user);
-    console.log("shareUser>>>>>>>", user)
+    console.log("users>>>>222", user)
     const [formValues, setFormValues] = useState({
         share_with: [],
         task_id: ""
     });
-
-    console.log("formValues", formValues?.task_id)
-    console.log("share_with", formValues?.share_with)
 
     useEffect(() => {
         if (taskData) {
@@ -45,9 +42,7 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
         e.preventDefault();
         try {
             const userIds = formValues.share_with.map(user => user.value);
-            console.log("userIds>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", userIds)
             const taskShareRes = await dispatch(shareDailyTask({ task_id: formValues.task_id, share_with_id: userIds })).unwrap();
-            console.log("taskShareRes>>>>>>>>>", taskShareRes)
             dispatch(fetchTaskData());
             dispatch(openShareTaskModal(false));
             toast.success(taskShareRes?.message);
@@ -57,6 +52,8 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
     };
 
     if (!isOpenShareTask) return null;
+
+    const filteredUsers = user?.filter((item) => item.accessId === 1);
 
     return (
         <div>
@@ -87,9 +84,9 @@ const ShareDailyTask = ({ isOpenShareTask, taskData, onClose }) => {
                                     <Select
                                         id="share_with"
                                         name="share_with"
-                                        options={user?.map((item) => ({ value: item._id, label: item.firstName }))} // value = user ID, label = user name
-                                        values={formValues?.share_with} // currently shared users
-                                        onChange={handleSelectChange} // update selected users
+                                        options={filteredUsers?.map((item) => ({ value: item._id, label: item.firstName }))} 
+                                        values={formValues?.share_with}
+                                        onChange={handleSelectChange} 
                                         // multi
                                         placeholder="Select users"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
