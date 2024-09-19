@@ -62,11 +62,11 @@ const Page = () => {
       const formattedDate = format(date, "yyyy-MM-dd");
       const fetchedData = await dispatch(getData({ date: formattedDate })).unwrap();
       
-      if (punchInRes?.status === "Location out of range") {
-           toast.error(punchInRes?.status);
+      if (punchInRes?.message === "Location out of range") {
+           toast.error(punchInRes?.message);
            setIsPunchedOut(true);
       } else {
-          toast.success(punchInRes?.status);
+          toast.success(punchInRes?.message);
           setIsPunchedIn(true);
           setIsPunchedOut(false);
       }
@@ -89,11 +89,11 @@ const Page = () => {
       const formattedDate = format(date, "yyyy-MM-dd");
       await dispatch(getData({ date: formattedDate }));
 
-      if (punchOutRes?.status === "Location out of range") {
-        toast.error(punchOutRes?.status);
+      if (punchOutRes?.message === "Location out of range") {
+        toast.error(punchOutRes?.message);
         setIsPunchedIn(true);
       } else {
-        toast.success(punchOutRes?.status);
+        toast.success(punchOutRes?.message);
         setIsPunchedIn(false);
         setIsPunchedOut(true);
       }
