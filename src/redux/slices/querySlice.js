@@ -6,6 +6,7 @@ export const fetchData = createAsyncThunk(
     'data/fetchData',
     async () => {
         const response = await axios.get('/api/teams/getQuery');
+        // console.log(response.data);
         return response.data;
     }
 );
@@ -47,7 +48,7 @@ export const editQuery = createAsyncThunk(
 );
 
 const initialState = {
-    data: [],
+    data: {},
     fetching: false,
     posting: false,
     deleting: false,
@@ -63,12 +64,12 @@ const querySlice = createSlice({
         handleAsyncActions(builder, fetchData, 'fetching');
         handleAsyncActions(builder, postQuery, 'posting');
         handleAsyncActions(builder, deleteQuery, 'deleting', (state, action) => {
-            state.data = state.data.filter(item => item.id !== action.meta.arg);
+            state.data.query = state.data.query.filter(item => item.id !== action.meta.arg);
         });
         handleAsyncActions(builder, editQuery, 'updating', (state, action) => {
             const index = state.data.findIndex(item => item.id === action.meta.arg);
             if (index !== -1) {
-                state.data[index] = { ...state.data[index], ...action.payload };
+                state.data.query[index] = { ...state.data.query[index], ...action.payload };
             }
         });
     },

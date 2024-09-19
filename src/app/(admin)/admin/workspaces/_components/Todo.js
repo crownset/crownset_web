@@ -15,13 +15,16 @@ import { MdOutlineModeEditOutline as EditTodoIcon } from "react-icons/md";
 
 
 import {
-    setIsAssginedUserModal, setIsEditTaskListModal, setIsShareModal, setIsTodoEditMenu, setIsTodoEditModal, setIsTodoIndex, setIsTodoLabelsModal, setTasklsitIndex
+    setIsAssginedUserModal, setIsEditTaskListModal,
+    setIsShareModal, setIsTodoEditMenu,
+    setIsTodoEditModal, setIsTodoIndex,
+    setIsTodoLabelsModal, setTasklsitIndex
 } from "@/redux/slices/misc";
-import { createTodo, fetchTasklist, markTodoDone } from '@/redux/slices/tasklistSlice';
+import { createTodo, fetchTasklist, markForReview, markTodoDone } from '@/redux/slices/tasklistSlice';
 
 
 
-const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, workspace_id }) => {
+const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, isEditingTaskList, workspace_id, deleteTaskList }) => {
 
     const { isCreatingTodo } = useSelector((state) => state.tasklist)
 
@@ -93,7 +96,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         const todo_id = taskList?.todos[isTodoIndex]?._id;
         // console.log(taskList?.todo[isTodoIndex]?.is_completed);
         if (taskList?.todos[isTodoIndex]?.is_completed) {
-            return toast.success("Already mark done");
+            return toast.success("Already Approved");
         }
         // console.log(todo_id);
         const data = {
@@ -110,8 +113,29 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
         }
     }
 
+    const handleTodoMarkForReview = async () => {
+        const todo_id = taskList?.todos[isTodoIndex]?._id;
+        // console.log(taskList?.todo[isTodoIndex]?.is_completed);
+        if (taskList?.todos[isTodoIndex]?.mark_for_review) {
+            return toast.success("Already Requested");
+        }
+        // console.log(todo_id);
+        const data = {
+            todo_id
+        }
+
+        try {
+            await dispatch(markForReview(data));
+            dispatch(setIsTodoIndex(null));
+            await dispatch(fetchTasklist(workspace_id));
+            toast.success("Todo Mark For Review")
+        } catch (error) {
+            return toast.error("Error in updating todo status")
+        }
+    }
+
     return (
-        <div className="bg-gray-100 relative py-4 px-0   mt-5 md:mt-0 rounded-2xl shadow flex-none w-[280px] md:w-[300px] sm:w-">
+        <div className="bg-gray-100  py-4 px-0   mt-5 sm:mt-0 rounded-2xl shadow flex-none w-[280px] sm:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -124,7 +148,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                         (Deadline : {moment(taskList?.deadline).format('LL')})
                     </span>
                     <span className="text-gray-500 text-[0.7rem] flex ">
-                        ( {taskList?.assign_to?.map((user,index)=>(
+                        ( {taskList?.assign_to?.map((user, index) => (
                             <li key={index} className='list-none mr-1 text-gray-600'>{user.firstName}</li>
                         ))
                         })
@@ -151,7 +175,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                 <div>
                     <button
-                        className="p-2 rounded-lg md:hidden"
+                        className="p-2 rounded-lg sm:hidden"
                         onClick={toggleAccordion}
                     >
                         {isOpen ?
@@ -200,7 +224,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                             >
                                 Users
                             </span>
-                            {/* <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span> */}
+                            <span className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2" onClick={deleteTaskList}>delete</span>
                             {/* <span className="cursor-pointer" onClick={markListDone}>Mark as done</span> */}
                         </div>
 
@@ -217,13 +241,13 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                     <div className="">
 
 
-                        <ul className="mt-4 max-h-[30rem] flex flex-col justify-start items-start px-4 scrollbar-custom">
+                        <ul className="mt-4  flex flex-col justify-start items-start px-4 scrollbar-custom">
 
                             {todos?.map((todo, todoIndex) => (
 
                                 <li
                                     key={todoIndex}
-                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px] sm:w-[560px] md:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
+                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px]  sm:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
                                 >
 
 
@@ -231,7 +255,11 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                         <span className="">{todo?.title}</span>
                                         <div className="mr-6 flex items-center">
                                             {
-                                                todo?.is_completed && <span><DoneIcon className="text-green-700" /></span>
+                                                todo?.is_completed ? (<span><DoneIcon className="text-green-700" /></span>
+
+                                                ) : todo?.mark_for_review ? (
+                                                    <span className="text-blue-500">Review</span>
+                                                ) : null
                                             }
                                             {/* <span><DoneIcon className="text-green-700 " /></span> */}
                                         </div>
@@ -239,18 +267,17 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                             onClick={() => { handleOpenTodoEditMenu(todoIndex) }}
                                             className=" absolute flex ml-[85%] justify-center items-center bg-transparent hover:bg-gray-100 p-1 rounded-full"
                                         >
-                                            <EditTodoIcon className=" md:hidden md:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
+                                            <EditTodoIcon className=" sm:hidden sm:group-hover:block text-bodyTextColor transition-opacity duration-300 ease-in-out" />
                                         </button>
                                     </div>
 
 
                                     <div className="h-[4px] absolute">
-                                        {todo?.label === 'Work' ? (
+                                        {todo?.label === 'Moderate' ? (
                                             <div className="bg-[#E2B203] h-[4px] w-[2.5rem] rounded-2xl"></div>
                                         ) : todo?.label === "Urgent" ? (
-                                            <div className="bg-[#FEC195]  h-[4px] w-[2.5rem] rounded-2xl"></div>
-                                        ) : todo?.label === 'Later' ? (
                                             <div className="bg-[#FD9891]  h-[4px] w-[2.5rem] rounded-2xl"></div>
+
                                         ) : null
 
                                         }
@@ -265,25 +292,41 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                                                     onClick={handleCloseTodoEditMenu}
                                                 />
                                             </span>
-                                            <span
-                                                className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                onClick={() => { dispatch(setIsTodoEditModal(true)) }}
-                                            >
-                                                Edit
-                                            </span>
-                                            <span
-                                                className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                onClick={() => { dispatch(setIsTodoLabelsModal(true)) }}
-                                            >
-                                                labels
-                                            </span>
+                                            {
+                                                user?.data?.accessId == 1 && (
+                                                    <>
+
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={() => { dispatch(setIsTodoEditModal(true)) }}
+                                                        >
+                                                            Edit
+                                                        </span>
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={() => { dispatch(setIsTodoLabelsModal(true)) }}
+                                                        >
+                                                            labels
+                                                        </span>
+                                                        <span
+                                                            className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
+                                                            onClick={handleTodoMarkDone}
+                                                        >
+                                                            Approved
+                                                        </span>
+                                                    </>
+
+                                                )
+
+                                            }
+
                                             {
                                                 user?.data?.accessId == 2 && (
                                                     <span
                                                         className="cursor-pointer bg-transparent hover:bg-gray-200 py-1 pl-2"
-                                                        onClick={handleTodoMarkDone}
+                                                        onClick={handleTodoMarkForReview}
                                                     >
-                                                        Mark as done
+                                                        Mark For Review
                                                     </span>
 
                                                 )

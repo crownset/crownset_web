@@ -50,7 +50,7 @@ export async function POST(request) {
     );
 
     // Check if within 100 meters
-    if (distance <= 100) {
+    if (distance <= 300) {
       // Find user's attendance record for the day
       const attendance = await Attendance.findOne({
         userId: token.user._id,

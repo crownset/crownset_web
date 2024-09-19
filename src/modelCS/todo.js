@@ -23,9 +23,13 @@ const todoSchema = new Schema(
     },
     label: {
       type: String,
-      enum: ["Work", "Urgent", "Later"],
+      enum: ["Moderate", "Urgent"],
       default: null
 
+    },
+    mark_for_review:{
+         type:Boolean,
+         default:false
     },
     is_completed: {
       type: Boolean,
