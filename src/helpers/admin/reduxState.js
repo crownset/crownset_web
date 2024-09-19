@@ -100,17 +100,20 @@ export const handleSharedAsyncActions = (builder, action, loadingKey, customCase
 
 };
 
-export const handleAttendanceActions = (builder, action, initialState = {}) => {
+export const handleAttendanceActions = (builder, action, loadingKey, customCases = {}) => {
     builder
-        .addCase(action.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        })
-        .addCase(action.fulfilled, (state, action) => {
-            state.attendance = action.payload;
-            state.loading = false;
-        })
-        .addCase(action.rejected, (state, action) => {
-            state.error = action.error.message;
-            state.loading = false;
-        }) }
+    .addCase(action.pending, (state) => {
+        state[loadingKey] = true;
+        state.error = null;
+    })
+    .addCase(action.fulfilled, (state, action) => {
+        if (!customCases) {
+            state.daily = action.payload;
+        }
+        state[loadingKey] = false;
+    })
+    .addCase(action.rejected, (state, action) => {
+        state.error = action.error.message;
+        state[loadingKey] = false;
+    });
+};
