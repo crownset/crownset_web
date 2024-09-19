@@ -5,6 +5,10 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
+function normalizeMACAddress(mac) {
+  return mac.replace(/[-:]/g, '').toLowerCase();
+}
+
 export async function POST(request) {
 
   await dbConnect();
@@ -16,8 +20,9 @@ export async function POST(request) {
     if (token == "" || !token) {
       return NextResponse.json({ message: "Login required" });
     }
+    const mac = await macAddress()
 
-    const ip = await macAddress()
+    const ip = normalizeMACAddress(mac)
 
     const {latitude, longitude } = await request.json();
 
@@ -37,7 +42,10 @@ export async function POST(request) {
       return NextResponse.json({ message: "Longitude not found" });
     }
 
-    if (ip !== token.user.ip) {
+    console.log("ip",ip)
+    console.log("tokenip",normalizeMACAddress(token.user.ip))
+
+    if (ip !== normalizeMACAddress(token.user.ip)) {
       return NextResponse.json({ message: "Login with the correct device" });
     }
 
