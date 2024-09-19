@@ -71,6 +71,7 @@ export async function POST(request) {
       const workedHours = (workedMilliseconds / (1000 * 60 * 60)).toFixed(2); // Convert to hours
 
       attendance.hours = workedHours
+      attendance.isPunchOut = true
 
       // Save attendance record
       await attendance.save();
@@ -78,7 +79,7 @@ export async function POST(request) {
       return NextResponse.json({
         data: attendance,
         status: 'Punched Out',
-        workedHours: `${workedHours} hours`
+        workedHours: `${workedHours} hours`,
       });
     }
 

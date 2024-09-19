@@ -52,7 +52,7 @@ try{
   });
 
   if (alreadyPunchedIn) {
-    return NextResponse.json({ message: 'Already punched in for today', status: 'Already Punched In' });
+    return NextResponse.json({ message: 'Already punched in for today'});
   }
 
   // Calculate distance
@@ -69,7 +69,8 @@ try{
     const attendance = new Attendance({
       userId: token.user._id,
       punchIn: Date.now(),
-      punchOut: null
+      punchOut: null,
+      isPunchIn: true
     })
 
     await attendance.save()
