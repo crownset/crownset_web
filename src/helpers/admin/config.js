@@ -11,6 +11,7 @@ import { SiSellfy } from "react-icons/si";
 import { BsPersonFill } from "react-icons/bs";
 import { SiAdobelightroom } from "react-icons/si";
 import { FaFilePdf } from "react-icons/fa";
+import { FaFileInvoice } from "react-icons/fa6";
 
 export const menuItems = [
     {
@@ -24,9 +25,14 @@ export const menuItems = [
         icon: SiGooglebigquery,
     },
     {
-        name: "Quotation/Invoice",
-        href: "/admin/quotation",
+        name: "Quotation",
+        href: "/admin/quotation",   
         icon: FaFilePdf,
+    },
+    {
+        name: "Invoice",
+        href: "/admin/invoice",   
+        icon: FaFileInvoice,
     },
     {
         name: "Projects",

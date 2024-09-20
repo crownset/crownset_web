@@ -1,26 +1,27 @@
 "use client";
-import QuotationTemplate from "@/components/admin/QuotationTemplate";
 import { CustomLoader } from "@/components/CustomLoader";
+import { generateInvoicePDF } from "@/redux/slices/InvoiceSlice";
 import { generatePDF } from "@/redux/slices/QuotationSlice";
 import axios from "axios";
-import html2pdf from 'html2pdf.js';
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 
 const Page = () => {
     const [formData, setFormData] = useState({
-        quotation_no: "",
-        quotation_date: "",
-        valid_date: "",
-        quotation_for: "",
-        items: [{ name: [""], quantity: "", rate: "", amount: "" }]
+        bill_to: "",
+        state: "",
+        district: "",
+        gstin: "",
+        invoice_date:"",
+        invoice_no:"",
+        due_date:"",
+        reductions:"",
+        items: [{ name: "", quantity: "",  amount: "" }]
     });
     const dispatch = useDispatch();
     const { loading, error } = useSelector(state => state.quotation);
-    const [isTemplateVisible, setTemplateVisible] = useState(false);
-    const templateRef = useRef();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,31 +42,20 @@ const Page = () => {
     const addItem = () => {
         setFormData({
             ...formData,
-            items: [...formData.items, { name: [""], quantity: "", rate: "", amount: "" }]
+            items: [...formData.items, { name: "", quantity: "", amount: "" }]
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            setTemplateVisible(true); // Show the template
-            const pdfElement = templateRef.current;
-            const options = {
-                margin: 1,
-                filename: 'quotation.pdf',
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-            await html2pdf().from(pdfElement).set(options).save();
-            toast.success("Quotation downloaded successfully");
+            const responsePdf = await dispatch(generateInvoicePDF(formData));
+            console.log("responsePdf", responsePdf)
+            toast.success("Quotation downloaded successfully")
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to download PDF");
-        } finally {
-            setTemplateVisible(false); // Hide the template again
+            console.log(error)
         }
     };
-    
 
     return (
         <>
@@ -80,84 +70,138 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            <form class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
-                <div className="text-3xl font-semibold italic mb-10 underline text-center">
-                    <h1>Generate Quotation</h1>
+            <form onSubmit={handleSubmit} class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
+                <div className=" bg-dashboardUserBg gap-5 mb-8 py-3 px-3 rounded-3xl flex items-center">
+                    <div className="text-2xl italic underline">
+                        <h1>Generate Invoice</h1>
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 gap-10 mb-8">
                     <div class="relative z-0 w-full group">
                         <input
                             type="text"
-                            name="quotation_no"
-                            id="quotation_no"
+                            name="bill_to"
+                            id="bill_to"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.quotation_no}
+                            value={formData.bill_to}
                             onChange={handleChange}
                             required
                         />
                         <label
-                            for="quotation_no"
+                            for="bill_to"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                            Quotation No
-                        </label>
-                    </div>
-
-                    <div class="relative z-0 w-full group">
-                        <input
-                            type="date"
-                            name="quotation_date"
-                            id="quotation_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            value={formData.quotation_date}
-                            onChange={handleChange}
-                            required
-                        />
-                        <label
-                            for="quotation_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                        >
-                            Quotation Date
-                        </label>
-                    </div>
-
-                    <div class="relative z-0 w-full group">
-                        <input
-                            type="date"
-                            name="valid_date"
-                            id="valid_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            value={formData.valid_date}
-                            onChange={handleChange}
-                            required
-                        />
-                        <label
-                            for="valid_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                        >
-                            Valid Date
+                            Bill To
                         </label>
                     </div>
 
                     <div class="relative z-0 w-full group">
                         <input
                             type="text"
-                            name="quotation_for"
-                            id="quotation_for"
+                            name="state"
+                            id="state"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.quotation_for}
+                            value={formData.state}
                             onChange={handleChange}
                             required
                         />
                         <label
-                            for="quotation_for"
+                            for="state"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                            Quotation For
+                            State
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="district"
+                            id="district"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.district}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="district"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            District
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="gstin"
+                            id="gstin"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.gstin}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="gstin"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                           GSTIN
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="date"
+                            name="invoice_date"
+                            id="invoice_date"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.invoice_date}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="invoice_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Invoice Date
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="invoice_no"
+                            id="invoice_no"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.invoice_no}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="invoice_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Invoice No
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="date"
+                            name="due_date"
+                            id="due_date"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.due_date}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="due_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Due Date
                         </label>
                     </div>
                 </div>
@@ -169,7 +213,7 @@ const Page = () => {
                                 name="name"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
-                                value={item.name.join(",")}
+                                value={item.name}
                                 onChange={(e) => handleItemChange(index, e)}
                                 required
                             />
@@ -197,7 +241,7 @@ const Page = () => {
                                 Quantity
                             </label>
                         </div>
-                        <div class="relative z-0 w-full group">
+                        {/* <div class="relative z-0 w-full group">
                             <input
                                 type="number"
                                 name="rate"
@@ -213,7 +257,7 @@ const Page = () => {
                             >
                                 Rate
                             </label>
-                        </div>
+                        </div> */}
                         <div class="relative z-0 w-full group">
                             <input
                                 type="number"
@@ -242,7 +286,6 @@ const Page = () => {
                     <button
                         type="submit"
                         class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        onClick={handleSubmit}
                     >
                         {
                             loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Download PDF"
@@ -250,7 +293,6 @@ const Page = () => {
                     </button>
                 </div>
             </form>
-            <QuotationTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
         </>
 
     );
