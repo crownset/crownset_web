@@ -5,23 +5,36 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
     try {
-        const { quotation_no,
-            quotation_date,
-            valid_date,
-            quotation_for,
-            items, total } = await req.json();
+        const { 
+            bill_to,
+            business_name,
+            state,
+            district,
+            gstin,
+            invoice_date,
+            invoice_no,
+            due_date,
+            items,
+            reductions,
+            total,
+            term_conditions
+        } = await req.json();
         // const total = items.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-            console.log("backend>>>", quotation_date,
-                valid_date,
-                quotation_for,
-                items)
-        const templatePath = path.join(process.cwd(), 'src', 'views', 'template.ejs');
+
+        const templatePath = path.join(process.cwd(), 'src', 'views', 'invoice.ejs');
         const html = await ejs.renderFile(templatePath, {
-            quotation_no,
-            quotation_date,
-            valid_date,
-            quotation_for,
-            items, total
+            bill_to,
+            business_name,
+            state,
+            district,
+            gstin,
+            invoice_date,
+            invoice_no,
+            due_date,
+            reductions,
+            total,
+            items,
+            term_conditions
         });
 
         // Launch Puppeteer

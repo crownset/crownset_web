@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+</head>
+
+<body>
+    <div class="container">
+        <table
+            style="border: 1px solid white; background-color: #3a95ef; border-collapse: collapse; width: 1000px; margin: auto; color: white; border-radius: 5px;">
+            <tr>
+                <th style="font-size: 28px; font-weight: 300; text-align: left; padding-left: 10px;">
+                    Invoice
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <div style="height: 100%; padding: 10px; text-align: center;">
+                        <img src="crownsetfinal.png" alt="Logo"
+                            style="width: 100px; height: auto; margin-right: 10px; background-color: white; border-radius: 5px;">
+                    </div>
+                </td>
+                <td>
+                    <ul>
+                        <li
+                            style="list-style: none; font-size: 25px; font-weight: bold; color: white; padding-bottom: 10px;">
+                            Crownset Marketing Agency</li>
+                        <li style="list-style: none; color: white; padding-bottom: 5px;">127,Tower B,Logix
+                            Technova,Sector 132,Noida,</li>
+                        <li style="list-style: none; color: white; padding-bottom: 5px;">Uttar Pradesh,India - 201304</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li
+                            style="list-style: none; color: white; font-size: 12px; padding-bottom: 5px; font-weight: 100;">
+                            BILLED TO
+                        </li>
+                        <li
+                            style="list-style: none; font-weight: bolder; font-size: 20px; color: white; padding-bottom: 5px;">
+                            <%= bill_to %></li>
+                        <li style="list-style: none; color: white; padding-bottom: 5px;"><%= district %>,</li>
+                        <li style="list-style: none; color: white; padding-bottom: 5px;"><%= state %>, India</li>
+                        <li style="list-style: none; color: white; padding-bottom: 5px;">GSTIN: <%= gstin %></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div style="display: flex; border-top: 1px solid white;">
+                        <ul>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;">Invoice No #</li>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;"><%= invoice_no %></li>
+                        </ul>
+                        <ul>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;">Invoice Date</li>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;"><%= invoice_date %></li>
+                        </ul>
+                        <ul>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;">Due Date</li>
+                            <li style="list-style: none; color: white; padding-bottom: 5px; font-weight: 100;"><%= due_date %></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table
+            style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto; margin-top: 10px; border-radius: 10px;">
+            <tr style="padding: 5px; border-radius: 10px;">
+                <td style="font-size: 20px; margin: 0; font-weight: bold; background-color: #c0dfff; color:#0a549d;">
+                    Item</td>
+                <td
+                    style="font-size: 20px; margin: 0; font-weight: bold; text-align: center; background-color: #c0dfff; color:#0a549d;">
+                    Quantity</td>
+                <td
+                    style="font-size: 20px; margin: 0; font-weight: bold; text-align: center; background-color: #c0dfff; color:#0a549d;">
+                    Rate</td>
+                <td
+                    style="font-size: 20px; margin: 0; font-weight: bold; text-align: center; background-color: #c0dfff; color:#0a549d;">
+                    Amount</td>
+            </tr>
+            <% items.forEach(item => { %>
+                <tr style="border: 2px solid #c0dfff;">
+                    <td style="font-size: 18px; margin: 0;"><%= item.name %></td>
+                    <td style="font-size: 18px; margin: 0; text-align: center;"><%= item.quantity %></td>
+                    <td style="font-size: 18px; margin: 0; text-align: center;">₹ <%= item.rate %></td>
+                    <td style="font-size: 18px; margin: 0; text-align: center;">₹ <%= item.amount %></td>
+                </tr>
+            <% }) %>
+        </table>
+        <table
+            style="border: 1px solid white; border-collapse: collapse; width: 1000px; margin: auto; margin-top: 10px; border-radius: 10px;">
+            <tr>
+                <td style="font-size: 18px; margin: 0;">
+                    <div style="display: flex;">
+                        <ul>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: 100;">
+                                Account Name</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: 100;">
+                                Account Number</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: 100;">
+                                IFSC</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: 100;">
+                                Account Type</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: 100;">
+                                Bank</li>
+                        </ul>
+                        <ul>
+                            <li style="list-style: none; font-weight: bold; font-size: 15px; color: black; padding-bottom: 5px;">
+                                Crownset Marketing Agency</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: bold;">
+                                073661900000619</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: bold;">
+                                YESB0000736</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: bold;">
+                                Current</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: bold;">
+                                Yes Bank</li>
+                        </ul>
+                    </div>
+                </td>
+                <td style="font-size: 18px; margin: 0; text-align: center;">
+                    <div>
+                        <ul style="display: flex; gap: 10px; justify-content: center;">
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px;">Reductions</li>
+                            <li style="list-style: none; font-size: 15px; color: black; padding-bottom: 5px; font-weight: bold;">
+                                (₹ <%= reductions %>)</li>
+                        </ul>
+                        <ul
+                            style="background-color: #3a95ef; width: 300px; padding: 10px; display: flex; margin: auto; justify-content: center; align-items: center; text-align: center; border-radius: 10px; gap: 10px; ">
+                            <li style="list-style: none; text-align: center; font-size: 18px; color: white; padding-bottom: 5px;">
+                                Total (INR)</li>
+                            <li style="list-style: none; text-align: center; font-size: 18px; color: white; padding-bottom: 5px; font-weight: bold;">
+                                ₹ <%= total %></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table
+        style="border: 1px solid white; border-collapse: collapse; width: 1000px;  margin: auto; margin-top: 5px; border-radius: 10px;">
+        <tr class="padding:5px">
+            <td style="font-size: 15px; margin: 0; color:black;">
+                <ul style="width: 50%;  display: flex; flex-direction: column; gap: 10px;">
+                    <li style="list-style: none; font-size: 15px;  color: #3a95ef; padding-bottom: 5px;">TERMS AND CONDITIONS</li>
+                    <li style="list-style: none; font-size: 15px; font-weight: 500;  color: black; padding-bottom: 5px;">
+                        <%=term_conditions%>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <table
+        style="border: 1px solid white; border-collapse: collapse; width: 1000px;  margin: auto; margin-top: 5px; border-radius: 10px;">
+        <tr
+            style="border: 2px solid #3a95ef; display: flex; justify-content: center; align-items: center; padding: 5px;">
+            <td style="font-size: 20px; margin: 0; color:black;">For any enquiry, reach out via email at
+                info@crownset.in, call on +91 84483 76799</td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+</html>
