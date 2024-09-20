@@ -6,6 +6,10 @@ import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
 
+function normalizeMACAddress(mac) {
+  return mac.replace(/[-:]/g, '').toLowerCase();
+}
+
 
 export async function POST(request) {
 
@@ -19,7 +23,9 @@ try{
     return NextResponse.json({message: "login required"});
 }
 
-  const ip = await macAddress()
+  const mac = await macAddress()
+
+  const ip = normalizeMACAddress(mac)
 
   const {latitude, longitude} = await request.json();
 
@@ -39,7 +45,7 @@ try{
     return NextResponse.json({message: "lattitude not found"});
   }
 
-  if(ip!==token.user.ip){
+  if(ip!==normalizeMACAddress(token.user.ip)){
     return NextResponse.json({message: "login with right Device"});
   }
 
