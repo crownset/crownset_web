@@ -1,20 +1,14 @@
 "use client";
+import InvoiceTemplate from "@/components/admin/InvoiceTemplate";
 import { CustomLoader } from "@/components/CustomLoader";
-// import { generateInvoicePDF } from "@/redux/slices/InvoiceSlice";
-// import { generatePDF } from "@/redux/slices/QuotationSlice";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-// import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Page = () => {
-    const [isBrowser, setIsBrowser] = useState(false);
-
-    useEffect(() => {
-        // This will only run in the browser
-        setIsBrowser(true);
-    }, []);
     const [formData, setFormData] = useState({
         bill_to: "",
         state: "",
@@ -24,11 +18,21 @@ const Page = () => {
         invoice_no:"",
         due_date:"",
         reductions:"",
-        items: [{ name: "", quantity: "",  amount: "" }],
+        items: [{ name: "", quantity: "", rate:"", amount: "" }],
         term_conditions:"The total fee for the services outlined above is ?21,94,400/- (Twenty One Lakhs Fifty Nine Thousand Four Hundred Rupees Only) including GST(1 8%) of 3,29,400/-(Three Lakhs Twenty Nine Thousand Four Hundred Rupees Only). This amount is calculated after applying an employee coupon code provided by Pragati Singh, General Manager.",
     });
     // const dispatch = useDispatch();
     // const { loading, error } = useSelector(state => state.quotation);
+
+    const [isTemplateVisible, setTemplateVisible] = useState(false);
+    const templateRef = useRef();
+
+    const [isBrowser, setIsBrowser] = useState(false);
+
+    useEffect(() => {
+        // This will only run in the browser
+        setIsBrowser(true);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,33 +57,42 @@ const Page = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (isBrowser) {  // Only run this in the browser
-            try {
-                const response = await axios.post('/api/generate-invoice',formData,
-                    {
-                        responseType: 'blob', // Set the response type to blob
-                    }
-                   
-                );
-            //    console.log(response);
-            //     if (response.statusText!="ok") {
-            //         throw new Error('Network response was not ok');
-            //     }
+        setTemplateVisible(true);
+    };
 
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'invoice.pdf';
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
+    const handleDownload = async () => {
+        if(isBrowser){
+            try {
+                const pdfElement = templateRef.current;
+                const canvas = await html2canvas(pdfElement, { scale: 2 });
+                const imgData = canvas.toDataURL('image/png');
+        
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'px',
+                    format: "a4"
+                });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save("quotation.pdf");
+                setTemplateVisible(false)
+                setFormData({
+                    quotation_no: "",
+                    quotation_date: "",
+                    valid_date: "",
+                    quotation_for: "",
+                    items: [{ name: [""], quantity: "", rate: "", amount: "" }]
+                })
+                toast.success("Quotation downloaded successfully");
             } catch (error) {
-                console.error('Error downloading PDF:', error);
+                console.error(error);
+                toast.error("Failed to download PDF");
             }
         }
+       
     };
 
     return (
@@ -266,7 +279,7 @@ const Page = () => {
                                 Quantity
                             </label>
                         </div>
-                        {/* <div class="relative z-0 w-full group">
+                        <div class="relative z-0 w-full group">
                             <input
                                 type="number"
                                 name="rate"
@@ -282,7 +295,7 @@ const Page = () => {
                             >
                                 Rate
                             </label>
-                        </div> */}
+                        </div>
                         <div class="relative z-0 w-full group">
                             <input
                                 type="number"
@@ -313,13 +326,24 @@ const Page = () => {
                         class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         onClick={handleSubmit}
                     >
-                        {/* {
-                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Download PDF"
-                        } */}
-                        download pdf
+                       Preview Invoice
                     </button>
                 </div>
             </form>
+            {isTemplateVisible && (
+                <div className="mt-10">
+                    <h2 className="text-2xl font-semibold text-center">Preview Quotation</h2>
+                    <InvoiceTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
+                    <div className="flex justify-end mr-20 gap-5">
+                        <button onClick={handleDownload} className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                            Download PDF
+                        </button>
+                        <button onClick={() => setTemplateVisible(false)} className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
 
     );

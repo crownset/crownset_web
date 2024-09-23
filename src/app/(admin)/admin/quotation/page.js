@@ -74,6 +74,14 @@ const Page = () => {
                 const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
                 pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
                 pdf.save("quotation.pdf");
+                setTemplateVisible(false)
+                setFormData({
+                    quotation_no: "",
+                    quotation_date: "",
+                    valid_date: "",
+                    quotation_for: "",
+                    items: [{ name: [""], quantity: "", rate: "", amount: "" }]
+                })
                 toast.success("Quotation downloaded successfully");
             } catch (error) {
                 console.error(error);
@@ -258,7 +266,7 @@ const Page = () => {
                         <span>Item</span>
                     </button>
                     <button type="submit" className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                        Generate Template
+                        Preview Quotation
                     </button>
                 </div>
             </form>
@@ -266,9 +274,12 @@ const Page = () => {
                 <div className="mt-10">
                     <h2 className="text-2xl font-semibold text-center">Preview Quotation</h2>
                     <QuotationTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
-                    <div className="flex justify-center mt-4">
-                        <button onClick={handleDownload} className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
+                    <div className="flex justify-end mr-20 gap-5">
+                        <button onClick={handleDownload} className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                             Download PDF
+                        </button>
+                        <button onClick={() => setTemplateVisible(false)} className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                            Close
                         </button>
                     </div>
                 </div>
