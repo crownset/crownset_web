@@ -7,7 +7,7 @@ export const punchInDatas = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchIn", credentials);
-            console.log(response);
+            //console.log(response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -19,7 +19,7 @@ export const punchOutData = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchOut", credentials);
-            console.log(response);
+           // console.log(response);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
