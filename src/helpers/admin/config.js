@@ -1,4 +1,4 @@
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaFileInvoice, FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { SiPowerpages } from "react-icons/si";
 import { SiGooglebigquery } from "react-icons/si";
@@ -11,7 +11,11 @@ import { SiSellfy } from "react-icons/si";
 import { BsPersonFill } from "react-icons/bs";
 import { SiAdobelightroom } from "react-icons/si";
 import { FaFilePdf } from "react-icons/fa";
-import { FaFileInvoice } from "react-icons/fa6";
+import { FaAppStore } from "react-icons/fa6";
+
+
+
+
 
 export const menuItems = [
     {
@@ -43,7 +47,7 @@ export const menuItems = [
     {
         name: "attendance",
         href: "/admin/attendance",
-        icon: FaCalendarWeek,
+        icon:  FaAppStore,
 
     },
     {

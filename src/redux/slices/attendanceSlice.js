@@ -7,10 +7,11 @@ export const punchInDatas = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchIn", credentials);
-            console.log(response);
+            //console.log(response);
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+          //  console.log("punch in-> ",error);
+            return rejectWithValue(error.response.message);
         }
     }
 );
@@ -19,10 +20,12 @@ export const punchOutData = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const response = await axios.post("/api/punchOut", credentials);
-            console.log(response);
+           // console.log(response);
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+
+            //console.log("punch out-> ",error);
+            return rejectWithValue(error.response.message);
         }
     }
 );
@@ -32,9 +35,10 @@ export const getData = createAsyncThunk(
     async (date, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/getAttendance', date);
-            console.log(response);
-            return response.data;
+            //  console.log(response);
+            return response.data
         } catch (error) {
+            // console.log(error);
             return rejectWithValue(error.response.data);
         }
     }
@@ -42,10 +46,10 @@ export const getData = createAsyncThunk(
 
 
 const initialState = {
-    attendance: [], 
+    attendance: null, 
     isPunching: false,
     isPunchout: false, 
-    error: null, 
+    error: false, 
 };
 const attendanceSlice = createSlice({
     name: 'attendance',
@@ -60,15 +64,16 @@ const attendanceSlice = createSlice({
         builder
             .addCase(getData.pending, (state) => {
                 state.isLoading = true;
-                state.error = null;
+                
             })
             .addCase(getData.fulfilled, (state, action) => {
                 state.isLoading = false;
+                // console.log(action.payload);
                 state.attendance = action.payload;
             })
             .addCase(getData.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload || "Error fetching attendance data.";
+                state.error = true
             });
     },
 });
