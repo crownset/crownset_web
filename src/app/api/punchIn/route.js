@@ -29,13 +29,13 @@ try{
 
   const {latitude, longitude} = await request.json();
 
-  if(token.user.ip==""){
-    return NextResponse.json({message: "Add you ip on your user"});
-  }
+  // if(token.user.ip==""){
+  //   return NextResponse.json({message: "Add you ip on your user"});
+  // }
 
-  if(!ip||ip==""){
-    return NextResponse.json({message: "Ip not found"});
-  }
+  // if(!ip||ip==""){
+  //   return NextResponse.json({message: "Ip not found"});
+  // }
 
   if(!latitude||latitude==""){
     return NextResponse.json({message: "lattitude not found"});
@@ -45,9 +45,9 @@ try{
     return NextResponse.json({message: "lattitude not found"});
   }
 
-  if(ip!==normalizeMACAddress(token.user.ip)){
-    return NextResponse.json({message: "login with right Device"});
-  }
+  // if(ip!==normalizeMACAddress(token.user.ip)){
+  //   return NextResponse.json({message: "login with right Device"});
+  // }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set time to start of the day

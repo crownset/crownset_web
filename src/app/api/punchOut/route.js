@@ -26,13 +26,13 @@ export async function POST(request) {
 
     const {latitude, longitude } = await request.json();
 
-    if (token.user.ip == "") {
-      return NextResponse.json({ message: "Add your IP to your user profile" });
-    }
+    // if (token.user.ip == "") {
+    //   return NextResponse.json({ message: "Add your IP to your user profile" });
+    // }
 
-    if (!ip || ip == "") {
-      return NextResponse.json({ message: "IP not found" });
-    }
+    // if (!ip || ip == "") {
+    //   return NextResponse.json({ message: "IP not found" });
+    // }
 
     if (!latitude || latitude == "") {
       return NextResponse.json({ message: "Latitude not found" });
@@ -42,12 +42,12 @@ export async function POST(request) {
       return NextResponse.json({ message: "Longitude not found" });
     }
 
-    console.log("ip",ip)
-    console.log("tokenip",normalizeMACAddress(token.user.ip))
+    // console.log("ip",ip)
+    // console.log("tokenip",normalizeMACAddress(token.user.ip))
 
-    if (ip !== normalizeMACAddress(token.user.ip)) {
-      return NextResponse.json({ message: "Login with the correct device" });
-    }
+    // if (ip !== normalizeMACAddress(token.user.ip)) {
+    //   return NextResponse.json({ message: "Login with the correct device" });
+    // }
 
     // Calculate distance
     const distance = calculateDistance(
