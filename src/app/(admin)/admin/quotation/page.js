@@ -1,8 +1,11 @@
 "use client";
+import QuotationTemplate from "@/components/admin/QuotationTemplate";
 import { CustomLoader } from "@/components/CustomLoader";
 import { generatePDF } from "@/redux/slices/QuotationSlice";
 import axios from "axios";
-import React, { useState } from "react";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import React, { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
@@ -17,6 +20,15 @@ const Page = () => {
     });
     const dispatch = useDispatch();
     const { loading, error } = useSelector(state => state.quotation);
+    const [isTemplateVisible, setTemplateVisible] = useState(false);
+    const templateRef = useRef();
+
+    const [isBrowser, setIsBrowser] = useState(false);
+
+    useEffect(() => {
+        // This will only run in the browser
+        setIsBrowser(true);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,16 +53,37 @@ const Page = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            const responsePdf = await dispatch(generatePDF(formData));
-            console.log("responsePdf", responsePdf)
-            toast.success("Quotation downloaded successfully")
-        } catch (error) {
-            console.log(error)
-        }
+        setTemplateVisible(true);
     };
+    
+    const handleDownload = async () => {
+        if(isBrowser){
+            try {
+                const pdfElement = templateRef.current;
+                const canvas = await html2canvas(pdfElement, { scale: 2 });
+                const imgData = canvas.toDataURL('image/png');
+        
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'px',
+                    format: "a4"
+                });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save("quotation.pdf");
+                toast.success("Quotation downloaded successfully");
+            } catch (error) {
+                console.error(error);
+                toast.error("Failed to download PDF");
+            }
+        }
+       
+    };
+    
+
 
     return (
         <>
@@ -65,7 +98,7 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            <form onSubmit={handleSubmit} class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
+            <form class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off" onSubmit={handleSubmit}>
                 <div className="text-3xl font-semibold italic mb-10 underline text-center">
                     <h1>Generate Quotation</h1>
                 </div>
@@ -220,20 +253,26 @@ const Page = () => {
                 ))}
 
                 <div className="flex flex-col justify-center items-center md:flex-row md:justify-end md:gap-4">
-                    <button type="button" onClick={addItem} class="bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]">
+                    <button type="button" onClick={addItem} className="bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]">
                         <span><FaPlus /></span>
                         <span>Item</span>
                     </button>
-                    <button
-                        type="submit"
-                        class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                        {
-                            loading ? <CustomLoader loading={loading} color={"#ffffff"} size={10} /> : "Download PDF"
-                        }
+                    <button type="submit" className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                        Generate Template
                     </button>
                 </div>
             </form>
+            {isTemplateVisible && (
+                <div className="mt-10">
+                    <h2 className="text-2xl font-semibold text-center">Preview Quotation</h2>
+                    <QuotationTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
+                    <div className="flex justify-center mt-4">
+                        <button onClick={handleDownload} className="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
 
     );
