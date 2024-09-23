@@ -119,7 +119,10 @@ const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
                                     name="assignTo"
                                     value={formValues.assignTo}
                                     onChange={handleChange}
-                                    disabled={userDetail?.data?.accessId === 2}
+                                    disabled={
+                                        userDetail?.data?.accessId === 2 &&
+                                        userDetail?.data?._id !== "66c4374c872fcfa51ba1bf96"
+                                    }
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                 >
                                     <option value="">Select assignee</option>
@@ -192,7 +195,8 @@ const UpdateForm = ({ isOpen, onClose, queryData, onSuccess }) => {
                     <button
                         type="submit"
                         className="w-full text-default inline-flex items-center justify-center bg-dashboard focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    > {
+                    >
+                        {
                             updating ? <CustomLoader loading={updating} color={"#ffffff"} size={10} /> : "Update Query"
                         }
 

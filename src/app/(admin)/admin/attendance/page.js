@@ -27,12 +27,12 @@ const Page = () => {
 
   const onChange = async (newDate) => {
     setDate(newDate);
-
+     
     const formattedDate = format(newDate, "yyyy-MM-dd");
 
     try {
       const dateFormat = await dispatch(getData({ date: formattedDate })).unwrap();
-
+    // console.log(dateFormat)
       const punchIn = dateFormat?.records?.[0]?.punchIn || null;
       const punchOut = dateFormat?.records?.[0]?.punchOut || null;
 
@@ -50,7 +50,7 @@ const Page = () => {
 
       setIsModalOpen(true);
     } catch (error) {
-      console.error("Error fetching data:", error);
+     // console.error("Error fetching data:", error);
       toast.error("Failed to fetch punch data for the selected date.");
     }
   };
@@ -100,22 +100,17 @@ const Page = () => {
 
 
       setPunchInTime(punchIn ? format(new Date(punchIn), "hh:mm a") : null);
-      if (punchInRes?.status === "Location out of range") {
-        toast.error(punchInRes?.status);
-      } else if (punchInRes?.message === "Already punched in for today") {
-        toast.success(punchInRes?.message);
-        setIsPunchedOut(false);
-      } else if (punchInRes?.message === "No attendance records found for this date") {
+      if (punchInRes?.message === "Location out of range") {
         toast.error(punchInRes?.message);
-      } else {
+      }  else {
         toast.success(punchInRes?.message || "Punch-in successful");
         setIsPunchedIn(true);
       }
 
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Punch-in error:", error);
-      toast.error("Failed to punch in. Please try again.");
+      // console.error("Punch-in error:", error);
+     return  toast.error("Failed to punch in. Please try again.");
     }
   };
 
@@ -135,10 +130,10 @@ const Page = () => {
       setPunchOutTime(punchOut ? format(new Date(punchOut), "hh:mm a") : null);
 
 
-      if (punchOutRes?.status === "Location out of range") {
-        toast.error(punchOutRes?.status)
+      if (punchOutRes?.message === "Location out of range") {
+        toast.error(punchOutRes?.message)
       } else {
-        toast.success(punchOutRes?.message);
+        toast.success(punchOutRes?.message || "Punch-Out successful");
         setIsPunchedIn(false);
         setIsPunchedOut(true);
       }
@@ -148,8 +143,8 @@ const Page = () => {
 
     }
     catch (error) {
-      toast.error(punchOutRes?.status)
-      console.log(error);
+      return toast.error(punchOutRes?.message)
+      // console.log(error);
     }
     setIsPunchOutConfirmOpen(false);
   };

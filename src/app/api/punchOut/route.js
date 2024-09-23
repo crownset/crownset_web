@@ -5,6 +5,10 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
+function normalizeMACAddress(mac) {
+  return mac.replace(/[-:]/g, '').toLowerCase();
+}
+
 export async function POST(request) {
 
   await dbConnect();
@@ -16,8 +20,9 @@ export async function POST(request) {
     if (token == "" || !token) {
       return NextResponse.json({ message: "Login required" });
     }
+    const mac = await macAddress()
 
-    const ip = await macAddress()
+    const ip = normalizeMACAddress(mac)
 
     const {latitude, longitude } = await request.json();
 
@@ -37,7 +42,10 @@ export async function POST(request) {
       return NextResponse.json({ message: "Longitude not found" });
     }
 
-    if (ip !== token.user.ip) {
+    console.log("ip",ip)
+    console.log("tokenip",normalizeMACAddress(token.user.ip))
+
+    if (ip !== normalizeMACAddress(token.user.ip)) {
       return NextResponse.json({ message: "Login with the correct device" });
     }
 
@@ -78,12 +86,13 @@ export async function POST(request) {
 
       return NextResponse.json({
         data: attendance,
-        status: 'Punched Out',
+        message: 'Punched Out',
+        status: 200,
         workedHours: `${workedHours} hours`,
       });
     }
 
-    return NextResponse.json({status: 'Location out of range' });
+    return NextResponse.json({message: 'Location out of range' });
   } catch (error) {
     return NextResponse.json({
       message: "Error in post request",

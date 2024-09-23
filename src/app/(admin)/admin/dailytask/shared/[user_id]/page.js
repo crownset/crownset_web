@@ -26,8 +26,28 @@ const Page = ({ params }) => {
         fetch();
     }, [dispatch, user_id]);
 
-    const getRemarkColor = (review) => {
-        return review ? 'bg-green-500' : 'bg-red-500';
+    // const getRemarkColor = (review) => {
+    //     return review ? 'bg-green-500' : 'bg-red-500';
+    // };
+
+    const getStatus = (estimatedDate, actualDate) => {
+        const isSameDate = moment(estimatedDate).isSame(actualDate, 'day');
+        const isDelayed = moment(actualDate).isAfter(estimatedDate);
+        if (isSameDate) {
+            return 'On Time';
+        } else if (isDelayed) {
+            return 'Delay';
+        }
+        return '';
+    };
+
+    const getStatusClass = (status) => {
+        if (status === 'On Time') {
+            return 'bg-green-500 text-white';
+        } else if (status === 'Delay') {
+            return 'bg-red-500 text-white';
+        }
+        return '';
     };
 
     return (
@@ -44,8 +64,9 @@ const Page = ({ params }) => {
                                         <th className="py-2 border-b min-w-[100px]">Task</th>
                                         <th className="py-2 border-b min-w-[100px]">Estimated Date</th>
                                         <th className="py-2 border-b min-w-[100px]">Actual Date</th>
-                                        <th className="py-2 border-b min-w-[100px]">Review</th>
-                                        <th>Actions</th>
+                                        <th className="py-2 border-b min-w-[100px]">Shared</th>
+                                        {/* <th className="py-2 border-b min-w-[100px]">Review</th> */}
+                                        {/* <th>Actions</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,18 +76,18 @@ const Page = ({ params }) => {
                                             <td className="py-2 border-b text-[12px] text-center">{moment(item?.estimated_date).format('LL')}</td>
                                             <td className="py-2 border-b text-[12px] text-center">{moment(item?.actual_date).format('LL')}</td>
                                             <td className="py-2 border-b text-[12px] text-center">
-                                                <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item?.review)}`}>
-                                                    {item?.review ? "Yes" : "No"}
+                                                <span className={`py-1 px-2 text-black rounded-3xl ${getStatusClass(getStatus(item?.estimated_date, item?.actual_date))}`}>
+                                                    {getStatus(item?.estimated_date, item?.actual_date)}
                                                 </span>
                                             </td>
-                                            <td className="py-2 border-b text-center">
+                                            {/* <td className="py-2 border-b text-center">
                                                 <button
                                                     className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white"
                                                     onClick={() => dispatch(openSharedTaskModal(item))}
                                                 >
                                                     <LuFileEdit className='h-4 w-4' />
                                                 </button>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     ))}
                                 </tbody>
