@@ -1,3 +1,4 @@
+import InvoiceTemplate from '@/components/admin/InvoiceTemplate';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -46,5 +47,7 @@ const invoiceSlice = createSlice({
       });
   },
 });
+
+
 
 export default invoiceSlice.reducer;
