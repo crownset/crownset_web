@@ -1,9 +1,9 @@
 
 import { NextResponse } from "next/server";
-import { testdbConnect } from "@/helpers/db";
+import { dbConnect } from "@/helpers/db";
 
 export async function POST(request) {
-  const {db} = await testdbConnect();
+  const {db} = await dbConnect();
 
   try {
       await db.dropDatabase();

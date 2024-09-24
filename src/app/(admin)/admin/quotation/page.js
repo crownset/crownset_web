@@ -57,14 +57,14 @@ const Page = () => {
         e.preventDefault();
         setTemplateVisible(true);
     };
-    
+
     const handleDownload = async () => {
-        if(isBrowser){
+        if (isBrowser) {
             try {
                 const pdfElement = templateRef.current;
                 const canvas = await html2canvas(pdfElement, { scale: 2 });
                 const imgData = canvas.toDataURL('image/png');
-        
+
                 const pdf = new jsPDF({
                     orientation: 'portrait',
                     unit: 'px',
@@ -88,9 +88,9 @@ const Page = () => {
                 toast.error("Failed to download PDF");
             }
         }
-       
+
     };
-    
+
 
 
     return (
@@ -106,17 +106,19 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            <form class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off" onSubmit={handleSubmit}>
-                <div className="text-3xl font-semibold italic mb-10 underline text-center">
-                    <h1>Generate Quotation</h1>
+            <form className="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off" onSubmit={handleSubmit}>
+                <div className=" bg-dashboardUserBg gap-5 mb-8 py-3 px-3 rounded-3xl flex items-center">
+                    <div className="text-2xl italic underline">
+                        <h1>Generate Invoice</h1>
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 gap-10 mb-8">
-                    <div class="relative z-0 w-full group">
+                <div className="grid md:grid-cols-2 gap-10 mb-8 w-[90%] md:w-full m-auto">
+                    <div className="relative z-0 w-full group">
                         <input
                             type="text"
                             name="quotation_no"
                             id="quotation_no"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.quotation_no}
                             onChange={handleChange}
@@ -124,18 +126,18 @@ const Page = () => {
                         />
                         <label
                             for="quotation_no"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
                             Quotation No
                         </label>
                     </div>
 
-                    <div class="relative z-0 w-full group">
+                    <div className="relative z-0 w-full group">
                         <input
                             type="date"
                             name="quotation_date"
                             id="quotation_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.quotation_date}
                             onChange={handleChange}
@@ -143,18 +145,18 @@ const Page = () => {
                         />
                         <label
                             for="quotation_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
                             Quotation Date
                         </label>
                     </div>
 
-                    <div class="relative z-0 w-full group">
+                    <div className="relative z-0 w-full group">
                         <input
                             type="date"
                             name="valid_date"
                             id="valid_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.valid_date}
                             onChange={handleChange}
@@ -162,18 +164,18 @@ const Page = () => {
                         />
                         <label
                             for="valid_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
                             Valid Date
                         </label>
                     </div>
 
-                    <div class="relative z-0 w-full group">
+                    <div className="relative z-0 w-full group">
                         <input
                             type="text"
                             name="quotation_for"
                             id="quotation_for"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                             value={formData.quotation_for}
                             onChange={handleChange}
@@ -181,19 +183,19 @@ const Page = () => {
                         />
                         <label
                             for="quotation_for"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
                             Quotation For
                         </label>
                     </div>
                 </div>
                 {formData.items.map((item, index) => (
-                    <div key={index} class="grid grid-cols-2 gap-10 mb-4">
-                        <div class="relative z-0 w-full group">
+                    <div key={index} className="grid grid-cols-2 w-[90%] md:w-full m-auto gap-10 mb-4">
+                        <div className="relative z-0 w-full group">
                             <input
                                 type="text"
                                 name="name"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
                                 value={item.name.join(",")}
                                 onChange={(e) => handleItemChange(index, e)}
@@ -201,16 +203,16 @@ const Page = () => {
                             />
                             <label
                                 for="name"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Item Name
                             </label>
                         </div>
-                        <div class="relative z-0 w-full group">
+                        <div className="relative z-0 w-full group">
                             <input
                                 type="number"
                                 name="quantity"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
                                 value={item.quantity}
                                 onChange={(e) => handleItemChange(index, e)}
@@ -218,16 +220,16 @@ const Page = () => {
                             />
                             <label
                                 for="quantity"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Quantity
                             </label>
                         </div>
-                        <div class="relative z-0 w-full group">
+                        <div className="relative z-0 w-full group">
                             <input
                                 type="number"
                                 name="rate"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
                                 value={item.rate}
                                 onChange={(e) => handleItemChange(index, e)}
@@ -235,16 +237,16 @@ const Page = () => {
                             />
                             <label
                                 for="rate"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Rate
                             </label>
                         </div>
-                        <div class="relative z-0 w-full group">
+                        <div className="relative z-0 w-full group">
                             <input
                                 type="number"
                                 name="amount"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
                                 value={item.amount}
                                 onChange={(e) => handleItemChange(index, e)}
@@ -252,7 +254,7 @@ const Page = () => {
                             />
                             <label
                                 for="amount"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                             >
                                 Amount
                             </label>
