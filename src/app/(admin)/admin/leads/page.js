@@ -25,7 +25,7 @@ import * as XLSX from 'xlsx';
 const Page = () => {
     const dispatch = useDispatch();
     const { data, fetching, error, deleting } = useSelector((state) => state.data);
-    console.log("dataLeads>>>", data)
+    // console.log("dataLeads>>>", data)
     const { isModalOpen, isEditLeadModalOpen, isAddLeadModal, isEditModalOpen, isAddModalOpen, isQueryModalOpen, isSuccessModalOpen, selectedQueryId, selectedQueryData, fullQuery } = useSelector((state) => state.ui);
     const [user, setUser] = useState(null);
     const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
@@ -37,6 +37,26 @@ const Page = () => {
     const [fileName, setFileName] = useState('');
     const { isLoading, isSuccess } = useSelector((state) => state.queryData);
     const { isAutoSuccess } = useSelector((state) => state.ui);
+    const [filteredData, setFilteredData] = useState([]);
+    const [originalData, setOriginalData] = useState([]);
+
+    const [searchItem, setSearchItem] = useState('')
+
+    const handleInputChange = (e) => {
+        const searchTerm = e.target.value;
+
+        setSearchItem(searchTerm)
+
+        if (searchTerm === '') {
+            setFilteredData(originalData);
+        } else {
+
+            const filteredItems = originalData.filter((user) =>
+                user?.assignTo?.firstName.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredData(filteredItems);
+        }
+    }
 
     const handleFile = (file) => {
         setFileName(file.name);
@@ -94,8 +114,19 @@ const Page = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(fetchData());
+        const fetchLeads = async () => {
+            await dispatch(fetchData());
+        }
+        fetchLeads();
     }, [dispatch]);
+
+    useEffect(() => {
+        if (data) {
+            setFilteredData(data.query);
+            setOriginalData(data.query);
+
+        }
+    }, [data]);
 
     const handleConfirm = async () => {
         if (selectedQueryId) {
@@ -180,7 +211,22 @@ const Page = () => {
                             <span className='text-gray-600 font-semibold'>{data.notinterstedCount}</span>
                         </div >
                     </div>
+
+
                     <div className='flex justify-end items-center gap-5 cursor-pointer  mt-4'>
+
+                        <div className='hidden sm:block w-[40%]'>
+                            <div className=' flex justify-center '>
+                                <input
+                                    type="text"
+                                    value={searchItem}
+                                    onChange={handleInputChange}
+                                    placeholder='Search by Name'
+                                    className='border border-blue-700 rounded-2xl px-3 py-1 outline-none w-full text-gray-800'
+                                />
+                            </div>
+                        </div>
+
                         <div className='bg-dashboard flex items-center gap-5 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]'>
                             <div className='flex items-center gap-5'>
                                 {fileName ? (
@@ -214,6 +260,17 @@ const Page = () => {
                             <span>Lead</span>
                         </button>
                     </div>
+
+                    <div className='flex justify-center sm:hidden'>
+                        <input
+                            type="text"
+                            value={searchItem}
+                            onChange={handleInputChange}
+                            placeholder='Search by Name'
+                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800'
+                        />
+                    </div>
+
                     <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
                         <table className="min-w-full bg-white text-sm ">
                             <thead className='sticky top-0 z-20'>
@@ -234,78 +291,86 @@ const Page = () => {
                                     <th className="py-2 border-b min-w-[100px]">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className='z-10'>
-                                {(data.query && Array.isArray(data.query) ? data.query : []).map((item, index) => (
-                                    <tr key={index} className='even:bg-dashboardUserBg odd:bg-default'>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.businessName}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">
-                                            <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
-                                                {item.remarks}
-                                            </span>
-                                        </td>
-                                        <td className="py-2 text-[12px] border-b text-center ">
-                                            {item?.queryContent?.length > 50 ? (
-                                                <>
-                                                    {item?.queryContent.slice(0, 50)}...
-                                                    <button
-                                                        className="text-blue-500 underline ml-1"
-                                                        onClick={() => dispatch(openQueryModal(item?.queryContent))}
-                                                    >
-                                                        View More
-                                                    </button>
-                                                </>
-                                            ) : (
-                                                item?.queryContent
-                                            )}
-                                        </td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.comments}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
-                                        <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
-                                        <td className="py-2 text-[12px] border-b text-center ">
-                                            {item?.address?.length > 50 ? (
-                                                <>
-                                                    {item?.address.slice(0, 50)}...
-                                                    <button
-                                                        className="text-blue-500 underline ml-1"
-                                                        onClick={() => dispatch(openQueryModal(item?.address))}
-                                                    >
-                                                        View More
-                                                    </button>
-                                                </>
-                                            ) : (
-                                                item?.address
-                                            )}
-                                        </td>
-                                        <td className="py-2 text-[12px] border-b text-center">
-                                            <div className='flex gap-3 justify-center items-center'>
-                                                <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                                    onClick={() => dispatch(openEditLeadModal(item))}
-                                                >
-                                                    <LuFileEdit className='h-4 w-4' />
-                                                </button>
-                                                {
-                                                    user?.data?.accessId === 1 ? (
-                                                        <button
-                                                            className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
-                                                            onClick={() => dispatch(openDeleteLeadModal(item._id))}
-                                                        >
-                                                            <RiDeleteBin5Line className='h-4 w-4' />
-                                                        </button>
-                                                    ) : (
-                                                        null
-                                                    )
-                                                }
-                                            </div>
-                                        </td>
+                            {filteredData?.length == 0 ? (
+                                <tbody>
+                                    <tr>
+                                        <td colSpan={10} className='text-center text-3xl p-4  font-semibold italic'>No data Found</td>
                                     </tr>
-                                ))}
-                            </tbody>
+                                </tbody>) :
+                                <tbody className='z-10'>
+
+                                    {(filteredData && Array.isArray(filteredData) ? filteredData : []).map((item, index) => (
+                                        <tr key={index} className='even:bg-dashboardUserBg odd:bg-default'>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.fullName}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.email}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.contact}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.businessName}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">
+                                                <span className={`py-1 px-2 text-default rounded-3xl ${getRemarkColor(item.remarks)}`}>
+                                                    {item.remarks}
+                                                </span>
+                                            </td>
+                                            <td className="py-2 text-[12px] border-b text-center ">
+                                                {item?.queryContent?.length > 50 ? (
+                                                    <>
+                                                        {item?.queryContent.slice(0, 50)}...
+                                                        <button
+                                                            className="text-blue-500 underline ml-1"
+                                                            onClick={() => dispatch(openQueryModal(item?.queryContent))}
+                                                        >
+                                                            View More
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    item?.queryContent
+                                                )}
+                                            </td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.leadBy}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.assignTo?.firstName}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.comments}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{item?.followUp === false ? "No" : "Yes"}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{moment(item?.lastFollowUp).format('LL')}</td>
+                                            <td className="py-2 text-[12px] border-b text-center">{moment(item?.queryDate).format('LL')}</td>
+                                            <td className="py-2 text-[12px] border-b text-center ">
+                                                {item?.address?.length > 50 ? (
+                                                    <>
+                                                        {item?.address.slice(0, 50)}...
+                                                        <button
+                                                            className="text-blue-500 underline ml-1"
+                                                            onClick={() => dispatch(openQueryModal(item?.address))}
+                                                        >
+                                                            View More
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    item?.address
+                                                )}
+                                            </td>
+                                            <td className="py-2 text-[12px] border-b text-center">
+                                                <div className='flex gap-3 justify-center items-center'>
+                                                    <button className="text-[#3577f1] border border-[#3577f1] p-1 rounded-md hover:bg-[#3577f1] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                        onClick={() => dispatch(openEditLeadModal(item))}
+                                                    >
+                                                        <LuFileEdit className='h-4 w-4' />
+                                                    </button>
+                                                    {
+                                                        user?.data?.accessId === 1 ? (
+                                                            <button
+                                                                className="text-red-500 border border-[#ef4444] p-1 rounded-md hover:bg-[#ef4444] hover:text-white hover:border-[#FFFFFF] translate-x-1"
+                                                                onClick={() => dispatch(openDeleteLeadModal(item._id))}
+                                                            >
+                                                                <RiDeleteBin5Line className='h-4 w-4' />
+                                                            </button>
+                                                        ) : (
+                                                            null
+                                                        )
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            }
                         </table>
                     </div>
                 </>
