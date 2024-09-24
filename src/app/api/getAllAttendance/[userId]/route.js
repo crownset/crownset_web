@@ -4,7 +4,7 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
-export async function POST(request) {
+export async function PUT(request,{params}) {
 
   await dbConnect();
 
@@ -19,12 +19,25 @@ export async function POST(request) {
         return NextResponse.json({ message: "login with correct credential" });
     }
 
-    const { date, userId } = await request.json();  // Expecting the date to be provided in the request
+    const {userId} = params
 
-    if (!date) {
-      return NextResponse.json({ message: "Date required" });
+    const allAttendance = await Attendance.find({userId})
+
+    const { date} = await request.json();  // Expecting the date to be provided in the request
+
+    if(!date || date == "undefined" || date ==""){
+
+      const attendanceRecords = []
+
+      return NextResponse.json({
+        message: "Sucess",
+        status: 200,
+        data: attendanceRecords,
+        all: allAttendance
+      });
     }
 
+    if (date ||date !="") {
     const targetDate = new Date(date);
     targetDate.setHours(0, 0, 0, 0); // Normalize to midnight for accurate filtering
 
@@ -32,7 +45,7 @@ export async function POST(request) {
     nextDay.setDate(nextDay.getDate() + 1); // Set to the next day for range filtering
 
     // Query for attendance records between the start and end of the given day
-    const attendanceRecords = await Attendance.find({
+      const attendanceRecords = await Attendance.find({
       userId: userId,
       punchIn: { $gte: targetDate, $lt: nextDay }
     });
@@ -42,11 +55,16 @@ export async function POST(request) {
     }
 
     return NextResponse.json({
-      status: 'Success',
-      records: attendanceRecords
+      message: "Sucess",
+      status: 200,
+      data: attendanceRecords,
+      all: allAttendance
     });
+    }
+
     
   } catch (error) {
+    // console.log(error)
     return NextResponse.json({
       message: "Error fetching attendance",
       status: 300

@@ -1,25 +1,29 @@
 "use client";
-import QuotationTemplate from "@/components/admin/QuotationTemplate";
+import InvoiceTemplate from "@/components/admin/InvoiceTemplate";
 import { CustomLoader } from "@/components/CustomLoader";
-import { generatePDF } from "@/redux/slices/QuotationSlice";
 import axios from "axios";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import React, { useEffect, useRef, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Page = () => {
     const [formData, setFormData] = useState({
-        quotation_no: "",
-        quotation_date: "",
-        valid_date: "",
-        quotation_for: "",
-        items: [{ name: [""], quantity: "", rate: "", amount: "" }]
+        bill_to: "",
+        state: "",
+        district: "",
+        gstin: "",
+        invoice_date:"",
+        invoice_no:"",
+        due_date:"",
+        reductions:"",
+        items: [{ name: "", quantity: "", rate:"", amount: "" }],
+        term_conditions:"The total fee for the services outlined above is ?21,94,400/- (Twenty One Lakhs Fifty Nine Thousand Four Hundred Rupees Only) including GST(1 8%) of 3,29,400/-(Three Lakhs Twenty Nine Thousand Four Hundred Rupees Only). This amount is calculated after applying an employee coupon code provided by Pragati Singh, General Manager.",
     });
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector(state => state.quotation);
+    // const dispatch = useDispatch();
+    // const { loading, error } = useSelector(state => state.quotation);
+
     const [isTemplateVisible, setTemplateVisible] = useState(false);
     const templateRef = useRef();
 
@@ -49,7 +53,7 @@ const Page = () => {
     const addItem = () => {
         setFormData({
             ...formData,
-            items: [...formData.items, { name: [""], quantity: "", rate: "", amount: "" }]
+            items: [...formData.items, { name: "", quantity: "", amount: "" }]
         });
     };
 
@@ -57,7 +61,7 @@ const Page = () => {
         e.preventDefault();
         setTemplateVisible(true);
     };
-    
+
     const handleDownload = async () => {
         if(isBrowser){
             try {
@@ -90,8 +94,6 @@ const Page = () => {
         }
        
     };
-    
-
 
     return (
         <>
@@ -106,84 +108,138 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            <form class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off" onSubmit={handleSubmit}>
-                <div className="text-3xl font-semibold italic mb-10 underline text-center">
-                    <h1>Generate Quotation</h1>
+            <form  class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
+                <div className=" bg-dashboardUserBg gap-5 mb-8 py-3 px-3 rounded-3xl flex items-center">
+                    <div className="text-2xl italic underline">
+                        <h1>Generate Invoice</h1>
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 gap-10 mb-8">
                     <div class="relative z-0 w-full group">
                         <input
                             type="text"
-                            name="quotation_no"
-                            id="quotation_no"
+                            name="bill_to"
+                            id="bill_to"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.quotation_no}
+                            value={formData.bill_to}
                             onChange={handleChange}
                             required
                         />
                         <label
-                            for="quotation_no"
+                            for="bill_to"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                            Quotation No
-                        </label>
-                    </div>
-
-                    <div class="relative z-0 w-full group">
-                        <input
-                            type="date"
-                            name="quotation_date"
-                            id="quotation_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            value={formData.quotation_date}
-                            onChange={handleChange}
-                            required
-                        />
-                        <label
-                            for="quotation_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                        >
-                            Quotation Date
-                        </label>
-                    </div>
-
-                    <div class="relative z-0 w-full group">
-                        <input
-                            type="date"
-                            name="valid_date"
-                            id="valid_date"
-                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
-                            value={formData.valid_date}
-                            onChange={handleChange}
-                            required
-                        />
-                        <label
-                            for="valid_date"
-                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                        >
-                            Valid Date
+                            Bill To
                         </label>
                     </div>
 
                     <div class="relative z-0 w-full group">
                         <input
                             type="text"
-                            name="quotation_for"
-                            id="quotation_for"
+                            name="state"
+                            id="state"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
-                            value={formData.quotation_for}
+                            value={formData.state}
                             onChange={handleChange}
                             required
                         />
                         <label
-                            for="quotation_for"
+                            for="state"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                            Quotation For
+                            State
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="district"
+                            id="district"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.district}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="district"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            District
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="gstin"
+                            id="gstin"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.gstin}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="gstin"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                           GSTIN
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="date"
+                            name="invoice_date"
+                            id="invoice_date"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.invoice_date}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="invoice_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Invoice Date
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="invoice_no"
+                            id="invoice_no"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.invoice_no}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="invoice_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Invoice No
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="date"
+                            name="due_date"
+                            id="due_date"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.due_date}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="due_date"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Due Date
                         </label>
                     </div>
                 </div>
@@ -195,7 +251,7 @@ const Page = () => {
                                 name="name"
                                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                 placeholder=""
-                                value={item.name.join(",")}
+                                value={item.name}
                                 onChange={(e) => handleItemChange(index, e)}
                                 required
                             />
@@ -261,19 +317,23 @@ const Page = () => {
                 ))}
 
                 <div className="flex flex-col justify-center items-center md:flex-row md:justify-end md:gap-4">
-                    <button type="button" onClick={addItem} className="bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]">
+                    <button type="button" onClick={addItem} class="bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]">
                         <span><FaPlus /></span>
                         <span>Item</span>
                     </button>
-                    <button type="submit" className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                        Preview Quotation
+                    <button
+                        type="submit"
+                        class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={handleSubmit}
+                    >
+                       Preview Invoice
                     </button>
                 </div>
             </form>
             {isTemplateVisible && (
                 <div className="mt-10">
                     <h2 className="text-2xl font-semibold text-center">Preview Quotation</h2>
-                    <QuotationTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
+                    <InvoiceTemplate ref={templateRef} formData={formData} visible={isTemplateVisible} />
                     <div className="flex justify-end mr-20 gap-5">
                         <button onClick={handleDownload} className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                             Download PDF

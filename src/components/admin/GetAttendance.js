@@ -4,16 +4,15 @@ import {useState, useEffect } from 'react';
 import { assignUsers } from '@/redux/slices/userSlice';
 import { CustomLoader } from '@/components/CustomLoader';
 import { useRouter } from 'next/navigation';
-import { format } from "date-fns";
+
 const DepartmentUsers = () => {
-  const [date, setDate] = useState(new Date());
+
   const dispatch = useDispatch();
     
     const { user, loading } = useSelector((state) => state.user); 
     const router = useRouter();
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  
 
     useEffect(() => {
         dispatch(assignUsers());
@@ -21,9 +20,7 @@ const DepartmentUsers = () => {
 
   
     const handleAttendanceView = (id) => {
-      const formattedDate = format(newDate, "yyyy-MM-dd");
-      setDate(newDate);
-      dispatch(getDataAll({ date: formattedDate }))
+    
         router.push(`/admin/attendance/${id}`)
     };
 

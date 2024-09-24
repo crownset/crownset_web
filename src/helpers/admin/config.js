@@ -1,4 +1,4 @@
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaFileInvoice, FaSignOutAlt } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 import { SiPowerpages } from "react-icons/si";
 import { SiGooglebigquery } from "react-icons/si";
@@ -29,9 +29,14 @@ export const menuItems = [
         icon: SiGooglebigquery,
     },
     {
-        name: "Quotation/Invoice",
-        href: "/admin/quotation",
+        name: "Quotation",
+        href: "/admin/quotation",   
         icon: FaFilePdf,
+    },
+    {
+        name: "Invoice",
+        href: "/admin/invoice",   
+        icon: FaFileInvoice,
     },
     {
         name: "Projects",
