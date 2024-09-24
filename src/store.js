@@ -17,6 +17,7 @@ import attendanceSlice from "./redux/slices/attendanceSlice"
 
 import sharedTaskSlice from "./redux/slices/sharedTaskSlice"
 import QuotationSlice from "./redux/slices/QuotationSlice"
+import InvoiceSlice from "./redux/slices/InvoiceSlice"
 
 const store = configureStore({
     reducer: {
@@ -34,7 +35,8 @@ const store = configureStore({
         daily:dailytaskSlice,
         attendance:attendanceSlice,
         shared:sharedTaskSlice,
-        quotation:QuotationSlice
+        quotation:QuotationSlice,
+        invoice:InvoiceSlice
     }
 })
 
