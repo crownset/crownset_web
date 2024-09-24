@@ -43,13 +43,27 @@ export const getData = createAsyncThunk(
         }
     }
 );
+export const getDataAll = createAsyncThunk(
+    'Attendance/getDataAll',
+    async (date, { rejectWithValue }) => {
+        try {
+            const response = await axios.post('/api/getAllAttendance', date);
+              console.log(response);
+            return response.data
+        } catch (error) {
+            // console.log(error);
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 
 const initialState = {
     attendance: null, 
     isPunching: false,
     isPunchout: false, 
-    error: false, 
+    error: false,
+    loading: false, 
 };
 const attendanceSlice = createSlice({
     name: 'attendance',
@@ -58,23 +72,25 @@ const attendanceSlice = createSlice({
     extraReducers: (builder) => {
     
         handleAttendanceActions(builder, punchInDatas, "isPunching");
-         handleAttendanceActions(builder, punchOutData, "isPunchout");
-
+        handleAttendanceActions(builder, punchOutData, "isPunchout");
+        handleAttendanceActions(builder, getData, initialState);
+        handleAttendanceActions(builder, getDataAll, initialState);
         
-        builder
-            .addCase(getData.pending, (state) => {
-                state.isLoading = true;
+        
+        // builder
+        //     .addCase(getData.pending, (state) => {
+        //         state.isLoading = true;
                 
-            })
-            .addCase(getData.fulfilled, (state, action) => {
-                state.isLoading = false;
-                // console.log(action.payload);
-                state.attendance = action.payload;
-            })
-            .addCase(getData.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = true
-            });
+        //     })
+        //     .addCase(getData.fulfilled, (state, action) => {
+        //         state.isLoading = false;
+        //         // console.log(action.payload);
+        //         state.attendance = action.payload;
+        //     })
+        //     .addCase(getData.rejected, (state, action) => {
+        //         state.isLoading = false;
+        //         state.error = true
+        //     });
     },
 });
 

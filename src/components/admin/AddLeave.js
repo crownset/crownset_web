@@ -1,12 +1,11 @@
 "use client";
 import { assignUsers } from '@/redux/slices/userSlice';
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
 import { CustomLoader } from '../CustomLoader';
 import * as Config from "@/helpers/admin/config"
-
+import DatePicker from 'react-datepicker';
 
 const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const [userDetail, setUserDetail] = useState(null);
