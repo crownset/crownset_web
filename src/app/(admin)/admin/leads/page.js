@@ -261,13 +261,13 @@ const Page = () => {
                         </button>
                     </div>
 
-                    <div className='flex justify-center sm:hidden'>
+                    <div className='flex justify-center sm:hidden '>
                         <input
                             type="text"
                             value={searchItem}
                             onChange={handleInputChange}
                             placeholder='Search by Name'
-                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800'
+                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800 mb-3'
                         />
                     </div>
 
