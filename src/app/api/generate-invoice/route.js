@@ -1,11 +1,11 @@
-import puppeteer from 'puppeteer';
 import ejs from 'ejs';
 import path from 'path';
+import html_to_pdf from 'html-pdf-node';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
     try {
-        const { 
+        const {
             bill_to,
             business_name,
             state,
@@ -19,9 +19,11 @@ export async function POST(req) {
             total,
             term_conditions
         } = await req.json();
-        // const total = items.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
+        // Path to the EJS template
         const templatePath = path.join(process.cwd(), 'src', 'views', 'invoice.ejs');
+
+        // Render the EJS template with the dynamic data
         const html = await ejs.renderFile(templatePath, {
             bill_to,
             business_name,
@@ -37,38 +39,24 @@ export async function POST(req) {
             term_conditions
         });
 
-        // Launch Puppeteer
-        const browser = await puppeteer.launch({
-            headless: true, // For debugging, set to false
-            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Useful for certain environments
-        });
+        // Prepare HTML content for PDF generation
+        let file = { content: html };
 
-        const page = await browser.newPage();
+        // Generate the PDF using html-pdf-node
+        const pdfBuffer = await html_to_pdf.generatePdf(file, { format: 'A4', printBackground: true });
 
-        // Set higher navigation timeout (60 seconds)
-        await page.setDefaultNavigationTimeout(60000);
-
-        // Set page content and wait for network to stabilize
-        await page.setContent(html, { waitUntil: 'networkidle2' });
-
-        // Generate PDF
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true,
-        });
-
-        // Close browser
-        await browser.close();
-
-        // Send PDF back to client
+        // Return the PDF as a response
         return new NextResponse(pdfBuffer, {
             headers: {
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename=qoutation.pdf',
+                'Content-Disposition': 'attachment; filename="invoice.pdf"',
             },
         });
     } catch (error) {
         console.error('Error generating PDF:', error);
-        return new NextResponse('Failed to generate PDF', { status: 500 });
+        return new NextResponse(JSON.stringify({ error: 'Failed to generate PDF' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 }

@@ -1,61 +1,56 @@
-import puppeteer from 'puppeteer';
-import ejs from 'ejs';
-import path from 'path';
-import { NextResponse } from 'next/server';
 
-export async function POST(req) {
+import html_to_pdf from 'html-pdf-node';
+
+export async function POST(req,res) {
+    const { name, email, message } = req.body;
+
+    // Define the HTML template with dynamic fields
+    const htmlContent = `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+              padding: 0;
+            }
+            h1 {
+              color: #4CAF50;
+            }
+            p {
+              font-size: 16px;
+            }
+            .info {
+              margin-bottom: 20px;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Generated PDF</h1>
+          <div class="info">
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+          </div>
+          <div class="message">
+            <p><strong>Message:</strong></p>
+            <p>${message}</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    // Create the PDF file
+    let file = { content: htmlContent };
+
     try {
-        const { quotation_no,
-            quotation_date,
-            valid_date,
-            quotation_for,
-            items, total } = await req.json();
-        // const total = items.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-            console.log("backend>>>", quotation_date,
-                valid_date,
-                quotation_for,
-                items)
-        const templatePath = path.join(process.cwd(), 'src', 'views', 'template.ejs');
-        const html = await ejs.renderFile(templatePath, {
-            quotation_no,
-            quotation_date,
-            valid_date,
-            quotation_for,
-            items, total
-        });
+        // Generate the PDF
+        const pdfBuffer = await html_to_pdf.generatePdf(file, { format: 'A4' });
 
-        // Launch Puppeteer
-        const browser = await puppeteer.launch({
-            headless: true, // For debugging, set to false
-            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Useful for certain environments
-        });
-
-        const page = await browser.newPage();
-
-        // Set higher navigation timeout (60 seconds)
-        await page.setDefaultNavigationTimeout(60000);
-
-        // Set page content and wait for network to stabilize
-        await page.setContent(html, { waitUntil: 'networkidle2' });
-
-        // Generate PDF
-        const pdfBuffer = await page.pdf({
-            format: 'A4',
-            printBackground: true,
-        });
-
-        // Close browser
-        await browser.close();
-
-        // Send PDF back to client
-        return new NextResponse(pdfBuffer, {
-            headers: {
-                'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename=qoutation.pdf',
-            },
-        });
+        // Set the response headers for PDF download
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=generated.pdf');
+        res.send(pdfBuffer);
     } catch (error) {
-        console.error('Error generating PDF:', error);
-        return new NextResponse('Failed to generate PDF', { status: 500 });
+        res.status(500).json({ error: 'Failed to generate PDF' });
     }
 }
