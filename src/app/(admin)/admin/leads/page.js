@@ -180,7 +180,7 @@ const Page = () => {
                 <div className="text-red-500">Error: {error}</div>
             ) : (
                 <>
-                    {/* <div className='flex gap-5 flex-wrap m-auto mt-2'>
+                    <div className='flex gap-5 flex-wrap m-auto mt-2'>
                         <div className='bg-dashboardUserBg rounded-2xl  flex flex-col gap-2 p-2 justify-center items-center w-[8rem]'>
                             <span className='text-gray-700 font-semibold'>Total Leads</span>
                             <span className='text-gray-600 font-semibold'>{data.totalCount}</span>
@@ -210,17 +210,9 @@ const Page = () => {
                             <span className='text-gray-700 font-semibold'>Not Intersted</span>
                             <span className='text-gray-600 font-semibold'>{data.notinterstedCount}</span>
                         </div >
-                    </div> */}
-
-                    <div className='flex justify-center sm:hidden'>
-                        <input
-                            type="text"
-                            value={searchItem}
-                            onChange={handleInputChange}
-                            placeholder='Search by Name'
-                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800'
-                        />
                     </div>
+
+
                     <div className='flex justify-end items-center gap-5 cursor-pointer  mt-4'>
 
                         <div className='hidden sm:block w-[40%]'>
@@ -268,6 +260,17 @@ const Page = () => {
                             <span>Lead</span>
                         </button>
                     </div>
+
+                    <div className='flex justify-center sm:hidden'>
+                        <input
+                            type="text"
+                            value={searchItem}
+                            onChange={handleInputChange}
+                            placeholder='Search by Name'
+                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800'
+                        />
+                    </div>
+
                     <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide ">
                         <table className="min-w-full bg-white text-sm ">
                             <thead className='sticky top-0 z-20'>
