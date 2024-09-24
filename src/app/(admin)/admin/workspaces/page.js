@@ -16,7 +16,7 @@ import { EditWorkspaceModal } from "./_components/Modals";
 const Workspace = () => {
 
     const dispatch = useDispatch();
-    const { workspaces, isCreateWorkspaceLoading, isLoading } = useSelector((state) => state.workspace);
+    const { workspaces, isCreateWorkspaceLoading, loading } = useSelector((state) => state.workspace);
 
 
     // const [isOpen, setIsOpen] = useState(false);
@@ -155,7 +155,7 @@ const Workspace = () => {
 
     return (
         <>
-            {isLoading ? (
+            {loading ? (
                     <>
                         <div className="flex justify-center items-center w-full h-screen">
                             <BeatLoader />
