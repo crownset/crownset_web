@@ -14,15 +14,15 @@ const Page = () => {
         state: "",
         district: "",
         gstin: "",
-        invoice_date:"",
-        invoice_no:"",
-        due_date:"",
-        reductions:"",
-        items: [{ name: "", quantity: "", rate:"", amount: "" }],
-        term_conditions:"The total fee for the services outlined above is ?21,94,400/- (Twenty One Lakhs Fifty Nine Thousand Four Hundred Rupees Only) including GST(1 8%) of 3,29,400/-(Three Lakhs Twenty Nine Thousand Four Hundred Rupees Only). This amount is calculated after applying an employee coupon code provided by Pragati Singh, General Manager.",
+        invoice_date: "",
+        invoice_no: "",
+        due_date: "",
+        reductions: "",
+        items: [{ name: "", quantity: "", rate: "", amount: "" }],
+        term_conditions: "",
+        reductions: "",
+        total: ""
     });
-    // const dispatch = useDispatch();
-    // const { loading, error } = useSelector(state => state.quotation);
 
     const [isTemplateVisible, setTemplateVisible] = useState(false);
     const templateRef = useRef();
@@ -30,7 +30,6 @@ const Page = () => {
     const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
-        // This will only run in the browser
         setIsBrowser(true);
     }, []);
 
@@ -63,12 +62,11 @@ const Page = () => {
     };
 
     const handleDownload = async () => {
-        if(isBrowser){
+        if (isBrowser) {
             try {
                 const pdfElement = templateRef.current;
                 const canvas = await html2canvas(pdfElement, { scale: 2 });
                 const imgData = canvas.toDataURL('image/png');
-        
                 const pdf = new jsPDF({
                     orientation: 'portrait',
                     unit: 'px',
@@ -80,19 +78,26 @@ const Page = () => {
                 pdf.save("quotation.pdf");
                 setTemplateVisible(false)
                 setFormData({
-                    quotation_no: "",
-                    quotation_date: "",
-                    valid_date: "",
-                    quotation_for: "",
-                    items: [{ name: [""], quantity: "", rate: "", amount: "" }]
+                    bill_to: "",
+                    state: "",
+                    district: "",
+                    gstin: "",
+                    invoice_date: "",
+                    invoice_no: "",
+                    due_date: "",
+                    reductions: "",
+                    items: [{ name: "", quantity: "", rate: "", amount: "" }],
+                    term_conditions: "",
+                    reductions: "",
+                    total: ""
                 })
-                toast.success("Quotation downloaded successfully");
+                toast.success("Invoice downloaded successfully");
             } catch (error) {
                 console.error(error);
                 toast.error("Failed to download PDF");
             }
         }
-       
+
     };
 
     return (
@@ -108,13 +113,13 @@ const Page = () => {
                 draggable
                 pauseOnHover
             />
-            <form  class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
+            <form class="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off">
                 <div className=" bg-dashboardUserBg gap-5 mb-8 py-3 px-3 rounded-3xl flex items-center">
                     <div className="text-2xl italic underline">
                         <h1>Generate Invoice</h1>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-10 mb-8">
+                <div className="grid md:grid-cols-2 gap-10 mb-8 w-[90%] md:w-full m-auto">
                     <div class="relative z-0 w-full group">
                         <input
                             type="text"
@@ -185,7 +190,7 @@ const Page = () => {
                             for="gstin"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                           GSTIN
+                            GSTIN
                         </label>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -203,7 +208,7 @@ const Page = () => {
                             for="invoice_date"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                          Invoice Date
+                            Invoice Date
                         </label>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -221,7 +226,7 @@ const Page = () => {
                             for="invoice_date"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                          Invoice No
+                            Invoice No
                         </label>
                     </div>
                     <div class="relative z-0 w-full group">
@@ -239,12 +244,66 @@ const Page = () => {
                             for="due_date"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                          Due Date
+                            Due Date
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="test"
+                            name="term_conditions"
+                            id="term_conditions"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData.term_conditions}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="term_conditions"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            Terms and conditions
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="reductions"
+                            id="reductions"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData?.reductions}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="reductions"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            Reductions
+                        </label>
+                    </div>
+                    <div class="relative z-0 w-full group">
+                        <input
+                            type="text"
+                            name="total"
+                            id="total"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                            value={formData?.total}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label
+                            for="reductions"
+                            class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            Total Amount
                         </label>
                     </div>
                 </div>
                 {formData.items.map((item, index) => (
-                    <div key={index} class="grid grid-cols-2 gap-10 mb-4">
+                    <div key={index} className="grid grid-cols-2 w-[90%] md:w-full m-auto gap-10 mb-4">
                         <div class="relative z-0 w-full group">
                             <input
                                 type="text"
@@ -326,7 +385,7 @@ const Page = () => {
                         class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         onClick={handleSubmit}
                     >
-                       Preview Invoice
+                        Preview Invoice
                     </button>
                 </div>
             </form>

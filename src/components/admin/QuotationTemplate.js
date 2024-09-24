@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image';
 import React from 'react';
-import logo from "../../assets/images/crownsetfinalGRADIENT.png";
+import logo from "../../assets/images/crownsetWithoutBg.png";
 
 const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
     const calculateAmount = (item) => {
@@ -12,7 +12,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
         <div ref={ref} className="container" style={{ display: visible ? 'block' : 'none' }}>
             <table style={{ border: '1px solid white', borderCollapse: 'collapse', width: '1000px', margin: 'auto' }}>
                 <tr>
-                    <td style={{ fontSize: '20px', margin: 0, border: '1px solid white', marginBottom: "15px" }}>
+                    <td style={{ fontSize: '20px', margin: 0, border: '1px solid white', marginBottom: "15px", width:"50%" }}>
                         <h1 style={{ fontWeight: 'bold', fontSize: '25px', color: '#6c46e4', paddingBottom: "10px" }}>
                             Quotation
                         </h1>
@@ -29,7 +29,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                             </ul>
                         </div>
                     </td>
-                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white' }} colSpan="2">
+                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', width:"50%", }} colSpan="2">
                         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: '100%', padding: '10px' }}>
                             <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
                         </div>
