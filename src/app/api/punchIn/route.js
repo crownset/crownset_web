@@ -80,9 +80,9 @@ try{
     })
 
     await attendance.save()
-    return NextResponse.json({ data: attendance, status: 'Punched In' });
+    return NextResponse.json({ data: attendance, message: 'Punched In', status:200 });
   } 
-  return NextResponse.json({ status: 'Location out of range' });
+  return NextResponse.json({ message: 'Location out of range' });
 }
 
 catch(error){

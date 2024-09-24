@@ -1,7 +1,7 @@
 // components/InvoiceTemplate.js
 
 import React from 'react';
-import logo from "../../assets/images/crownsetfinalGRADIENT.png";
+import logo from "../../assets/images/crownsetWithoutBg.png";
 import Image from 'next/image';
 
 const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
@@ -33,7 +33,7 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
           <tr>
             <td>
               <div style={{ height: '100%', padding: '10px', textAlign: 'center' }}>
-                <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px', backgroundColor: 'white', borderRadius: '5px' }} />
+                <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px', backgroundColor: 'white', borderRadius: '5px', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center" }} />
               </div>
             </td>
             <td>
@@ -71,7 +71,7 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
           </tr>
           <tr>
             <td colSpan="3">
-              <div style={{ display: 'flex', borderTop: '1px solid white' }}>
+              <div style={{ display: 'flex', borderTop: '1px solid white' , gap:"15px", marginLeft:"5px" }}>
                 <ul>
                   <li style={{ listStyle: 'none', color: 'white', paddingBottom: '5px', fontWeight: '100' }}>
                     Invoice No #
@@ -114,6 +114,9 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
       >
         <thead>
           <tr style={{ padding: '5px', borderRadius: '10px' }}>
+            {/* <td style={{ fontSize: '20px', margin: '0', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' }}>
+              
+            </td> */}
             <td style={{ fontSize: '20px', margin: '0', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' }}>
               Item
             </td>
@@ -147,8 +150,114 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
           ))}
         </tbody>
       </table>
-      
-      {/* Additional tables and content can be added here */}
+      <table
+        style={{
+          border: '1px solid white',
+          borderCollapse: 'collapse',
+          width: '1000px',
+          margin: '10px auto',
+          borderRadius: '10px',
+        }}
+      >
+        <tbody>
+          <tr>
+            <td style={{ fontSize: '18px', margin: '0' }}>
+              <div style={{ display: 'flex' }}>
+                <ul style={{ padding: '0' }}>
+                  {['Account Name', 'Account Number', 'IFSC', 'Account Type', 'Bank'].map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        listStyle: 'none',
+                        fontSize: '15px',
+                        color: 'black',
+                        paddingBottom: '5px',
+                        fontWeight: '100',
+                      }}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <ul style={{ padding: '0', marginLeft: '20px' }}>
+                  <li  style={{listStyle:"none", fontWeight:"bold", fontSize:"15px", color:"black", paddingBottom:"5px"}}>
+                    Crownset Marketing Agency</li>
+                  <li
+                    style={{listStyle:"none", fontWeight:"bold", fontSize:"15px", color:"black", paddingBottom:"5px"}}>
+                    073661900000619</li>
+                  <li
+                    style={{listStyle:"none", fontWeight:"bold", fontSize:"15px", color:"black", paddingBottom:"5px"}}>
+                    YESB0000736</li>
+                  <li
+                    style={{listStyle:"none", fontWeight:"bold", fontSize:"15px", color:"black", paddingBottom:"5px"}}>
+                    Current</li>
+                  <li
+                    style={{listStyle:"none", fontWeight:"bold", fontSize:"15px", color:"black", paddingBottom:"5px"}}>
+                    Yes Bank</li>
+                </ul>
+              </div>
+            </td>
+            <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
+              <div>
+                <ul style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '0' }}>
+                  <li style={{ listStyle: 'none', fontSize: '15px', color: 'black', paddingBottom: '5px' }}>
+                    Reductions
+                  </li>
+                  <li
+                    style={{
+                      listStyle: 'none',
+                      fontSize: '15px',
+                      color: 'black',
+                      paddingBottom: '5px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                     ₹{formData?.reductions}
+                  </li>
+                </ul>
+                <ul
+                  style={{
+                    backgroundColor: '#3a95ef',
+                    width: '300px',
+                    padding: '10px',
+                    display: 'flex',
+                    margin: '10px auto',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    borderRadius: '10px',
+                    gap: '10px',
+                    paddingBottom: '5px',
+                  }}
+                >
+                  <li style={{ listStyle: 'none', fontSize: '18px', color: 'white' }}>Total (INR)</li>
+                  <li
+                    style={{
+                      listStyle: 'none',
+                      fontSize: '18px',
+                      color: 'white',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    ₹{formData?.total}
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table
+            style={{border:"1px solid white", borderCollapse:"collapse", width:"1000px", margin:"auto", marginTop:"5px", borderRadius:"10px"}}>
+            <tr style={{padding:"5px"}}>
+                <td style={{fontSize:"15px", margin:"0px", color:"black"}}>
+                    <ul style={{width:"50%", display:"flex", flexDirection:"column", gap:"10px"}}>
+                        <li style={{listStyle:"none", fontSize:"15px", color:"#3a95ef", paddingBottom:"5px"}}>TERMS AND CONDITIONS</li>
+                        <li style={{listStyle:"none", fontSize:"15px", fontWeight:"500", color:"black", paddingBottom:"5px"}}>{formData?.term_conditions}</li>
+                    </ul>
+                </td>
+            </tr>  
+            </table>
     </div>
   );
 });

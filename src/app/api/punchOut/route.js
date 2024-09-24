@@ -86,12 +86,13 @@ export async function POST(request) {
 
       return NextResponse.json({
         data: attendance,
-        status: 'Punched Out',
+        message: 'Punched Out',
+        status: 200,
         workedHours: `${workedHours} hours`,
       });
     }
 
-    return NextResponse.json({status: 'Location out of range' });
+    return NextResponse.json({message: 'Location out of range' });
   } catch (error) {
     return NextResponse.json({
       message: "Error in post request",
