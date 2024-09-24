@@ -4,7 +4,7 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
-export async function POST(request) {
+export async function PUT(request,{params}) {
 
   await dbConnect();
 
@@ -19,7 +19,8 @@ export async function POST(request) {
         return NextResponse.json({ message: "login with correct credential" });
     }
 
-    const { date, userId } = await request.json();  // Expecting the date to be provided in the request
+    const {userId} = params
+    const { date} = await request.json();  // Expecting the date to be provided in the request
 
     if (!date) {
       return NextResponse.json({ message: "Date required" });
