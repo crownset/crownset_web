@@ -135,7 +135,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
     }
 
     return (
-        <div className="bg-gray-100  py-4 px-0   mt-5 sm:mt-0 rounded-2xl shadow flex-none w-[280px] sm:w-[300px] ">
+        <div className="bg-gray-100  py-4 px-0   mt-5 sm:mt-0 rounded-2xl shadow flex-none w-[300px] sm:w-[300px] ">
 
             <div className="relative flex justify-between items-center">
 
@@ -247,7 +247,7 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
 
                                 <li
                                     key={todoIndex}
-                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[260px]  sm:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
+                                    className="group relative rounded-xl mt-4 pb-2 flex-none  px-3 py-1 w-[270px]  sm:w-[270px] bg-white  hover:outline hover:outline-blue-500 shadow"
                                 >
 
 
