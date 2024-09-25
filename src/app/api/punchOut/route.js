@@ -5,9 +5,9 @@ import { dbConnect } from "@/helpers/db";
 import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
-function normalizeMACAddress(mac) {
-  return mac.replace(/[-:]/g, '').toLowerCase();
-}
+// function normalizeMACAddress(mac) {
+//   return mac.replace(/[-:]/g, '').toLowerCase();
+// }
 
 export async function POST(request) {
 
@@ -20,19 +20,19 @@ export async function POST(request) {
     if (token == "" || !token) {
       return NextResponse.json({ message: "Login required" });
     }
-    const mac = await macAddress()
+    // const mac = await macAddress()
 
-    const ip = normalizeMACAddress(mac)
+    // const ip = normalizeMACAddress(mac)
 
-    const {latitude, longitude } = await request.json();
+    const {ip, latitude, longitude } = await request.json();
 
-    // if (token.user.ip == "") {
-    //   return NextResponse.json({ message: "Add your IP to your user profile" });
-    // }
+    if (token.user.ip == "") {
+      return NextResponse.json({ message: "Add your IP to your user profile" });
+    }
 
-    // if (!ip || ip == "") {
-    //   return NextResponse.json({ message: "IP not found" });
-    // }
+    if (!ip || ip == "") {
+      return NextResponse.json({ message: "IP not found" });
+    }
 
     if (!latitude || latitude == "") {
       return NextResponse.json({ message: "Latitude not found" });
@@ -48,6 +48,10 @@ export async function POST(request) {
     // if (ip !== normalizeMACAddress(token.user.ip)) {
     //   return NextResponse.json({ message: "Login with the correct device" });
     // }
+
+    if(ip!==token.user.ip){
+      return NextResponse.json({message: "login with right Device"});
+    }
 
     // Calculate distance
     const distance = calculateDistance(
