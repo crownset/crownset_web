@@ -21,6 +21,7 @@ export async function dbConnect(){
             dbName:"Work",})
         console.log("db Connected")
         config.isConnected = connection._readyState
+        return connection
 
 
     }
