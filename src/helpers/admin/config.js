@@ -13,10 +13,6 @@ import { SiAdobelightroom } from "react-icons/si";
 import { FaFilePdf } from "react-icons/fa";
 import { FaAppStore } from "react-icons/fa6";
 
-
-
-
-
 export const menuItems = [
     {
         name: "Dashboard",
@@ -204,3 +200,8 @@ export const FollowUpChart = [
         value: 45
     },
 ]
+
+export const monthsArray = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];

@@ -43,7 +43,7 @@ module.exports = {
         "mature" : "#269346",
         "dead" : "#d63328",
         "meeting":"#f79b00",
-        "attendanceDate":"#aeeeae"
+        "attendanceDate":"#cef5ce"
       }
 
     },
