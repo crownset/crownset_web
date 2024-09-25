@@ -97,9 +97,9 @@ const Page = () => {
             </p> */}
             <div className='flex py-2  gap-5 items-center'>
               <p className="leading-relaxed  text-gray-600 text-sm">Already have an account?</p>
-              <button className='border py-1 px-2 rounded-lg text-center border-dashboard text-dashboard'>
+              {/* <button className='border py-1 px-2 rounded-lg text-center border-dashboard text-dashboard'>
                 <span>Sign in</span>
-              </button>
+              </button> */}
             </div>
             <div className="relative mb-4">
               <label htmlFor="eid" className="leading-10 text-sm text-gray-600 font-bold">EID</label>
@@ -126,9 +126,9 @@ const Page = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0  top-8 flex items-center pr-3"
+                className="absolute inset-y-0 right-0  top-8 flex items-center pr-3 mt-1"
               >
-                {showPassword ? <HiEyeOff className="text-gray-500" /> : <HiEye className="text-gray-500" />}
+                {showPassword ? <HiEye className="text-gray-500" /> : <HiEyeOff className="text-gray-500" />}
               </button>
               {errors?.password && <p className="text-red-500 text-sm">{errors?.password}</p>}
             </div>

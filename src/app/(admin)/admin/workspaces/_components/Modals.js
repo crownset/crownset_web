@@ -8,6 +8,7 @@ import { IoMdClose as CloseIcon } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { FaCalendarWeek as CalendarIcon } from "react-icons/fa6";
 
 
 import { setIsTodoEditMenu, setIsTodoEditModal } from "@/redux/slices/misc";
@@ -64,7 +65,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
     const [selectedUser, setSelectedUser] = useState('select user');
     const [user_id, setUserId] = useState('');
     const users = useSelector((state) => state.user.user)
-    const user = users?.filter((item)=> item?.accessId === 2)
+    const user = users?.filter((item) => item?.accessId === 2)
     // console.log(user);
     const dispatch = useDispatch();
 
@@ -125,14 +126,14 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
                         <button
                             type="button"
-                            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
+                            className="text-gray-700 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-[1.4rem] w-8 h-8 inline-flex justify-center items-center"
                             onClick={onClose}
                         >
                             <CloseIcon className="w-3 h-3" />
 
                         </button>
                     </div>
-                    <div> <h2 className="text-center">Assign TaskList</h2></div> 
+                    <div> <h2 className="text-center text-bodyTextColor text-[1.4rem]">Assign TaskList</h2></div>
 
                     <div className="flex justify-center mt-4">
                         <button
@@ -176,7 +177,7 @@ export const ShareTaskListModal = ({ isOpenShare, onClose, tasklist_id, workspac
 
                     <div className="p-4 md:p-5 space-y-4  flex justify-center">
 
-                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
+                        <button onClick={onSave} className="bg-gray-400 hover:text-gray-800 text-white text-[1rem] px-6 py-2 rounded-xl hover:bg-gray-300">Save</button>
                     </div>
 
                 </div>
@@ -222,7 +223,7 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
 
         <>
             <div className="fixed  inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-[240px] md:w-1/5 md:max-w-2xl md:max-h-full bg-white rounded-lg shadow ">
+                <div className="relative p-4 w-[240px] md:w-[300px] md:max-w-2xl md:max-h-full bg-white rounded-lg shadow ">
 
                     <div className="flex items-end justify-end">
 
@@ -235,27 +236,35 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
 
                         </button>
                     </div>
-                   
-                    <h2 className="text-center">Edit TaskList</h2>
+
+                    <h2 className="text-center text-bodyTextColor text-[1.4rem]">Edit TaskList</h2>
                     <div className="p-4 md:p-5 space-y-4">
 
                         <input
                             name="name"
                             value={editTaskList.name}
                             onChange={handleNameChange}
-                            className="outline outline-blue-500 p-1 rounded"
+                            className="outline outline-gray-300 px-3 py-1 rounded-xl w-full text-gray-700"
                             placeholder="Task Name"
 
                         />
-                        <DatePicker
-                            selected={editTaskList.deadline}
-                            onChange={handleDateChange}
-                            dateFormat="dd-MM-yyyy"
-                            className="outline outline-blue-500 p-1 rounded"
-                            placeholderText="Select deadline"
-                        />
+                        <div className="flex justify-between items-center outline outline-gray-300 py-1 rounded-xl ">
 
-                        <button onClick={onSave} className=" bg-blue-500 text-white p-1 rounded">Save</button>
+                            <DatePicker
+                                selected={editTaskList.deadline} 
+                                onChange={handleDateChange}
+                                dateFormat="dd-MM-yyyy"
+                                placeholderText="Select deadline"
+                                className="text-gray-700 outline-none w-[7rem] ml-3"
+                            />
+                            <CalendarIcon className="text-gray-700 mr-3" />
+                        </div>
+
+                        <div className="flex justify-center">
+
+                            <button onClick={onSave} className=" bg-gray-400 hover:text-gray-800 text-white text-[1rem] px-6 py-2 rounded-xl hover:bg-gray-300">Save</button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -308,10 +317,10 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 
                         </button>
                     </div>
-                    <h2 className="text-center">Working User</h2>
+                    <h2 className="text-center text-bodyTextColor text-[1.4rem]">Working Users</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
-                        {
+                        {workinguser?.length > 0 ? (
                             workinguser?.map((user, index) => (
                                 <li
                                     key={index}
@@ -320,10 +329,11 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
                                     <span className="text-black ">{user?.firstName}</span>
                                 </li>
                             ))
+                        ) : (<div className="text-center">No Working Member in this list</div>)
 
 
                         }
-                        {!workinguser && (<div>No Working Member</div>)}
+
                     </div>
 
                 </div>
@@ -336,16 +346,16 @@ export const AssginedUserModal = ({ isOpen, onClose, tasklist_id, workspace_id }
 export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
     const tasklists = useSelector((state) => state.tasklist?.tasklist);
     const { isTodoIndex, tasklistIndex, isEditTodoLoding } = useSelector((state) => state.misc)
-    
-    const [title, setTitle] = useState(tasklists?.[tasklistIndex]?.todos?.[isTodoIndex]?.title );
+
+    const [title, setTitle] = useState(tasklists?.[tasklistIndex]?.todos?.[isTodoIndex]?.title);
     // console.log(title);
 
     const dispatch = useDispatch();
-   
+
 
     const onSave = async (e) => {
         e.preventDefault();
-        
+
         const todo_id = tasklists[tasklistIndex]?.todos[isTodoIndex]?._id;
         if (title == tasklists[tasklistIndex]?.todos[isTodoIndex]?.title) {
 
@@ -387,21 +397,42 @@ export const EditTodoModal = ({ isOpen, onClose, workspace_id }) => {
                         </button>
                     </div>
 
+
+                    <h2 className="text-center text-bodyTextColor text-[1.4rem]">Edit Todo</h2>
+
                     <div className="p-4 md:p-5 space-y-4">
                         {/* <div>Edit Todo Modal</div> */}
-                        <input
+                        {/* <input
                             value={title} onChange={(e) => setTitle(e.target.value)}
-                            className="outline outline-blue-500 p-1 rounded"
-                        />
-                        <button
-                            onClick={onSave}
-                            className=" bg-blue-500 text-white p-1 rounded"
-                        >
-                            {
-                                isEditTodoLoding ? (<ClipLoader size={15} />) : ("Save")
-                            }
+                            className="outline outline-gray-300 px-3 py-1 rounded-xl w-full text-gray-700"
+                        /> */}
 
-                        </button>
+                        <textarea
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+
+                            className="outline outline-gray-300 px-3 py-1 rounded-xl w-full text-gray-700 resize-none overflow-hidden"
+                            placeholder="Type your title here..."
+                            style={{
+                                height: 'auto', // Reset height to auto
+                            }}
+                            onInput={(e) => {
+                                e.target.style.height = 'auto'; // Reset the height
+                                e.target.style.height = `${e.target.scrollHeight}px`; // Set to the scroll height
+                            }}
+                        />
+                        <div className="flex justify-center">
+                            <button
+                                onClick={onSave}
+                                className=" bg-gray-400 hover:text-gray-800 text-white text-[1rem] px-6 py-2 rounded-xl hover:bg-gray-300"
+                            >
+                                {
+                                    isEditTodoLoding ? (<ClipLoader size={15} />) : ("Save")
+                                }
+
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -418,19 +449,19 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
     const [selectedLabel, setSelectedLabel] = useState("");
     const dispatch = useDispatch();
-    
+
 
     const labels = [
         { value: "Moderate", color: "#E2B203" },
         { value: "Urgent", color: "#FD9891" }
-        
+
     ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const todo_id = tasklists[tasklistIndex]?.todos[isTodoIndex]?._id;
-        if (selectedLabel=="" ||selectedLabel == tasklists[tasklistIndex]?.todos[isTodoIndex]?.label) {
-            
+        if (selectedLabel == "" || selectedLabel == tasklists[tasklistIndex]?.todos[isTodoIndex]?.label) {
+
             onClose();
             dispatch(setIsTodoEditMenu(false));
             return;
@@ -467,10 +498,11 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
                         </button>
                     </div>
+                    <h2 className="text-center text-bodyTextColor text-[1.4rem]">Label</h2>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4 mt-3">
                         <div className="w-full">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Label</label>
+
                             <div className="flex flex-col gap-4 justify-center items-center w-full ">
                                 {labels.map((label) => (
                                     <div
@@ -500,7 +532,7 @@ export const TodoLabelsModal = ({ isOpen, onClose, workspace_id }) => {
 
                         <button
                             type="submit"
-                            className="w-full bg-blue-500 text-white p-2 rounded-xl"
+                            className="w-full bg-gray-400 hover:text-gray-800 text-white  hover:bg-gray-300 p-2 rounded-xl "
                         >
                             {
                                 isTodoLabelLoading ? (<ClipLoader size={15} />) : (<span>Update Label</span>)

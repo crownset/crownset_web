@@ -59,7 +59,7 @@ const Page = ({ params }) => {
           </div>
         </>
       ) : (
-        <div className='mt-10 ml-5'>
+        <div className='mt-10 ml-5 '>
           
             {name&& (<h1 className='text-center sticky text-[2rem] font-semibold text-gray-700'>{name}</h1>)}
       

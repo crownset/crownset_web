@@ -1,9 +1,11 @@
 "use client";
 import Image from 'next/image';
 import React from 'react';
-import logo from "../../assets/images/crownsetWithoutBg.png";
+import {logo} from '@/helpers/constant'
 
 const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
+    
+    
     const calculateAmount = (item) => {
         return (item.quantity * item.rate).toFixed(2);
     };
@@ -31,7 +33,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                     </td>
                     <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', width:"50%", }} colSpan="2">
                         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: '100%', padding: '10px' }}>
-                            <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
+                            <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px' }} width={100} height={100} />
                         </div>
                     </td>
                 </tr>
