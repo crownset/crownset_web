@@ -6,9 +6,9 @@ import { verifyToken } from "@/helpers/tokenVerify";
 import { Attendance } from '@/modelCS/attendance';
 
 
-function normalizeMACAddress(mac) {
-  return mac.replace(/[-:]/g, '').toLowerCase();
-}
+// function normalizeMACAddress(mac) {
+//   return mac.replace(/[-:]/g, '').toLowerCase();
+// }
 
 
 export async function POST(request) {
