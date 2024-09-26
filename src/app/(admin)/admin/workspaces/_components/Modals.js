@@ -17,15 +17,15 @@ import { assignUsers } from "@/redux/slices/userSlice";
 
 
 
-export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave, workspace_id }) => {
+export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName, onSave, workspace_id, WorkspaceModalRef }) => {
 
     if (!isOpen) return null;
 
     return (
 
         <>
-            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-                <div className="relative p-4 w-1/5 max-w-2xl max-h-full bg-white rounded-lg shadow">
+            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-50 " ref={WorkspaceModalRef}>
+                <div className="relative p-4 w-1/5 max-w-4xl max-h-full bg-white rounded-lg shadow">
 
                     <div className="flex items-end justify-end">
 
@@ -38,19 +38,23 @@ export const EditWorkspaceModal = ({ isOpen, onClose, updateName, setUpdateName,
 
                         </button>
                     </div>
-                    <h2 className="text-center">Edit Workspace</h2>
+                    <h2 className="text-center text-bodyTextColor text-[1.4rem]">Update Workspace Name</h2>
 
                     <div className="p-4 md:p-5 space-y-4">
                         <input
                             value={updateName} onChange={(e) => setUpdateName(e.target.value)}
-                            className="outline outline-blue-500 p-1 rounded"
+                            className="outline outline-gray-300 px-3 py-1 rounded-xl w-full text-gray-700"
                         />
-                        <button
-                            onClick={onSave}
-                            className=" bg-blue-500 text-white p-1 rounded"
-                        >
-                            Save
-                        </button>
+
+                        <div className="flex justify-center">
+                            <button
+                                onClick={onSave}
+                                className="bg-gray-400 hover:text-gray-800 text-white text-[1rem] px-6 py-2 rounded-xl hover:bg-gray-300"
+                            >
+                                Save
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -251,7 +255,7 @@ export const EditTaskListModal = ({ isOpen, onClose, onSave, editTaskList, setEd
                         <div className="flex justify-between items-center outline outline-gray-300 py-1 rounded-xl ">
 
                             <DatePicker
-                                selected={editTaskList.deadline} 
+                                selected={editTaskList.deadline}
                                 onChange={handleDateChange}
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Select deadline"

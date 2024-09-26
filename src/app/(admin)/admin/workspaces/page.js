@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BeatLoader, MoonLoader } from "react-spinners";
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import { BsPlus as PlusIcon } from "react-icons/bs";
 import { IoMdClose as CloseIcon } from "react-icons/io";
 import { PiDotsThreeOutlineThin as EditIcon } from "react-icons/pi";
 // import { BsThreeDots as EditIcon} from "react-icons/bs";
+import { useClickOutside } from '@/hooks/CloseComponentHook'
 
 import { createWorkspace, deleteWorkspace, editWorkspace, fetchWorkspaces } from '@/redux/slices/workspaceSlice';
 import { EditWorkspaceModal } from "./_components/Modals";
@@ -26,6 +27,7 @@ const Workspace = () => {
     const [workspaceIndex, setWorkspaceIndex] = useState(null);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [updateName, setUpdateName] = useState('');
+    const WorkspaceModalRef = useRef(null);
 
     useEffect(() => {
 
@@ -61,7 +63,7 @@ const Workspace = () => {
         }
 
     }
-
+    useClickOutside(WorkspaceModalRef,()=>{handleCloseModal()})
     const handleCloseModal = () => {
         setIsOpenModal(false);
         setWorkspaceIndex(null);
@@ -220,7 +222,7 @@ const Workspace = () => {
                                             }
 
                                             {workspaceIndex == index && (
-                                                <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10">
+                                                <div className="absolute flex flex-col top-6 shadow rounded-md right-1 bg-white py-1 gap-1 w-[5rem] z-10" ref={WorkspaceModalRef}>
                                                     <CloseIcon
                                                         className="text-[1.3rem] mr-1 cursor-pointer ml-14 hover:bg-gray-200 rounded-md p-1"
                                                         onClick={handleCloseEditWorkspace}
@@ -265,6 +267,7 @@ const Workspace = () => {
                                     updateName={updateName}
                                     setUpdateName={setUpdateName}
                                     onSave={handleOnSave}
+                                    WorkspaceModalRef={WorkspaceModalRef}
                                 />
                             }
                         </div >
