@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { CustomLoader } from '@/components/CustomLoader';
 import { punchInDatas, punchOutData, getData } from '@/redux/slices/attendanceSlice';
+import AllUsers from '@/components/admin/AllUsers';
+
 
 const Page = () => {
   const [date, setDate] = useState(new Date());
@@ -17,9 +19,9 @@ const Page = () => {
   const [isPunchedOut, setIsPunchedOut] = useState(false);
   const [punchInTime, setPunchInTime] = useState(null);
   const [punchOutTime, setPunchOutTime] = useState(null);
+  const [user, setUser] = useState(null);
 
-  const { attendance, isPunching, isPunchout } = useSelector((state) => state.attendance);
-
+  const { attendance, isPunching, isPunchout, loading } = useSelector((state) => state.attendance);
   const dispatch = useDispatch();
 
   const today = new Date();
@@ -27,12 +29,12 @@ const Page = () => {
 
   const onChange = async (newDate) => {
     setDate(newDate);
-     
+
     const formattedDate = format(newDate, "yyyy-MM-dd");
 
     try {
       const dateFormat = await dispatch(getData({ date: formattedDate })).unwrap();
-    // console.log(dateFormat)
+    
       const punchIn = dateFormat?.records?.[0]?.punchIn || null;
       const punchOut = dateFormat?.records?.[0]?.punchOut || null;
 
@@ -50,7 +52,6 @@ const Page = () => {
 
       setIsModalOpen(true);
     } catch (error) {
-     // console.error("Error fetching data:", error);
       toast.error("Failed to fetch punch data for the selected date.");
     }
   };
@@ -102,15 +103,15 @@ const Page = () => {
       setPunchInTime(punchIn ? format(new Date(punchIn), "hh:mm a") : null);
       if (punchInRes?.message === "Location out of range") {
         toast.error(punchInRes?.message);
-      }  else {
-        toast.success(punchInRes?.message || "Punch-in successful");
+      } else {
+        toast.success(punchInRes?.message);
         setIsPunchedIn(true);
       }
 
       setIsModalOpen(false);
     } catch (error) {
-      // console.error("Punch-in error:", error);
-     return  toast.error("Failed to punch in. Please try again.");
+    
+      return toast.error("Failed to punch in. Please try again.");
     }
   };
 
@@ -121,7 +122,7 @@ const Page = () => {
 
       const punchOutRes = await dispatch(
         punchOutData({
-          latitude: location.latitude, longitude: location.longitude, date: new Date().toISOString(),
+          latitude: location.latitude, longitude: location.longitude,
         })).unwrap();
       const formattedDate = format(new Date(), "yyyy-MM-dd");
       const response = await dispatch(getData({ date: formattedDate })).unwrap();
@@ -132,8 +133,9 @@ const Page = () => {
 
       if (punchOutRes?.message === "Location out of range") {
         toast.error(punchOutRes?.message)
-      } else {
-        toast.success(punchOutRes?.message || "Punch-Out successful");
+      }
+      else {
+        toast.success(punchOutRes?.message);
         setIsPunchedIn(false);
         setIsPunchedOut(true);
       }
@@ -143,22 +145,38 @@ const Page = () => {
 
     }
     catch (error) {
-      return toast.error(punchOutRes?.message)
-      // console.log(error);
+       toast.error(punchOutRes?.message)
+  
     }
     setIsPunchOutConfirmOpen(false);
   };
-  //const formattedDate = format(date, "yyyy-MM-dd");
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const formattedDate = format(date, "dd-MM-yyyy");
   const isToday = date.getTime() === today.getTime();
 
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-4 ">
-
-        <div className="max-w-xs sm:max-w-md p-6 sm:p-10 bg-white rounded-lg shadow-lg w-[600px]">
-          <Calendar onChange={onChange} value={date} maxDate={new Date()} className="react-calendar" />
-        </div>
-      </div>
+      {loading ? (
+        <CustomLoader size={10} loading={loading} color={"#FFFFFF"} />
+      ) : (
+        <>
+          {user?.data?.accessId !== 1 ? (
+            <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-4">
+              <div className="max-w-xs sm:max-w-md p-6 sm:p-10 bg-white rounded-lg shadow-lg w-[600px]">
+                <Calendar onChange={onChange} value={date} maxDate={new Date()} className="react-calendar" />
+              </div>
+            </div>
+          ) : null}
+        </>
+      )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
@@ -194,20 +212,22 @@ const Page = () => {
                 {isToday ? (
                   <>
                     {/* Show both PunchIn and PunchOut time if both are completed */}
+
                     {punchInTime && punchOutTime ? (
                       <>
-                        <p className="text-black font-bold">PunchIn-Time: {punchInTime}</p>
-                        <p className="text-black font-bold">PunchOut-Time: {punchOutTime}</p>
+                        <h1 className="text-black font-bold pb-4"> {formattedDate}</h1>
+                        <p className="text-black font-bold">PunchIn-Time : {punchInTime}</p>
+                        <p className="text-black font-bold">PunchOut-Time : {punchOutTime}</p>
                       </>
                     ) : (
                       <>
                         {isPunchedOut ? (
                           // If only PunchOut is done
-                          <p className="text-black font-bold">PunchOut-Time: {punchOutTime}</p>
+                          <p className="text-black font-bold">PunchOut-Time : {punchOutTime}</p>
                         ) : isPunchedIn ? (
                           <>
                             {/* If only PunchIn is done and PunchOut is still pending */}
-                            <p className="text-black font-bold">PunchIn-Time: {punchInTime}</p>
+                            <p className="text-black font-bold">PunchIn-Time : {punchInTime}</p>
                             <button
                               type="button"
                               className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm sm:text-base inline-flex items-center px-4 py-2.5 sm:px-5 sm:py-2.5 text-center"
@@ -219,8 +239,9 @@ const Page = () => {
                         ) : (
                           <>
                             {/* If neither PunchIn nor PunchOut are done */}
-                            <p className="text-black font-bold">PunchIn-Time: {punchInTime || "Not yet punched in"}</p>
-                            <p className="text-black font-bold">PunchOut-Time: {punchOutTime || "Not yet punched out"}</p>
+                            <h1 className="text-black font-bold m-2"> {formattedDate}</h1>
+                            <p className="text-black font-bold">PunchIn-Time : {punchInTime || "Not yet punched in"}</p>
+                            <p className="text-black font-bold">PunchOut-Time : {punchOutTime || "Not yet punched out"}</p>
                             <button
                               type="button"
                               className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm sm:text-base inline-flex items-center px-4 py-2.5 sm:px-5 sm:py-2.5 text-center"
@@ -236,8 +257,9 @@ const Page = () => {
                 ) : (
                   <>
                     {/* Display when the selected date is not today */}
-                    <p className="text-black font-bold">PunchIn-Time: {punchInTime}</p>
-                    <p className="text-black font-bold">PunchOut-Time: {punchOutTime}</p>
+                    <h1 className="text-black font-bold m-2"> {formattedDate}</h1>
+                    <p className="text-black font-bold">PunchIn-Time : {punchInTime}</p>
+                    <p className="text-black font-bold">PunchOut-Time : {punchOutTime}</p>
                   </>
                 )}
               </div>
@@ -289,6 +311,10 @@ const Page = () => {
           </div>
         </div>
       )}
+     <>
+     <AllUsers/>
+     </>
+      
     </>
   );
 };

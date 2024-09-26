@@ -64,7 +64,7 @@ export async function PUT(request,{params}) {
 
     
   } catch (error) {
-    // console.log(error)
+    console.log(error)
     return NextResponse.json({
       message: "Error fetching attendance",
       status: 300
