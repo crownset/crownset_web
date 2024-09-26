@@ -159,7 +159,7 @@ export default function TaskList({ workspace_id }) {
   }
 
   return (
-    <div className="mt-5 mb-10   sm:h-[69vh] sm:overflow-y-auto sm:overflow-x-auto pb-3 pr-6">
+    <div className="mt-5 mb-10   sm:h-[69vh] sm:overflow-y-auto sm:overflow-x-auto pb-3 pr-6 scrollbar-custom ">
 
       <div className="flex relative justify-center sm:justify-start ">
 
@@ -193,7 +193,7 @@ export default function TaskList({ workspace_id }) {
                 <div className="mt-2 flex gap-4 items-center">
 
                   <span
-                    className='bg-blue-500 text-white rounded-lg px-2 py-1 cursor-pointer'
+                    className='bg-gray-400 hover:text-gray-800 text-white  hover:bg-gray-300 rounded-lg px-2 py-1 cursor-pointer'
                     onClick={handleAddTaskList}
                   >
                     {isCreatingList ? (

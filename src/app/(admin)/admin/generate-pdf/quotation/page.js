@@ -109,7 +109,7 @@ const Page = () => {
             <form className="w-full max-w-screen-lg mx-auto mt-10 " autoComplete="off" onSubmit={handleSubmit}>
                 <div className=" bg-dashboardUserBg gap-5 mb-8 py-3 px-3 rounded-3xl flex items-center">
                     <div className="text-2xl italic underline">
-                        <h1>Generate Invoice</h1>
+                        <h1>Generate Quotation</h1>
                     </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-10 mb-8 w-[90%] md:w-full m-auto">
