@@ -215,14 +215,14 @@ const Page = () => {
 
                     <div className='flex justify-end items-center gap-5 cursor-pointer  mt-4'>
 
-                        <div className='hidden sm:block w-[40%]'>
+                        <div className='hidden sm:block w-[40%] shadow-md  rounded-2xl'>
                             <div className=' flex justify-center '>
                                 <input
                                     type="text"
                                     value={searchItem}
                                     onChange={handleInputChange}
-                                    placeholder='Search by Name'
-                                    className='border border-blue-700 rounded-2xl px-3 py-1 outline-none w-full text-gray-800'
+                                    placeholder='Search By Name'
+                                    className=' rounded-2xl px-3 py-1 outline-none w-full text-gray-800 '
                                 />
                             </div>
                         </div>
@@ -267,7 +267,7 @@ const Page = () => {
                             value={searchItem}
                             onChange={handleInputChange}
                             placeholder='Search by Name'
-                            className='border border-blue-700 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800 mb-3'
+                            className='outline-1 outline-blue-600 rounded-2xl px-3 py-1 mt-3 outline-none text-gray-800 mb-3'
                         />
                     </div>
 
