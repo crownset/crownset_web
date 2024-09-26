@@ -1,10 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { format, addDays, startOfMonth, endOfMonth, setMonth, setYear } from 'date-fns';
+import { format, addDays, startOfMonth, endOfMonth, setMonth, setYear, isSameDay } from 'date-fns';
 import { GrCaretPrevious, GrCaretNext } from "react-icons/gr";
 import * as Config from "@/helpers/admin/config"
 import { useDispatch, useSelector } from 'react-redux';
-import { punchInDatas, punchOutData } from '@/redux/slices/attendanceSlice';
+import { getData, punchInDatas, punchOutData } from '@/redux/slices/attendanceSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import moment from 'moment';
 
@@ -15,11 +15,27 @@ const AttendanceCalendar = () => {
   const [punchInData, setPunchInData] = useState(null);
   const [punchOutDetail, setPunchOutDetail] = useState(null);
   const [currentRangeStart, setCurrentRangeStart] = useState(startOfMonth(currentDate));
+  const [selectedDate, setSelectedDate] = useState(new Date(), "yyyy-MM-dd")
   const { attendance, isPunching, isPunchout } = useSelector((state) => state.attendance);
+
+  const [attendanceData, setAttendanceData] = useState(null);
+  console.log("attendanceData", attendanceData)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // Retrieve punch-in and punch-out data from localStorage on component mount
+    const fetchedAttendanceData = async () => {
+      try {
+        const dataResponse = await dispatch(getData({ date: selectedDate }))
+        setAttendanceData(dataResponse.payload)
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+    fetchedAttendanceData()
+  }, [selectedDate, dispatch])
+
+  useEffect(() => {
     const savedPunchInData = localStorage.getItem('punchInData');
     const savedPunchOutDetail = localStorage.getItem('punchOutDetail');
 
@@ -99,7 +115,7 @@ const AttendanceCalendar = () => {
     try {
       const response = await fetch('https://api.ipify.org?format=json');
       const data = await response.json();
-      return data.ip;  // The IP address
+      return data.ip;
     } catch (error) {
       console.error("Error fetching IP address:", error);
       return null;
@@ -110,10 +126,9 @@ const AttendanceCalendar = () => {
     try {
       const location = await getLocation()
       const ip = await getPublicIP();
+      console.log("location>>>", ip)
       const punchInRes = await dispatch(punchInDatas({ latitude: location.latitude, longitude: location.longitude, ip: ip }))
       setPunchInData(punchInRes?.payload);
-
-      // Save punchInData to localStorage
       localStorage.setItem('punchInData', JSON.stringify(punchInRes?.payload));
 
       toast.success(punchInRes?.payload?.message)
@@ -126,16 +141,19 @@ const AttendanceCalendar = () => {
     try {
       const ip = await getPublicIP();
       const location = await getLocation();
+      console.log("location>>>", location)
       const punchOutRes = await dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude, ip: ip }));
       setPunchOutDetail(punchOutRes?.payload);
-
-      // Save punchOutDetail to localStorage
       localStorage.setItem('punchOutDetail', JSON.stringify(punchOutRes?.payload));
-
       toast.success(punchOutRes?.payload?.message);
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleSelectedDate = (date) => {
+    const formatDate = format(date, "yyyy-MM-dd")
+    setSelectedDate(formatDate)
   }
 
   return (
@@ -184,6 +202,7 @@ const AttendanceCalendar = () => {
                 key={index}
                 className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[100px] sm:w-[150px] 
         ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'}`}
+                onClick={() => handleSelectedDate(date)}
               >
                 <div className="flex items-center px-6 py-4">
                   <div className="text-center">
@@ -219,31 +238,52 @@ const AttendanceCalendar = () => {
         </div>
 
         <div className='flex flex-col mt-5 justify-center items-center gap-4'>
-          <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl  md:w-[50%] m-auto'>
+          <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl md:w-[50%] m-auto'>
             <ul>
               <li className='text-bodyTextColor font-semibold'>Punch In :</li>
               <li className='text-bodyTextColor font-semibold'>Punch Out :</li>
               <li className='text-bodyTextColor font-semibold'>Working Hours :</li>
             </ul>
             <ul>
-              <li className='text-bodyTextColor font-semibold'>
-                {punchInData?.data?.punchIn && moment(punchInData?.data?.punchIn).format('MMM Do YYYY, h:mm:ss a')}
-              </li>
-              <li className='text-bodyTextColor font-semibold'>
-                {punchInData?.data?.punchIn && moment(punchInData?.data?.punchIn).format('MMM Do YYYY, h:mm:ss a')}
-              </li>
-              <li className='text-bodyTextColor font-semibold'>
-                  
-                </li>
+              {
+                isSameDay(selectedDate, new Date()) ? (
+                  <>
+                    <li className="text-bodyTextColor font-semibold">
+                      {punchInData?.data?.punchIn && moment(punchInData?.data?.punchIn).format('MMM Do YYYY, h:mm:ss a')}
+                    </li>
+                    <li className="text-bodyTextColor font-semibold">
+                      {punchOutDetail?.data?.punchOut && moment(punchOutDetail?.data?.punchOut).format('MMM Do YYYY, h:mm:ss a')}
+                    </li>
+                    <li className="text-bodyTextColor font-semibold">{punchOutDetail?.workedHours}</li>
+                  </>
+                ) : (
+                  <>
+                    <li className='text-bodyTextColor font-semibold'>
+                      {attendance?.records?.[0]?.punchIn ? moment(attendance?.records[0]?.punchIn).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
+                    </li>
+                    <li className='text-bodyTextColor font-semibold'>
+                      {attendance?.records?.[0]?.punchOut ? moment(attendance?.records[0]?.punchOut).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
+                    </li>
+                    <li className='text-bodyTextColor font-semibold'>
+                      {attendance?.records?.[0]?.hours || 'N/A'}
+                    </li>
+                  </>
+
+                )
+              }
             </ul>
           </div>
           <div className='flex justify-center items-center gap-2 w-[100%] md:w-[50%]'>
-            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm"
-              onClick={handlePunchIn}>
+            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
+              onClick={handlePunchIn}
+            // disabled={punchInData?.data?.isPunchIn === true}
+            >
               Punch In
             </button>
-            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm"
-              onClick={handlePunchOut}>
+            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
+              onClick={handlePunchOut}
+            // disabled={punchOutDetail?.data?.isPunchOut === true}
+            >
               Punch Out
             </button>
           </div>

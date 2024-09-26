@@ -46,7 +46,7 @@ export const getData = createAsyncThunk(
 
 
 const initialState = {
-    attendance: null, 
+    attendance: [], 
     isPunching: false,
     isPunchout: false, 
     error: false, 

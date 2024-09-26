@@ -8,7 +8,7 @@ export const OFFICE_LOCATION = {
     // latitude : 28.5085489,
     // longitude : 77.3789009
     latitude : 28.5966336,
-    longitude : 77.4504448
+    longitude :77.4504448
   };
   
 

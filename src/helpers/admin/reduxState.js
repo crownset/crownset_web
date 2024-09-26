@@ -108,7 +108,7 @@ export const handleAttendanceActions = (builder, action, loadingKey, customCases
     })
     .addCase(action.fulfilled, (state, action) => {
         if (!customCases) {
-            state.daily = action.payload;
+            state.attendance = action.payload;
         }
         state[loadingKey] = false;
     })
