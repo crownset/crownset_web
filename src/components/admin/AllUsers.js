@@ -5,7 +5,7 @@ import { assignUsers } from '@/redux/slices/userSlice';
 import { CustomLoader } from '@/components/CustomLoader';
 import { useRouter } from 'next/navigation';
 
-const DepartmentUsers = () => {
+const AllUsers = () => {
 
   const dispatch = useDispatch();
     
@@ -21,7 +21,7 @@ const DepartmentUsers = () => {
   
     const handleAttendanceView = (id) => {
     
-        router.push(`/admin/attendance/${id}`)
+        router.push(`/admin/attendance/seeattendance/${id}`)
     };
 
     return (
@@ -38,7 +38,7 @@ const DepartmentUsers = () => {
                         {user?.length > 0 ? (
                             user.map((user) => (
                                 <div
-                                    key={user.id}
+                                    key={user._id}
                                     className="flex cursor-pointer flex-col justify-center items-center bg-dashboardUserBg px-4 py-3 rounded-2xl text-center shadow-md"
                                     onClick={() => handleAttendanceView(user?._id)} 
                                 >
@@ -56,4 +56,4 @@ const DepartmentUsers = () => {
     );
 };
 
-export default DepartmentUsers;
+export default AllUsers;

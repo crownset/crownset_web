@@ -35,7 +35,7 @@ export const getData = createAsyncThunk(
     async (date, { rejectWithValue }) => {
         try {
             const response = await axios.post('/api/getAttendance', date);
-            //  console.log(response);
+              //console.log(response);
             return response.data
         } catch (error) {
             // console.log(error);
@@ -51,8 +51,8 @@ export const getDataAll = createAsyncThunk(
     "attendance/getdataall",
     async ({ userId, updatedData }, { rejectWithValue }) => {
         try {
-            const getResponse = await axios.put(`'/api/getAllAttendance'${userId}`, updatedData)
-            console.log(" getall.... ", getResponse.data)
+            const getResponse = await axios.put(`/api/getAllAttendance/${userId}`,{})
+            console.log(" getall.... ", getResponse)
             return getResponse.data;
         } catch (error) {
             return rejectWithValue(error.response.data)

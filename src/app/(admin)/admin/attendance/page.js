@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { CustomLoader } from '@/components/CustomLoader';
 import { punchInDatas, punchOutData, getData } from '@/redux/slices/attendanceSlice';
-import GetAttendance from '@/components/admin/GetAttendance';
+import AllUsers from '@/components/admin/AllUsers';
 
 
 const Page = () => {
@@ -22,7 +22,6 @@ const Page = () => {
   const [user, setUser] = useState(null);
 
   const { attendance, isPunching, isPunchout, loading } = useSelector((state) => state.attendance);
-
   const dispatch = useDispatch();
 
   const today = new Date();
@@ -312,8 +311,10 @@ const Page = () => {
           </div>
         </div>
       )}
-
-      <GetAttendance />
+     <>
+     <AllUsers/>
+     </>
+      
     </>
   );
 };
