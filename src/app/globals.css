@@ -150,6 +150,24 @@ html {
     background: #555;
   }
 
+  .scrollbar-admindashboard::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-admindashboard::-webkit-scrollbar-track {
+    background: #dbe5f8;
+    border-radius: 10px;
+  }
+
+  .scrollbar-admindashboard::-webkit-scrollbar-thumb {
+    background:#82a5e7; 
+    border-radius: 10px;
+  }
+
+  .scrollbar-admindashboard::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+
   .custom-tooltip {
     background-color: #2e4c85;
     color: #FFFFFF;

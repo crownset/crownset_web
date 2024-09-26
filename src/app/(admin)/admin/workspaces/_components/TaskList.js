@@ -81,7 +81,7 @@ export default function TaskList({ workspace_id }) {
       setNewTaskListDeadline('');
       toast.success(res?.data?.data?.message);
     } catch (error) {
-       return toast.error("Failed to create list")
+      return toast.error("Failed to create list")
 
     }
 
@@ -159,7 +159,7 @@ export default function TaskList({ workspace_id }) {
   }
 
   return (
-    <div className="mt-5 mb-10   sm:h-[69vh] sm:overflow-y-auto sm:overflow-x-auto pb-3 pr-6">
+    <div className="mt-5 mb-10   sm:h-[69vh] sm:overflow-y-auto sm:overflow-x-auto pb-3 pr-6 scrollbar-custom ">
 
       <div className="flex relative justify-center sm:justify-start ">
 
@@ -169,7 +169,7 @@ export default function TaskList({ workspace_id }) {
 
             showAddList ? (
 
-              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md  w-[280px]  sm:w-[300px] flex-none'>
+              <div className='bg-gray-100 px-2 py-4 rounded-xl shadow-md  w-[300px]  sm:w-[300px] flex-none'>
 
                 <input
                   type="text"
@@ -191,22 +191,24 @@ export default function TaskList({ workspace_id }) {
                 </div>
 
                 <div className="mt-2 flex gap-4 items-center">
-                  {isCreatingList ? (
-                    <ClipLoader size={15} />
-                  ) : (
-                    <span
-                      className='bg-blue-500 text-white rounded-lg px-2 py-1 cursor-pointer'
-                      onClick={handleAddTaskList}
-                    >
-                      Add
-                    </span>
-                  )}
+
+                  <span
+                    className='bg-gray-400 hover:text-gray-800 text-white  hover:bg-gray-300 rounded-lg px-2 py-1 cursor-pointer'
+                    onClick={handleAddTaskList}
+                  >
+                    {isCreatingList ? (
+                      <ClipLoader size={15} />
+                    ) : ("Add")}
+
+
+                  </span>
+
 
                   <span
                     onClick={() => { setShowAddList(false) }}
                     className='cursor-pointer bg-transparent hover:bg-gray-200 p-1 rounded-lg'
                   >
-                    <CloseIcon className='text-[1.2rem]' />
+                    <CloseIcon className='text-[1.2rem] text-gray-600' />
                   </span>
                 </div>
 
@@ -215,10 +217,10 @@ export default function TaskList({ workspace_id }) {
             ) : (
 
               <div
-                className='flex gap-2 w-[280px]  p-2  flex-none sm:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
+                className='flex gap-2 w-[300px]  p-2  flex-none sm:w-[300px] cursor-pointer rounded-xl todoButtonEffect'
                 onClick={() => { setShowAddList(true) }}
               >
-                <PlusIcon className='text-[1.5rem]' />
+                <PlusIcon className='text-[1.5rem] ' />
                 <span >Add new List</span>
               </div>
 
@@ -238,7 +240,7 @@ export default function TaskList({ workspace_id }) {
                 onCancelEditTaskList={handleCancelEditTaskList}
                 isEditingTaskList={editingTaskListIndex === index}
                 workspace_id={workspace_id}
-                deleteTaskList={()=>deleteTaskList(index)}
+                deleteTaskList={() => deleteTaskList(index)}
               />
             ))
           }
