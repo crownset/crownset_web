@@ -1,9 +1,11 @@
 "use client";
 import Image from 'next/image';
 import React from 'react';
-import logo from "../../assets/images/crownsetWithoutBg.png";
+import {logo} from '@/helpers/constant'
 
 const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
+    
+    
     const calculateAmount = (item) => {
         return (item.quantity * item.rate).toFixed(2);
     };
@@ -31,7 +33,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                     </td>
                     <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', width:"50%", }} colSpan="2">
                         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', height: '100%', padding: '10px' }}>
-                            <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px' }} />
+                            <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px' }} width={100} height={100} />
                         </div>
                     </td>
                 </tr>
@@ -39,8 +41,8 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
 
             <table style={{ border: '1px solid white', borderCollapse: 'collapse', width: '1000px', margin: 'auto', marginTop:"20px" }}>
                 <tr>
-                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#c9bbf5', width: '50%', padding: "5px", borderRadius: "20px" }}>
-                        <ul>
+                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "20px",marginRight: '10px' }}>
+                        <ul style={{ marginLeft: '15px' }}>
                             <li style={{ listStyle: 'none', fontSize: '20px', paddingBottom: '5px', color: '#6c46e4', fontWeight: 'bold' }}>
                                 Quotation From
                             </li>
@@ -49,8 +51,8 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                             <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: '5px' }}>Utter Pradesh, India - 201304</li>
                         </ul>
                     </td>
-                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#c9bbf5', width: '50%', padding: "5px", borderRadius: "20px" }}>
-                        <ul>
+                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "20px" }}>
+                        <ul style={{ marginLeft: '15px', display:"flex", justifyContent:"start", flexDirection:"column", paddingBottom:"20px" }}>
                             <li style={{ listStyle: 'none', fontSize: '20px', paddingBottom: '5px', color: '#6c46e4', fontWeight: 'bold' }}>
                                 Quotation For
                             </li>
@@ -70,7 +72,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                     <td style={{ fontSize: '20px', margin: 0, textAlign: 'center', backgroundColor: '#6c46e4', color: 'white', padding: "5px" }}>Amount</td>
                 </tr>
                 {formData.items.map((item, index) => (
-                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#c9bbf5' : '#ffffff' }}>
+                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#F1ECF9' : '#ffffff' }}>
                         <td style={{ fontSize: '15px', margin: 0, padding: '10px', textAlign: 'center' }}>{index + 1}</td>
                         <td style={{ fontSize: '15px', margin: 0, padding: '10px' }}>
                             <ul>

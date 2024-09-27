@@ -1,7 +1,7 @@
 // components/InvoiceTemplate.js
 
 import React from 'react';
-import logo from "../../assets/images/crownsetWithoutBg.png";
+import {logo} from '@/helpers/constant'
 import Image from 'next/image';
 
 const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
@@ -33,7 +33,7 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
           <tr>
             <td>
               <div style={{ height: '100%', padding: '10px', textAlign: 'center' }}>
-                <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px', backgroundColor: 'white', borderRadius: '5px', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center" }} />
+                <Image src={logo} alt="Logo" style={{ width: '100px', height: 'auto', marginRight: '10px', backgroundColor: 'white', borderRadius: '5px', textAlign: "center", display: "flex", justifyContent: "center", alignItems: "center" }} width={100} height={100}/>
               </div>
             </td>
             <td>

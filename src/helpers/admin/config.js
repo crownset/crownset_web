@@ -25,15 +25,11 @@ export const menuItems = [
         icon: SiGooglebigquery,
     },
     {
-        name: "Quotation",
-        href: "/admin/quotation",   
+        name: "Quotation/Invoice",
+        href: "/admin/generate-pdf",   
         icon: FaFilePdf,
     },
-    {
-        name: "Invoice",
-        href: "/admin/invoice",   
-        icon: FaFileInvoice,
-    },
+    
     {
         name: "Projects",
         href: "/admin/projects",

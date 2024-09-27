@@ -21,7 +21,7 @@ export async function PUT(request,{params}) {
 
     const {userId} = params
 
-    const allAttendance = await Attendance.find({userId})
+    const allAttendance = await Attendance.find({userId}).sort({punchIn:-1})
 
     const { date} = await request.json();  // Expecting the date to be provided in the request
 
@@ -64,7 +64,7 @@ export async function PUT(request,{params}) {
 
     
   } catch (error) {
-    // console.log(error)
+    console.log(error)
     return NextResponse.json({
       message: "Error fetching attendance",
       status: 300

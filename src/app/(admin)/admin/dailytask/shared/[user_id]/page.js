@@ -1,5 +1,4 @@
 "use client"
-
 import UpdateSharedTask from '@/components/admin/UpdateSharedTask';
 import { CustomLoader } from '@/components/CustomLoader';
 import { getSharedTask } from '@/redux/slices/sharedTaskSlice';
