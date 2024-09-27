@@ -68,7 +68,6 @@ const attendanceSlice = createSlice({
             })
             .addCase(getData.fulfilled, (state, action) => {
                 state.isLoading = false;
-                // console.log(action.payload);
                 state.attendance = action.payload;
             })
             .addCase(getData.rejected, (state, action) => {

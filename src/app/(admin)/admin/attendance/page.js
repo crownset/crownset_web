@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getData, punchInDatas, punchOutData } from '@/redux/slices/attendanceSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import moment from 'moment';
+import { CustomLoader } from '@/components/CustomLoader';
 
 const AttendanceCalendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -171,7 +172,7 @@ const AttendanceCalendar = () => {
       />
       <div className="mt-10 bg-white shadow-2xl w-[100%] sm:w-[80%] m-auto rounded-2xl p-10">
         <div className="flex items-center justify-center flex-col">
-          <div className="flex justify-start w-full pl-5 mb-3 gap-3">
+          <div className="flex justify-center sm:justify-start w-full pl-5 mb-5 gap-3">
             <select
               className="p-2 bg-dashboardUserBg text-dashboard rounded-3xl font-bold cursor-pointer"
               value={selectedMonth}
@@ -200,8 +201,7 @@ const AttendanceCalendar = () => {
             {dates.map((date, index) => (
               <div
                 key={index}
-                className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[100px] sm:w-[150px] 
-        ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'}`}
+                className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'}`}
                 onClick={() => handleSelectedDate(date)}
               >
                 <div className="flex items-center px-6 py-4">
@@ -217,7 +217,6 @@ const AttendanceCalendar = () => {
               </div>
             ))}
           </div>
-
           <div className='flex w-full justify-between items-center mt-4'>
             <button
               className="px-4 py-2 rounded transition-all"
@@ -236,14 +235,20 @@ const AttendanceCalendar = () => {
             </button>
           </div>
         </div>
-
+            
         <div className='flex flex-col mt-5 justify-center items-center gap-4'>
-          <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl md:w-[50%] m-auto'>
-            <ul>
-              <li className='text-bodyTextColor font-semibold'>Punch In :</li>
-              <li className='text-bodyTextColor font-semibold'>Punch Out :</li>
-              <li className='text-bodyTextColor font-semibold'>Working Hours :</li>
-            </ul>
+          <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl  md:w-[50%] gap-[9px] text-[9px] sm:text-sm sm:gap-0 m-auto'>
+            {
+              attendance?.records?.length > 0 ? (
+                <ul>
+                  <li className='text-bodyTextColor font-semibold'>Punch In :</li>
+                  <li className='text-bodyTextColor font-semibold'>Punch Out :</li>
+                  <li className='text-bodyTextColor font-semibold'>Working Hours :</li>
+                </ul>
+              ) : (
+                null
+              )
+            }
             <ul>
               {
                 isSameDay(selectedDate, new Date()) ? (
@@ -258,34 +263,56 @@ const AttendanceCalendar = () => {
                   </>
                 ) : (
                   <>
-                    <li className='text-bodyTextColor font-semibold'>
-                      {attendance?.records?.[0]?.punchIn ? moment(attendance?.records[0]?.punchIn).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
-                    </li>
-                    <li className='text-bodyTextColor font-semibold'>
-                      {attendance?.records?.[0]?.punchOut ? moment(attendance?.records[0]?.punchOut).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
-                    </li>
-                    <li className='text-bodyTextColor font-semibold'>
-                      {attendance?.records?.[0]?.hours || 'N/A'}
-                    </li>
+                    {attendance?.records?.length > 0 ? (
+                      <>
+                        <li className='text-bodyTextColor font-semibold'>
+                          {attendance?.records?.[0]?.punchIn ? moment(attendance?.records[0]?.punchIn).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
+                        </li>
+                        <li className='text-bodyTextColor font-semibold'>
+                          {attendance?.records?.[0]?.punchOut ? moment(attendance?.records[0]?.punchOut).format('MMM Do YYYY, h:mm:ss a') : 'N/A'}
+                        </li>
+                        <li className='text-bodyTextColor font-semibold'>
+                          {attendance?.records?.[0]?.hours || 'N/A'}
+                        </li>
+                      </>
+                    ) : (
+                      <div>
+                        <li className='text-bodyTextColor font-semibold w-[400px] text-center'>{attendance?.message}</li>
+                      </div>
+                    )}
                   </>
-
                 )
               }
             </ul>
           </div>
           <div className='flex justify-center items-center gap-2 w-[100%] md:w-[50%]'>
-            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
-              onClick={handlePunchIn}
-            // disabled={punchInData?.data?.isPunchIn === true}
-            >
-              Punch In
-            </button>
-            <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
-              onClick={handlePunchOut}
-            // disabled={punchOutDetail?.data?.isPunchOut === true}
-            >
-              Punch Out
-            </button>
+            {
+              isSameDay(selectedDate, new Date()) && (
+                <>
+                  <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
+                    onClick={handlePunchIn}
+                    disabled={punchInData?.data?.isPunchIn === true}
+                  >
+                    {
+                      isPunching ? (
+                        <CustomLoader loading={isPunching} color={"#ffffff"} size={10} />
+                      ) : "Punch In"
+                    }
+
+                  </button>
+                  <button className="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-[10px] w-full sm:w-auto px-5 py-2.5 text-center md:w-[40%] md:text-sm cursor-pointer"
+                    onClick={handlePunchOut}
+                    disabled={punchOutDetail?.data?.isPunchOut === true}
+                  >
+                    {
+                      isPunchout ? (
+                        <CustomLoader loading={isPunchout} color={"#ffffff"} size={10} />
+                      ) : "Punch Out"
+                    }
+                  </button>
+                </>
+              )
+            }
           </div>
         </div>
       </div>
