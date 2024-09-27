@@ -54,7 +54,7 @@ const AllUsers = () => {
                                     onClick={() => handleAttendanceView(user?._id)} 
                                 >
                                     <div className="text-lg font-medium">{user?.firstName}</div>
-                                    <div className="text-sm font-light text-gray-500">View Attendance</div>
+
                                 </div>
                             ))
                         ) : (
