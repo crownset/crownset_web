@@ -22,11 +22,11 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                             <ul>
                                 <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: "10px" }}>Quotation No #</li>
                                 <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: "10px" }}>Quotation Date </li>
-                                <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: "10px" }}>Valid Till Date</li>
+                                <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: "10px" }}>Valid Till Date </li>
                             </ul>
                             <ul>
-                                <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bold', paddingBottom: "10px" }}>{formData.quotation_no}</li>
-                                <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bold', paddingBottom: "10px" }}> {formData.quotation_date}</li>
+                                <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bold', paddingBottom: "10px", marginLeft:"4px" }}>{formData.quotation_no}</li>
+                                <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bold', paddingBottom: "10px", marginLeft:"4px" }}> {formData.quotation_date}</li>
                                 <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bold', paddingBottom: "10px" }}>{formData.valid_date}</li>
                             </ul>
                         </div>
@@ -41,35 +41,35 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
 
             <table style={{ border: '1px solid white', borderCollapse: 'collapse', width: '1000px', margin: 'auto', marginTop:"20px" }}>
                 <tr>
-                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "20px",marginRight: '10px' }}>
+                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "10px",marginRight: '10px' }}>
                         <ul style={{ marginLeft: '15px' }}>
                             <li style={{ listStyle: 'none', fontSize: '20px', paddingBottom: '5px', color: '#6c46e4', fontWeight: 'bold' }}>
                                 Quotation From
                             </li>
-                            <li style={{ listStyle: 'none', fontSize: '15px', fontWeight: 'bolder', paddingBottom: '5px' }}>Crownset Marketing Agency</li>
+                            <li style={{ listStyle: 'none', fontSize: '15px', fontWeight: 'bolder', paddingBottom: '5px' , fontWeight: 'bold'}}>Crownset Marketing Agency</li>
                             <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: '5px' }}>127, Tower B, Logix Technova, Sector 132, Noida</li>
                             <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: '5px' }}>Utter Pradesh, India - 201304</li>
                         </ul>
                     </td>
-                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "20px" }}>
+                    <td style={{ fontSize: '15px', margin: 0, border: '1px solid white', backgroundColor: '#F1ECF9', width: '40%', padding: "5px", borderRadius: "10px" }}>
                         <ul style={{ marginLeft: '15px', display:"flex", justifyContent:"start", flexDirection:"column", paddingBottom:"20px" }}>
                             <li style={{ listStyle: 'none', fontSize: '20px', paddingBottom: '5px', color: '#6c46e4', fontWeight: 'bold' }}>
                                 Quotation For
                             </li>
-                            <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bolder', paddingBottom: '5px' }}>{formData.quotation_for}</li>
+                            <li style={{ listStyle: 'none', fontSize: '12px', fontWeight: 'bolder', paddingBottom: '5px' , fontWeight: 'bold'}}>{formData.quotation_for}</li>
                             <li style={{ listStyle: 'none', fontSize: '12px', paddingBottom: '5px' }}>India</li>
                         </ul>
                     </td>
                 </tr>
             </table>
 
-            <table style={{ border: '0.25px solid black', borderCollapse: 'collapse', width: '1000px', margin: 'auto', marginTop: '20px', borderRadius: "10px" }}>
-                <tr>
-                    <td style={{ fontSize: '20px', margin: 0, backgroundColor: '#6c46e4', color: 'white', padding: "5px", textAlign:"center" }}>S.No</td>
-                    <td style={{ fontSize: '20px', margin: 0, backgroundColor: '#6c46e4', color: 'white' }}>Item</td>
-                    <td style={{ fontSize: '20px', margin: 0, textAlign: 'center', backgroundColor: '#6c46e4', color: 'white', padding: "5px" }}>Quantity</td>
-                    <td style={{ fontSize: '20px', margin: 0, textAlign: 'center', backgroundColor: '#6c46e4', color: 'white', padding: "5px" }}>Rate</td>
-                    <td style={{ fontSize: '20px', margin: 0, textAlign: 'center', backgroundColor: '#6c46e4', color: 'white', padding: "5px" }}>Amount</td>
+            <table style={{ border: '0.25px solid #D3D3D3', borderCollapse: 'collapse', width: '1000px', margin: 'auto', marginTop: '20px', borderRadius: "10px" }}>
+                <tr style={{backgroundColor: '#6c46e4',height:"50px"}}>
+                    <td style={{ fontSize: '20px', margin: 0,  color: 'white',textAlign:"center", verticalAlign:"middle"}}>S.No</td>
+                    <td style={{ fontSize: '20px', margin: 0, color: 'white',textAlign:"center",verticalAlign:"middle"}}>Item</td>
+                    <td style={{ fontSize: '20px', margin: 0, color: 'white',textAlign:"center",verticalAlign:"middle"}}>Quantity</td>
+                    <td style={{ fontSize: '20px', margin: 0, color: 'white' ,textAlign:"center",verticalAlign:"middle"}}>Rate</td>
+                    <td style={{ fontSize: '20px', margin: 0, color: 'white' ,textAlign:"center",verticalAlign:"middle"}}>Amount</td>
                 </tr>
                 {formData.items.map((item, index) => (
                     <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#F1ECF9' : '#ffffff' }}>
@@ -80,7 +80,7 @@ const QuotationTemplate = React.forwardRef(({ formData, visible }, ref) => {
                             </ul>
                         </td>
                         <td style={{ fontSize: '15px', margin: 0, textAlign: 'center', padding: "5px" }}>{item.quantity}</td>
-                        <td style={{ fontSize: '15px', margin: 0, textAlign: 'center', padding: "5px" }}>₹ {item.rate}</td>
+                        <td style={{ fontSize: '15px', margin: 0, textAlign: 'center', padding: "5px" }}>₹ {parseFloat(item.rate).toFixed(2)}</td>
                         <td style={{ fontSize: '15px', margin: 0, textAlign: 'center', padding: "5px" }}>₹ {calculateAmount(item)}</td>
                     </tr>
                 ))}

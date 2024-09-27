@@ -104,20 +104,23 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
 
       <table
         style={{
-          border: '1px solid white',
+          border: '1px solid #0d78aa',
           borderCollapse: 'collapse',
           width: '1000px',
           margin: 'auto',
           marginTop: '10px',
-          borderRadius: '10px',
+          
         }}
       >
         <thead>
-          <tr style={{ padding: '5px', borderRadius: '10px' }}>
+          <tr style={{ padding: '5px', borderRadius: '10px' ,height:"55px"}}>
             {/* <td style={{ fontSize: '20px', margin: '0', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' }}>
               
             </td> */}
-            <td style={{ fontSize: '20px', margin: '0', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' }}>
+            <td style={{ fontSize: '20px', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' ,textAlign: 'center'}}>
+              S.No.
+            </td>
+            <td style={{ fontSize: '20px', fontWeight: 'bold', backgroundColor: '#c0dfff', color: '#0a549d' ,textAlign: 'center'}}>
               Item
             </td>
             <td style={{ fontSize: '20px', margin: '0', fontWeight: 'bold', textAlign: 'center', backgroundColor: '#c0dfff', color: '#0a549d' }}>
@@ -131,11 +134,14 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
             </td>
           </tr>
         </thead>
-        <tbody>
+        <tbody> 
           {formData.items.map((item, index) => (
             <tr key={index} style={{ padding: '10px' }}>
-              <td style={{ fontSize: '18px', margin: '0' }}>
-                {index + 1}. {item.name}
+              <td style={{ fontSize: '18px', margin: '0',textAlign: 'center'}}>
+                {index + 1}. 
+              </td>
+              <td style={{ fontSize: '18px', margin: '0',textAlign: 'center'}}>
+                 {item.name}
               </td>
               <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
                 {item.quantity}
