@@ -52,7 +52,7 @@ export const getDataAll = createAsyncThunk(
     async ({ userId, updatedData }, { rejectWithValue }) => {
         try {
             const getResponse = await axios.put(`/api/getAllAttendance/${userId}`,{})
-            console.log(" getall.... ", getResponse)
+            // console.log(" getall.... ", getResponse)
             return getResponse.data;
         } catch (error) {
             return rejectWithValue(error.response.data)
