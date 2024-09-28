@@ -34,6 +34,7 @@ const generateYears = (range = 5) => {
 
 const Page = ({ params }) => {
     const { userId } = params;
+    console.log("userID>>>>>", userId)
     const dispatch = useDispatch();
     const { attendance, loading, error } = useSelector(state => state.attendance);
     const [selectedMonthTable, setSelectedMonthTable] = useState("");
@@ -41,10 +42,11 @@ const Page = ({ params }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
     const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-    const [punchInData, setPunchInData] = useState(null);
-    const [punchOutDetail, setPunchOutDetail] = useState(null);
     const [currentRangeStart, setCurrentRangeStart] = useState(startOfMonth(currentDate));
-    const [selectedDate, setSelectedDate] = useState(new Date(), "yyyy-MM-dd")
+    const [selectedDate, setSelectedDate] = useState(null)
+    const [selectedUserDetail, setSelectedUserDetail] = useState()
+    console.log("selectedUserDetail>>>>", selectedUserDetail)
+    console.log("selectedDate>>>>", selectedDate)
 
     const Attendance_data = attendance?.all;
     console.log("Attendance_data", Attendance_data)
@@ -62,6 +64,13 @@ const Page = ({ params }) => {
         fetchAttendance();
     }, [dispatch, userId]);
 
+    useEffect(() => {
+        const today = new Date();
+        setCurrentDate(today);
+        setCurrentRangeStart(today);
+    }, []);
+
+
     const filteredData = Attendance_data?.filter(item => {
         const punchInDate = new Date(item.punchIn);
         const month = punchInDate.getMonth() + 1;
@@ -76,14 +85,13 @@ const Page = ({ params }) => {
 
     const getDateRange = (start) => {
         let dates = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = -4; i <= 0; i++) {
             const newDate = addDays(start, i);
-            if (format(newDate, 'MM') === format(start, 'MM')) {
-                dates.push(newDate);
-            }
+            dates.push(newDate);
         }
         return dates;
     };
+
 
     const handleMonthChange = (e) => {
         const newMonth = parseInt(e.target.value);
@@ -108,6 +116,7 @@ const Page = ({ params }) => {
         }
     };
 
+
     const handleNext = () => {
         const newStart = addDays(currentRangeStart, 5);
         if (newStart <= endOfMonth(currentDate)) {
@@ -119,9 +128,15 @@ const Page = ({ params }) => {
     const isNextDisabled = format(dates[dates.length - 1], 'yyyy-MM-dd') >= format(new Date(), 'yyyy-MM-dd');
     const isPreviousDisabled = format(currentRangeStart, 'yyyy-MM-dd') <= format(startOfMonth(currentDate), 'yyyy-MM-dd');
 
-    const handleSelectedDate = (date) => {
+    const handleSelectedDate = async (date) => {
         const formatDate = format(date, "yyyy-MM-dd")
         setSelectedDate(formatDate)
+        try {
+            const selectedUserRes = await dispatch(getDataAll({ userId, date: formatDate }))
+            setSelectedUserDetail(selectedUserRes?.payload)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -156,7 +171,7 @@ const Page = ({ params }) => {
                         {dates.map((date, index) => (
                             <div
                                 key={index}
-                                className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'}`}
+                                className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'} ${selectedDate === format(date, 'yyyy-MM-dd') ? "border-t-red-600" : ""}`}
                                 onClick={() => handleSelectedDate(date)}
                             >
                                 <div className="flex items-center px-6 py-4">
@@ -189,6 +204,43 @@ const Page = ({ params }) => {
                             <GrCaretNext />
                         </button>
                     </div>
+                </div>
+
+                <div className='flex flex-col mt-5 justify-center items-center gap-4'>
+                    {
+                        selectedDate && (
+                            <>
+
+                                <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl  md:w-[50%] gap-[9px] text-[9px] md:text:[13px] sm:text-sm sm:gap-0 m-auto'>
+                                    {
+                                        selectedUserDetail?.data?.length > 0 ? (
+                                            <>
+                                                <ul>
+                                                    <li className='text-bodyTextColor font-semibold'>Punch In :</li>
+                                                    <li className='text-bodyTextColor font-semibold'>Punch Out :</li>
+                                                    <li className='text-bodyTextColor font-semibold'>Working Hours :</li>
+                                                </ul>
+                                                <ul>
+                                                    <li className='text-bodyTextColor font-semibold'>
+                                                        {new Date(selectedUserDetail.data[0].punchIn).toLocaleString()}
+                                                    </li>
+                                                    <li className='text-bodyTextColor font-semibold'>
+                                                        {new Date(selectedUserDetail.data[0].punchOut).toLocaleString()}
+                                                    </li>
+                                                    <li className='text-bodyTextColor font-semibold'>{selectedUserDetail?.data?.[0].hours}</li>
+                                                </ul>
+                                            </>
+                                        ) : (
+                                            <div className='w-full'>
+                                                <p className='text-center'>{selectedUserDetail?.message}</p>
+                                            </div>
+                                        )
+                                    }
+
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
             </div>
             {/* table attendance data */}
@@ -248,16 +300,9 @@ const Page = ({ params }) => {
 
                             {(filteredData && Array.isArray(Attendance_data) ? Attendance_data : []).map((item, index) => (
                                 <tr key={index} className="even:bg-dashboardUserBg odd:bg-default">
-                                    {/* Show only punch-in date */}
                                     <td className="py-2 text-[12px] border-b text-center">{formatDate(item.punchIn)}</td>
-
-                                    {/* Show punch-in time in AM/PM */}
                                     <td className="py-2 text-[12px] border-b text-center">{formatTime(item.punchIn)}</td>
-
-                                    {/* Show punch-out time in AM/PM */}
                                     <td className="py-2 text-[12px] border-b text-center">{item.isPunchOut ? formatTime(item.punchOut) : 'N/A'}</td>
-
-                                    {/* Show working hours */}
                                     <td className="py-2 text-[12px] border-b text-center">{item.hours}</td>
                                 </tr>
                             ))}

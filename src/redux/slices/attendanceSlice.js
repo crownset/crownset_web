@@ -49,9 +49,9 @@ export const getData = createAsyncThunk(
 
 export const getDataAll = createAsyncThunk(
     "attendance/getdataall",
-    async ({ userId, updatedData }, { rejectWithValue }) => {
+    async ({ userId, date }, { rejectWithValue }) => {
         try {
-            const getResponse = await axios.put(`/api/getAllAttendance/${userId}`,{})
+            const getResponse = await axios.put(`/api/getAllAttendance/${userId}`,{date})
             // console.log(" getall.... ", getResponse)
             return getResponse.data;
         } catch (error) {
