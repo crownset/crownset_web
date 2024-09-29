@@ -19,9 +19,11 @@ const AttendanceCalendar = () => {
   const [currentRangeStart, setCurrentRangeStart] = useState(startOfMonth(currentDate));
   const [selectedDate, setSelectedDate] = useState(new Date(), "yyyy-MM-dd")
   const { attendance, isPunching, isPunchout } = useSelector((state) => state.attendance);
+  const [dataPunhIn, setDataPunchIn] = useState()
+  console.log("dataPunhIn>>>", dataPunhIn)
   const [userDetail, setUserDetail] = useState(null);
   const [attendanceData, setAttendanceData] = useState(null);
-  console.log("attendanceData", attendanceData)
+  // console.log("attendanceData", attendanceData)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -120,23 +122,24 @@ const AttendanceCalendar = () => {
     });
   };
 
-  const getPublicIP = async () => {
-    try {
-      const response = await fetch('https://api.ipify.org?format=json');
-      const data = await response.json();
-      return data.ip;
-    } catch (error) {
-      console.error("Error fetching IP address:", error);
-      return null;
-    }
-  };
+  // const getPublicIP = async () => {
+  //   try {
+  //     const response = await fetch('https://api.ipify.org?format=json');
+  //     const data = await response.json();
+  //     return data.ip;
+  //   } catch (error) {
+  //     console.error("Error fetching IP address:", error);
+  //     return null;
+  //   }
+  // };
 
   const handlePunchIn = async () => {
     try {
       const location = await getLocation()
-      const ip = await getPublicIP();
-      console.log("location>>>", ip)
-      const punchInRes = await dispatch(punchInDatas({ latitude: location.latitude, longitude: location.longitude, ip: ip }))
+      const punchInRes = await dispatch(punchInDatas({ latitude: location.latitude, longitude: location.longitude }))
+      const getInstant = await dispatch(getData({ date: new Date }))
+      setDataPunchIn(getInstant?.payload)
+      console.log("getInstant>>>>>", getInstant)
       setPunchInData(punchInRes?.payload);
       localStorage.setItem('punchInData', JSON.stringify(punchInRes?.payload));
 
@@ -148,10 +151,10 @@ const AttendanceCalendar = () => {
 
   const handlePunchOut = async () => {
     try {
-      const ip = await getPublicIP();
+      // const ip = await getPublicIP();  
       const location = await getLocation();
-      console.log("location>>>", location)
-      const punchOutRes = await dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude, ip: ip }));
+      // console.log("location>>>", location)
+      const punchOutRes = await dispatch(punchOutData({ latitude: location.latitude, longitude: location.longitude }));
       setPunchOutDetail(punchOutRes?.payload);
       localStorage.setItem('punchOutDetail', JSON.stringify(punchOutRes?.payload));
       toast.success(punchOutRes?.payload?.message);
@@ -212,7 +215,7 @@ const AttendanceCalendar = () => {
                   {dates.map((date, index) => (
                     <div
                       key={index}
-                      className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'}`}
+                      className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'} ${selectedDate === format(date, 'yyyy-MM-dd') ? "border-t-red-600" : ""}`}
                       onClick={() => handleSelectedDate(date)}
                     >
                       <div className="flex items-center px-6 py-4">
@@ -287,10 +290,13 @@ const AttendanceCalendar = () => {
                               </li>
                             </>
                           ) : (
-                            <div>
-                              <li className='text-bodyTextColor font-semibold'>{attendance?.message}</li>
+                            <div className='w-full'>
+                              <p className='text-center'>
+                                {attendance?.message}
+                              </p>
                             </div>
-                          )}
+                          )
+                          }
                         </>
                       )
                     }

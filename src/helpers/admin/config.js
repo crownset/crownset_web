@@ -37,7 +37,7 @@ export const menuItems = [
     },
 
     {
-        name: "attendance",
+        name: "Attendance",
         href: "/admin/attendance",
         icon:  FaAppStore,
 

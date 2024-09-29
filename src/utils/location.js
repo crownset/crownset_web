@@ -5,10 +5,10 @@ import macAddr from "macaddress-local-machine";
 export const OFFICE_LOCATION = {
   // latitude: 28.49615,  // Example latitude
   // longitude: 77.53601 // Example longitude
-  // latitude : 28.5085489,
-  // longitude : 77.3789009
-  latitude: 28.6195712,
-  longitude: 77.3783552
+  latitude : 28.5085489,
+  longitude : 77.3789009
+  // latitude: 28.40711,
+  // longitude: 77.3324313
 };
 
 
