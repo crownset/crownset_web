@@ -1,12 +1,15 @@
 "use client";
 import { getDataAll } from '@/redux/slices/attendanceSlice';
+import { addDays, endOfMonth, format, setMonth, setYear, startOfMonth } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import * as Config from "@/helpers/admin/config"
+import { GrCaretNext, GrCaretPrevious } from 'react-icons/gr';
 
 const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
-    return dateObject.toLocaleDateString(); // Output: "MM/DD/YYYY" format
+    return dateObject.toLocaleDateString();
 };
 
 const formatTime = (dateString) => {
@@ -15,9 +18,9 @@ const formatTime = (dateString) => {
     const minutes = dateObject.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // The hour '0' should be '12'
-    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes; // Add leading zero
-    return `${hours}:${minutesFormatted} ${ampm}`; // Output: "12:34 PM"
+    hours = hours ? hours : 12;
+    const minutesFormatted = minutes < 10 ? `0${minutes}` : minutes;
+    return `${hours}:${minutesFormatted} ${ampm}`;
 };
 
 const generateYears = (range = 5) => {
@@ -31,21 +34,28 @@ const generateYears = (range = 5) => {
 
 const Page = ({ params }) => {
     const { userId } = params;
-    //console.log("userId", userId);
-
+    console.log("userID>>>>>", userId)
     const dispatch = useDispatch();
     const { attendance, loading, error } = useSelector(state => state.attendance);
-    const [selectedMonth, setSelectedMonth] = useState(""); // State for selected month
-    const [selectedYear, setSelectedYear] = useState("");
+    const [selectedMonthTable, setSelectedMonthTable] = useState("");
+    const [selectedYearTable, setSelectedYearTable] = useState("");
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
+    const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+    const [currentRangeStart, setCurrentRangeStart] = useState(startOfMonth(currentDate));
+    const [selectedDate, setSelectedDate] = useState(null)
+    const [selectedUserDetail, setSelectedUserDetail] = useState()
+    console.log("selectedUserDetail>>>>", selectedUserDetail)
+    console.log("selectedDate>>>>", selectedDate)
 
     const Attendance_data = attendance?.all;
-    // console.log("Attendance_data", Attendance_data);
+    console.log("Attendance_data", Attendance_data)
 
     useEffect(() => {
         const fetchAttendance = async () => {
             try {
-                const responseAllData = await dispatch(getDataAll({ userId }));
-                //console.log("responseAllData", responseAllData);  
+                const responseAllData = await dispatch(getDataAll({ userId }))
+                console.log("responseAllData", responseAllData)
             } catch (error) {
                 toast.error("Error fetching attendance data");
             }
@@ -54,95 +64,253 @@ const Page = ({ params }) => {
         fetchAttendance();
     }, [dispatch, userId]);
 
+    useEffect(() => {
+        const today = new Date();
+        setCurrentDate(today);
+        setCurrentRangeStart(today);
+    }, []);
+
+
     const filteredData = Attendance_data?.filter(item => {
         const punchInDate = new Date(item.punchIn);
-        const month = punchInDate.getMonth() + 1; // Months are 0-based in JS
+        const month = punchInDate.getMonth() + 1;
         const year = punchInDate.getFullYear();
 
-        const matchesMonth = selectedMonth ? month === parseInt(selectedMonth) : true;
-        const matchesYear = selectedYear ? year === parseInt(selectedYear) : true;
+        const matchesMonth = selectedMonthTable ? month === parseInt(selectedMonthTable) : true;
+        const matchesYear = selectedYearTable ? year === parseInt(selectedYearTable) : true;
 
         return matchesMonth && matchesYear;
     });
     const yearOptions = generateYears(5);
 
+    const getDateRange = (start) => {
+        let dates = [];
+        for (let i = -4; i <= 0; i++) {
+            const newDate = addDays(start, i);
+            dates.push(newDate);
+        }
+        return dates;
+    };
+
+
+    const handleMonthChange = (e) => {
+        const newMonth = parseInt(e.target.value);
+        setSelectedMonth(newMonth);
+        const newDate = setMonth(setYear(new Date(), selectedYear), newMonth)
+        setCurrentDate(newDate);
+        setCurrentRangeStart(startOfMonth(newDate))
+    };
+
+    const handleYearChange = (e) => {
+        const newYear = parseInt(e.target.value);
+        setSelectedYear(newYear);
+        const newDate = setYear(setMonth(new Date(), selectedMonth), newYear);
+        setCurrentDate(newDate);
+        setCurrentRangeStart(startOfMonth(newDate));
+    };
+
+    const handlePrevious = () => {
+        const newStart = addDays(currentRangeStart, -5);
+        if (newStart >= startOfMonth(currentDate)) {
+            setCurrentRangeStart(newStart);
+        }
+    };
+
+
+    const handleNext = () => {
+        const newStart = addDays(currentRangeStart, 5);
+        if (newStart <= endOfMonth(currentDate)) {
+            setCurrentRangeStart(newStart);
+        }
+    };
+
+    const dates = getDateRange(currentRangeStart);
+    const isNextDisabled = format(dates[dates.length - 1], 'yyyy-MM-dd') >= format(new Date(), 'yyyy-MM-dd');
+    const isPreviousDisabled = format(currentRangeStart, 'yyyy-MM-dd') <= format(startOfMonth(currentDate), 'yyyy-MM-dd');
+
+    const handleSelectedDate = async (date) => {
+        const formatDate = format(date, "yyyy-MM-dd")
+        setSelectedDate(formatDate)
+        try {
+            const selectedUserRes = await dispatch(getDataAll({ userId, date: formatDate }))
+            setSelectedUserDetail(selectedUserRes?.payload)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide   mt-10 mx-10">
-
-            <div className="flex justify-start gap-4 py-4 ml-6">
-                {/* Month Filter */}
-                <select
-                    className="border px-4 py-2 rounded-md outline-none"
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(e.target.value)}
-                >
-                    <option value="">All Months</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                </select>
-
-                {/* Year Filter */}
-                <select
-                    className="border px-4 py-2 rounded-md outline-none"
-                    value={selectedYear}
-                    onChange={(e) => setSelectedYear(e.target.value)}
-                >
-                    <option value="">All Years</option>
-                    {yearOptions.map((year) => (
-                        <option key={year} value={year}>
-                            {year}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            <table className="min-w-full bg-white text-sm ">
-                <thead className='sticky top-0 z-20'>
-                    <tr className="bg-gray-200">
-                        <th className="py-2 border-b min-w-[100px]">Date</th>
-                        <th className="py-2 border-b min-w-[100px]">Punch-In</th>
-                        <th className="py-2 border-b min-w-[150px]">Punch-Out</th>
-                        <th className="py-2 border-b min-w-[150px]">Working Hours</th>
-
-                    </tr>
-                </thead>
-                {filteredData?.length == 0 ? (
-                    <tbody>
-                        <tr>
-                            <td colSpan={4} className='text-center text-3xl p-4  font-semibold italic'>No data Found</td>
-                        </tr>
-                    </tbody>) :
-                    <tbody className='z-10'>
-
-                        {(filteredData && Array.isArray(Attendance_data) ? Attendance_data : []).map((item, index) => (
-                            <tr key={index} className="even:bg-dashboardUserBg odd:bg-default">
-                                {/* Show only punch-in date */}
-                                <td className="py-2 text-[12px] border-b text-center">{formatDate(item.punchIn)}</td>
-
-                                {/* Show punch-in time in AM/PM */}
-                                <td className="py-2 text-[12px] border-b text-center">{formatTime(item.punchIn)}</td>
-
-                                {/* Show punch-out time in AM/PM */}
-                                <td className="py-2 text-[12px] border-b text-center">{item.isPunchOut ? formatTime(item.punchOut) : 'N/A'}</td>
-
-                                {/* Show working hours */}
-                                <td className="py-2 text-[12px] border-b text-center">{item.hours}</td>
-                            </tr>
+        <>
+            <div className="mt-10 bg-white shadow-2xl w-[100%] sm:w-[80%] m-auto rounded-2xl p-10">
+                <div className="flex items-center justify-center flex-col">
+                    <div className="flex justify-center sm:justify-start w-full pl-5 mb-5 gap-3">
+                        <select
+                            className="p-2 bg-dashboardUserBg text-dashboard rounded-3xl font-bold cursor-pointer"
+                            value={selectedMonth}
+                            onChange={handleMonthChange}
+                        >
+                            {Config?.monthsArray?.map((month, index) => (
+                                <option key={index} value={index} className='bg-dashboardUserBg text-dashboard cursor-pointer'>
+                                    {month}
+                                </option>
+                            ))}
+                        </select>
+                        <select
+                            className="p-2 bg-dashboardUserBg text-dashboard rounded-3xl font-bold cursor-pointer"
+                            value={selectedYear}
+                            onChange={handleYearChange}
+                        >
+                            {Array.from({ length: 10 }, (_, i) => selectedYear - 5 + i).map((year) => (
+                                <option key={year} value={year} className='bg-dashboardUserBg text-dashboard'>
+                                    {year}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-wrap justify-center items-center gap-3">
+                        {dates.map((date, index) => (
+                            <div
+                                key={index}
+                                className={`flex group hover:shadow-lg mx-1 text-black transition-all rounded-xl cursor-pointer justify-center w-[90px] sm:w-[150px] ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'bg-dashboardUserBg shadow-lg text-black border-t-4 border-t-dashboard' : 'bg-attendanceDate border-t-4 border-t-[#688f68]'} ${selectedDate === format(date, 'yyyy-MM-dd') ? "border-t-red-600" : ""}`}
+                                onClick={() => handleSelectedDate(date)}
+                            >
+                                <div className="flex items-center px-6 py-4">
+                                    <div className="text-center">
+                                        <p className={`text-sm ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'text-black font-semibold' : 'text-gray-900'}`}>
+                                            {format(date, 'EEEE')}
+                                        </p>
+                                        <p className={`mt-3 font-bold ${format(date, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') ? 'text-black' : 'text-gray-900'}`}>
+                                            {format(date, 'd')}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
-                    </tbody>
-                }
-            </table>
-        </div>
+                    </div>
+                    <div className='flex w-full justify-between items-center mt-4'>
+                        <button
+                            className="px-4 py-2 rounded transition-all"
+                            onClick={handlePrevious}
+                            disabled={isPreviousDisabled}
+                        >
+                            <GrCaretPrevious />
+                        </button>
+                        <hr className='bg-gray-500 h-[1px] w-full' />
+                        <button
+                            className="px-4 py-2 rounded transition-all"
+                            onClick={handleNext}
+                            disabled={isNextDisabled}
+                        >
+                            <GrCaretNext />
+                        </button>
+                    </div>
+                </div>
+
+                <div className='flex flex-col mt-5 justify-center items-center gap-4'>
+                    {
+                        selectedDate && (
+                            <>
+
+                                <div className='flex bg-dashboardUserBg justify-between items-center px-5 py-5 rounded-2xl  md:w-[50%] gap-[9px] text-[9px] md:text:[13px] sm:text-sm sm:gap-0 m-auto'>
+                                    {
+                                        selectedUserDetail?.data?.length > 0 ? (
+                                            <>
+                                                <ul>
+                                                    <li className='text-bodyTextColor font-semibold'>Punch In :</li>
+                                                    <li className='text-bodyTextColor font-semibold'>Punch Out :</li>
+                                                    <li className='text-bodyTextColor font-semibold'>Working Hours :</li>
+                                                </ul>
+                                                <ul>
+                                                    <li className='text-bodyTextColor font-semibold'>
+                                                        {new Date(selectedUserDetail.data[0].punchIn).toLocaleString()}
+                                                    </li>
+                                                    <li className='text-bodyTextColor font-semibold'>
+                                                        {new Date(selectedUserDetail.data[0].punchOut).toLocaleString()}
+                                                    </li>
+                                                    <li className='text-bodyTextColor font-semibold'>{selectedUserDetail?.data?.[0].hours}</li>
+                                                </ul>
+                                            </>
+                                        ) : (
+                                            <div className='w-full'>
+                                                <p className='text-center'>{selectedUserDetail?.message}</p>
+                                            </div>
+                                        )
+                                    }
+
+                                </div>
+                            </>
+                        )
+                    }
+                </div>
+            </div>
+            {/* table attendance data */}
+            <div className="flex-1 overflow-y-auto rounded-3xl shadow-xl scrollbar-hide   mt-10 mx-10">
+
+                <div className="flex justify-start gap-4 py-4 ml-6">
+                    <select
+                        className="border px-4 py-2 rounded-md outline-none"
+                        value={selectedMonthTable}
+                        onChange={(e) => setSelectedMonthTable(e.target.value)}
+                    >
+                        <option value="">All Months</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select
+                        className="border px-4 py-2 rounded-md outline-none"
+                        value={selectedYearTable}
+                        onChange={(e) => setSelectedYearTable(e.target.value)}
+                    >
+                        <option value="">All Years</option>
+                        {yearOptions.map((year) => (
+                            <option key={year} value={year}>
+                                {year}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <table className="min-w-full bg-white text-sm ">
+                    <thead className='sticky top-0 z-20'>
+                        <tr className="bg-gray-200">
+                            <th className="py-2 border-b min-w-[100px]">Date</th>
+                            <th className="py-2 border-b min-w-[100px]">Punch-In</th>
+                            <th className="py-2 border-b min-w-[150px]">Punch-Out</th>
+                            <th className="py-2 border-b min-w-[150px]">Working Hours</th>
+
+                        </tr>
+                    </thead>
+                    {filteredData?.length == 0 ? (
+                        <tbody>
+                            <tr>
+                                <td colSpan={4} className='text-center text-3xl p-4  font-semibold italic'>No data Found</td>
+                            </tr>
+                        </tbody>) :
+                        <tbody className='z-10'>
+
+                            {(filteredData && Array.isArray(Attendance_data) ? Attendance_data : []).map((item, index) => (
+                                <tr key={index} className="even:bg-dashboardUserBg odd:bg-default">
+                                    <td className="py-2 text-[12px] border-b text-center">{formatDate(item.punchIn)}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{formatTime(item.punchIn)}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item.isPunchOut ? formatTime(item.punchOut) : 'N/A'}</td>
+                                    <td className="py-2 text-[12px] border-b text-center">{item.hours}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </>
     );
 };
 
