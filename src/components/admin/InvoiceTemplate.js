@@ -136,20 +136,20 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
         </thead>
         <tbody> 
           {formData.items.map((item, index) => (
-            <tr key={index} style={{ padding: '10px' }}>
-              <td style={{ fontSize: '18px', margin: '0',textAlign: 'center'}}>
+            <tr key={index} >
+              <td style={{ fontSize: '18px', marginBottom:"20px",textAlign: 'center',paddingBottom: '20px'}}>
                 {index + 1}. 
               </td>
-              <td style={{ fontSize: '18px', margin: '0',textAlign: 'center'}}>
+              <td style={{ fontSize: '18px',marginBottom:"20px",textAlign: 'center',paddingBottom: '20px'}}>
                  {item.name}
               </td>
-              <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
+              <td style={{ fontSize: '18px', marginBottom:"20px", textAlign: 'center' ,paddingBottom: '20px'}}>
                 {item.quantity}
               </td>
-              <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
+              <td style={{ fontSize: '18px', marginBottom:"20px", textAlign: 'center' ,paddingBottom: '20px'}}>
                 ₹ {item.rate}
               </td>
-              <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
+              <td style={{ fontSize: '18px',marginBottom:"20px", textAlign: 'center',paddingBottom: '20px' }}>
                 ₹ {calculateAmount(item.quantity, item.rate).toFixed(2)}
               </td>
             </tr>
@@ -204,7 +204,7 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
               </div>
             </td>
             <td style={{ fontSize: '18px', margin: '0', textAlign: 'center' }}>
-              <div>
+              <div style={{display:"flex", justifyContent: 'center',flexDirection: 'column', alignItems: 'center'}}>
                 <ul style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '0' }}>
                   <li style={{ listStyle: 'none', fontSize: '15px', color: 'black', paddingBottom: '5px' }}>
                     Reductions
@@ -225,24 +225,25 @@ const InvoiceTemplate = React.forwardRef(({ formData, visible }, ref) => {
                   style={{
                     backgroundColor: '#3a95ef',
                     width: '300px',
-                    padding: '10px',
+                    padding: '10px 8px',
                     display: 'flex',
-                    margin: '10px auto',
+                   
                     justifyContent: 'center',
                     alignItems: 'center',
-                    textAlign: 'center',
+                    
                     borderRadius: '10px',
                     gap: '10px',
-                    paddingBottom: '5px',
+                    
                   }}
                 >
-                  <li style={{ listStyle: 'none', fontSize: '18px', color: 'white' }}>Total (INR)</li>
+                  <li style={{ listStyle: 'none', fontSize: '18px', color: 'white' , }}>Total (INR)</li>
                   <li
                     style={{
                       listStyle: 'none',
                       fontSize: '18px',
                       color: 'white',
                       fontWeight: 'bold',
+                      
                     }}
                   >
                     ₹{formData?.total}
