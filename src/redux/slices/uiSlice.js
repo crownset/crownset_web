@@ -26,7 +26,7 @@ const initialState = {
     selectedDailyTaskId : null,
     isOpenShareTask : false,
     selectedShareTaskId:null,
-    // shared task modal
+    // shared task modal 
     isOpenSharedEditTask: false,
     selectedSharedTaskId:null,
     // old
