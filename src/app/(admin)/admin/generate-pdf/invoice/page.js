@@ -56,6 +56,14 @@ const Page = () => {
         });
     };
 
+    const removeLastItem = () => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            items: prevFormData.items.slice(0, -1), // Remove the last item
+        }));
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setTemplateVisible(true);
@@ -380,6 +388,15 @@ const Page = () => {
                         <span><FaPlus /></span>
                         <span>Item</span>
                     </button>
+                    {
+                        formData?.items.length > 0 && (
+                            <button type="button" onClick={removeLastItem} className="bg-dashboard flex items-center gap-1 text-default text-sm text-center py-2 px-5 rounded-3xl my-3 text-[12px]">
+
+                                <span>Remove Item</span>
+                            </button>
+
+                        )
+                    }
                     <button
                         type="submit"
                         class="text-white bg-dashboard hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
