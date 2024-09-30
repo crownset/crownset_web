@@ -42,7 +42,8 @@ module.exports = {
         "premature" : "#f4ba13",
         "mature" : "#269346",
         "dead" : "#d63328",
-        "meeting":"#f79b00"
+        "meeting":"#f79b00",
+        "attendanceDate":"#cef5ce"
       }
 
     },
