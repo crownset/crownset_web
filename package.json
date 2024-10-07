@@ -31,7 +31,7 @@
     "macaddress-local-machine": "^1.0.7",
     "moment": "^2.30.1",
     "mongoose": "^8.5.1",
-    "next": "^14.2.8",
+    "next": "^14.2.14",
     "next-auth": "^4.24.7",
     "nodemailer": "^6.9.14",
     "npm": "^10.8.3",
