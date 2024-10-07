@@ -42,7 +42,7 @@ export default function PercentageCounter() {
 
     return (
         <div className='flex flex-col justify-center items-center bg-[#f7f7f9]  gap-2 py-8 rounded-md md:flex-row md:justify-around w-11/12 m-auto mt-3 mb-3'>
-            <div className='font-medium text-[2rem] lg:text-[3rem] text-center px-5 py-5 rounded-[2rem]'>
+            <div className='font-bold text-[2rem] lg:text-[3rem] text-center px-5 py-5 rounded-[2rem]'>
                 <h1>We have Worked with</h1>
             </div>
             <div className='flex flex-col justify-center items-center'>
@@ -51,7 +51,7 @@ export default function PercentageCounter() {
                 </div>
                 <p className='lg:text-[24px] italic'>Businesses</p>
             </div>
-            
+
         </div>
     );
 }
