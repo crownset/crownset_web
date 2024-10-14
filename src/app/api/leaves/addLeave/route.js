@@ -53,29 +53,29 @@ export async function POST(request){
             return getResponse("Leave Type is required", 500, false)
         }
 
-        if(leaveType == "Full Day"){
+        // if(leaveType == "Full Day"){
            
-            const eDate = new Date(endDate);
-            const sDate = new Date(startDate);
+        //     const eDate = new Date(endDate);
+        //     const sDate = new Date(startDate);
 
-            eDate.setHours(0, 0, 0, 0)
-            sDate.setHours(0, 0, 0, 0)
+        //     eDate.setHours(0, 0, 0, 0)
+        //     sDate.setHours(0, 0, 0, 0)
 
-            const takenLeave = ((eDate-sDate)/(1000 * 60 * 60 * 24))+1
+        //     const takenLeave = ((eDate-sDate)/(1000 * 60 * 60 * 24))+1
             
-            if(takenLeave> token.user.leaveBalance){
-                return NextResponse.json({message: "You Can not Take a leave", status:300})
-            }
-        }
+        //     // if(takenLeave> token.user.leaveBalance){
+        //     //     return NextResponse.json({message: "You Can not Take a leave", status:300})
+        //     // }
+        // }
 
-        if(leaveType == "Half Day"){
+        // if(leaveType == "Half Day"){
            
-            const takenLeave = 0.5
+        //     const takenLeave = 0.5
             
-            if(takenLeave> token.user.leaveBalance){
-                return NextResponse.json({message: "You Can not Take a leave", status:300})
-            }
-        }
+        //     if(takenLeave> token.user.leaveBalance){
+        //         return NextResponse.json({message: "You Can not Take a leave", status:300})
+        //     }
+        // }
 
 
         const leave = new Leave({

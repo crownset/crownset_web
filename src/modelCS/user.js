@@ -51,8 +51,8 @@ const userSchema = new Schema({
     },
     leaveBalance: {
         type: Number, 
-        default: 0, 
-        min: 0, 
+        default: 0,
+        min: -Infinity,
         max: 15 
     },
     department: {
