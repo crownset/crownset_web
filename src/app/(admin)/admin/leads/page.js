@@ -41,22 +41,56 @@ const Page = () => {
     const [originalData, setOriginalData] = useState([]);
 
     const [searchItem, setSearchItem] = useState('')
+    const [debounceTimeout, setDebounceTimeout] = useState(null);
+
+    // const handleInputChange = (e) => {
+    //     const searchTerm = e.target.value;
+
+    //     setSearchItem(searchTerm)
+
+    //     if (searchTerm === '') {
+    //         setFilteredData(originalData);
+    //     } else {
+
+    //         const filteredItems = originalData.filter((user) =>
+    //             user?.assignTo?.firstName.toLowerCase().includes(searchTerm.toLowerCase())
+    //         );
+    //         setFilteredData(filteredItems);
+    //     }
+    // }
 
     const handleInputChange = (e) => {
         const searchTerm = e.target.value;
-
-        setSearchItem(searchTerm)
-
-        if (searchTerm === '') {
-            setFilteredData(originalData);
-        } else {
-
-            const filteredItems = originalData.filter((user) =>
-                user?.assignTo?.firstName.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            setFilteredData(filteredItems);
+    
+        setSearchItem(searchTerm);
+    
+        // Clear any existing timeout
+        if (debounceTimeout) {
+            clearTimeout(debounceTimeout);
         }
-    }
+    
+        // Set a new timeout to delay the search
+        const newTimeout = setTimeout(() => {
+            if (searchTerm === '') {
+                setFilteredData(originalData);
+            } else {
+                const filteredItems = originalData.filter((user) =>
+                    user?.assignTo?.firstName.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setFilteredData(filteredItems);
+            }
+        }, 300); // 300ms debounce time (adjust as needed)
+    
+        setDebounceTimeout(newTimeout);
+    };
+
+    useEffect(() => {
+        return () => {
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+        };
+    }, [debounceTimeout]);
 
     const handleFile = (file) => {
         setFileName(file.name);

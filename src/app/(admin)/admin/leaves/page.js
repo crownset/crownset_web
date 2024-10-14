@@ -61,7 +61,7 @@ const Page = () => {
 
         dispatch(openDeleteLeaveModal(false));
         dispatch(fetchLeave());
-  
+
 
         if (LeaveData?.message === "Leave Successfully Deleted") {
           dispatch(openDeleteSuccessModal(true));
@@ -74,7 +74,7 @@ const Page = () => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(fetchLeave());
   }, [dispatch]);
 
@@ -132,7 +132,19 @@ useEffect(() => {
                 <tbody className='z-10'>
                   {(leave && Array.isArray(leave) ? leave : []).map((leaveItem, index) => (
                     <tr key={index}>
-                      <td className="py-2 border-b text-[12px] text-center">{leaveItem?.userId?.firstName}</td>
+                      <td className="py-2 border-b text-[12px] text-center">
+                        <div className="flex justify-center items-center gap-1">
+                          {user?.data?.firstName.toLowerCase() == leaveItem?.approvedBy?.firstName.toLowerCase() && (
+                            <span className={`w-[5px] h-[5px] rounded-full bg-blue-700`}></span>
+                          )
+                          }
+
+
+                          <span> {leaveItem?.userId?.firstName}</span>
+                        </div>
+
+
+                      </td>
                       <td className="py-2 border-b text-[12px] text-center">{leaveItem?.leaveType}</td>
                       <td className="py-2 border-b text-[12px] text-center min-w-[150px]">{moment(leaveItem?.startDate).format('LL')}</td>
                       <td className="py-2 border-b text-[12px] text-center min-w-[150px]">{moment(leaveItem?.endDate).format('LL')}</td>
