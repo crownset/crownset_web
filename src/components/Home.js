@@ -25,6 +25,7 @@ import { CgWebsite } from "react-icons/cg";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaSearchengin } from "react-icons/fa6";
 import TimeoutModal from './TimeoutModal';
+import BusinessPercentage from './BusinessPercentage';
 
 
 const expertiseData = sampledata.expertise;
@@ -256,6 +257,7 @@ const HomePage = () => {
             <SectionFour />
             <SectionFive />
             <NumbersAndResults heading={'The proof is in the numbers'} cardData={proofData} />
+            <BusinessPercentage/>
         </>
     )
 }
@@ -629,7 +631,7 @@ const SectionFive = () => {
             </div>
         </>
     )
-}
+}   
 
 const ImageCard = ({ imageUrl, date, title }) => {
     const [more, setMore] = useState(false);

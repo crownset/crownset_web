@@ -75,10 +75,10 @@ const TimeoutModal = ({ isOpen, onClose }) => {
     }
     if (!isOpen) return null;
     return (
-        <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
-            <div className="linear-gradient rounded-lg shadow  p-4 max-w-sm w-full">
+        <div className="fixed inset-0 z-50 flex justify-center lg:justify-end  items-center bg-black bg-opacity-50">
+            <div className="linear-gradient rounded-lg shadow  p-4 max-w-sm w-full lg:mr-5">
                 <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-gray-900 ">What is your query ?</h3>
+                    <h3 className="text-sm font-semibold text-gray-900 ">What is your query </h3>
                     <button
                         type="button"
                         className="text-gray-400 hover:text-gray-900 dark:hover:text-white"
