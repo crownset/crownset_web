@@ -28,11 +28,7 @@ const Page = () => {
 
 
   const checkLeaveBalance = () => {
-    if (user?.data?.leaveBalance == 0) {
-      toast.error("you have no leaves to apply")
-    } else {
-      dispatch(openAddLeaveModal(true))
-    }
+    dispatch(openAddLeaveModal(true))
   }
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -135,10 +131,8 @@ const Page = () => {
                       <td className="py-2 border-b text-[12px] text-center">
                         <div className="flex justify-center items-center gap-1">
                           {user?.data?.firstName.toLowerCase() == leaveItem?.approvedBy?.firstName.toLowerCase() && (
-                            <span className={`w-[5px] h-[5px] rounded-full ${user?.data?.leaveBalance <= 0 ? 'bg-red-500' : 'bg-blue-700'}`}></span>
-                            
-
-                          )
+                            <span className={`w-[5px] h-[5px] rounded-full ${user?.data?.leaveBalance >= 0 ? 'bg-red-500' : 'bg-blue-700'}`}></span>
+                            )
                           }
                           <span> {leaveItem?.userId?.firstName}</span>
                         </div>
