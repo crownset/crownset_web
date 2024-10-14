@@ -16,7 +16,7 @@ export async function GET(request) {
     if(token== "" || !token){
       return NextResponse.json({message: "login required"});
   }
-    if(token && token.user.accessId ==1){
+    if(token && token.user.accessId ==1 || token && token.user._id == "66ba084fc1db779f76642ab8" || token && token.user._id == "66c4374c872fcfa51ba1bf96" ){
 
       const leave = await Leave.find({
         isDeleted: false
