@@ -20,7 +20,7 @@ export async function PUT(request, { params }) {
 
         const leave = await Leave.findById(leaveId);
 
-        if(leave.userId !== token.user._id ){
+        if(leave.userId != token.user._id ){
 
             return NextResponse.json({
                 message: "You Can Not Delete",
