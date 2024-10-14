@@ -289,12 +289,12 @@ const Page = () => {
                   height={34}
                   alt="logo"
                 />
-                <Image
+                {/* <Image
                   src={images?.carmell}
                   width={200}
                   height={34}
                   alt="logo"
-                />
+                /> */}
                 <Image
                   src={images?.rasana}
                   width={171}
