@@ -30,5 +30,7 @@ export const award = require("../assets/images/award.webp");
 export const homeimg = require("../assets/images/img1.jpg");
 export const logo = require("../assets/images/logo.png");
 export const crownsetLogo = require("../assets/images/croensetLogo2.png")
+export const checkinLogo = require("../assets/images/check-in.png")
+
 
 

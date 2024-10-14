@@ -12,7 +12,7 @@ import { BsPersonFill } from "react-icons/bs";
 import { SiAdobelightroom } from "react-icons/si";
 import { FaFilePdf } from "react-icons/fa";
 import { FaAppStore } from "react-icons/fa6";
-
+import { TbFingerprintScan } from "react-icons/tb";
 export const menuItems = [
     {
         name: "Dashboard",
@@ -39,7 +39,7 @@ export const menuItems = [
     {
         name: "Attendance",
         href: "/admin/attendance",
-        icon:  FaAppStore,
+        icon: TbFingerprintScan,
 
     },
     {
