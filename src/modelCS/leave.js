@@ -51,7 +51,11 @@ const leaveSchema = new Schema({
     required:true, 
     default: false
   },
-
+  zeroBalance: {
+    type: Boolean, 
+    required:true,
+    default: false
+  }
 });
 
 export const Leave = mongoose.models.leaves || mongoose.model("leaves", leaveSchema);
