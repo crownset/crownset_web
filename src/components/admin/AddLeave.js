@@ -6,6 +6,7 @@ import { fetchLeave, LeaveQuery } from '@/redux/slices/leaveSlice';
 import { CustomLoader } from '../CustomLoader';
 import * as Config from "@/helpers/admin/config"
 import DatePicker from 'react-datepicker';
+import { openAddLeaveModal } from '@/redux/slices/uiSlice';
 
 const AddLeave = ({ onClose, isLeaveOpen, onSuccess }) => {
     const [userDetail, setUserDetail] = useState(null);

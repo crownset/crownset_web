@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,18 +21,19 @@ import { RxCross2 } from "react-icons/rx";
 const Page = () => {
   const dispatch = useDispatch();
   const { leave, loading, error } = useSelector((state) => state.leave);
+  console.log("leave>>>>", leave)
   const { isAddLeaveModal, isDeleteLeaveModal, isDeleteSuccessModal, isDeleteLeaveID, fullReason, isEditLeaveModal, selectedEditData, isLeaveResonModal } = useSelector((state) => state.ui);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [user, setUser] = useState(null);
 
 
-  const checkLeaveBalance = () => {
-    if (user?.data?.leaveBalance == 0) {
-      toast.error("you have no leaves to apply")
-    } else {
-      dispatch(openAddLeaveModal(true))
-    }
-  }
+  // const checkLeaveBalance = () => {
+  //   if (user?.data?.leaveBalance == 0) {
+  //     toast.error("you have no leaves to apply")
+  //   } else {
+  //     dispatch(openAddLeaveModal(true))
+  //   }
+  // }
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -88,7 +88,7 @@ const Page = () => {
         ) : null}
         {user?.data?.accessId !== 1 ? (
           <button
-            onClick={checkLeaveBalance}
+            onClick={() => dispatch(openAddLeaveModal(true))}
             className='bg-dashboard text-default text-sm text-center py-2 px-2 rounded-3xl my-3 text-[12px]'
           >
             Apply Leave
@@ -137,6 +137,12 @@ const Page = () => {
                           {user?.data?.firstName.toLowerCase() == leaveItem?.approvedBy?.firstName.toLowerCase() && (
                             <span className={`w-[5px] h-[5px] rounded-full bg-blue-700`}></span>
                           )
+                          }
+
+                          {
+                            leaveItem?.zeroBalance && (
+                              <span className={`w-[5px] h-[5px] rounded-full bg-red-500`}></span>
+                            )
                           }
 
 
