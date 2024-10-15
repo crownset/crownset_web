@@ -12,6 +12,10 @@ import { BsPersonFill } from "react-icons/bs";
 import { SiAdobelightroom } from "react-icons/si";
 import { FaFilePdf } from "react-icons/fa";
 import { FaAppStore } from "react-icons/fa6";
+import {checkIn} from "../../assets/images/check-in.png"
+import { MdPunchClock } from "react-icons/md";
+import { MdMarkEmailUnread } from "react-icons/md";
+import { FaFileDownload } from "react-icons/fa";
 
 export const menuItems = [
     {
@@ -27,7 +31,7 @@ export const menuItems = [
     {
         name: "Quotation/Invoice",
         href: "/admin/generate-pdf",   
-        icon: FaFilePdf,
+        icon: FaFileDownload,
     },
     
     {
@@ -39,7 +43,7 @@ export const menuItems = [
     {
         name: "Attendance",
         href: "/admin/attendance",
-        icon:  FaAppStore,
+        icon:  MdPunchClock,
 
     },
     {
@@ -54,7 +58,7 @@ export const menuItems = [
     {
         name: "Automation",
         href: "/admin/automation",
-        icon: SiAndroidauto,
+        icon: MdMarkEmailUnread,
     },
     {
         name: "Daily Task",
