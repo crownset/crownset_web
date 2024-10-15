@@ -53,6 +53,14 @@ export async function POST(request){
             return getResponse("Leave Type is required", 500, false)
         }
 
+        let {zeroBalance} = false
+
+        if(token.user.leaveBalance <= 0 ){
+            zeroBalance = true
+        }
+
+
+
         // if(leaveType == "Full Day"){
            
         //     const eDate = new Date(endDate);
@@ -86,7 +94,8 @@ export async function POST(request){
             endDate,
             approvedBy,
             appliedDate: Date.now(),
-            leaveType
+            leaveType,
+            zeroBalance
         })
         await leave.save()
 
