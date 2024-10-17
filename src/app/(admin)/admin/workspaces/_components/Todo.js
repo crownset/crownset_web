@@ -184,13 +184,13 @@ const Todo = ({ listIndex, taskList, handleEditTaskList, onCancelEditTaskList, i
                         }
                     </button>
 
-                    {!taskList?.is_complete ? (user?.data?.accessId == 1 ? (
+                    {user?.data?.accessId == 1 ? (
 
                         <button className="ml-2  bg-transparent hover:bg-gray-200 hover:rounded-full p-2">
                             <EditIcon className="text-black" onClick={handleEditTaskList} />
                         </button>
 
-                    ) : null) : null
+                    ) : null
                     }
                 </div>
 
