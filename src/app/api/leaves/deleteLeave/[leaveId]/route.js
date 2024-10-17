@@ -17,8 +17,20 @@ export async function PUT(request, { params }) {
 
         const { leaveId } = params;
 
+
+        const leave = await Leave.findById(leaveId);
+
+        if(leave.userId != token.user._id){
+
+            return NextResponse.json({
+                message: "You Can Not Delete",
+                status: 200,
+            });
+
+        }
+
+
         if (token && token.user.accessId == 2) {
-            const leave = await Leave.findById(leaveId);
 
             if (leave.status == 'Pending' || leave.status == 'Reject') {
                 leave.isDeleted = true;

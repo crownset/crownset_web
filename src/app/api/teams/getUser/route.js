@@ -15,7 +15,7 @@ export async function GET(request) {
     }
 
     if ((token && token.user.accessId == 1) || (token && token.user.accessId == 2) ) {
-      const user = await UserCS.find({}, { firstName: 1, accessId: 1, department: 1 });
+      const user = await UserCS.find({}, { firstName: 1, accessId: 1, department: 1, leaveBalance: 1});
       return NextResponse.json(user);
     }
   } catch (error) {
