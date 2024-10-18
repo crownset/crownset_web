@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Page = ({ params }) => {
     const { user_id } = params;
     const { shared, sharedLoading } = useSelector((state) => state.shared);
+    console.log("shared===>", shared)
     const { isOpenSharedEditTask, selectedSharedTaskId } = useSelector((state) => state.ui);
     const dispatch = useDispatch();
 
@@ -60,10 +61,11 @@ const Page = ({ params }) => {
                             <table className="min-w-full bg-white text-sm">
                                 <thead className='sticky top-0 z-20'>
                                     <tr className="bg-gray-200">
+                                        <th className="py-2 border-b min-w-[100px]">Created At</th>
                                         <th className="py-2 border-b min-w-[100px]">Task</th>
                                         <th className="py-2 border-b min-w-[100px]">Estimated Date</th>
                                         <th className="py-2 border-b min-w-[100px]">Actual Date</th>
-                                        <th className="py-2 border-b min-w-[100px]">Shared</th>
+                                        <th className="py-2 border-b min-w-[100px]">Status</th>
                                         {/* <th className="py-2 border-b min-w-[100px]">Review</th> */}
                                         {/* <th>Actions</th> */}
                                     </tr>
@@ -71,6 +73,7 @@ const Page = ({ params }) => {
                                 <tbody>
                                     {shared.tasks.map((item) => (
                                         <tr key={item.id} className='even:bg-dashboardUserBg odd:bg-default'>
+                                            <td className="py-2 border-b text-[12px] text-center">{moment(item?.createdAt).format('LL')}</td>
                                             <td className="py-2 border-b text-[12px] text-center">{item?.taskmessage}</td>
                                             <td className="py-2 border-b text-[12px] text-center">{moment(item?.estimated_date).format('LL')}</td>
                                             <td className="py-2 border-b text-[12px] text-center">{moment(item?.actual_date).format('LL')}</td>
