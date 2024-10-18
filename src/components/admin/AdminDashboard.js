@@ -20,7 +20,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import { CustomLoader } from '../CustomLoader';
 import { usePathname } from 'next/navigation';
 import CustomTooltip from './CustomTooltip';
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
 const AdminDashboard = () => {
@@ -28,10 +28,8 @@ const AdminDashboard = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [showUserDetails, setShowUserDetails] = useState(false);
     const [selectedTab, setSelectedTab] = useState(menuItems[0].name);
-    const [expandedMenu, setExpandedMenu] = useState(null);
 
     const pathname = usePathname();
-
     const dispatch = useDispatch();
     const router = useRouter();
     const status = useSelector((state) => state.auth.status);
@@ -63,7 +61,7 @@ const AdminDashboard = () => {
             await dispatch(logoutUser()).unwrap();
             Cookies.remove("authToken:");
             localStorage.removeItem('user');
-            localStorage.removeItem('workspaces')
+            localStorage.removeItem('workspaces');
             toast.success("Logout successful!");
             router.push("/teams");
         } catch (error) {
@@ -119,13 +117,13 @@ const AdminDashboard = () => {
                             {menuItems.map((item, index) => (
                                 <li key={index}>
                                     <Link
-                                        href={user?.data?.accessId === 1 ? "#" : item.href}
+                                        href={user?.data?.accessId === 1 && item.name === "Daily Task" ? `/admin/dailytask/department` : item.href}
                                         className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out transform hover:translate-x-2 ${pathname === item.href ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             if (item.name === "Daily Task") {
                                                 if (user?.data?.accessId === 1) {
-                                                    setExpandedMenu(expandedMenu === item.name ? null : item.name);
+                                                    router.push("/admin/dailytask/departments");
                                                 } else {
                                                     router.push(item.href);
                                                 }
@@ -139,42 +137,14 @@ const AdminDashboard = () => {
                                     >
                                         <item.icon className={`h-5 w-5 mr-2 ${pathname === item.href ? "text-black" : "text-default group-hover:text-black"}`} />
                                         <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{item.name}</span>
-
                                     </Link>
-                                    {item.subItems && expandedMenu === item.name && user?.data?.accessId === 1 && (
-                                        <ul className="space-y-4">
-                                            {item.subItems.map((subItem, subIndex) => (
-                                                <li key={subIndex}>
-                                                    <Link href={subItem.href}
-                                                        data-tooltip-id={`tooltip-${subItem.name}`}
-                                                        data-tooltip-content={subItem.name}>
-                                                        <button
-                                                            className={`group flex items-center p-2 rounded w-full transition-all duration-300 ease-in-out ${selectedTab === subItem.name ? "bg-default rounded-3xl text-black" : "text-default hover:bg-[#d8d8d8] hover:rounded-3xl hover:text-black"}`}
-                                                            onClick={() => setSelectedTab(subItem.name)}
-                                                        >
-                                                            <subItem.icon className={`h-5 w-5 mr-2 ${selectedTab === subItem.name ? "text-black" : "text-default group-hover:text-black"}`} />
-                                                            <span className={`${!isSidebarOpen && "hidden"} ml-2`}>{subItem.name}</span>
-                                                        </button>
-                                                    </Link>
-                                                    {
-                                                        isSidebarOpen === false && (
-                                                            <Tooltip id={`tooltip-${subItem.name}`} place="right" offset={20} className="z-50 custom-tooltip" />
-                                                        )
-                                                    }
-
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
                                     {
                                         isSidebarOpen === false && (
                                             <Tooltip id={`tooltip-${item.name}`} place="right" offset={20} className="z-50 custom-tooltip" />
                                         )
                                     }
-
                                 </li>
                             ))}
-
                         </ul>
                     </div>
                     <div className="p-4 mt-auto">
